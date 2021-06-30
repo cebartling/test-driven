@@ -11,7 +11,45 @@
 
 ---
 
-### Design patterns
+## Test-driven development mantra
+
+- Red: Write a test that doesn't work or perhaps doesn't even compile
+- Green: Make the test pass--don't worry about code duplication at this point
+- Refactor: Eliminate code duplication and make source code more communicative, all the while making sure all tests continue to pass successfully
+
+---
+
+## Title
+
+
+---
+
+## Title
+
+
+---
+
+## Title
+
+
+---
+
+## Title
+
+
+---
+
+## Title
+
+
+---
+
+## Title
+
+
+---
+
+## Title
 
 
 ---
