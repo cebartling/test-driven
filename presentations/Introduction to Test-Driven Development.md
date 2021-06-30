@@ -14,3 +14,11 @@
 ### Design patterns
 
 
+---
+
+## Further reading
+
+- Test-Driven Development: By Example
+	- Kent Beck
+- Working Effectively with Legacy Code
+	- Michael C. Feathers
