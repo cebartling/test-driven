@@ -4,6 +4,8 @@
 ---
 
 ## Why Test-Driven Development
+- Assessing code quality
+	- Tests 
 - Code design
 	- Tests communicate soundness of design decisions
 - Testing as a design activity
@@ -20,6 +22,9 @@
 - Unit testing is a feedback loop that occurs within seconds. 
 	- Quick execution of a unit test provides us with information.
 - Constant testing will catch regression errors.
+- Test-driven development gives us feedback on...
+	- Quality of the implementation (does it work)
+	- Quality of the code design (is it well structured)
 
 ---
 
