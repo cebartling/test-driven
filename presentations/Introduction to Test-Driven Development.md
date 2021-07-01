@@ -16,6 +16,11 @@
 
 ## Feedback
 
+- We apply feedback loops to every level of our development. 
+- Unit testing is a feedback loop that occurs within seconds. 
+	- Quick execution of a unit test provides us with information.
+- Constant testing will catch regression errors.
+
 ---
 
 ## Test-driven development mantra
@@ -157,7 +162,6 @@
 
 ## Further reading
 
-- Test-Driven Development: By Example
-	- Kent Beck
-- Working Effectively with Legacy Code
-	- Michael C. Feathers
+- Test-Driven Development: By Example by Kent Beck
+- Working Effectively with Legacy Code by Michael C. Feathers
+- Growing Object-Oriented Software, Guided by Tests by Steve Freeman and Nat Pryce
