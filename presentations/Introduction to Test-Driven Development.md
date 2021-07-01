@@ -6,8 +6,15 @@
 ## Why Test-Driven Development
 - Code design
 	- Tests communicate soundness of design decisions
+- Testing as a design activity
+	- Clarify our ideas about the intent of our code
 - Executable documentation
 	- Communicates intent
+
+
+---
+
+## Feedback
 
 ---
 
@@ -130,8 +137,11 @@
 
 ---
 
-## GRASP design patterns
+## GRASP 
 
+- General Responsibility Assignment Software Patterns (or Principles), abbreviated **GRASP**.
+- Set of "nine fundamental principles in object design and responsibility assignment"
+- First published by Craig Larman in his 1997 book **Applying UML and Patterns**.
 
 ---
 
