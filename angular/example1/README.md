@@ -1,6 +1,10 @@
-# Example1
+# Angular TDD example 1
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
+## Introduction
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0. [Angular CLI documentation](https://angular.io/cli)
+
+
 
 ## Development server
 
