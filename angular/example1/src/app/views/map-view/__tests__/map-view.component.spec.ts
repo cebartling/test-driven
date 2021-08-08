@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapViewComponent } from './map-view.component';
-import { EarthquakeDataService } from '../../services/earthquake-data.service';
+import { MapViewComponent } from '../map-view.component';
+import { EarthquakeDataService } from '../../../services/earthquake-data.service';
 import { of } from 'rxjs';
-import { featureCollection } from '../../__tests__/data/feature-collection';
+import { featureCollection } from '../../../__tests__/data/feature-collection';
 import { DateTime, Duration } from 'luxon';
-import { MapComponent } from '../../components/map/map.component';
+import { MapComponent } from '../../../components/map/map.component';
 
 describe('MapViewComponent', () => {
   let component: MapViewComponent;
