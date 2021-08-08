@@ -65,13 +65,12 @@ describe('EarthquakeDataService', () => {
 
   describe('query', () => {
     let captured: any;
-    let startDateTime: DateTime;
-    let endDateTime: DateTime;
+    const expectedUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query';
+    const startDateTime = DateTime.fromObject({ year: 2021, month: 8, day: 1 });
+    const endDateTime = DateTime.fromObject({ year: 2021, month: 8, day: 15 });
+    const observable = of(queryGeoJson);
 
     beforeEach((done: DoneFn) => {
-      startDateTime = DateTime.fromObject({ year: 2021, month: 8, day: 1 });
-      endDateTime = DateTime.fromObject({ year: 2021, month: 8, day: 15 });
-      let observable = of(queryGeoJson);
       httpClientSpy.get.and.returnValue(observable);
       service.query(startDateTime, endDateTime).subscribe((data) => {
         captured = data;
@@ -84,7 +83,6 @@ describe('EarthquakeDataService', () => {
     });
 
     it('should invoke get on the HttpClient', () => {
-      const expectedUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query';
       const params = new HttpParams();
       params.set('format', 'geojson');
       params.set('starttime', startDateTime.toFormat('yyyy-MM-dd'));

@@ -7,6 +7,9 @@ export interface EarthquakeDataService {
   query(startDateTime: DateTime, endDateTime: DateTime): Observable<any>;
 }
 
+const DATE_FORMAT = 'yyyy-MM-dd';
+const FORMAT_GEOJSON = 'geojson';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,9 +18,9 @@ export class EarthquakeDataServiceImpl implements EarthquakeDataService {
 
   query(startDateTime: DateTime, endDateTime: DateTime): Observable<any> {
     const params = new HttpParams();
-    params.set('format', 'geojson');
-    params.set('starttime', startDateTime.toFormat('yyyy-MM-dd'));
-    params.set('endtime', endDateTime.toFormat('yyyy-MM-dd'));
+    params.set('format', FORMAT_GEOJSON);
+    params.set('starttime', startDateTime.toFormat(DATE_FORMAT));
+    params.set('endtime', endDateTime.toFormat(DATE_FORMAT));
     return this.httpClient.get('https://earthquake.usgs.gov/fdsnws/event/1/query', { params });
   }
 }
