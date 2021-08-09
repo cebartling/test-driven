@@ -21,11 +21,11 @@ public class EmployeeController {
 
     @GetMapping
     private Flux<Employee> getAllEmployees() {
-        return employeeRepository.findAllEmployees();
+        return employeeRepository.findAll();
     }
 
     @GetMapping("/{id}")
     private Mono<Employee> getEmployeeById(@PathVariable Integer id) {
-        return employeeRepository.findEmployeeById(id);
+        return employeeRepository.findById(id);
     }
 }

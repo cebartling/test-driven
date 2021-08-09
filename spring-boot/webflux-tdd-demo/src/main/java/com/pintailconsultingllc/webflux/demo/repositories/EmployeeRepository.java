@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface EmployeeRepository extends ReactiveCrudRepository<Employee, Integer> {
-    Mono<Employee> findEmployeeById(Integer id);
+    Mono<Employee> findById(Integer id);
 
-    Flux<Employee> findAllEmployees();
+    Flux<Employee> findAll();
 }
