@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = EmployeeController.class,
         excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
-//@Import(EmployeeService.class)
 @DisplayName("EmployeeController unit tests")
 class EmployeeControllerTest {
 
@@ -42,11 +41,11 @@ class EmployeeControllerTest {
 
         @BeforeEach
         void doBeforeEachSpec() {
-            employee = new Employee();
-            employee.setId(100);
-            employee.setName("Test");
-            employee.setSalary(1000);
-
+            employee = Employee.builder()
+                    .id(100)
+                    .name("Test Employee 1")
+                    .salary(1000)
+                    .build();
             when(repository.findById(100)).thenReturn(Mono.just(employee));
             responseSpec = webClient.get().uri("/employees/{id}", 100).exchange();
         }
@@ -81,15 +80,16 @@ class EmployeeControllerTest {
 
         @BeforeEach
         void doBeforeEachSpec() {
-            employee1 = new Employee();
-            employee1.setId(100);
-            employee1.setName("Test Employee 1");
-            employee1.setSalary(1000);
-            employee2 = new Employee();
-            employee2.setId(101);
-            employee2.setName("Test Employee 2");
-            employee2.setSalary(2000);
-
+            employee1 = Employee.builder()
+                    .id(100)
+                    .name("Test Employee 1")
+                    .salary(1000)
+                    .build();
+            employee2 = Employee.builder()
+                    .id(101)
+                    .name("Test Employee 2")
+                    .salary(2000)
+                    .build();
             when(repository.findAll()).thenReturn(Flux.just(employee1, employee2));
             responseSpec = webClient.get().uri("/employees").exchange();
         }
