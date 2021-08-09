@@ -7,20 +7,12 @@ import { AppComponent } from './app.component';
 import { MapViewComponent } from './views/map-view/map-view.component';
 import { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';
 import { MapComponent } from './components/map/map.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MapViewComponent,
-    WelcomeViewComponent,
-    MapComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    LeafletModule,
-  ],
+  declarations: [AppComponent, MapViewComponent, WelcomeViewComponent, MapComponent],
+  imports: [BrowserModule, AppRoutingModule, LeafletModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

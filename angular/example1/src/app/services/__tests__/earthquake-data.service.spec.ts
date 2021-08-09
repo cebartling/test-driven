@@ -34,10 +34,10 @@ describe('EarthquakeDataService', () => {
     });
 
     it('should invoke get on the HttpClient', () => {
-      const params = new HttpParams();
-      params.set('format', 'geojson');
-      params.set('starttime', startDateTime.toFormat('yyyy-MM-dd'));
-      params.set('endtime', endDateTime.toFormat('yyyy-MM-dd'));
+      const params = new HttpParams()
+        .set('format', 'geojson')
+        .set('starttime', startDateTime.toFormat('yyyy-MM-dd'))
+        .set('endtime', endDateTime.toFormat('yyyy-MM-dd'));
       const expectedOptions = { params };
       expect(httpClientSpy.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
     });

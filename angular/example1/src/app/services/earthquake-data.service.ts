@@ -21,10 +21,10 @@ export class EarthquakeDataService {
    * @return An Observable of type FeatureCollection.
    */
   query(startDateTime: DateTime, endDateTime: DateTime): Observable<FeatureCollection> {
-    const params = new HttpParams();
-    params.set('format', FORMAT_GEOJSON);
-    params.set('starttime', startDateTime.toFormat(DATE_FORMAT));
-    params.set('endtime', endDateTime.toFormat(DATE_FORMAT));
+    const params = new HttpParams()
+      .set('format', FORMAT_GEOJSON)
+      .set('starttime', startDateTime.toFormat(DATE_FORMAT))
+      .set('endtime', endDateTime.toFormat(DATE_FORMAT));
     return this.httpClient.get<FeatureCollection>('https://earthquake.usgs.gov/fdsnws/event/1/query', { params });
   }
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { circle, latLng, polygon, tileLayer } from 'leaflet';
+import { FeatureCollection } from '../../models/earthquake/FeatureCollection';
 
 @Component({
   selector: 'tdd-example1-map',
@@ -7,6 +8,8 @@ import { circle, latLng, polygon, tileLayer } from 'leaflet';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
+  @Input() featureCollection: FeatureCollection | null | undefined;
+
   options: any;
   layersControl: any;
 

@@ -1,4 +1,9 @@
-<div style="height: 300px;"
+<div *ngIf="!featureCollection" class="alert alert-info">
+  Loading earthquake data...
+</div>
+
+<div *ngIf="featureCollection"
+     style="height: 70vh; width: 70vw;"
      leaflet
      [leafletOptions]="options"
      [leafletLayersControl]="layersControl"
