@@ -5,6 +5,7 @@ import com.pintailconsultingllc.webflux.demo.repositories.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = EmployeeController.class,
         excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
+@Tag("UnitTest")
 @DisplayName("EmployeeController unit tests")
 class EmployeeControllerTest {
 
@@ -52,19 +54,19 @@ class EmployeeControllerTest {
 
         @Test
         @DisplayName("should invoke findById method on employee repository")
-        void verify_findById_collaboration() {
+        void verifyFindByIdCollaboration() {
             verify(repository, times(1)).findById(100);
         }
 
         @Test
         @DisplayName("should return a status of 200 (OK)")
-        void status_is_200() {
+        void verifyHttpStatusCodeIs200() {
             responseSpec.expectStatus().isOk();
         }
 
         @Test
         @DisplayName("should return an appropriate resource representation for an employee")
-        void appropriate_resource_representation() {
+        void verifyAppropriateResourceRepresentation() {
             responseSpec.expectBody()
                     .jsonPath("$.id").isEqualTo(employee.getId())
                     .jsonPath("$.name").isEqualTo(employee.getName())
@@ -96,19 +98,19 @@ class EmployeeControllerTest {
 
         @Test
         @DisplayName("should invoke findAll method on employee repository")
-        void verify_findAll_collaboration() {
+        void verifyFindAllCollaboration() {
             verify(repository, times(1)).findAll();
         }
 
         @Test
         @DisplayName("should return a status of 200 (OK)")
-        void status_is_200() {
+        void verifyHttpStatusCodeIs200() {
             responseSpec.expectStatus().isOk();
         }
 
         @Test
         @DisplayName("should return an appropriate resource representation for all employees")
-        void appropriate_resource_representation() {
+        void verifyAppropriateResourceRepresentation() {
             responseSpec.expectBody()
                     .jsonPath("$[0].id").isEqualTo(employee1.getId())
                     .jsonPath("$[0].name").isEqualTo(employee1.getName())
