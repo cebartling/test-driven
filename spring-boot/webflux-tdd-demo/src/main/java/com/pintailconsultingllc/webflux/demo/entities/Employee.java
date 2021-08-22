@@ -1,5 +1,6 @@
 package com.pintailconsultingllc.webflux.demo.entities;
 
+import com.pintailconsultingllc.webflux.demo.dtos.EmployeeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,10 @@ public class Employee {
     Integer id;
     String name;
     Integer salary;
+
+    public Employee(EmployeeDTO employeeDTO) {
+        this.id = employeeDTO.getId();
+        this.name = employeeDTO.getName();
+        this.salary = employeeDTO.getSalary();
+    }
 }
