@@ -1,5 +1,6 @@
 package com.pintailconsultingllc.webflux.demo.controllers;
 
+import com.pintailconsultingllc.webflux.demo.TestSupport;
 import com.pintailconsultingllc.webflux.demo.dtos.EmployeeDTO;
 import com.pintailconsultingllc.webflux.demo.entities.Employee;
 import com.pintailconsultingllc.webflux.demo.repositories.EmployeeRepository;
@@ -21,7 +22,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,10 +29,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = EmployeeController.class,
         excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
-@Tag("UnitTest")
+@Tag(TestSupport.UNIT_TEST)
 @DisplayName("EmployeeController unit tests")
 class EmployeeControllerTest {
 
+    public static final String UNIT_TEST = "UnitTest";
     @MockBean
     EmployeeRepository employeeRepository;
 
