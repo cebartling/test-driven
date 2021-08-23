@@ -40,7 +40,7 @@ class EmployeeControllerTest {
     EmployeeService employeeService;
 
     @Autowired
-    WebTestClient webClient;
+    WebTestClient webTestClient;
 
     WebTestClient.ResponseSpec responseSpec;
 
@@ -57,7 +57,7 @@ class EmployeeControllerTest {
                     .salary(1000)
                     .build();
             when(employeeRepository.findById(100)).thenReturn(Mono.just(employee));
-            responseSpec = webClient.get().uri("/employees/{id}", 100).exchange();
+            responseSpec = webTestClient.get().uri("/employees/{id}", 100).exchange();
         }
 
         @Test
@@ -101,7 +101,7 @@ class EmployeeControllerTest {
                     .salary(2000)
                     .build();
             when(employeeRepository.findAll()).thenReturn(Flux.just(employee1, employee2));
-            responseSpec = webClient.get()
+            responseSpec = webTestClient.get()
                     .uri("/employees")
                     .exchange();
         }
@@ -146,7 +146,7 @@ class EmployeeControllerTest {
             employee = new Employee(employeeDTO);
             employee.setId(101);
             when(employeeService.create(any(EmployeeDTO.class))).thenReturn(Mono.just(employee));
-            responseSpec = webClient.post()
+            responseSpec = webTestClient.post()
                     .uri("/employees")
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
@@ -195,7 +195,7 @@ class EmployeeControllerTest {
                     .build();
             employee = new Employee(employeeDTO);
             when(employeeService.update(id, employeeDTO)).thenReturn(Mono.just(employee));
-            responseSpec = webClient.put()
+            responseSpec = webTestClient.put()
                     .uri(String.format("/employees/%d", id))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
@@ -230,7 +230,7 @@ class EmployeeControllerTest {
         @BeforeEach
         void doBeforeEachSpec() {
             when(employeeService.delete(id)).thenReturn(Mono.empty());
-            responseSpec = webClient.delete()
+            responseSpec = webTestClient.delete()
                     .uri(String.format("/employees/%d", id))
                     .exchange();
         }
