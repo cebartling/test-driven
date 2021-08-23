@@ -17,6 +17,7 @@ public class Employee {
     Integer id;
     String name;
     Integer salary;
+    boolean deleted;
 
     public Employee(EmployeeDTO employeeDTO) {
         this.id = employeeDTO.getId();

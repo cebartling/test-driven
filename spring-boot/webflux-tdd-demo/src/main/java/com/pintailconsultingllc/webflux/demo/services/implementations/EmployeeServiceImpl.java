@@ -16,17 +16,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Mono<Employee> create(EmployeeDTO employeeDTO) {
-        Employee employeeToBeSaved = new Employee(employeeDTO);
-        return employeeRepository.save(employeeToBeSaved);
+        return employeeRepository.save(new Employee(employeeDTO));
     }
 
     @Override
     public Mono<Employee> update(Integer id, EmployeeDTO employeeDTO) {
-        return null;
+        return employeeRepository.findById(id)
+                .flatMap(employee -> {
+                    employee.setName(employeeDTO.getName());
+                    employee.setSalary(employeeDTO.getSalary());
+                    return employeeRepository.save(employee);
+                });
     }
 
     @Override
-    public Mono<Void> delete(Integer id) {
-        return null;
+    public Mono<Employee> delete(Integer id) {
+        return employeeRepository.findById(id)
+                .flatMap(employee -> {
+                    employee.setDeleted(true);
+                    return employeeRepository.save(employee);
+                });
     }
 }
