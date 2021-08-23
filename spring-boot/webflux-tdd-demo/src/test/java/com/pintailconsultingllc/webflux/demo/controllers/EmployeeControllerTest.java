@@ -47,38 +47,65 @@ class EmployeeControllerTest {
     @Nested
     @DisplayName("GET /employees/{id} specifications")
     class GetEmployeeByIdSpecifications {
-        Employee employee;
 
-        @BeforeEach
-        void doBeforeEachSpec() {
-            employee = Employee.builder()
-                    .id(100)
-                    .name("Test Employee 1")
-                    .salary(1000)
-                    .build();
-            when(employeeRepository.findById(100)).thenReturn(Mono.just(employee));
-            responseSpec = webTestClient.get().uri("/employees/{id}", 100).exchange();
+        @Nested
+        @DisplayName("when employee is found")
+        class WhenFoundTests {
+            Employee employee;
+
+            @BeforeEach
+            void doBeforeEachSpec() {
+                employee = Employee.builder()
+                        .id(100)
+                        .name("Test Employee 1")
+                        .salary(1000)
+                        .build();
+                when(employeeRepository.findById(100)).thenReturn(Mono.just(employee));
+                responseSpec = webTestClient.get().uri("/employees/{id}", 100).exchange();
+            }
+
+            @Test
+            @DisplayName("should invoke findById method on employee repository")
+            void verifyFindByIdCollaboration() {
+                verify(employeeRepository, times(1)).findById(100);
+            }
+
+            @Test
+            @DisplayName("should return a status of 200 (OK)")
+            void verifyHttpStatusCodeIs200() {
+                responseSpec.expectStatus().isOk();
+            }
+
+            @Test
+            @DisplayName("should return an appropriate resource representation for an employee")
+            void verifyAppropriateResourceRepresentation() {
+                responseSpec.expectBody()
+                        .jsonPath("$.id").isEqualTo(employee.getId())
+                        .jsonPath("$.name").isEqualTo(employee.getName())
+                        .jsonPath("$.salary").isEqualTo(employee.getSalary());
+            }
         }
 
-        @Test
-        @DisplayName("should invoke findById method on employee repository")
-        void verifyFindByIdCollaboration() {
-            verify(employeeRepository, times(1)).findById(100);
-        }
+        @Nested
+        @DisplayName("when employee is not found")
+        class WhenNotFoundTests {
+            @BeforeEach
+            void doBeforeEachSpec() {
+                when(employeeRepository.findById(100)).thenReturn(Mono.empty());
+                responseSpec = webTestClient.get().uri("/employees/{id}", 100).exchange();
+            }
 
-        @Test
-        @DisplayName("should return a status of 200 (OK)")
-        void verifyHttpStatusCodeIs200() {
-            responseSpec.expectStatus().isOk();
-        }
+            @Test
+            @DisplayName("should invoke findById method on employee repository")
+            void verifyFindByIdCollaboration() {
+                verify(employeeRepository, times(1)).findById(100);
+            }
 
-        @Test
-        @DisplayName("should return an appropriate resource representation for an employee")
-        void verifyAppropriateResourceRepresentation() {
-            responseSpec.expectBody()
-                    .jsonPath("$.id").isEqualTo(employee.getId())
-                    .jsonPath("$.name").isEqualTo(employee.getName())
-                    .jsonPath("$.salary").isEqualTo(employee.getSalary());
+            @Test
+            @DisplayName("should return a status of 401 (Not Found)")
+            void verifyHttpStatusCodeIsNotFound() {
+                responseSpec.expectStatus().isNotFound();
+            }
         }
     }
 

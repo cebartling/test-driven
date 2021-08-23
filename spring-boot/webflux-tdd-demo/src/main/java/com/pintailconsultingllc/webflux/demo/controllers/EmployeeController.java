@@ -35,13 +35,15 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public ResponseEntity<Flux<EmployeeDTO>> getAllEmployees() {
-        return ResponseEntity.ok(employeeRepository.findAll().map(EmployeeDTO::new));
+    public Flux<EmployeeDTO> getAllEmployees() {
+        return employeeRepository.findAll().map(EmployeeDTO::new);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Mono<EmployeeDTO>> getEmployeeById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(employeeRepository.findById(id).map(EmployeeDTO::new));
+    public Mono<ResponseEntity<EmployeeDTO>> getEmployeeById(@PathVariable("id") Integer id) {
+        return employeeRepository.findById(id).map(EmployeeDTO::new)
+                .map(employeeDTO -> ResponseEntity.ok().body(employeeDTO))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @SneakyThrows
@@ -57,7 +59,7 @@ public class EmployeeController {
     @PutMapping(value = "/{id}", consumes = "application/json")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Mono<Void>> update(@PathVariable("id") Integer id,
-                                       @RequestBody EmployeeDTO employeeDTO) {
+                                             @RequestBody EmployeeDTO employeeDTO) {
         Mono<Employee> employeeMono = employeeService.update(id, employeeDTO);
         return ResponseEntity.noContent().build();
     }
