@@ -47,7 +47,6 @@ class EmployeeControllerTest {
     @Nested
     @DisplayName("GET /employees/{id} specifications")
     class GetEmployeeByIdSpecifications {
-
         @Nested
         @DisplayName("when employee is found")
         class WhenFoundTests {

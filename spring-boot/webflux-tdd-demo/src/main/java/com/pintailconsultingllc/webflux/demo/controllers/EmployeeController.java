@@ -21,9 +21,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/employees")
@@ -41,7 +41,8 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public Mono<ResponseEntity<EmployeeDTO>> getEmployeeById(@PathVariable("id") Integer id) {
-        return employeeRepository.findById(id).map(EmployeeDTO::new)
+        return employeeRepository.findById(id)
+                .map(EmployeeDTO::new)
                 .map(employeeDTO -> ResponseEntity.ok().body(employeeDTO))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
@@ -49,11 +50,9 @@ public class EmployeeController {
     @SneakyThrows
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Mono<Void>> create(@RequestBody EmployeeDTO employeeDTO) {
-        Mono<Employee> employeeMono = employeeService.create(employeeDTO);
-        final URI uri = new URI(String.format("/employees/%d",
-                Objects.requireNonNull(employeeMono.block(TIMEOUT_DURATION)).getId()));
-        return ResponseEntity.created(uri).build();
+    public Mono<ResponseEntity<Void>> create(@RequestBody EmployeeDTO employeeDTO) {
+        return employeeService.create(employeeDTO)
+                .map(employee -> ResponseEntity.created(createResourceUri(employee)).build());
     }
 
     @PutMapping(value = "/{id}", consumes = "application/json")
@@ -69,5 +68,13 @@ public class EmployeeController {
     public ResponseEntity<Mono<Void>> delete(@PathVariable("id") Integer id) {
         Mono<Void> voidMono = employeeService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private URI createResourceUri(Employee employee) {
+        try {
+            return new URI(String.format("/employees/%d", employee.getId()));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
