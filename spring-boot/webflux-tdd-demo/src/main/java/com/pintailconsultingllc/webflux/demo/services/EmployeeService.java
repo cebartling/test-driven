@@ -31,5 +31,5 @@ public interface EmployeeService {
      * @param id
      * @return An Employee instance.
      */
-    Mono<Void> delete(Integer id);
+    Mono<Employee> delete(Integer id);
 }

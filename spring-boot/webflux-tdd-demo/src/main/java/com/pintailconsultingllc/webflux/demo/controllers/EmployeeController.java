@@ -22,15 +22,12 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 
 @RestController
 @RequestMapping("/employees")
 @AllArgsConstructor
 public class EmployeeController {
 
-    public static final Duration TIMEOUT_DURATION = Duration.of(5000, ChronoUnit.MILLIS);
     private final EmployeeRepository employeeRepository;
     private final EmployeeService employeeService;
 
@@ -57,17 +54,19 @@ public class EmployeeController {
 
     @PutMapping(value = "/{id}", consumes = "application/json")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<Mono<Void>> update(@PathVariable("id") Integer id,
+    public Mono<ResponseEntity<Void>> update(@PathVariable("id") Integer id,
                                              @RequestBody EmployeeDTO employeeDTO) {
-        Mono<Employee> employeeMono = employeeService.update(id, employeeDTO);
-        return ResponseEntity.noContent().build();
+        return employeeService.update(id, employeeDTO)
+                .map(employee -> ResponseEntity.noContent().<Void>build())
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<Mono<Void>> delete(@PathVariable("id") Integer id) {
-        Mono<Void> voidMono = employeeService.delete(id);
-        return ResponseEntity.noContent().build();
+    public Mono<ResponseEntity<Void>> delete(@PathVariable("id") Integer id) {
+        return employeeService.delete(id)
+                .map(employee -> ResponseEntity.noContent().<Void>build())
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     private URI createResourceUri(Employee employee) {

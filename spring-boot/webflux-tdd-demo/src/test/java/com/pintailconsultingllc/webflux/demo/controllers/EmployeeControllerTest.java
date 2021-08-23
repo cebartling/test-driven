@@ -208,75 +208,162 @@ class EmployeeControllerTest {
     @Nested
     @DisplayName("PUT /employee specifications")
     class UpdateEmployeeTests {
-        EmployeeDTO employeeDTO;
-        Employee employee;
-        int id = 2094;
+        @Nested
+        @DisplayName("when employee is found")
+        class WhenEmployeeIsFoundTests {
+            EmployeeDTO employeeDTO;
+            Employee employee;
+            int id = 2094;
 
-        @BeforeEach
-        void doBeforeEachSpec() {
-            employeeDTO = EmployeeDTO.builder()
-                    .id(id)
-                    .name("Test Employee 1")
-                    .salary(1000)
-                    .build();
-            employee = new Employee(employeeDTO);
-            when(employeeService.update(id, employeeDTO)).thenReturn(Mono.just(employee));
-            responseSpec = webTestClient.put()
-                    .uri(String.format("/employees/%d", id))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .body(Mono.just(employeeDTO), EmployeeDTO.class)
-                    .exchange();
+            @BeforeEach
+            void doBeforeEachSpec() {
+                employeeDTO = EmployeeDTO.builder()
+                        .id(id)
+                        .name("Test Employee 1")
+                        .salary(1000)
+                        .build();
+                employee = new Employee(employeeDTO);
+                when(employeeService.update(id, employeeDTO)).thenReturn(Mono.just(employee));
+                responseSpec = webTestClient.put()
+                        .uri(String.format("/employees/%d", id))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .body(Mono.just(employeeDTO), EmployeeDTO.class)
+                        .exchange();
+            }
+
+            @Test
+            @DisplayName("should invoke EmployeeService.update method")
+            public void verifyUpdateInvocationOnEmployeeServiceTest() {
+                verify(employeeService).update(id, employeeDTO);
+            }
+
+            @Test
+            @DisplayName("should return a status of 204 (No Content)")
+            void verifyHttpStatusCodeIs204() {
+                responseSpec.expectStatus().isNoContent();
+            }
+
+            @Test
+            @DisplayName("should not return a resource representation in the response entity-body")
+            public void verifyNoBodyTest() {
+                responseSpec.expectBody().isEmpty();
+            }
         }
 
-        @Test
-        @DisplayName("should invoke EmployeeService.update method")
-        public void verifyUpdateInvocationOnEmployeeServiceTest() {
-            verify(employeeService).update(id, employeeDTO);
-        }
+        @Nested
+        @DisplayName("when employee is not found")
+        class WhenEmployeeIsNotFoundTests {
+            EmployeeDTO employeeDTO;
+            int id = 2094;
 
-        @Test
-        @DisplayName("should return a status of 204 (No Content)")
-        void verifyHttpStatusCodeIs204() {
-            responseSpec.expectStatus().isNoContent();
-        }
+            @BeforeEach
+            void doBeforeEachSpec() {
+                employeeDTO = EmployeeDTO.builder()
+                        .id(id)
+                        .name("Test Employee 1")
+                        .salary(1000)
+                        .build();
+                when(employeeService.update(id, employeeDTO)).thenReturn(Mono.empty());
+                responseSpec = webTestClient.put()
+                        .uri(String.format("/employees/%d", id))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .body(Mono.just(employeeDTO), EmployeeDTO.class)
+                        .exchange();
+            }
 
-        @Test
-        @DisplayName("should not return a resource representation in the response entity-body")
-        public void verifyNoBodyTest() {
-            responseSpec.expectBody().isEmpty();
+            @Test
+            @DisplayName("should invoke EmployeeService.update method")
+            public void verifyUpdateInvocationOnEmployeeServiceTest() {
+                verify(employeeService).update(id, employeeDTO);
+            }
+
+            @Test
+            @DisplayName("should return a status of 401 (Not Found)")
+            void verifyHttpStatusCodeIsNotFound() {
+                responseSpec.expectStatus().isNotFound();
+            }
+
+            @Test
+            @DisplayName("should not return a resource representation in the response entity-body")
+            public void verifyNoBodyTest() {
+                responseSpec.expectBody().isEmpty();
+            }
         }
     }
 
     @Nested
     @DisplayName("DELETE /employee/{id} specifications")
     class DeleteEmployeeTests {
-        int id = 2094;
+        @Nested
+        @DisplayName("when the employee is found")
+        class WhenEmployeeIsFoundTests {
+            int id = 2094;
+            Employee employee;
 
-        @BeforeEach
-        void doBeforeEachSpec() {
-            when(employeeService.delete(id)).thenReturn(Mono.empty());
-            responseSpec = webTestClient.delete()
-                    .uri(String.format("/employees/%d", id))
-                    .exchange();
+            @BeforeEach
+            void doBeforeEachSpec() {
+                employee = Employee.builder()
+                        .id(id)
+                        .name("Test Employee 1")
+                        .salary(1000)
+                        .build();
+                when(employeeService.delete(id)).thenReturn(Mono.just(employee));
+                responseSpec = webTestClient.delete()
+                        .uri(String.format("/employees/%d", id))
+                        .exchange();
+            }
+
+            @Test
+            @DisplayName("should invoke EmployeeService.delete method")
+            public void verifyDeleteInvocationOnEmployeeServiceTest() {
+                verify(employeeService).delete(id);
+            }
+
+            @Test
+            @DisplayName("should return a status of 204 (No Content)")
+            void verifyHttpStatusCodeIs204() {
+                responseSpec.expectStatus().isNoContent();
+            }
+
+            @Test
+            @DisplayName("should not return a resource representation in the response entity-body")
+            public void verifyNoBodyTest() {
+                responseSpec.expectBody().isEmpty();
+            }
         }
 
-        @Test
-        @DisplayName("should invoke EmployeeService.delete method")
-        public void verifyDeleteInvocationOnEmployeeServiceTest() {
-            verify(employeeService).delete(id);
-        }
+        @Nested
+        @DisplayName("when the employee is not found")
+        class WhenEmployeeIsNotFoundTests {
+            int id = 2094;
 
-        @Test
-        @DisplayName("should return a status of 204 (No Content)")
-        void verifyHttpStatusCodeIs204() {
-            responseSpec.expectStatus().isNoContent();
-        }
+            @BeforeEach
+            void doBeforeEachSpec() {
+                when(employeeService.delete(id)).thenReturn(Mono.empty());
+                responseSpec = webTestClient.delete()
+                        .uri(String.format("/employees/%d", id))
+                        .exchange();
+            }
 
-        @Test
-        @DisplayName("should not return a resource representation in the response entity-body")
-        public void verifyNoBodyTest() {
-            responseSpec.expectBody().isEmpty();
+            @Test
+            @DisplayName("should invoke EmployeeService.delete method")
+            public void verifyDeleteInvocationOnEmployeeServiceTest() {
+                verify(employeeService).delete(id);
+            }
+
+            @Test
+            @DisplayName("should return a status of 404 (Not Found)")
+            void verifyHttpStatusCodeIsNotFound() {
+                responseSpec.expectStatus().isNotFound();
+            }
+
+            @Test
+            @DisplayName("should not return a resource representation in the response entity-body")
+            public void verifyNoBodyTest() {
+                responseSpec.expectBody().isEmpty();
+            }
         }
     }
 }
