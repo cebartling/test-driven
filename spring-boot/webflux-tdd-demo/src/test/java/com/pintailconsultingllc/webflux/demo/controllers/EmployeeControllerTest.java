@@ -33,7 +33,6 @@ import static org.mockito.Mockito.when;
 @DisplayName("EmployeeController unit tests")
 class EmployeeControllerTest {
 
-    public static final String UNIT_TEST = "UnitTest";
     @MockBean
     EmployeeRepository employeeRepository;
 
