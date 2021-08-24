@@ -28,6 +28,7 @@ import java.net.URISyntaxException;
 @AllArgsConstructor
 public class EmployeeController {
 
+    public static final String APPLICATION_JSON = "application/json";
     private final EmployeeRepository employeeRepository;
     private final EmployeeService employeeService;
 
@@ -45,14 +46,14 @@ public class EmployeeController {
     }
 
     @SneakyThrows
-    @PostMapping(consumes = "application/json")
+    @PostMapping(consumes = APPLICATION_JSON)
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<ResponseEntity<Void>> create(@RequestBody EmployeeDTO employeeDTO) {
         return employeeService.create(employeeDTO)
                 .map(employee -> ResponseEntity.created(createResourceUri(employee)).build());
     }
 
-    @PutMapping(value = "/{id}", consumes = "application/json")
+    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> update(@PathVariable("id") Integer id,
                                              @RequestBody EmployeeDTO employeeDTO) {

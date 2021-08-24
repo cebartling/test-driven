@@ -101,7 +101,7 @@ class EmployeeControllerTest {
             }
 
             @Test
-            @DisplayName("should return a status of 401 (Not Found)")
+            @DisplayName("should return a status of 404 (Not Found)")
             void verifyHttpStatusCodeIsNotFound() {
                 responseSpec.expectStatus().isNotFound();
             }
@@ -280,7 +280,7 @@ class EmployeeControllerTest {
             }
 
             @Test
-            @DisplayName("should return a status of 401 (Not Found)")
+            @DisplayName("should return a status of 404 (Not Found)")
             void verifyHttpStatusCodeIsNotFound() {
                 responseSpec.expectStatus().isNotFound();
             }
