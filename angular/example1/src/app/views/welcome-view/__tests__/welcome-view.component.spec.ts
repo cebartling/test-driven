@@ -29,9 +29,20 @@ describe('WelcomeViewComponent', () => {
       compiled = fixture.nativeElement as HTMLElement;
     });
 
-    it('should have a heading', () => {
-      const targetSelector = compiled.querySelector('.welcome-heading');
-      expect(targetSelector).not.toBeNull();
+    describe('heading', () => {
+      let targetSelector: Element | null;
+
+      beforeEach(() => {
+        targetSelector = compiled.querySelector('.welcome-heading');
+      });
+
+      it('should be present', () => {
+        expect(targetSelector).not.toBeNull();
+      });
+
+      it('should contain the appropriate text content', () => {
+        expect(targetSelector?.textContent).toBe('Welcome!');
+      });
     });
   });
 });
