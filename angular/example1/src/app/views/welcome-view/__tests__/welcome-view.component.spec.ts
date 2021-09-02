@@ -21,4 +21,17 @@ describe('WelcomeViewComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('template rendering', () => {
+    let compiled: HTMLElement;
+
+    beforeEach(() => {
+      compiled = fixture.nativeElement as HTMLElement;
+    });
+
+    it('should have a heading', () => {
+      const targetSelector = compiled.querySelector('.welcome-heading');
+      expect(targetSelector).not.toBeNull();
+    });
+  });
 });

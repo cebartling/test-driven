@@ -48,9 +48,7 @@ describe('MapViewComponent', () => {
       });
 
       it('should invoke query on the earthquakeService', () => {
-        const startDateTime: DateTime = DateTime.now().minus({ days: 14 });
-        const endDateTime: DateTime = DateTime.now();
-        expect(earthquakeDataServiceMock.query).toHaveBeenCalledWith(startDateTime, endDateTime);
+        expect(earthquakeDataServiceMock.query).toHaveBeenCalledWith(jasmine.any(DateTime), jasmine.any(DateTime));
       });
 
       it('should set the featureCollection$ property on the component', () => {
