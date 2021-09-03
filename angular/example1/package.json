@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@asymmetrik/ngx-leaflet": "^8.1.0",
+    "@ngrx/store": "^12.4.0",
     "@popperjs/core": "^2.9.3",
     "bootstrap": "^5.1.0",
     "leaflet": "^1.7.1",
