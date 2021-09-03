@@ -31,7 +31,7 @@ describe('MapViewComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    describe('inject dependency', () => {
+    describe('dependency injection', () => {
       it('earthquakeService', () => {
         expect(component.earthquakeDataService).toBe(earthquakeDataServiceMock);
       });

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { circle, latLng, polygon, tileLayer } from 'leaflet';
+import { circle, latLng, MapOptions, polygon, tileLayer } from 'leaflet';
 import { FeatureCollection } from '../../models/earthquake/FeatureCollection';
+import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 
 @Component({
   selector: 'tdd-example1-map',
@@ -10,15 +11,15 @@ import { FeatureCollection } from '../../models/earthquake/FeatureCollection';
 export class MapComponent implements OnInit {
   @Input() featureCollection: FeatureCollection | null | undefined;
 
-  options: any;
-  layersControl: any;
+  options: MapOptions;
+  layersControl: LeafletControlLayersConfig;
 
-  ngOnInit(): void {
+  constructor() {
     this.options = {
       layers: [tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })],
       zoom: 5,
       center: latLng(46.879966, -121.726909),
-    };
+    } as MapOptions;
     this.layersControl = {
       baseLayers: {
         'Open Street Map': tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -39,6 +40,8 @@ export class MapComponent implements OnInit {
           [46.8, -121.7],
         ]),
       },
-    };
+    } as LeafletControlLayersConfig;
   }
+
+  ngOnInit(): void {}
 }

@@ -46,7 +46,7 @@ describe('MapComponent', () => {
 
       it('should render Leaflet map', () => {
         const compiled = fixture.nativeElement as HTMLElement;
-        // expect(compiled.querySelector('.leaflet')).toBeDefined();
+        expect(compiled.querySelector('.leaflet')).toBeDefined();
       });
     });
   });
