@@ -27,26 +27,30 @@ describe('MapComponent', () => {
 
   describe('rendering template', () => {
     describe('when featureCollection is undefined', () => {
+      let compiled: Element | null;
+
       beforeEach(() => {
         component.featureCollection = undefined;
         fixture.detectChanges();
+        compiled = fixture.nativeElement as HTMLElement;
       });
 
       it('should render loading message', () => {
-        const compiled = fixture.nativeElement as HTMLElement;
-        expect(compiled.querySelector('.alert-info')?.textContent).toContain('Loading earthquake data...');
+        expect(compiled?.querySelector('.alert-info')?.textContent).toContain('Loading earthquake data...');
       });
     });
 
     describe('when featureCollection is defined', () => {
+      let compiled: Element | null;
+
       beforeEach(() => {
         component.featureCollection = featureCollection;
         fixture.detectChanges();
+        compiled = fixture.nativeElement as HTMLElement;
       });
 
       it('should render Leaflet map', () => {
-        const compiled = fixture.nativeElement as HTMLElement;
-        expect(compiled.querySelector('.leaflet')).toBeDefined();
+        expect(compiled?.querySelector('.leaflet')).toBeDefined();
       });
     });
   });
