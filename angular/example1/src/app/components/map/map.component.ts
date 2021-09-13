@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { circle, latLng, MapOptions, polygon, tileLayer } from 'leaflet';
+import { latLng, MapOptions, tileLayer } from 'leaflet';
 import { FeatureCollection } from '../../models/earthquake/feature-collection';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
+import { createOverlays } from './create-overlays';
 
 @Component({
   selector: 'tdd-example1-map',
@@ -26,22 +27,16 @@ export class MapComponent implements OnInit {
           maxZoom: 18,
           attribution: '...',
         }),
-        'Open Cycle Map': tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
-          maxZoom: 18,
-          attribution: '...',
-        }),
+        // 'Open Cycle Map': tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+        //   maxZoom: 18,
+        //   attribution: '...',
+        // }),
       },
-      overlays: {
-        'Big Circle': circle([46.95, -122], { radius: 5000 }),
-        'Big Square': polygon([
-          [46.8, -121.55],
-          [46.9, -121.55],
-          [46.9, -121.7],
-          [46.8, -121.7],
-        ]),
-      },
+      overlays: {},
     } as LeafletControlLayersConfig;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.layersControl.overlays = createOverlays(this.featureCollection);
+  }
 }
