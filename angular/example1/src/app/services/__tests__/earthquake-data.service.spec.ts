@@ -16,6 +16,7 @@ describe('EarthquakeDataService', () => {
 
   describe('query', () => {
     let captured: FeatureCollection;
+    let capturedError: Error;
     const expectedUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query';
     const startDateTime = DateTime.fromObject({ year: 2021, month: 8, day: 1 });
     const endDateTime = DateTime.fromObject({ year: 2021, month: 8, day: 15 });
@@ -23,14 +24,24 @@ describe('EarthquakeDataService', () => {
 
     beforeEach((done: DoneFn) => {
       httpClientSpy.get.and.returnValue(featureCollection$);
-      service.query(startDateTime, endDateTime).subscribe((data) => {
-        captured = data;
-        done();
-      }, done.fail);
+      service.query(startDateTime, endDateTime).subscribe(
+        (data) => {
+          captured = data;
+          done();
+        },
+        (error) => {
+          capturedError = error;
+          done();
+        }
+      );
     });
 
     it('should return the appropriate response', () => {
       expect(captured).toEqual(featureCollection);
+    });
+
+    it('should not throw an error', () => {
+      expect(capturedError).toBeUndefined();
     });
 
     it('should invoke get on the HttpClient', () => {
