@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { latLng, MapOptions, tileLayer } from 'leaflet';
 import { FeatureCollection } from '../../models/earthquake/feature-collection';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
@@ -9,7 +9,7 @@ import { createOverlays } from './create-overlays';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnChanges {
   @Input() featureCollection: FeatureCollection | null | undefined;
 
   options: MapOptions;
@@ -38,5 +38,11 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.layersControl.overlays = createOverlays(this.featureCollection);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.featureCollection) {
+      this.layersControl.overlays = createOverlays(this.featureCollection);
+    }
   }
 }

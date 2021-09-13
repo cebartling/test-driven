@@ -15,7 +15,7 @@ export class MapViewComponent implements OnInit {
   constructor(public earthquakeDataService: EarthquakeDataService) {}
 
   ngOnInit(): void {
-    const startDateTime: DateTime = DateTime.now().minus({ days: 14 });
+    const startDateTime: DateTime = DateTime.now().minus({ days: 1 });
     const endDateTime: DateTime = DateTime.now();
     this.featureCollection$ = this.earthquakeDataService.query(startDateTime, endDateTime);
   }
