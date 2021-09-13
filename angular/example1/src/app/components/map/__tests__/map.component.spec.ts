@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapComponent } from '../map.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { featureCollection } from '../../../__tests__/data/feature-collection';
+import { featureCollection } from '../../../__tests__/data/feature-collection-test-data';
 
 describe('MapComponent', () => {
   let component: MapComponent;
