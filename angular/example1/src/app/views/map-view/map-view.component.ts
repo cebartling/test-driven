@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EarthquakeDataService } from '../../services/earthquake-data.service';
 import { DateTime, Duration } from 'luxon';
-import { FeatureCollection } from '../../models/earthquake/FeatureCollection';
+import { FeatureCollection } from '../../models/earthquake/feature-collection';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DateTime } from 'luxon';
-import { FeatureCollection } from '../models/earthquake/FeatureCollection';
+import { FeatureCollection } from '../models/earthquake/feature-collection';
 
 const DATE_FORMAT = 'yyyy-MM-dd';
 const FORMAT_GEOJSON = 'geojson';

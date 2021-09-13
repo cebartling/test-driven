@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { of } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { EarthquakeDataService } from '../earthquake-data.service';
-import { FeatureCollection } from '../../models/earthquake/FeatureCollection';
+import { FeatureCollection } from '../../models/earthquake/feature-collection';
 import { featureCollection } from '../../__tests__/data/feature-collection';
 
 describe('EarthquakeDataService', () => {

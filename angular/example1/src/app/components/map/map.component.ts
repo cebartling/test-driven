@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { circle, latLng, MapOptions, polygon, tileLayer } from 'leaflet';
-import { FeatureCollection } from '../../models/earthquake/FeatureCollection';
+import { FeatureCollection } from '../../models/earthquake/feature-collection';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 
 @Component({

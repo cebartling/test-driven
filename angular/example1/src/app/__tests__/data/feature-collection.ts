@@ -1,4 +1,4 @@
-import { FeatureCollection } from '../../models/earthquake/FeatureCollection';
+import { FeatureCollection } from '../../models/earthquake/feature-collection';
 
 export const featureCollection: FeatureCollection = {
   type: 'FeatureCollection',
