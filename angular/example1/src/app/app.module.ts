@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,8 +13,15 @@ import { ProfileViewComponent } from './views/profile-view/profile-view.componen
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, MapViewComponent, WelcomeViewComponent, MapComponent, ProfileViewComponent, NavigationBarComponent],
-  imports: [BrowserModule, AppRoutingModule, LeafletModule, HttpClientModule],
+  declarations: [
+    AppComponent,
+    MapViewComponent,
+    WelcomeViewComponent,
+    MapComponent,
+    ProfileViewComponent,
+    NavigationBarComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, LeafletModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
