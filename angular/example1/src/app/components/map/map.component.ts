@@ -27,22 +27,22 @@ export class MapComponent implements OnInit, OnChanges {
           maxZoom: 18,
           attribution: '...',
         }),
-        // 'Open Cycle Map': tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
-        //   maxZoom: 18,
-        //   attribution: '...',
-        // }),
       },
       overlays: {},
     } as LeafletControlLayersConfig;
   }
 
   ngOnInit(): void {
-    this.layersControl.overlays = createOverlays(this.featureCollection);
+    const newOverlays = createOverlays(this.featureCollection);
+    console.info('MapComponent.ngOnInit', newOverlays);
+    this.layersControl.overlays = newOverlays;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.featureCollection) {
-      this.layersControl.overlays = createOverlays(this.featureCollection);
+      const newOverlays = createOverlays(this.featureCollection);
+      console.info('MapComponent.ngOnChanges', newOverlays);
+      this.layersControl.overlays = newOverlays;
     }
   }
 }
