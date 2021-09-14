@@ -9,9 +9,10 @@ import { WelcomeViewComponent } from './views/welcome-view/welcome-view.componen
 import { MapComponent } from './components/map/map.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileViewComponent } from './views/profile-view/profile-view.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, MapViewComponent, WelcomeViewComponent, MapComponent, ProfileViewComponent],
+  declarations: [AppComponent, MapViewComponent, WelcomeViewComponent, MapComponent, ProfileViewComponent, NavigationBarComponent],
   imports: [BrowserModule, AppRoutingModule, LeafletModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
