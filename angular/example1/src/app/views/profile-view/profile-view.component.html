@@ -53,7 +53,14 @@
         </div>
         <hr class="my-4" />
 
-        <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
+        <button
+          id="saveProfileButton"
+          class="w-100 btn btn-primary btn-lg"
+          [disabled]="!profileFormGroup.valid"
+          type="submit"
+        >
+          Save
+        </button>
       </form>
     </div>
   </div>

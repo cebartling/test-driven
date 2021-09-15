@@ -82,5 +82,37 @@ describe('ProfileViewComponent', () => {
         expect(targetSelector?.textContent).toBe('Profile');
       });
     });
+
+    describe('Save button', () => {
+      let submitButton: any;
+
+      describe('when the form is invalid', () => {
+        beforeEach(() => {
+          component.profileFormGroup.controls.firstName.setValue(null);
+          component.profileFormGroup.controls.lastName.setValue('Smith');
+          component.profileFormGroup.controls.username.setValue('jsmith');
+          fixture.detectChanges();
+          submitButton = fixture.debugElement.nativeElement.querySelector('#saveProfileButton');
+        });
+
+        it('the disabled attribute should be true', () => {
+          expect(submitButton.disabled).toBeTruthy();
+        });
+      });
+
+      describe('when the form is valid', () => {
+        beforeEach(() => {
+          component.profileFormGroup.controls.firstName.setValue('Joe');
+          component.profileFormGroup.controls.lastName.setValue('Smith');
+          component.profileFormGroup.controls.username.setValue('jsmith');
+          fixture.detectChanges();
+          submitButton = fixture.debugElement.nativeElement.querySelector('#saveProfileButton');
+        });
+
+        it('the disabled attribute should be false', () => {
+          expect(submitButton.disabled).toBeFalsy();
+        });
+      });
+    });
   });
 });
