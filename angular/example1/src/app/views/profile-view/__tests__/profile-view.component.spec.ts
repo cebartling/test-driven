@@ -86,31 +86,56 @@ describe('ProfileViewComponent', () => {
     describe('Save button', () => {
       let submitButton: any;
 
-      describe('when the form is invalid', () => {
-        beforeEach(() => {
-          component.profileFormGroup.controls.firstName.setValue(null);
-          component.profileFormGroup.controls.lastName.setValue('Smith');
-          component.profileFormGroup.controls.username.setValue('jsmith');
-          fixture.detectChanges();
-          submitButton = fixture.debugElement.nativeElement.querySelector('#saveProfileButton');
-        });
+      describe('disabled attribute', () => {
+        const testCases = [
+          {
+            firstName: 'Johnny',
+            lastName: 'Smith',
+            username: 'jsmith',
+            expectedDisabledState: false,
+            describeMessage: 'when form is valid',
+            message: 'the disabled attribute should be false',
+          },
+          {
+            firstName: null,
+            lastName: 'Smith',
+            username: 'jsmith',
+            expectedDisabledState: true,
+            describeMessage: 'when form is invalid (firstName is null)',
+            message: 'the disabled attribute should be true',
+          },
+          {
+            firstName: 'Johnny',
+            lastName: null,
+            username: 'jsmith',
+            expectedDisabledState: true,
+            describeMessage: 'when form is invalid (lastName is null)',
+            message: 'the disabled attribute should be true',
+          },
+          {
+            firstName: 'Johnny',
+            lastName: 'Smith',
+            username: null,
+            expectedDisabledState: true,
+            describeMessage: 'when form is invalid (username is null)',
+            message: 'the disabled attribute should be true',
+          },
+        ];
 
-        it('the disabled attribute should be true', () => {
-          expect(submitButton.disabled).toBeTruthy();
-        });
-      });
+        testCases.forEach((testCase) => {
+          describe(testCase.describeMessage, () => {
+            beforeEach(() => {
+              component.profileFormGroup.controls.firstName.setValue(testCase.firstName);
+              component.profileFormGroup.controls.lastName.setValue(testCase.lastName);
+              component.profileFormGroup.controls.username.setValue(testCase.username);
+              fixture.detectChanges();
+              submitButton = fixture.debugElement.nativeElement.querySelector('#saveProfileButton');
+            });
 
-      describe('when the form is valid', () => {
-        beforeEach(() => {
-          component.profileFormGroup.controls.firstName.setValue('Joe');
-          component.profileFormGroup.controls.lastName.setValue('Smith');
-          component.profileFormGroup.controls.username.setValue('jsmith');
-          fixture.detectChanges();
-          submitButton = fixture.debugElement.nativeElement.querySelector('#saveProfileButton');
-        });
-
-        it('the disabled attribute should be false', () => {
-          expect(submitButton.disabled).toBeFalsy();
+            it(testCase.message, () => {
+              expect(submitButton.disabled).toEqual(testCase.expectedDisabledState);
+            });
+          });
         });
       });
     });
