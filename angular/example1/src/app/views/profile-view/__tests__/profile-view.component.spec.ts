@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfileViewComponent } from '../profile-view.component';
+import { FormBuilder, Validators } from '@angular/forms';
 
 describe('ProfileViewComponent', () => {
   let component: ProfileViewComponent;
@@ -9,6 +10,7 @@ describe('ProfileViewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProfileViewComponent],
+      providers: [FormBuilder],
     }).compileComponents();
   });
 
@@ -27,16 +29,34 @@ describe('ProfileViewComponent', () => {
       expect(component.profileFormGroup).toBeDefined();
     });
 
-    it('should create firstName form control within the FormGroup', () => {
-      expect(component.profileFormGroup.controls['firstName']).toBeDefined();
+    describe('firstName', () => {
+      it('should create form control within the FormGroup', () => {
+        expect(component.profileFormGroup.controls['firstName']).toBeDefined();
+      });
+
+      it('should configure a required validator for the form control', () => {
+        expect(component.profileFormGroup.controls['firstName'].hasValidator(Validators.required)).toBeTruthy();
+      });
     });
 
-    it('should create lastName form control within the FormGroup', () => {
-      expect(component.profileFormGroup.controls['lastName']).toBeDefined();
+    describe('lastName', () => {
+      it('should create form control within the FormGroup', () => {
+        expect(component.profileFormGroup.controls['lastName']).toBeDefined();
+      });
+
+      it('should configure a required validator for the form control', () => {
+        expect(component.profileFormGroup.controls['lastName'].hasValidator(Validators.required)).toBeTruthy();
+      });
     });
 
-    it('should create username form control within the FormGroup', () => {
-      expect(component.profileFormGroup.controls['username']).toBeDefined();
+    describe('username', () => {
+      it('should create form control within the FormGroup', () => {
+        expect(component.profileFormGroup.controls['username']).toBeDefined();
+      });
+
+      it('should configure a required validator for the form control', () => {
+        expect(component.profileFormGroup.controls['username'].hasValidator(Validators.required)).toBeTruthy();
+      });
     });
   });
 

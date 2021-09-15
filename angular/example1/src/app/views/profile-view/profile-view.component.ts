@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'tdd-example1-profile-view',
@@ -9,13 +9,17 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ProfileViewComponent implements OnInit {
   profileFormGroup: FormGroup;
 
-  constructor() {
-    this.profileFormGroup = new FormGroup({
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      username: new FormControl(''),
+  constructor(private formBuilder: FormBuilder) {
+    this.profileFormGroup = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      username: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {}
+
+  onFormSubmit() {
+    console.info(this.profileFormGroup.value);
+  }
 }
