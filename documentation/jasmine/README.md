@@ -38,6 +38,8 @@ describe('System under test', () => {
 
 #### Example
 
+Given the following class that represents a timestamp and uses `luxon` under the covers.
+
 ```typescript
 import { DateTime, ToISOTimeOptions } from 'luxon';
 
@@ -76,20 +78,20 @@ export class ApplicationDate {
 }
 ```
 
-We can use `import * as luxon from 'luxon'` to imports all exports from the `luxon` module as properties of an object (in this case, the object is called it `luxon`). That object can then be stubbed, mocked or spied in your spec/test. In the example below, the Luxon `DateTime.now()` static method is stubbed to return a hard-coded `DateTime` instance that is created in this specification.
+We can use `import * as luxonExports from 'luxon'` to imports all exports from the `luxon` module as properties of an object (in this case, the object is called `luxonExports`). That object can then be stubbed, mocked or spied in your spec/test. In the example below, the Luxon `DateTime.now()` static method is stubbed to return a hard-coded `DateTime` instance that is created in this specification.
 
 
 ```typescript
 import { ApplicationDate } from '../application-date';
-import * as luxon from 'luxon';
+import * as luxonExports from 'luxon';
 
 describe('ApplicationDate class', () => {
   let applicationDate: ApplicationDate;
 
   describe('now static method', () => {
     beforeEach(() => {
-      const hardCodedDateTime = luxon.DateTime.utc(2020, 9, 1, 0, 0, 0, 0);
-      spyOn(luxon.DateTime, 'now').and.returnValue(hardCodedDateTime);
+      const hardCodedDateTime = luxonExports.DateTime.utc(2020, 9, 1, 0, 0, 0, 0);
+      spyOn(luxonExports.DateTime, 'now').and.returnValue(hardCodedDateTime);
       applicationDate = ApplicationDate.now();
     });
 
