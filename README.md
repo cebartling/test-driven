@@ -7,6 +7,7 @@ Various test-driven development journeys.
 
 ## JavaScript/Typescript
 
+- [Jasmine testing patterns, tips and tricks](./documentation/jasmine/README.md)
 - [Angular TDD demo](./angular/example1/README.md)
 
 ## Further Reading
