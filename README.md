@@ -1,6 +1,9 @@
 # Test Driven Journeys
 Various test-driven development journeys.
 
+## General
+- [General code design conversations with teams](./documentation/general/code-design.md)
+
 ## Java
 
 - [Spring WebFlux/Project Reactor TDD demo](./spring-boot/webflux-tdd-demo/README.md)
