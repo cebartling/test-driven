@@ -52,7 +52,7 @@ export class ApplicationDate {
 
 ### Jasmine specifications
 
-We can use `import * as luxonExports from 'luxon'` to imports all exports from the `luxon` module as properties of an object (in this case, the object is called `luxonExports`). That object can then be stubbed, mocked or spied in your spec/test. In the example below, the Luxon `DateTime.now()` static method is stubbed to return a hard-coded `DateTime` instance that is created in this specification.
+We can use `import * as luxonExports from 'luxon'` to import all of the `export`s from the `luxon` module as properties of an object (in this case, the object is called `luxonExports`). That object can then be stubbed, mocked or spied in your spec/test. In the example below, the Luxon `DateTime.now()` static method is stubbed to return a hard-coded `DateTime` instance that is created in this specification.
 
 [Link to source file in GitHub](https://github.com/cebartling/test-driven/blob/main/angular/example1/src/app/models/core/__tests__/application-date.spec.ts)
 
