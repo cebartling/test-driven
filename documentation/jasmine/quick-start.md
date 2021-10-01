@@ -122,3 +122,91 @@ describe('SystemUnderTest', () => {
 });
 ```
 
+Our SUT looks like this now: 
+
+```typescript
+export class SystemUnderTest {
+
+    constructor() {}
+
+    public doSomething(): Result {
+        return new Result(true);
+    }
+}
+```
+
+A spec suite is meant to contain one or more specifications/tests. I like to keep my specifications limited to one expectation or verification per specification. This ensures that the specification stays small and focused and clearly communicates what the specification is verifying. This idiom also allows all the verifications and expectations to be run, regardless of verification failures or errors. Grouping a number of verifications into a single specification can have the side effect of missing verifications when a prior verification in the specification fails.
+
+## Working with collaborators
+
+Rarely do we have functions that do a single thing without involving some collaboration with other functions or object methods. Thus, we need to be able to write code that uses collaborators, either functions or object that have their own responsibility. Functions can be imported and used directly in our own code. Angular uses dependency injection to inject collaborators through object constructors. I'll demonstrate both mechanisms here.
+
+### Collaboration wiring through module importing
+
+To demonstrate module importing collaboration, let's use the Luxon library as our collaborator. Luxon is a date/time library. We want to add the current UTC timestamp to our `Result`. This next code snippet shows the specification suite for testing the collaboration of Luxon in our SUT:
+
+```typescript
+import * as luxonExports from 'luxon';
+
+describe('SystemUnderTest', () => {
+
+    let sut: SystemUnderTest;
+
+    beforeEach(() => {
+        // Use this for setting up the system under test and any test doubles.
+        sut = new SystemUnderTest();
+    });
+
+    describe('doSomething method', () => {
+
+        let result: Result;  
+        const hardCodedDateTime = luxonExports.DateTime.utc(2020, 9, 1, 0, 0, 0, 0);
+        const expected = new Result(true, hardCodeDateTime);    
+
+        beforeEach(() => {
+            // Spy on the now function from the exported DateTime type. 
+            // Return our own object from the specification suite context.
+            jasmine.spyOn(luxonExports.DateTime, 'now').and.returnValue(hardCodedDateTime);
+            // Execute SUT here also, capturing direct output as result.
+            result = sut.doSomething();
+        });
+
+        it('should return a successful result', () => {
+            expect(result).toEqual(expected);
+        });
+
+        it('should create a new timestamp via DateTime.now()', () => {
+            expect(luxonExports.DateTime.now).toHaveBeenCalled();
+        });
+
+        it('should have a valid timestamp', () => {
+            expect(result.timestamp).toEqual(expected.timestamp);
+        });
+    });
+});
+```
+
+In this version of the specification suite, we are obtaining an object, named `luxonExports`, from the import of the `luxon` library containing all the exports from that library. We now have the opportunity to use Jasmine spies (via the `spyOn` function) to intercept invocations on these module exported functions. I am spying the static `now` method of the `DateTime` type, intercepting the invocation and supplying my own return value, `hardCodedDateTime`, which I control within the specification suite. I can then verify that invocation via the spying that I set up in the `beforeEach` block. The second specification in the spec suite above verifies that the spied function was indeed called. Finally, in this example, the newly minted timestamp is used to create the `Result` object and thus it can be verified as part of the direct output of the execution of the SUT.
+
+The SUT now looks like this:
+
+```typescript
+import { DateTime } from 'luxon';
+
+export class SystemUnderTest {
+
+    constructor() {}
+
+    public doSomething(): Result {
+        return new Result(true, DateTime.now().toUTC());
+    }
+}
+```
+
+Using **ES6 imports** and getting access to all the exports from a module using the `import * as ....` syntax is very powerful test isolation technique. Remember, unit tests _test individual units_, so it's important to be able to isolate your units as best you can.
+
+
+### Collaboration wiring through constructor dependency injection
+
+
+### Using Jasmine test doubles for isolating your SUT
