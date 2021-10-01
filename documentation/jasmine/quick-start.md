@@ -208,5 +208,79 @@ Using **ES6 imports** and getting access to all the exports from a module using 
 
 ### Collaboration wiring through constructor dependency injection
 
+Angular takes another approach to wiring up collaborators--**dependency injection**. Dependency injection is a form of dependency inversion, one of the SOLID design principles. The concept behind dependency inversion is that a class does not instantiate its collaborators. It either finds them through some sort of the keyed repository or it has an assembler that injects the dependencies into the class instance. Angular uses the injection method of dependency inversion to wire collaborators together, using the constructor to pass collaborators into a new instance. More information on Angular's dependency injection mechanism can be found [here](https://angular.io/guide/dependency-injection).
 
-### Using Jasmine test doubles for isolating your SUT
+Let's use constructor dependency injection in our example and show how it can help us to easily isolate our units for unit testing. In this example, we have a type `FoobarService` that will have an instance injected into our `SystemUnderTest` instance during instantiation. This next code snippet shows the specification suite for testing this collaboration with our SUT:
+
+```typescript
+import * as luxonExports from 'luxon';
+
+describe('SystemUnderTest', () => {
+
+    let sut: SystemUnderTest;
+    let foobarServiceMock: any;
+
+    beforeEach(() => {
+        // Create the FoobarService test double
+        foobarServiceMock = jasmine.createSpyObject('foobarService', ['getPayload']);
+        // Create the SUT, injecting the test double into the new instance via the constructor.
+        sut = new SystemUnderTest(foobarServiceMock as FoobarService);
+    });
+
+    describe('doSomething method', () => {
+
+        let result: Result;  
+        const hardCodedDateTime = luxonExports.DateTime.utc(2020, 9, 1, 0, 0, 0, 0);
+        const expectedPayload = [{id: 1}, {id: 13}];
+        const expected = new Result(true, hardCodeDateTime);    
+
+        beforeEach(() => {
+            // Spy on the now function from the exported DateTime type. 
+            // Return our own object from the specification suite context.
+            jasmine.spyOn(luxonExports.DateTime, 'now').and.returnValue(hardCodedDateTime);
+            foobarService.getPayload.and.returnValue(Promise.resolve(expectedPayload));
+            // Execute SUT here also, capturing direct output as result.
+            result = sut.doSomething();
+        });
+
+        it('should return a successful result', () => {
+            expect(result).toEqual(expected);
+        });
+
+        it('should create a new timestamp via DateTime.now()', () => {
+            expect(luxonExports.DateTime.now).toHaveBeenCalled();
+        });
+
+        it('should invoke FoobarService.getPayload method', () => {
+            expect(foobarServiceMock.getPayload).toHaveBeenCalled();
+        });
+
+        it('should have a valid timestamp', () => {
+            expect(result.timestamp).toEqual(expected.timestamp);
+        });
+
+        it('should have a valid payload', () => {
+            expect(result.payload).toEqual(expectedPayload);
+        });
+    });
+});
+```
+
+The SUT now looks like this:
+
+```typescript
+import { DateTime } from 'luxon';
+import FoobarService from '../services/foobar.service';
+
+export class SystemUnderTest {
+
+    constructor(private foobarService: FoobarService) {}
+
+    public async doSomething(): Result {
+        const payload = await this.foobarService.getPayload();
+        return new Result(true, DateTime.now().toUTC(), payload);
+    }
+}
+```
+
+In this example, I am 
