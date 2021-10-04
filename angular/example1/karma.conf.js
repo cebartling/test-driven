@@ -35,6 +35,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
+    //browsers: ['Chromium'], /* Use this if on Linux. */
     browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true,
