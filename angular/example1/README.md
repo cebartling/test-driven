@@ -2,8 +2,14 @@
 
 ## Introduction
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0. [Angular CLI documentation](https://angular.io/cli)
-
+- This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0. [Angular CLI documentation](https://angular.io/cli)
+- This project is managed by [nvm](https://github.com/nvm-sh/nvm) and has a `.nvmrc` file in the root directory. It is currently configured for Node.js version `lts/fermium`.
+  - When you execute `nvm use`, you should see something similar like this: 
+    ```shell
+    Found '/Users/chris/github-sandbox/cebartling/test-driven/angular/example1/.nvmrc' with version <lts/fermium>
+    Now using node v14.17.4 (npm v6.14.14)
+    ```
+  - There is a Windows version of `nvm`, found [here](https://github.com/coreybutler/nvm-windows).
 
 
 ## Development server
