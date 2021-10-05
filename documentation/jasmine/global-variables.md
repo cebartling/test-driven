@@ -64,7 +64,7 @@ The system under test in this example is an Angular service that acts as a wrapp
 ```typescript
 import { Injectable } from '@angular/core';
 
-// This just makes Typescript aware of the global variable type
+// Make Typescript aware of the global variable and its type
 declare var globalStyleEventTracking: any;
 
 /**
