@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+// This just makes Typescript aware of the global variable type
 declare var globalStyleEventTracking: any;
 
 /**

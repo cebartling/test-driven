@@ -6,10 +6,6 @@ describe('EventTrackingService', () => {
   let globalStyleEventTracking: any;
 
   beforeEach(() => {
-    globalStyleEventTracking = {
-      startTracking: (message: string) => {},
-    };
-    (window as any).globalStyleEventTracking = globalStyleEventTracking;
     TestBed.configureTestingModule({});
     service = TestBed.inject(EventTrackingService);
   });
@@ -21,13 +17,19 @@ describe('EventTrackingService', () => {
   describe('trackEvent', () => {
     const eventName = 'foobarEvent';
 
-    beforeEach(() => {
-      spyOn(globalStyleEventTracking, 'startTracking');
-      service.trackEvent(eventName);
-    });
+    describe('when globalStyleEventTracking is defined', () => {
+      beforeEach(() => {
+        globalStyleEventTracking = {
+          startTracking: (message: string) => {},
+        };
+        (window as any).globalStyleEventTracking = globalStyleEventTracking;
+        spyOn(globalStyleEventTracking, 'startTracking');
+        service.trackEvent(eventName);
+      });
 
-    it('should invoke globalStyleEventTracking.startTracking', () => {
-      expect(globalStyleEventTracking.startTracking).toHaveBeenCalledWith(eventName);
+      it('should invoke globalStyleEventTracking.startTracking', () => {
+        expect(globalStyleEventTracking.startTracking).toHaveBeenCalledWith(eventName);
+      });
     });
   });
 });
