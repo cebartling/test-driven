@@ -13,7 +13,7 @@ In this example, we have a older event tracking system that is attached to the `
 The Jasmine specification can create a stub test double that can be used to stand in for the real `globalStyleEventTracking` object. We then spy the method of that object that will be used in the system under test. Finally, the `globalStyleEventTracking` stub object that we created and placed a spy proxy on can then be attached to the global browser `window` object. The `(window as any)` syntax is used to avoid a tslint warning.
 
 
-[Link to source file in GitHub](https://github.com/cebartling/test-driven/blob/main/angular/example1/src/app/services/event-tracking.service.ts)
+[Link to source file in GitHub](https://github.com/cebartling/test-driven/blob/main/angular/example1/src/app/services/__tests__/event-tracking.service.spec.ts)
 
 
 ```typescript
@@ -58,7 +58,7 @@ describe('EventTrackingService', () => {
 
 The system under test in this example is an Angular service that acts as a wrapper for the older style event tracking system that is accessed as a global variable. Using this technique, the `EventTrackingService` can participate in the dependency injection system of Angular and the rest of the Angular application is protected from the the older style event tracking system implementation. The `EventTrackingService` is acting as an adapter, adapting the older style event tracking system implementation for use in the more modern Angular implementation.
 
-[Link to source file in GitHub](https://github.com/cebartling/test-driven/blob/main/angular/example1/src/app/services/__tests__/event-tracking.service.spec.ts)
+[Link to source file in GitHub](https://github.com/cebartling/test-driven/blob/main/angular/example1/src/app/services/event-tracking.service.ts)
 
 
 ```typescript
