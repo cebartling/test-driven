@@ -5,6 +5,8 @@
 
 ## Common testing patterns
 
+- [Testing with global variables](./global-variables.md)
+
 
 
 ## Test double patterns
