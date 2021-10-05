@@ -8,6 +8,8 @@ There might be times when you have to integrate an older piece of JavaScript int
 
 In this example, we have a older event tracking system that is attached to the `window` object as `globalStyleEventTracking`. We have a declaration for that global variable, using `declare var globalStyleEventTracking: any;`. That global variable declaration just satisfies the Typescript typing system. 
 
+### The Jasmine specification
+
 The Jasmine specification can create a stub test double that can be used to stand in for the real `globalStyleEventTracking` object. We then spy the method of that object that will be used in the system under test. Finally, the `globalStyleEventTracking` stub object that we created and placed a spy proxy on can then be attached to the global browser `window` object. The `(window as any)` syntax is used to avoid a tslint warning.
 
 ```typescript
@@ -47,6 +49,8 @@ describe('EventTrackingService', () => {
   });
 });
 ```
+
+### The system under test
 
 The system under test in this example is an Angular service that acts as a wrapper for the older style event tracking system that is accessed as a global variable. Using this technique, the `EventTrackingService` can participate in the dependency injection system of Angular and the rest of the Angular application is protected from the the older style event tracking system implementation. The `EventTrackingService` is acting as an adapter, adapting the older style event tracking system implementation for use in the more modern Angular implementation.
 
