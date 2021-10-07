@@ -61,6 +61,7 @@ describe('EarthquakeDataService', () => {
       let httpClientSpy: { get: jasmine.Spy };
 
       beforeEach(() => {
+        // Create dependencies and SUT manually and handle the constructor dependency injection in the test.
         httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
         service = new EarthquakeDataService(httpClientSpy as any);
       });
