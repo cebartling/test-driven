@@ -6,7 +6,9 @@ Mockito is the most popular test double library for Java-based environments.
 
 ### `MockitoJUnitRunner`
 
-The `MockitoJUnitRunner` to instruct Mockito to initialize our test doubles annotated with `@Mock` or `@Spy` and to create and wire up the SUT using the `@InjectMocks` annotation.
+The `MockitoJUnitRunner` to instruct Mockito to initialize our test doubles annotated with `@Mock` or `@Spy` and to create and wire up the SUT using the `@InjectMocks` annotation. `MockitoJUnitRunner` gives you automatic validation of framework usage, as well as an automatic `initMocks()`.
+
+
 
 ```java
 import org.junit.runner.RunWith;
