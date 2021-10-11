@@ -1,6 +1,6 @@
 # Mockito and JUnit
 
-Mockito is the most popular test double library for Java-based environments. The following documentation 
+Mockito is the most popular test double library for Java-based environments. The following documentation demonstrates how to use the library with JUnit 4 and JUnit 5.
 
 ## JUnit 4
 
