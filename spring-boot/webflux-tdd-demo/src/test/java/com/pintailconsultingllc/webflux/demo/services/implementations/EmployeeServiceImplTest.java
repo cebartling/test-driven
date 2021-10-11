@@ -55,13 +55,13 @@ class EmployeeServiceImplTest {
 
         @Test
         @DisplayName("should invoke EmployeeRepository.save")
-        public void verifyRepositorySaveInvocationTest() {
+        void verifyRepositorySaveInvocationTest() {
             verify(employeeRepositoryMock).save(any(Employee.class));
         }
 
         @Test
         @DisplayName("returns the newly created Employee instance")
-        public void ReturnsEmployeeMonoTest() {
+        void ReturnsEmployeeMonoTest() {
             assertEquals(actualEmployee, expectedEmployee);
         }
     }
@@ -88,19 +88,19 @@ class EmployeeServiceImplTest {
 
         @Test
         @DisplayName("should invoke EmployeeRepository.findById")
-        public void verifyRepositoryFindByIdInvocationTest() {
+        void verifyRepositoryFindByIdInvocationTest() {
             verify(employeeRepositoryMock).findById(ID);
         }
 
         @Test
         @DisplayName("should invoke EmployeeRepository.save")
-        public void verifyRepositorySaveInvocationTest() {
+        void verifyRepositorySaveInvocationTest() {
             verify(employeeRepositoryMock).save(any(Employee.class));
         }
 
         @Test
         @DisplayName("returns a Mono containing the updated Employee instance")
-        public void ReturnsEmployeeMonoTest() {
+        void ReturnsEmployeeMonoTest() {
             assertEquals(actualEmployee, expectedEmployee);
         }
     }
@@ -126,19 +126,19 @@ class EmployeeServiceImplTest {
 
         @Test
         @DisplayName("should invoke EmployeeRepository.findById")
-        public void verifyRepositoryFindByIdInvocationTest() {
+        void verifyRepositoryFindByIdInvocationTest() {
             verify(employeeRepositoryMock).findById(ID);
         }
 
         @Test
         @DisplayName("should invoke EmployeeRepository.save")
-        public void verifyRepositorySaveInvocationTest() {
+        void verifyRepositorySaveInvocationTest() {
             verify(employeeRepositoryMock).save(any(Employee.class));
         }
 
         @Test
         @DisplayName("returns the soft-deleted Employee instance")
-        public void ReturnsEmployeeTest() {
+        void ReturnsEmployeeTest() {
             assertEquals(actualEmployee, expectedDeletedEmployee);
         }
     }
