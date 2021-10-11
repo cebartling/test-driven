@@ -51,6 +51,8 @@ class EmployeeServiceTestSuite {
 }
 ```
 
+I highly recommend upgrading JUnit to version 5 or higher. The library has added a lot of new functionality that together makes writing and reading unit tests much easier than previous versions of JUnit.
+
 
 ## Mocks and Dependency Injection
 
