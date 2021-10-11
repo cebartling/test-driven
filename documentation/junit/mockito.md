@@ -26,7 +26,7 @@ Make sure you use the right MockitoJUnitRunner class. It was moved, as described
 
 ## JUnit 5
 
-JUnit 5 introduced an extension model, with the purpose of extending the behavior of test classes or methods and promoting reuse across multiple tests.JUnit 5 simplifies the extension mechanism by introducing a single concept: the Extension API. JUnit 5 extensions are related to a certain event in the execution of a test, referred to as an _extension point_. When a test event is reached, the JUnit engine calls any registered extensions for that event.
+JUnit 5 introduced an extension model, with the purpose of extending the behavior of test classes or methods and promoting reuse across multiple tests. JUnit 5 simplifies the extension mechanism by introducing a single concept: the Extension API. JUnit 5 extensions are related to a certain event in the execution of a test, referred to as an _extension point_. When a test event is reached, the JUnit engine calls any registered extensions for that event.
 
 Five main types of extension points can be used:
 
@@ -120,81 +120,6 @@ void verifyRepositorySaveInvocationTest() {
 
 ### Completed example
 
-[Link to the test suite in GitHub](https://github.com/cebartling/test-driven/blob/main/spring-boot/webflux-tdd-demo/src/test/java/com/pintailconsultingllc/webflux/demo/services/implementations/EmployeeServiceImplTest.java)
+- [Link to the JUnit 5 test suite in GitHub](https://github.com/cebartling/test-driven/blob/main/spring-boot/webflux-tdd-demo/src/test/java/com/pintailconsultingllc/webflux/demo/services/implementations/EmployeeServiceImplTest.java)
+- [Link to the system under test, `EmployeeServiceImpl`](https://github.com/cebartling/test-driven/blob/main/spring-boot/webflux-tdd-demo/src/main/java/com/pintailconsultingllc/webflux/demo/services/implementations/EmployeeServiceImpl.java)
 
-
-```java
-import com.pintailconsultingllc.webflux.demo.TestSupport;
-import com.pintailconsultingllc.webflux.demo.dtos.EmployeeDTO;
-import com.pintailconsultingllc.webflux.demo.entities.Employee;
-import com.pintailconsultingllc.webflux.demo.repositories.EmployeeRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-@ExtendWith(MockitoExtension.class)
-@DisplayName("EmployeeServiceImpl unit tests")
-@Tag(TestSupport.UNIT_TEST)
-class EmployeeServiceImplTest {
-
-    public static final int ID = 3468;
-
-    @Mock
-    EmployeeRepository employeeRepositoryMock;
-
-    @InjectMocks
-    EmployeeServiceImpl service;
-
-    @Nested
-    @DisplayName("update method")
-    class UpdateSpecifications {
-        EmployeeDTO employeeDTO;
-        Mono<Employee> employeeMono;
-        Employee expectedEmployee;
-        Employee actualEmployee;
-
-        @BeforeEach
-        public void doBeforeEachTest() {
-            employeeDTO = EmployeeDTO.builder().id(ID).name("Joe Smith").salary(45000).build();
-            expectedEmployee = new Employee(employeeDTO);
-            when(employeeRepositoryMock.findById(ID)).thenReturn(Mono.just(expectedEmployee));
-            when(employeeRepositoryMock.save(any(Employee.class))).thenReturn(Mono.just(expectedEmployee));
-            employeeMono = service.update(employeeDTO.getId(), employeeDTO);
-            StepVerifier.create(employeeMono)
-                    .consumeNextWith(employee -> actualEmployee = employee)
-                    .verifyComplete();
-        }
-
-        @Test
-        @DisplayName("should invoke EmployeeRepository.findById")
-        void verifyRepositoryFindByIdInvocationTest() {
-            verify(employeeRepositoryMock).findById(ID);
-        }
-
-        @Test
-        @DisplayName("should invoke EmployeeRepository.save")
-        void verifyRepositorySaveInvocationTest() {
-            verify(employeeRepositoryMock).save(any(Employee.class));
-        }
-
-        @Test
-        @DisplayName("returns a Mono containing the updated Employee instance")
-        void ReturnsEmployeeMonoTest() {
-            assertEquals(actualEmployee, expectedEmployee);
-        }
-    }
-}
-```
