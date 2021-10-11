@@ -2,6 +2,11 @@
 
 Mockito is the most popular test double library for Java-based environments. The following documentation demonstrates how to use the library with JUnit 4 and JUnit 5.
 
+- [Mockito.org](https://site.mockito.org/)
+- [Mockito Reference documentation](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html)
+- [Mockito RefCardz](https://dzone.com/refcardz/mockito)
+
+
 ## JUnit 4
 
 The `MockitoJUnitRunner` to instruct Mockito to initialize our test doubles annotated with `@Mock` or `@Spy` and to create and wire up the SUT using the `@InjectMocks` annotation. Using `MockitoJUnitRunner` also gives you automatic validation of framework usage, as well as an automatic `initMocks()`.
