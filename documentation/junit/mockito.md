@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MyTestSuite {
+public class EmployeeServiceTestSuite {
     ...
 }
 ```
@@ -40,8 +40,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("MyTestSuite unit tests")
-class MyTestSuite {
+@DisplayName("EmployeeService unit tests")
+class EmployeeServiceTestSuite {
     ...
 }
 ```
@@ -49,8 +49,23 @@ class MyTestSuite {
 
 ## Mocks and Dependency Injection
 
-### `@Mock`
+### `@Mock` and `@InjectMocks` 
 
+Mockito works the exactly the same way whether you are using JUnit 4 and the `MockitoJUnitRunner` or JUnit 5 and the `MockitoExtension`. In the code snippet below, I have omitted the class level annotation for the runner or extension and just focused on creating a mock `EmployeeRepository` instance and the system under test (SUT), `EmployeeServiceImpl`. Annotating a local variable with `@Mock` will automatically create a mock implementation of that type. Prefer to use interface types here. One or more mocks may be specified this way. Finally, the system under test implementation type is created with the `@InjectMocks` annotation. The `@InjectMocks` annotation handles constructor dependency injection, using the mocks created in the test and matching my type. 
 
-### `@InjectMocks`
+```java
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+class EmployeeServiceTestSuite {
+
+    @Mock
+    EmployeeRepository employeeRepositoryMock;
+
+    @InjectMocks
+    EmployeeServiceImpl service;
+
+    ...
+}
+```
 
