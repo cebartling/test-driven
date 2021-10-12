@@ -35,7 +35,6 @@ As mentioned above, an instance is auto-configured for you to inject into your u
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = EmployeeController.class,
         excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
-@Tag(TestSupport.UNIT_TEST)
 @DisplayName("EmployeeController unit tests")
 class EmployeeControllerTest {
 
