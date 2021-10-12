@@ -3,7 +3,8 @@
 ## Introduction
 
 
-## Configuring JUnit 5 unit tests for Spring WebFlux
+## Example
+### Configuring JUnit 5 unit tests for Spring WebFlux
 
 Spring provides special testing support for WebFlux. In our example, we are using JUnit 5 and Spring Boot 2.x. The following code changes need to be added to the test suite source code.
 
@@ -25,3 +26,22 @@ class EmployeeControllerTest {
 }
 ```
 
+### Injecting the `WebTestClient` instance
+
+As mentioned above, an instance is auto-configured for you to inject into your unit tests. This is accomplished with the use of the `@Autowired` annotation on an instance variable with a declared type of `WebTestClient`. The Spring TestContext Framework will inject an instance by matching the type.
+
+
+```java
+@ExtendWith(SpringExtension.class)
+@WebFluxTest(controllers = EmployeeController.class,
+        excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
+@Tag(TestSupport.UNIT_TEST)
+@DisplayName("EmployeeController unit tests")
+class EmployeeControllerTest {
+
+    @Autowired
+    WebTestClient webTestClient;
+
+    ...
+}
+```
