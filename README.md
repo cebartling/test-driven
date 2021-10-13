@@ -7,6 +7,7 @@ Various test-driven development journeys.
 ## Java
 
 - [JUnit testing patterns, tip and tricks](./documentation/junit/README.md)
+- [Testing Spring applications](./documentation/spring-framework/README.md)
 - [Spring WebFlux/Project Reactor TDD demo](./spring-boot/webflux-tdd-demo/README.md)
 
 ## JavaScript/Typescript
