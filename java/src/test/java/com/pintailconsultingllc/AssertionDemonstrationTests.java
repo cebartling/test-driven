@@ -14,6 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DisplayName("Demonstration of assertions")
 public class AssertionDemonstrationTests {
 
+    /**
+     * Assert that all supplied executables do not throw exceptions. All supplied executables are executed,
+     * regardless of success or failure of others.
+     */
     @Nested
     @DisplayName("assertAll")
     class AssertAllTests {
