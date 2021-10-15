@@ -12,4 +12,11 @@ public class AssertionDemonstration {
         }
         return true;
     }
+
+    /**
+     * This method will not throw an exception. Used for assertDoesNotThrow demonstration.
+     */
+    public void doSomethingThatDoesNotThrowException() {
+        // TODO document why this method is empty
+    }
 }

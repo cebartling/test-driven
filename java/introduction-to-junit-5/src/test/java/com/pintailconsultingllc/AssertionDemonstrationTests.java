@@ -1,19 +1,27 @@
 package com.pintailconsultingllc;
 
+import com.pintailconsultingllc.testing.annotations.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Demonstration of assertions")
 public class AssertionDemonstrationTests {
+
+    AssertionDemonstration sut;
+
+    @BeforeEach
+    public void doBeforeEachTest() {
+        sut = new AssertionDemonstration();
+    }
 
     /**
      * Assert that all supplied executables do not throw exceptions. All supplied executables are executed,
@@ -28,14 +36,7 @@ public class AssertionDemonstrationTests {
     @DisplayName("assertAll")
     class AssertAllTests {
 
-        AssertionDemonstration sut;
-
-        @BeforeEach
-        public void doBeforeEachTest() {
-            sut = new AssertionDemonstration();
-        }
-
-        @Test
+        @UnitTest
         @DisplayName("varargs usage")
         void assert_all_varargs_executables() {
             assertAll("isPrime",
@@ -45,7 +46,7 @@ public class AssertionDemonstrationTests {
             );
         }
 
-        @Test
+        @UnitTest
         @DisplayName("collection of executables usage")
         void assert_all_collection_of_executables() {
             assertAll("isPrime", List.of(
@@ -55,7 +56,7 @@ public class AssertionDemonstrationTests {
             ));
         }
 
-        @Test
+        @UnitTest
         @DisplayName("stream of executables usage")
         void assert_all_stream_of_executables() {
             assertAll("isPrime", Stream.of(
@@ -66,4 +67,32 @@ public class AssertionDemonstrationTests {
         }
     }
 
+    /**
+     * Asserts that exercising the SUT does not throw an exception. Helpful when you want to be explicit
+     * about certain scenarios not throwing exceptions.
+     */
+    @Nested
+    @DisplayName("assertDoesNotThrow")
+    class AssertDoesNotThrowTests {
+
+        @UnitTest
+        @DisplayName("basic usage")
+        void basic_usage() {
+            assertDoesNotThrow(() -> sut.doSomethingThatDoesNotThrowException());
+        }
+    }
+
+    /**
+     * Asserts that an object instance is of a specific type.
+     */
+    @Nested
+    @DisplayName("assertInstanceOf")
+    class AssertInstanceOfTests {
+
+        @UnitTest
+        @DisplayName("basic usage")
+        void basic_usage() {
+
+        }
+    }
 }
