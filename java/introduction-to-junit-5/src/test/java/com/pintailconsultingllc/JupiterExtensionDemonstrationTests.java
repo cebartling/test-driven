@@ -9,10 +9,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith({
-        CompanyModelInjectionExtension.class,
-        DatabaseManagementExtension.class
-})
+/**
+ * Sample test suite that demonstrates the use of custom-built JUnit 5 Jupiter extensions
+ * which customize the test suite via lifecycle callbacks.
+ */
+@ExtendWith(CompanyModelInjectionExtension.class)
+@ExtendWith(DatabaseManagementExtension.class)
+//@ExtendWith({
+//        CompanyModelInjectionExtension.class,
+//        DatabaseManagementExtension.class
+//})
 @DisplayName("Jupiter extensions demonstration")
 public class JupiterExtensionDemonstrationTests {
 
@@ -25,7 +31,8 @@ public class JupiterExtensionDemonstrationTests {
     @Test
     @DisplayName("verify companyModel is being injected")
     void companyModelInjectionTest() {
-        assertNotNull(companyModel);
+        assertNotNull(companyModel,
+                "The CompanyModel instance should have been injected by the CompanyModelInjectionExtension.");
     }
 
 }
