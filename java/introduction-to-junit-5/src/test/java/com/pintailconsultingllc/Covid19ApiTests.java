@@ -32,7 +32,7 @@ public class Covid19ApiTests {
             // Assumption is that the RapidApiKey is available.
             String rapidApiKey = System.getenv(Covid19Api.ENV_VAR_RAPID_API_KEY);
             assumeTrue(rapidApiKey != null && !rapidApiKey.isEmpty(),
-                    "The RapidApiKey is not available as a environment variable.");
+                    "The RapidApiKey is not available as an environment variable.");
         }
 
         @BeforeEach
