@@ -12,6 +12,12 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+/**
+ * This test suite demonstrates two JUnit 5 features: the use of custom composed tags and the use of
+ * assumptions in your test suites and tests. The use of the IntegrationTest tag is used in this
+ * test suite. There is an assumption being used to check that the RapidApiKey value is set
+ * as an environment variable.
+ */
 @DisplayName("Covid19 API test suite")
 public class Covid19ApiTests {
 
@@ -28,6 +34,10 @@ public class Covid19ApiTests {
 
         HttpResponse<String> httpResponse;
 
+        /**
+         * JUnit 5 assumption specified here, checking to ensure that the RapidApiKey
+         * environment variable is set.
+         */
         void assumptions() {
             // Assumption is that the RapidApiKey is available.
             String rapidApiKey = System.getenv(Covid19Api.ENV_VAR_RAPID_API_KEY);
@@ -41,6 +51,10 @@ public class Covid19ApiTests {
             httpResponse = sut.dataByCountryCode("us");
         }
 
+        /**
+         * This test is tagged as an integration test and thus can be grouped with other integration
+         * tests.
+         */
         @IntegrationTest
         @DisplayName("success")
         public void SuccessfulTest() {
