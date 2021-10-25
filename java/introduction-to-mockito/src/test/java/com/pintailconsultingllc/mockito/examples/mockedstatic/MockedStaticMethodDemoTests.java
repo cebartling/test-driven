@@ -1,4 +1,4 @@
-package com.pintailconsultingllc.mockito.examples;
+package com.pintailconsultingllc.mockito.examples.mockedstatic;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.pintailconsultingllc.mockito.examples;
+package com.pintailconsultingllc.mockito.examples.mockedstatic;
 
 public class MockedStaticMethodDemo {
 
