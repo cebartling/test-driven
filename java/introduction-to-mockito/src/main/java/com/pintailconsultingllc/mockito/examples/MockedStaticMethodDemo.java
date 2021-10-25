@@ -1,10 +1,10 @@
 package com.pintailconsultingllc.mockito.examples;
 
-public class MockingStaticMethodDemo {
+public class MockedStaticMethodDemo {
 
     public static final String NAME = "foobar";
 
-    private MockingStaticMethodDemo() {
+    private MockedStaticMethodDemo() {
     }
 
     public static String getName() {

@@ -11,7 +11,7 @@ import static org.mockito.Mockito.mockStatic;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Mockito support for mocking static methods on classes")
-class MockingStaticMethodTests {
+class MockedStaticMethodDemoTests {
 
     final String expectedNonMockedName = "foobar";
     final String expectedMockName = "barfoo";
@@ -19,12 +19,12 @@ class MockingStaticMethodTests {
     @Test
     @DisplayName("demonstration")
     void DemonstrationTest() {
-        assertEquals(expectedNonMockedName, MockingStaticMethodDemo.getName());
-        try (MockedStatic<MockingStaticMethodDemo> mockedStatic = mockStatic(MockingStaticMethodDemo.class)) {
-            mockedStatic.when(MockingStaticMethodDemo::getName).thenReturn(expectedMockName);
-            assertEquals(expectedMockName, MockingStaticMethodDemo.getName());
+        assertEquals(expectedNonMockedName, MockedStaticMethodDemo.getName());
+        try (MockedStatic<MockedStaticMethodDemo> mockedStatic = mockStatic(MockedStaticMethodDemo.class)) {
+            mockedStatic.when(MockedStaticMethodDemo::getName).thenReturn(expectedMockName);
+            assertEquals(expectedMockName, MockedStaticMethodDemo.getName());
         }
-        assertEquals(expectedNonMockedName, MockingStaticMethodDemo.getName());
+        assertEquals(expectedNonMockedName, MockedStaticMethodDemo.getName());
     }
 
 }
