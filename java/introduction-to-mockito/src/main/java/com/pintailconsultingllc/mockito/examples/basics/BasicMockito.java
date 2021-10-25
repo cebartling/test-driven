@@ -1,4 +1,4 @@
-package com.pintailconsultingllc.mockito.examples;
+package com.pintailconsultingllc.mockito.examples.basics;
 
 /**
  * Example class that acts as a system under test.
@@ -11,7 +11,11 @@ public class BasicMockito {
         this.basicMockitoDependency = basicMockitoDependency;
     }
 
-    public void doSomething() {
-        basicMockitoDependency.doSomethingDelegated();
+    public String doSomething() {
+        return basicMockitoDependency.doSomethingDelegated();
+    }
+
+    public void doSomethingAsync(String eventName) {
+        basicMockitoDependency.fireEvent(eventName);
     }
 }
