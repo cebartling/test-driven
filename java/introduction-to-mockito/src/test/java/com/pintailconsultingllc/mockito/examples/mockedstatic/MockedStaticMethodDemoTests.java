@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mockStatic;
 @DisplayName("Mockito support for mocking static methods on classes")
 class MockedStaticMethodDemoTests {
 
-    final String expectedNonMockedName = "foobar";
+    final String expectedNonMockedName = MockedStaticMethodDemo.NAME;
     final String expectedMockName = "barfoo";
 
     @Test
