@@ -9,6 +9,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mockStatic;
 
+/**
+ * This test suite demonstrates using Mockito's MockedStatic and mockStatic facilities for intercepting
+ * static method invocations and supplying mock implementations of these methods.
+ */
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Mockito support for mocking static methods on classes")
 class MockedStaticMethodDemoTests {
