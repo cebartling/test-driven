@@ -26,7 +26,9 @@ class MockedStaticMethodDemoTests {
         assertEquals(expectedNonMockedName, MockedStaticMethodDemo.getName());
         try (MockedStatic<MockedStaticMethodDemo> mockedStatic = mockStatic(MockedStaticMethodDemo.class)) {
             mockedStatic.when(MockedStaticMethodDemo::getName).thenReturn(expectedMockName);
-            assertEquals(expectedMockName, MockedStaticMethodDemo.getName());
+            final String actual = MockedStaticMethodDemo.getName();
+            assertEquals(expectedMockName, actual);
+            mockedStatic.verify(MockedStaticMethodDemo::getName);
         }
         assertEquals(expectedNonMockedName, MockedStaticMethodDemo.getName());
     }
