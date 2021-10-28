@@ -27,6 +27,7 @@ import static org.mockito.Mockito.when;
 class EmployeeServiceImplTest {
 
     public static final int ID = 3468;
+
     @Mock
     EmployeeRepository employeeRepositoryMock;
 
@@ -73,6 +74,13 @@ class EmployeeServiceImplTest {
         Mono<Employee> employeeMono;
         Employee expectedEmployee;
         Employee actualEmployee;
+
+        @Nested
+        @DisplayName("success pathway")
+        class SuccessTests {
+
+        }
+
 
         @BeforeEach
         public void doBeforeEachTest() {
