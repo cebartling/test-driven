@@ -77,7 +77,7 @@ class EmployeeServiceImplTest {
         Employee actualEmployee;
 
         @Nested
-        @DisplayName("employee found")
+        @DisplayName("when employee is found")
         class SuccessTests {
             @BeforeEach
             public void doBeforeEachTest() {
@@ -111,7 +111,7 @@ class EmployeeServiceImplTest {
         }
 
         @Nested
-        @DisplayName("employee not found")
+        @DisplayName("when employee is not found")
         class EmployeeNotFoundTests {
             @BeforeEach
             public void doBeforeEachTest() {
@@ -157,7 +157,7 @@ class EmployeeServiceImplTest {
         Employee actualEmployee;
 
         @Nested
-        @DisplayName("employee found")
+        @DisplayName("when employee is found")
         class SuccessTests {
             @BeforeEach
             public void doBeforeEachTest() {
@@ -191,7 +191,7 @@ class EmployeeServiceImplTest {
         }
 
         @Nested
-        @DisplayName("employee not found")
+        @DisplayName("when employee is not found")
         class EmployeeNotFoundTests {
             private Mono<Employee> employeeMono;
 
