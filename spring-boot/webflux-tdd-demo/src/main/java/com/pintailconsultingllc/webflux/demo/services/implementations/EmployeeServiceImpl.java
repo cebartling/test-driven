@@ -4,7 +4,6 @@ import com.pintailconsultingllc.webflux.demo.dtos.EmployeeDTO;
 import com.pintailconsultingllc.webflux.demo.entities.Employee;
 import com.pintailconsultingllc.webflux.demo.repositories.EmployeeRepository;
 import com.pintailconsultingllc.webflux.demo.services.EmployeeService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -29,7 +28,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                     employee.setName(employeeDTO.getName());
                     employee.setSalary(employeeDTO.getSalary());
                     return employeeRepository.save(employee);
-                });
+                })
+                .switchIfEmpty(Mono.error(new RuntimeException(String.format("Unable to find employee by ID: %d", id))));
     }
 
     @Override
@@ -38,6 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .flatMap(employee -> {
                     employee.setDeleted(true);
                     return employeeRepository.save(employee);
-                });
+                })
+                .switchIfEmpty(Mono.error(new RuntimeException(String.format("Unable to find employee by ID: %d", id))));
     }
 }

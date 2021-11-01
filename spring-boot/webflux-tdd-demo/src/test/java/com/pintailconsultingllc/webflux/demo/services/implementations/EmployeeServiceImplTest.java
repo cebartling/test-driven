@@ -18,6 +18,7 @@ import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -76,40 +77,75 @@ class EmployeeServiceImplTest {
         Employee actualEmployee;
 
         @Nested
-        @DisplayName("success pathway")
+        @DisplayName("employee found")
         class SuccessTests {
+            @BeforeEach
+            public void doBeforeEachTest() {
+                employeeDTO = EmployeeDTO.builder().id(ID).name("Joe Smith").salary(45000).build();
+                expectedEmployee = new Employee(employeeDTO);
+                when(employeeRepositoryMock.findById(ID)).thenReturn(Mono.just(expectedEmployee));
+                when(employeeRepositoryMock.save(any(Employee.class))).thenReturn(Mono.just(expectedEmployee));
+                employeeMono = service.update(employeeDTO.getId(), employeeDTO);
+                StepVerifier.create(employeeMono)
+                        .consumeNextWith(employee -> actualEmployee = employee)
+                        .verifyComplete();
+            }
 
+            @Test
+            @DisplayName("should invoke EmployeeRepository.findById")
+            void verifyRepositoryFindByIdInvocationTest() {
+                verify(employeeRepositoryMock).findById(ID);
+            }
+
+            @Test
+            @DisplayName("should invoke EmployeeRepository.save")
+            void verifyRepositorySaveInvocationTest() {
+                verify(employeeRepositoryMock).save(any(Employee.class));
+            }
+
+            @Test
+            @DisplayName("returns a Mono containing the updated Employee instance")
+            void ReturnsEmployeeMonoTest() {
+                assertEquals(actualEmployee, expectedEmployee);
+            }
         }
 
+        @Nested
+        @DisplayName("employee not found")
+        class EmployeeNotFoundTests {
+            @BeforeEach
+            public void doBeforeEachTest() {
+                employeeDTO = EmployeeDTO.builder().id(ID).name("Joe Smith").salary(45000).build();
+                expectedEmployee = new Employee(employeeDTO);
+                when(employeeRepositoryMock.findById(ID)).thenReturn(Mono.empty());
+                employeeMono = service.update(employeeDTO.getId(), employeeDTO);
+            }
 
-        @BeforeEach
-        public void doBeforeEachTest() {
-            employeeDTO = EmployeeDTO.builder().id(ID).name("Joe Smith").salary(45000).build();
-            expectedEmployee = new Employee(employeeDTO);
-            when(employeeRepositoryMock.findById(ID)).thenReturn(Mono.just(expectedEmployee));
-            when(employeeRepositoryMock.save(any(Employee.class))).thenReturn(Mono.just(expectedEmployee));
-            employeeMono = service.update(employeeDTO.getId(), employeeDTO);
-            StepVerifier.create(employeeMono)
-                    .consumeNextWith(employee -> actualEmployee = employee)
-                    .verifyComplete();
-        }
+            @Test
+            @DisplayName("should invoke EmployeeRepository.findById")
+            void verifyRepositoryFindByIdInvocationTest() {
+                StepVerifier.create(employeeMono)
+                        .expectError()
+                        .verify();
+                verify(employeeRepositoryMock).findById(ID);
+            }
 
-        @Test
-        @DisplayName("should invoke EmployeeRepository.findById")
-        void verifyRepositoryFindByIdInvocationTest() {
-            verify(employeeRepositoryMock).findById(ID);
-        }
+            @Test
+            @DisplayName("should not invoke EmployeeRepository.save")
+            void verifyRepositorySaveInvocationTest() {
+                StepVerifier.create(employeeMono)
+                        .expectError()
+                        .verify();
+                verify(employeeRepositoryMock, never()).save(any(Employee.class));
+            }
 
-        @Test
-        @DisplayName("should invoke EmployeeRepository.save")
-        void verifyRepositorySaveInvocationTest() {
-            verify(employeeRepositoryMock).save(any(Employee.class));
-        }
-
-        @Test
-        @DisplayName("returns a Mono containing the updated Employee instance")
-        void ReturnsEmployeeMonoTest() {
-            assertEquals(actualEmployee, expectedEmployee);
+            @Test
+            @DisplayName("returns a Mono error")
+            void verifyMonoErrorTest() {
+                StepVerifier.create(employeeMono)
+                        .expectErrorMessage(String.format("Unable to find employee by ID: %d", ID))
+                        .verify();
+            }
         }
     }
 
@@ -120,34 +156,77 @@ class EmployeeServiceImplTest {
         Employee expectedDeletedEmployee;
         Employee actualEmployee;
 
-        @BeforeEach
-        public void doBeforeEachTest() {
-            expectedEmployee = Employee.builder().id(ID).name("Joe Smith").salary(45000).deleted(false).build();
-            expectedDeletedEmployee = Employee.builder().id(ID).name("Joe Smith").salary(45000).deleted(false).build();
-            when(employeeRepositoryMock.findById(ID)).thenReturn(Mono.just(expectedEmployee));
-            when(employeeRepositoryMock.save(any(Employee.class))).thenReturn(Mono.just(expectedDeletedEmployee));
-            Mono<Employee> employeeMono = service.delete(ID);
-            StepVerifier.create(employeeMono)
-                    .consumeNextWith(employee -> actualEmployee = employee)
-                    .verifyComplete();
+        @Nested
+        @DisplayName("employee found")
+        class SuccessTests {
+            @BeforeEach
+            public void doBeforeEachTest() {
+                expectedEmployee = Employee.builder().id(ID).name("Joe Smith").salary(45000).deleted(false).build();
+                expectedDeletedEmployee = Employee.builder().id(ID).name("Joe Smith").salary(45000).deleted(false).build();
+                when(employeeRepositoryMock.findById(ID)).thenReturn(Mono.just(expectedEmployee));
+                when(employeeRepositoryMock.save(any(Employee.class))).thenReturn(Mono.just(expectedDeletedEmployee));
+                Mono<Employee> employeeMono = service.delete(ID);
+                StepVerifier.create(employeeMono)
+                        .consumeNextWith(employee -> actualEmployee = employee)
+                        .verifyComplete();
+            }
+
+            @Test
+            @DisplayName("should invoke EmployeeRepository.findById")
+            void verifyRepositoryFindByIdInvocationTest() {
+                verify(employeeRepositoryMock).findById(ID);
+            }
+
+            @Test
+            @DisplayName("should invoke EmployeeRepository.save")
+            void verifyRepositorySaveInvocationTest() {
+                verify(employeeRepositoryMock).save(any(Employee.class));
+            }
+
+            @Test
+            @DisplayName("returns the soft-deleted Employee instance")
+            void ReturnsEmployeeTest() {
+                assertEquals(actualEmployee, expectedDeletedEmployee);
+            }
         }
 
-        @Test
-        @DisplayName("should invoke EmployeeRepository.findById")
-        void verifyRepositoryFindByIdInvocationTest() {
-            verify(employeeRepositoryMock).findById(ID);
-        }
+        @Nested
+        @DisplayName("employee not found")
+        class EmployeeNotFoundTests {
+            private Mono<Employee> employeeMono;
 
-        @Test
-        @DisplayName("should invoke EmployeeRepository.save")
-        void verifyRepositorySaveInvocationTest() {
-            verify(employeeRepositoryMock).save(any(Employee.class));
-        }
+            @BeforeEach
+            public void doBeforeEachTest() {
+                expectedEmployee = Employee.builder().id(ID).name("Joe Smith").salary(45000).deleted(false).build();
+                when(employeeRepositoryMock.findById(ID)).thenReturn(Mono.empty());
+                employeeMono = service.delete(ID);
+            }
 
-        @Test
-        @DisplayName("returns the soft-deleted Employee instance")
-        void ReturnsEmployeeTest() {
-            assertEquals(actualEmployee, expectedDeletedEmployee);
+            @Test
+            @DisplayName("should invoke EmployeeRepository.findById")
+            void verifyRepositoryFindByIdInvocationTest() {
+                StepVerifier.create(employeeMono)
+                        .expectError()
+                        .verify();
+                verify(employeeRepositoryMock).findById(ID);
+            }
+
+            @Test
+            @DisplayName("should not invoke EmployeeRepository.save")
+            void verifyRepositorySaveInvocationTest() {
+                StepVerifier.create(employeeMono)
+                        .expectError()
+                        .verify();
+                verify(employeeRepositoryMock, never()).save(any(Employee.class));
+            }
+
+            @Test
+            @DisplayName("returns a Mono error")
+            void verifyMonoErrorTest() {
+                StepVerifier.create(employeeMono)
+                        .expectErrorMessage(String.format("Unable to find employee by ID: %d", ID))
+                        .verify();
+            }
         }
     }
 }
