@@ -30,16 +30,18 @@ describe('Introduction to Jasmine Framework specs', () => {
   describe('using spyOn', () => {
     let actual: string[];
     const expectedResult = ['result1'];
+    let spy: jasmine.Spy;
 
     beforeEach(() => {
       barfoo = new Barfoo('barfoo');
       foobar = new Foobar(barfoo);
-      spyOn(barfoo, 'fetchData').withArgs(expectedId).and.returnValue(expectedResult);
+      spy = spyOn(barfoo, 'fetchData').withArgs(expectedId).and.returnValue(expectedResult);
       actual = foobar.getData(expectedId);
     });
 
     it('should invoke Barfoo.fetchData', () => {
-      expect(barfoo.fetchData).toHaveBeenCalledWith(expectedId);
+      // expect(barfoo.fetchData).toHaveBeenCalledWith(expectedId);
+      expect(spy).toHaveBeenCalledWith(expectedId);
     });
 
     it('should return the result from the Barfoo.fetchData invocation', () => {
@@ -75,9 +77,11 @@ describe('Introduction to Jasmine Framework specs', () => {
     beforeEach(() => {
       barfoo = new Barfoo('barfoo');
       barfoo.fetchData = jasmine
-        .createSpy('fetchData', barfoo.fetchData)
+        // .createSpy('fetchData', barfoo.fetchData)
+        .createSpy()
         .withArgs(expectedId)
         .and.returnValue(expectedResult);
+      // .and.callThrough();
       foobar = new Foobar(barfoo);
       actual = foobar.getData(expectedId);
     });
