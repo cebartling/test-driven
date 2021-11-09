@@ -4,6 +4,7 @@ import com.pintailconsultingllc.testing.annotations.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -26,14 +27,14 @@ public class AssertionDemonstrationTests {
     /**
      * Assert that all supplied executables do not throw exceptions. All supplied executables are executed,
      * regardless of success or failure of others.
-     *
+     * <p>
      * The interesting thing about assertAll is that it always checks all of the assertions that are passed
      * to it, no matter how many fail. If all pass, all is fine. If at least one fails you get a detailed
      * result of all that went wrong. It is best used for asserting a set of properties that belong
      * together.
      */
     @Nested
-    @DisplayName("assertAll")
+    @DisplayName("assertAll assertion demonstration")
     class AssertAllTests {
 
         @UnitTest
@@ -44,6 +45,9 @@ public class AssertionDemonstrationTests {
                     () -> assertFalse(sut.isPrime(4)),
                     () -> assertFalse(sut.isPrime(2344))
             );
+//            assertTrue(sut.isPrime(2));
+//            assertFalse(sut.isPrime(4));
+//            assertFalse(sut.isPrime(2344));
         }
 
         @UnitTest
