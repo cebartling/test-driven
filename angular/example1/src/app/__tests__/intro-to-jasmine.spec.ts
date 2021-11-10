@@ -36,6 +36,7 @@ describe('Introduction to Jasmine Framework specs', () => {
       barfoo = new Barfoo('barfoo');
       foobar = new Foobar(barfoo);
       spy = spyOn(barfoo, 'fetchData').withArgs(expectedId).and.returnValue(expectedResult);
+      // spyOn(barfoo, 'fetchData').withArgs(expectedId).and.returnValue(expectedResult);
       actual = foobar.getData(expectedId);
     });
 
