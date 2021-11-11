@@ -14,4 +14,5 @@ public class Department {
     @Id
     Integer id;
     String name;
+    Boolean deleted;
 }

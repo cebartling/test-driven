@@ -18,6 +18,7 @@ import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -73,20 +74,150 @@ class DepartmentServiceImplTest {
     @Nested
     @DisplayName("update method")
     class UpdateTests {
-        @BeforeEach
-        public void doBeforeEachTest() {
 
+        @Nested
+        @DisplayName("when department is found")
+        class WhenDepartmentIsFoundTests {
+
+            @BeforeEach
+            public void doBeforeEachTest() {
+                when(departmentRepositoryMock.findById(department.getId())).thenReturn(Mono.just(department));
+                when(departmentRepositoryMock.save(any(Department.class))).thenReturn(Mono.just(department));
+                actualDepartmentMono = service.update(department.getId(), departmentDTO);
+                StepVerifier.create(actualDepartmentMono)
+                        .consumeNextWith(department -> actualDepartment = department)
+                        .verifyComplete();
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentRepository.findById, finding the matching department")
+            void verifyFindByIdInvocationTest() {
+                verify(departmentRepositoryMock).findById(department.getId());
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentRepository.save, saving the department updates")
+            void verifySaveInvocationTest() {
+                verify(departmentRepositoryMock).save(any(Department.class));
+            }
+
+            @Test
+            @DisplayName("should return a Mono containing the updated Department object")
+            void verifyDirectOutputTest() {
+                assertEquals(department, actualDepartment);
+            }
         }
 
+        @Nested
+        @DisplayName("when department is not found")
+        class WhenDepartmentIsNotFoundTests {
+
+            @BeforeEach
+            public void doBeforeEachTest() {
+                when(departmentRepositoryMock.findById(department.getId())).thenReturn(Mono.empty());
+                actualDepartmentMono = service.update(department.getId(), departmentDTO);
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentRepository.findById")
+            void verifyRepositoryFindByIdInvocationTest() {
+                StepVerifier.create(actualDepartmentMono)
+                        .expectError()
+                        .verify();
+                verify(departmentRepositoryMock).findById(department.getId());
+            }
+
+            @Test
+            @DisplayName("should not invoke DepartmentRepository.save")
+            void verifyRepositorySaveInvocationTest() {
+                StepVerifier.create(actualDepartmentMono)
+                        .expectError()
+                        .verify();
+                verify(departmentRepositoryMock, never()).save(any(Department.class));
+            }
+
+            @Test
+            @DisplayName("returns a Mono error")
+            void verifyMonoErrorTest() {
+                StepVerifier.create(actualDepartmentMono)
+                        .expectErrorMessage(String.format("Unable to find department by ID: %d", department.getId()))
+                        .verify();
+            }
+        }
     }
 
     @Nested
     @DisplayName("delete method")
     class DeleteTests {
-        @BeforeEach
-        public void doBeforeEachTest() {
 
+        @Nested
+        @DisplayName("when department is found")
+        class WhenDepartmentIsFoundTests {
+
+            @BeforeEach
+            public void doBeforeEachTest() {
+                when(departmentRepositoryMock.findById(department.getId())).thenReturn(Mono.just(department));
+                when(departmentRepositoryMock.save(any(Department.class))).thenReturn(Mono.just(department));
+                actualDepartmentMono = service.delete(department.getId());
+                StepVerifier.create(actualDepartmentMono)
+                        .consumeNextWith(department -> actualDepartment = department)
+                        .verifyComplete();
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentRepository.findById, finding the matching department")
+            void verifyFindByIdInvocationTest() {
+                verify(departmentRepositoryMock).findById(department.getId());
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentRepository.save, saving the department updates")
+            void verifySaveInvocationTest() {
+                verify(departmentRepositoryMock).save(any(Department.class));
+            }
+
+            @Test
+            @DisplayName("should return a Mono containing the updated Department object")
+            void verifyDirectOutputTest() {
+                assertEquals(department, actualDepartment);
+            }
         }
 
+        @Nested
+        @DisplayName("when department is not found")
+        class WhenDepartmentIsNotFoundTests {
+
+            @BeforeEach
+            public void doBeforeEachTest() {
+                when(departmentRepositoryMock.findById(department.getId())).thenReturn(Mono.empty());
+                actualDepartmentMono = service.delete(department.getId());
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentRepository.findById")
+            void verifyRepositoryFindByIdInvocationTest() {
+                StepVerifier.create(actualDepartmentMono)
+                        .expectError()
+                        .verify();
+                verify(departmentRepositoryMock).findById(department.getId());
+            }
+
+            @Test
+            @DisplayName("should not invoke DepartmentRepository.save")
+            void verifyRepositorySaveInvocationTest() {
+                StepVerifier.create(actualDepartmentMono)
+                        .expectError()
+                        .verify();
+                verify(departmentRepositoryMock, never()).save(any(Department.class));
+            }
+
+            @Test
+            @DisplayName("returns a Mono error")
+            void verifyMonoErrorTest() {
+                StepVerifier.create(actualDepartmentMono)
+                        .expectErrorMessage(String.format("Unable to find department by ID: %d", department.getId()))
+                        .verify();
+            }
+        }
     }
 }

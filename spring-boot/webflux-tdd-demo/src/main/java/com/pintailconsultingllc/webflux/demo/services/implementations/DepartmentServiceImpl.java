@@ -24,11 +24,21 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Mono<Department> update(Integer id, DepartmentDTO departmentDTO) {
-        return null;
+        return departmentRepository.findById(id)
+                .flatMap(department -> {
+                    department.setName(departmentDTO.getName());
+                    return departmentRepository.save(department);
+                })
+                .switchIfEmpty(Mono.error(new RuntimeException(String.format("Unable to find department by ID: %d", id))));
     }
 
     @Override
     public Mono<Department> delete(Integer id) {
-        return null;
+        return departmentRepository.findById(id)
+                .flatMap(department -> {
+                    department.setDeleted(true);
+                    return departmentRepository.save(department);
+                })
+                .switchIfEmpty(Mono.error(new RuntimeException(String.format("Unable to find department by ID: %d", id))));
     }
 }
