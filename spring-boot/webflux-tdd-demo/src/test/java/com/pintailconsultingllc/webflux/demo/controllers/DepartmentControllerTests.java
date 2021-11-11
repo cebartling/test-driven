@@ -272,4 +272,70 @@ class DepartmentControllerTests {
         }
     }
 
+    @Nested
+    @DisplayName("DELETE /departments/{id}")
+    class DeleteDepartmentTests {
+
+        @Nested
+        @DisplayName("when department is found")
+        class WhenDepartmentIsFoundTests {
+            @BeforeEach
+            public void doBeforeEachTest() {
+                when(departmentService.delete(department1.getId())).thenReturn(Mono.just(department1));
+                responseSpec = webTestClient.delete()
+                        .uri(String.format("/departments/%d", department1.getId()))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .exchange();
+            }
+
+            @Test
+            @DisplayName("should return a status of 204 (No Content)")
+            void verifyResponseStatusCodeTest() {
+                responseSpec.expectStatus().isNoContent();
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentService.delete method, soft-deleting an existing department")
+            void verifyDeleteInvocationOnDepartmentServiceTest() {
+                verify(departmentService).delete(department1.getId());
+            }
+
+            @Test
+            @DisplayName("should not return a resource representation in the response entity-body")
+            void verifyNoBodyTest() {
+                responseSpec.expectBody().isEmpty();
+            }
+        }
+
+        @Nested
+        @DisplayName("when department is not found")
+        class WhenDepartmentIsNotFoundTests {
+            @BeforeEach
+            public void doBeforeEachTest() {
+                when(departmentService.delete(department1.getId())).thenReturn(Mono.empty());
+                responseSpec = webTestClient.delete()
+                        .uri(String.format("/departments/%d", department1.getId()))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .exchange();
+            }
+
+            @Test
+            @DisplayName("should return a status of 404 (Not Found)")
+            void verifyResponseStatusCodeTest() {
+                responseSpec.expectStatus().isNotFound();
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentService.delete method")
+            void verifyDeleteInvocationOnDepartmentServiceTest() {
+                verify(departmentService).delete(department1.getId());
+            }
+
+            @Test
+            @DisplayName("should not return a resource representation in the response entity-body")
+            void verifyNoBodyTest() {
+                responseSpec.expectBody().isEmpty();
+            }
+        }
+    }
 }

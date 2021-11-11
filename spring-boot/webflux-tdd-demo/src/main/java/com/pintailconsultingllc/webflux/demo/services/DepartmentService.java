@@ -22,4 +22,12 @@ public interface DepartmentService {
      * @return A Mono containing the updated Department entity.
      */
     Mono<Department> update(Integer id, DepartmentDTO departmentDTO);
+
+    /**
+     * Soft-delete an existing department entity, using the id.
+     *
+     * @param id The unique identifier for the department.
+     * @return A Mono containing the soft-deleted Department entity.
+     */
+    Mono<Department> delete(Integer id);
 }

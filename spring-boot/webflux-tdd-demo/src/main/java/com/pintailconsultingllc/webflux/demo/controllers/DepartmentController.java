@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,6 +63,16 @@ public class DepartmentController {
             @RequestBody DepartmentDTO departmentDTO
     ) {
         return departmentService.update(id, departmentDTO)
+                .map(department -> ResponseEntity.noContent().<Void>build())
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<ResponseEntity<Void>> delete(
+            @PathVariable("id") Integer id
+    ) {
+        return departmentService.delete(id)
                 .map(department -> ResponseEntity.noContent().<Void>build())
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }

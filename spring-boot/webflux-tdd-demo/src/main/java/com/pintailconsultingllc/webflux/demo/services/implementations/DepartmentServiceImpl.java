@@ -18,4 +18,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Mono<Department> update(Integer id, DepartmentDTO departmentDTO) {
         return null;
     }
+
+    @Override
+    public Mono<Department> delete(Integer id) {
+        return null;
+    }
 }
