@@ -46,11 +46,14 @@ class DepartmentControllerTests {
 
     Department department1;
     Department department2;
+    DepartmentDTO departmentDTO;
+
 
     @BeforeEach
     public void doBeforeEachTest() {
         department1 = Department.builder().id(200).name("Finance").build();
         department2 = Department.builder().id(201).name("Human resources").build();
+        departmentDTO = new DepartmentDTO(department1);
     }
 
     @Nested
@@ -160,11 +163,9 @@ class DepartmentControllerTests {
     @Nested
     @DisplayName("POST /departments")
     class CreateNewDepartmentTests {
-        DepartmentDTO departmentDTO;
 
         @BeforeEach
         public void doBeforeEachTest() {
-            departmentDTO = new DepartmentDTO(department1);
             when(departmentService.create(departmentDTO)).thenReturn(Mono.just(department1));
             responseSpec = webTestClient.post()
                     .uri("/departments")
@@ -207,13 +208,67 @@ class DepartmentControllerTests {
         @Nested
         @DisplayName("when department is found")
         class WhenDepartmentIsFoundTests {
+            @BeforeEach
+            public void doBeforeEachTest() {
+                when(departmentService.update(department1.getId(), departmentDTO)).thenReturn(Mono.just(department1));
+                responseSpec = webTestClient.put()
+                        .uri(String.format("/departments/%d", department1.getId()))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(Mono.just(departmentDTO), DepartmentDTO.class)
+                        .exchange();
+            }
 
+            @Test
+            @DisplayName("should return a status of 204 (No Content)")
+            void verifyResponseStatusCodeTest() {
+                responseSpec.expectStatus().isNoContent();
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentService.update method, updating an existing department")
+            void verifyUpdateInvocationOnDepartmentServiceTest() {
+                verify(departmentService).update(department1.getId(), departmentDTO);
+            }
+
+            @Test
+            @DisplayName("should not return a resource representation in the response entity-body")
+            void verifyNoBodyTest() {
+                responseSpec.expectBody().isEmpty();
+            }
         }
 
         @Nested
         @DisplayName("when department is not found")
         class WhenDepartmentIsNotFoundTests {
+            @BeforeEach
+            public void doBeforeEachTest() {
+                when(departmentService.update(department1.getId(), departmentDTO)).thenReturn(Mono.empty());
+                responseSpec = webTestClient.put()
+                        .uri(String.format("/departments/%d", department1.getId()))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(Mono.just(departmentDTO), DepartmentDTO.class)
+                        .exchange();
+            }
 
+            @Test
+            @DisplayName("should return a status of 404 (Not Found)")
+            void verifyResponseStatusCodeTest() {
+                responseSpec.expectStatus().isNotFound();
+            }
+
+            @Test
+            @DisplayName("should invoke DepartmentService.update method")
+            void verifyUpdateInvocationOnDepartmentServiceTest() {
+                verify(departmentService).update(department1.getId(), departmentDTO);
+            }
+
+            @Test
+            @DisplayName("should not return a resource representation in the response entity-body")
+            void verifyNoBodyTest() {
+                responseSpec.expectBody().isEmpty();
+            }
         }
     }
 

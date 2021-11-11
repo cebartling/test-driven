@@ -1,8 +1,8 @@
 package com.pintailconsultingllc.webflux.demo.controllers;
 
-import com.pintailconsultingllc.webflux.demo.exceptions.ResourceLocationURIException;
 import com.pintailconsultingllc.webflux.demo.dtos.DepartmentDTO;
 import com.pintailconsultingllc.webflux.demo.entities.Department;
+import com.pintailconsultingllc.webflux.demo.exceptions.ResourceLocationURIException;
 import com.pintailconsultingllc.webflux.demo.repositories.DepartmentRepository;
 import com.pintailconsultingllc.webflux.demo.services.DepartmentService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -52,6 +53,17 @@ public class DepartmentController {
     public Mono<ResponseEntity<Void>> create(@RequestBody DepartmentDTO departmentDTO) {
         return departmentService.create(departmentDTO)
                 .map(department -> ResponseEntity.created(createResourceUri(department)).build());
+    }
+
+    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<ResponseEntity<Void>> update(
+            @PathVariable("id") Integer id,
+            @RequestBody DepartmentDTO departmentDTO
+    ) {
+        return departmentService.update(id, departmentDTO)
+                .map(department -> ResponseEntity.noContent().<Void>build())
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     private URI createResourceUri(Department department) {

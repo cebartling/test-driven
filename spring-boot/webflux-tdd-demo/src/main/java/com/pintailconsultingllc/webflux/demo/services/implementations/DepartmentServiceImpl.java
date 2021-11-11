@@ -13,4 +13,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Mono<Department> create(DepartmentDTO departmentDTO) {
         return null;
     }
+
+    @Override
+    public Mono<Department> update(Integer id, DepartmentDTO departmentDTO) {
+        return null;
+    }
 }

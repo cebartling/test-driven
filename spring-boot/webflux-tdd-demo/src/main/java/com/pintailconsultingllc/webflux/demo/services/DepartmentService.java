@@ -13,4 +13,13 @@ public interface DepartmentService {
      * @return A Mono containing the newly created Department entity.
      */
     Mono<Department> create(DepartmentDTO departmentDTO);
+
+    /**
+     * Update an existing department entity, using the department data transfer object data.
+     *
+     * @param id The unique identifier for the department.
+     * @param departmentDTO A department data transfer object.
+     * @return A Mono containing the updated Department entity.
+     */
+    Mono<Department> update(Integer id, DepartmentDTO departmentDTO);
 }
