@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.3'
+	id 'org.springframework.boot' version '2.5.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'idea'
@@ -19,18 +19,27 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	springBootVersion = '2.5.6'
+	springFrameworkSessionCoreVersion = '2.5.3'
+	springFrameworkSecurityVersion = '5.5.1'
+	lombokVersion = '1.18.22'
+	projectReactorTestVersion = '3.4.12'
+}
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'org.springframework.session:spring-session-core'
-	compileOnly 'org.projectlombok:lombok:1.18.20'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	annotationProcessor 'org.projectlombok:lombok:1.18.20'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	implementation "org.springframework.boot:spring-boot-starter-data-mongodb-reactive:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
+	implementation "org.springframework.session:spring-session-core:${springFrameworkSessionCoreVersion}"
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+	testImplementation "io.projectreactor:reactor-test:${projectReactorTestVersion}"
+	testImplementation "org.springframework.security:spring-security-test:${springFrameworkSecurityVersion}"
 }
 
 test {

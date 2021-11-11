@@ -17,8 +17,7 @@ public interface EmployeeService {
     /**
      * Update an existing employee entity.
      *
-     *
-     * @param id
+     * @param id An integer value representing the identifier.
      * @param employeeDTO An EmployeeDTO instance.
      * @return A Mono of type Employee instance.
      */
@@ -27,8 +26,7 @@ public interface EmployeeService {
     /**
      * Soft delete an existing employee entity.
      *
-     *
-     * @param id
+     * @param id An integer value representing the identifier.
      * @return An Employee instance.
      */
     Mono<Employee> delete(Integer id);
