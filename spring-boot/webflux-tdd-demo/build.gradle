@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.3'
+	id 'org.springframework.boot' version '2.5.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'idea'
@@ -20,17 +20,18 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'org.springframework.session:spring-session-core'
-	compileOnly 'org.projectlombok:lombok:1.18.20'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	annotationProcessor 'org.projectlombok:lombok:1.18.20'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive:2.5.6'
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.5.6'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux:2.5.6'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.6'
+	implementation 'org.springframework.session:spring-session-core:2.5.3'
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.6'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.5.6'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
+	testImplementation 'io.projectreactor:reactor-test:3.4.11'
+	testImplementation 'org.springframework.security:spring-security-test:5.5.1'
 }
 
 test {

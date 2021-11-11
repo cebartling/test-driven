@@ -1,8 +1,10 @@
 package com.pintailconsultingllc.webflux.demo.controllers;
 
 import com.pintailconsultingllc.webflux.demo.TestSupport;
+import com.pintailconsultingllc.webflux.demo.dtos.DepartmentDTO;
 import com.pintailconsultingllc.webflux.demo.entities.Department;
 import com.pintailconsultingllc.webflux.demo.repositories.DepartmentRepository;
+import com.pintailconsultingllc.webflux.demo.services.DepartmentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -13,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -31,6 +35,9 @@ class DepartmentControllerTests {
 
     @MockBean
     DepartmentRepository departmentRepository;
+
+    @MockBean
+    DepartmentService departmentService;
 
     @Autowired
     WebTestClient webTestClient;
@@ -147,6 +154,49 @@ class DepartmentControllerTests {
             public void verifyNoBodyTest() {
                 responseSpec.expectBody().isEmpty();
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("POST /departments")
+    class CreateNewDepartmentTests {
+        DepartmentDTO departmentDTO;
+
+        @BeforeEach
+        public void doBeforeEachTest() {
+            departmentDTO = new DepartmentDTO(department1);
+            when(departmentService.create(departmentDTO)).thenReturn(Mono.just(department1));
+            responseSpec = webTestClient.post()
+                    .uri("/departments")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(Mono.just(departmentDTO), DepartmentDTO.class)
+                    .exchange();
+        }
+
+        @Test
+        @DisplayName("should return a status of 201 (Created)")
+        public void verifyResponseStatusCodeTest() {
+            responseSpec.expectStatus().isCreated();
+        }
+
+        @Test
+        @DisplayName("should invoke DepartmentService.create method, creating a new department")
+        public void verifyCreateInvocationOnDepartmentServiceTest() {
+            verify(departmentService).create(any(DepartmentDTO.class));
+        }
+
+        @Test
+        @DisplayName("should return the URI for the newly created resource in the Location header")
+        void verifyLocationHeader() {
+            String expectedLocation = String.format("/departments/%d", department1.getId());
+            responseSpec.expectHeader().location(expectedLocation);
+        }
+
+        @Test
+        @DisplayName("should not return a resource representation in the response entity-body")
+        public void verifyNoBodyTest() {
+            responseSpec.expectBody().isEmpty();
         }
     }
 }
