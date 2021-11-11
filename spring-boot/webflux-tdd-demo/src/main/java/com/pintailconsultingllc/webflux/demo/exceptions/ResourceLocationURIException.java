@@ -1,4 +1,4 @@
-package com.pintailconsultingllc.webflux.demo;
+package com.pintailconsultingllc.webflux.demo.exceptions;
 
 import java.net.URISyntaxException;
 

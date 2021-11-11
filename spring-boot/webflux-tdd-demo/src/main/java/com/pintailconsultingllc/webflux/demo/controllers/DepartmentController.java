@@ -1,6 +1,6 @@
 package com.pintailconsultingllc.webflux.demo.controllers;
 
-import com.pintailconsultingllc.webflux.demo.ResourceLocationURIException;
+import com.pintailconsultingllc.webflux.demo.exceptions.ResourceLocationURIException;
 import com.pintailconsultingllc.webflux.demo.dtos.DepartmentDTO;
 import com.pintailconsultingllc.webflux.demo.entities.Department;
 import com.pintailconsultingllc.webflux.demo.repositories.DepartmentRepository;

@@ -151,7 +151,7 @@ class DepartmentControllerTests {
 
             @Test
             @DisplayName("should not return a resource representation in the response entity-body")
-            public void verifyNoBodyTest() {
+            void verifyNoBodyTest() {
                 responseSpec.expectBody().isEmpty();
             }
         }
@@ -176,13 +176,13 @@ class DepartmentControllerTests {
 
         @Test
         @DisplayName("should return a status of 201 (Created)")
-        public void verifyResponseStatusCodeTest() {
+        void verifyResponseStatusCodeTest() {
             responseSpec.expectStatus().isCreated();
         }
 
         @Test
         @DisplayName("should invoke DepartmentService.create method, creating a new department")
-        public void verifyCreateInvocationOnDepartmentServiceTest() {
+        void verifyCreateInvocationOnDepartmentServiceTest() {
             verify(departmentService).create(any(DepartmentDTO.class));
         }
 
@@ -195,8 +195,26 @@ class DepartmentControllerTests {
 
         @Test
         @DisplayName("should not return a resource representation in the response entity-body")
-        public void verifyNoBodyTest() {
+        void verifyNoBodyTest() {
             responseSpec.expectBody().isEmpty();
         }
     }
+
+    @Nested
+    @DisplayName("PUT /departments/{id}")
+    class UpdateExistingDepartmentTests {
+
+        @Nested
+        @DisplayName("when department is found")
+        class WhenDepartmentIsFoundTests {
+
+        }
+
+        @Nested
+        @DisplayName("when department is not found")
+        class WhenDepartmentIsNotFoundTests {
+
+        }
+    }
+
 }
