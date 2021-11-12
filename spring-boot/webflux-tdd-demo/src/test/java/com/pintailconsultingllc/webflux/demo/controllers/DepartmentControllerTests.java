@@ -21,6 +21,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.math.BigInteger;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -47,12 +49,13 @@ class DepartmentControllerTests {
     Department department1;
     Department department2;
     DepartmentDTO departmentDTO;
-
+    final static BigInteger ID_1 = new BigInteger("200");
+    final static BigInteger ID_2 = new BigInteger("201");
 
     @BeforeEach
     public void doBeforeEachTest() {
-        department1 = Department.builder().id(200).name("Finance").build();
-        department2 = Department.builder().id(201).name("Human resources").build();
+        department1 = Department.builder().id(ID_1).name("Finance").build();
+        department2 = Department.builder().id(ID_2).name("Human resources").build();
         departmentDTO = new DepartmentDTO(department1);
     }
 
@@ -95,16 +98,15 @@ class DepartmentControllerTests {
     @DisplayName("GET /departments/{id}")
     class GetDepartmentByIdTests {
 
-        private final int expectedId = 200;
 
         @Nested
         @DisplayName("when the department is found in the database matching the ID")
         class WhenDepartmentIsFoundTests {
             @BeforeEach
             public void doBeforeEachTest() {
-                when(departmentRepository.findById(expectedId)).thenReturn(Mono.just(department1));
+                when(departmentRepository.findById(ID_1)).thenReturn(Mono.just(department1));
                 responseSpec = webTestClient.get()
-                        .uri(String.format("/departments/%d", expectedId))
+                        .uri(String.format("/departments/%d", ID_1))
                         .exchange();
             }
 
@@ -117,7 +119,7 @@ class DepartmentControllerTests {
             @Test
             @DisplayName("should invoke findById method on the department repository to retrieve specific department by its ID")
             void verifyFindAllCollaboration() {
-                verify(departmentRepository, times(1)).findById(expectedId);
+                verify(departmentRepository, times(1)).findById(ID_1);
             }
 
             @Test
@@ -134,9 +136,9 @@ class DepartmentControllerTests {
         class WhenNothingIsFoundTests {
             @BeforeEach
             public void doBeforeEachTest() {
-                when(departmentRepository.findById(expectedId)).thenReturn(Mono.empty());
+                when(departmentRepository.findById(ID_1)).thenReturn(Mono.empty());
                 responseSpec = webTestClient.get()
-                        .uri(String.format("/departments/%d", expectedId))
+                        .uri(String.format("/departments/%d", ID_1))
                         .exchange();
             }
 
@@ -149,7 +151,7 @@ class DepartmentControllerTests {
             @Test
             @DisplayName("should invoke findById method on the department repository to retrieve specific department by its ID")
             void verifyFindAllCollaboration() {
-                verify(departmentRepository, times(1)).findById(expectedId);
+                verify(departmentRepository, times(1)).findById(ID_1);
             }
 
             @Test

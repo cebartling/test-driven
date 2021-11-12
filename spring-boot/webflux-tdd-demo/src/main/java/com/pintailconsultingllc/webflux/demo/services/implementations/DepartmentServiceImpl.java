@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.math.BigInteger;
+
 @Service
 @RequiredArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
@@ -23,7 +25,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Mono<Department> update(Integer id, DepartmentDTO departmentDTO) {
+    public Mono<Department> update(BigInteger id, DepartmentDTO departmentDTO) {
         return departmentRepository.findById(id)
                 .flatMap(department -> {
                     department.setName(departmentDTO.getName());
@@ -33,7 +35,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Mono<Department> delete(Integer id) {
+    public Mono<Department> delete(BigInteger id) {
         return departmentRepository.findById(id)
                 .flatMap(department -> {
                     department.setDeleted(true);

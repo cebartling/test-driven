@@ -4,6 +4,8 @@ import com.pintailconsultingllc.webflux.demo.dtos.DepartmentDTO;
 import com.pintailconsultingllc.webflux.demo.entities.Department;
 import reactor.core.publisher.Mono;
 
+import java.math.BigInteger;
+
 public interface DepartmentService {
 
     /**
@@ -21,7 +23,7 @@ public interface DepartmentService {
      * @param departmentDTO A department data transfer object.
      * @return A Mono containing the updated Department entity.
      */
-    Mono<Department> update(Integer id, DepartmentDTO departmentDTO);
+    Mono<Department> update(BigInteger id, DepartmentDTO departmentDTO);
 
     /**
      * Soft-delete an existing department entity, using the id.
@@ -29,5 +31,5 @@ public interface DepartmentService {
      * @param id The unique identifier for the department.
      * @return A Mono containing the soft-deleted Department entity.
      */
-    Mono<Department> delete(Integer id);
+    Mono<Department> delete(BigInteger id);
 }
