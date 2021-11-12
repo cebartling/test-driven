@@ -23,3 +23,8 @@ Make sure you set the *Gradle VM* in your IntelliJ IDEA project to Java 11 JDK.
 The `UnitTest` tag is used on unit test suites to tag them as unit tests. You can use this tag to run a subset of JUnit 5 Jupiter tests in this project. 
 
 ![Unit tests Run Configuration in IntelliJ IDEA](./documentation/images/unit-tests-run-configuration.png)
+
+The Gradle build is also configured to use tags:
+- `./gradlew test` will only run unit tests.
+- `./gradlew integrationTest` will only run integration tests.
+
