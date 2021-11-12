@@ -2,6 +2,7 @@ package com.pintailconsultingllc.webflux.demo.controllers;
 
 import com.pintailconsultingllc.webflux.demo.dtos.EmployeeDTO;
 import com.pintailconsultingllc.webflux.demo.entities.Employee;
+import com.pintailconsultingllc.webflux.demo.exceptions.ResourceLocationURIException;
 import com.pintailconsultingllc.webflux.demo.repositories.EmployeeRepository;
 import com.pintailconsultingllc.webflux.demo.services.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -38,7 +40,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<EmployeeDTO>> getEmployeeById(@PathVariable("id") Integer id) {
+    public Mono<ResponseEntity<EmployeeDTO>> getEmployeeById(@PathVariable("id") BigInteger id) {
         return employeeRepository.findById(id)
                 .map(EmployeeDTO::new)
                 .map(employeeDTO -> ResponseEntity.ok().body(employeeDTO))
@@ -55,7 +57,7 @@ public class EmployeeController {
 
     @PutMapping(value = "/{id}", consumes = APPLICATION_JSON)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<ResponseEntity<Void>> update(@PathVariable("id") Integer id,
+    public Mono<ResponseEntity<Void>> update(@PathVariable("id") BigInteger id,
                                              @RequestBody EmployeeDTO employeeDTO) {
         return employeeService.update(id, employeeDTO)
                 .map(employee -> ResponseEntity.noContent().<Void>build())
@@ -64,7 +66,7 @@ public class EmployeeController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<ResponseEntity<Void>> delete(@PathVariable("id") Integer id) {
+    public Mono<ResponseEntity<Void>> delete(@PathVariable("id") BigInteger id) {
         return employeeService.delete(id)
                 .map(employee -> ResponseEntity.noContent().<Void>build())
                 .defaultIfEmpty(ResponseEntity.notFound().build());
@@ -74,7 +76,7 @@ public class EmployeeController {
         try {
             return new URI(String.format("/employees/%d", employee.getId()));
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            throw new ResourceLocationURIException(e);
         }
     }
 }

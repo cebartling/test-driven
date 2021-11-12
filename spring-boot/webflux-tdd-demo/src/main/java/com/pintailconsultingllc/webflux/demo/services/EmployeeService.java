@@ -4,6 +4,8 @@ import com.pintailconsultingllc.webflux.demo.dtos.EmployeeDTO;
 import com.pintailconsultingllc.webflux.demo.entities.Employee;
 import reactor.core.publisher.Mono;
 
+import java.math.BigInteger;
+
 public interface EmployeeService {
 
     /**
@@ -21,7 +23,7 @@ public interface EmployeeService {
      * @param employeeDTO An EmployeeDTO instance.
      * @return A Mono of type Employee instance.
      */
-    Mono<Employee> update(Integer id, EmployeeDTO employeeDTO);
+    Mono<Employee> update(BigInteger id, EmployeeDTO employeeDTO);
 
     /**
      * Soft delete an existing employee entity.
@@ -29,5 +31,5 @@ public interface EmployeeService {
      * @param id An integer value representing the identifier.
      * @return An Employee instance.
      */
-    Mono<Employee> delete(Integer id);
+    Mono<Employee> delete(BigInteger id);
 }
