@@ -23,6 +23,7 @@ import org.testcontainers.utility.DockerImageName;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import static com.pintailconsultingllc.webflux.demo.TestSupport.DOCKER_NAME_MONGO;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -34,8 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Tag(TestSupport.INTEGRATION_TEST)
 @DisplayName("EmployeeRepository integration tests")
 class EmployeeRepositoryIntegrationTests {
-
-    public static final String DOCKER_NAME_MONGO = "mongo:5.0.3";
 
     @Container
     static MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse(DOCKER_NAME_MONGO))
@@ -72,7 +71,7 @@ class EmployeeRepositoryIntegrationTests {
         }
 
         @Test
-        @DisplayName("verify that employee document was persisted")
+        @DisplayName("verify that employee document was persisted and returned in a Mono")
         void verifySaveMonoTest() {
             assertAll(
                     () -> assertNotNull(actualEmployee.getId()),
@@ -83,7 +82,7 @@ class EmployeeRepositoryIntegrationTests {
         }
 
         @Test
-        @DisplayName("verify record in Mongo database")
+        @DisplayName("verify the persistent document in the Mongo database")
         void verifyRecordInDatabaseTest() {
             final Mono<Long> countMono = employeeRepository.count(Example.of(actualEmployee));
             StepVerifier.create(countMono)
