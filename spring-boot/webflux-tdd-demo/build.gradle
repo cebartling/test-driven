@@ -26,6 +26,8 @@ ext {
     lombokVersion = '1.18.22'
     projectReactorTestVersion = '3.4.12'
     embeddedMongoVersion = '3.2.0'
+    junitJupiterVersion = '5.8.1'
+    testContainersVersion = '1.16.2'
 }
 
 dependencies {
@@ -41,7 +43,9 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "io.projectreactor:reactor-test:${projectReactorTestVersion}"
     testImplementation "org.springframework.security:spring-security-test:${springFrameworkSecurityVersion}"
-    testImplementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo:${embeddedMongoVersion}"
+    testImplementation "org.testcontainers:testcontainers:${testContainersVersion}"
+    testImplementation "org.testcontainers:junit-jupiter:${testContainersVersion}"
+    testImplementation "org.testcontainers:mongodb:${testContainersVersion}"
 }
 
 test {
