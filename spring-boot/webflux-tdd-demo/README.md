@@ -2,7 +2,8 @@
 
 ## Prerequisites 
 
-- Java 11 JDK 
+- Java 11 SDK 
+- Docker
 
 ## Configuring the Java environment and IntelliJ IDEA project
 
@@ -18,13 +19,50 @@ Make sure you set the *Gradle VM* in your IntelliJ IDEA project to Java 11 JDK.
 ![Gradle preferences](./documentation/images/gradle-preferences.png)
 
 
-## Running unit tests
+## Tests
 
-The `UnitTest` tag is used on unit test suites to tag them as unit tests. You can use this tag to run a subset of JUnit 5 Jupiter tests in this project. 
+- The `UnitTest` tag is used on unit test suites to tag them as unit tests. You can use this tag to run a subset of JUnit 5 Jupiter tests in this project.
+- The `IntegrationTest` tag is used on integration test suites to tag them as integration tests. You can use this tag to run a subset of JUnit 5 Jupiter tests in this project.
 
 ![Unit tests Run Configuration in IntelliJ IDEA](./documentation/images/unit-tests-run-configuration.png)
 
 The Gradle build is also configured to use tags:
 - `./gradlew test` will only run unit tests.
 - `./gradlew integrationTest` will only run integration tests.
+
+## Integration testing
+
+- This project uses Testcontainers to control Mongo DB using Docker. 
+- Testcontainers is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
+
+### Repository integration tests
+
+- All of the repositories extend the `ReactiveMongoRepository` interface. 
+- Testcontainers support is enabled by the `@Testcontainers` annotation. 
+
+
+
+```java
+@Testcontainers
+@ExtendWith(SpringExtension.class)
+@DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
+@Tag(TestSupport.INTEGRATION_TEST)
+@DisplayName("EmployeeRepository integration tests")
+class EmployeeRepositoryIntegrationTests {
+
+    @Container
+    static MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse(DOCKER_NAME_MONGO))
+            .withExposedPorts(27017);
+
+    @DynamicPropertySource
+    static void setProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+    }
+
+    @Autowired
+    EmployeeRepository employeeRepository;
+
+    ...
+}
+```
 
