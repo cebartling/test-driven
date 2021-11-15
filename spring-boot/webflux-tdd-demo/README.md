@@ -38,7 +38,15 @@ The Gradle build is also configured to use tags:
 ### Repository integration tests
 
 - All of the repositories extend the `ReactiveMongoRepository` interface. 
-- Testcontainers support is enabled by the `@Testcontainers` annotation. 
+- The `@Testcontainers` annotation is a JUnit Jupiter extension to activate automatic startup and stop of containers used in a test case. The test containers extension finds all fields that are annotated with Container and calls their container lifecycle methods. 
+  - Containers declared as **static fields** will be shared between test methods. They will be started only once before any test method is executed and stopped after the last test method has executed. 
+  - Containers declared as **instance fields** will be started and stopped for every test method. The `@Testcontainers` annotation can be used on a superclass in the test hierarchy as well. All subclasses will automatically inherit support for the extension.
+- The `@DataMongoTest` annotation that can be used for a MongoDB test that focuses only on MongoDB components. Using this annotation will disable full auto-configuration and instead apply only configuration relevant to MongoDB tests. So this annotation works well for testing Mongo database repositories. 
+- The `@Container` annotation is used in conjunction with the `@Testcontainers` annotation to mark containers that should be managed by the Testcontainers extension. In this instance, we are using a `MongoDBContainer` to manage a Mongo database in Docker.
+- The `@DynamicPropertySource` is a method-level annotation for integration tests that need to add properties with dynamic values to the `Environment`'s set of `PropertySources`.
+  This annotation and its supporting infrastructure were originally designed to allow properties from Testcontainers-based tests to be exposed easily to Spring integration tests. 
+
+
 
 
 
