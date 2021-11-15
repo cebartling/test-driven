@@ -45,6 +45,8 @@ The Gradle build is also configured to use tags:
 - The `@DynamicPropertySource` is a method-level annotation for integration tests that need to add properties with dynamic values to the `Environment`'s set of `PropertySources`.
   This annotation and its supporting infrastructure were originally designed to allow properties from Testcontainers-based tests to be exposed easily to Spring integration tests. 
 
+Below is an example of the annotations usage:
+
 ```java
 @Testcontainers
 @ExtendWith(SpringExtension.class)

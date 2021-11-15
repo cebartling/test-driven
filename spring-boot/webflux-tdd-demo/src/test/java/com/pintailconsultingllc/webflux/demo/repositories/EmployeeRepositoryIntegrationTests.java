@@ -56,16 +56,16 @@ class EmployeeRepositoryIntegrationTests {
     @Nested
     @DisplayName("save method")
     class SaveTests {
-        Employee expectedEmployee;
-        Employee actualEmployee;
+        Employee newlyCreatedEmployee;
+        Employee actualPersistedEmployee;
         Mono<Employee> saveMono;
 
         @BeforeEach
         public void doBeforeEachTest() {
-            expectedEmployee = new Employee(null, "Joe Smith", 50000, false);
-            saveMono = employeeRepository.save(expectedEmployee);
+            newlyCreatedEmployee = new Employee(null, "Joe Smith", 50000, false);
+            saveMono = employeeRepository.save(newlyCreatedEmployee);
             StepVerifier.create(saveMono)
-                    .consumeNextWith(employee -> actualEmployee = employee)
+                    .consumeNextWith(employee -> actualPersistedEmployee = employee)
                     .expectComplete()
                     .verify();
         }
@@ -74,17 +74,17 @@ class EmployeeRepositoryIntegrationTests {
         @DisplayName("verify that employee document was persisted and returned in a Mono")
         void verifySaveMonoTest() {
             assertAll(
-                    () -> assertNotNull(actualEmployee.getId()),
-                    () -> assertFalse(actualEmployee.isDeleted()),
-                    () -> assertEquals(expectedEmployee.getSalary(), actualEmployee.getSalary()),
-                    () -> assertEquals(expectedEmployee.getName(), actualEmployee.getName())
+                    () -> assertNotNull(actualPersistedEmployee.getId()),
+                    () -> assertFalse(actualPersistedEmployee.isDeleted()),
+                    () -> assertEquals(newlyCreatedEmployee.getSalary(), actualPersistedEmployee.getSalary()),
+                    () -> assertEquals(newlyCreatedEmployee.getName(), actualPersistedEmployee.getName())
             );
         }
 
         @Test
-        @DisplayName("verify the persistent document in the Mongo database")
+        @DisplayName("verify the newly persistent employee document in the Mongo database")
         void verifyRecordInDatabaseTest() {
-            final Mono<Long> countMono = employeeRepository.count(Example.of(actualEmployee));
+            final Mono<Long> countMono = employeeRepository.count(Example.of(actualPersistedEmployee));
             StepVerifier.create(countMono)
                     .expectNext(1L)
                     .expectComplete()
