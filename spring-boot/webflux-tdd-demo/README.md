@@ -32,8 +32,7 @@ The Gradle build is also configured to use tags:
 
 ## Integration testing
 
-- This project uses Testcontainers to control Mongo DB using Docker. 
-- Testcontainers is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
+- This project uses [Testcontainers](https://www.testcontainers.org/) to control a Mongo database server using Docker. Testcontainers is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
 
 ### Repository integration tests
 
@@ -45,10 +44,6 @@ The Gradle build is also configured to use tags:
 - The `@Container` annotation is used in conjunction with the `@Testcontainers` annotation to mark containers that should be managed by the Testcontainers extension. In this instance, we are using a `MongoDBContainer` to manage a Mongo database in Docker.
 - The `@DynamicPropertySource` is a method-level annotation for integration tests that need to add properties with dynamic values to the `Environment`'s set of `PropertySources`.
   This annotation and its supporting infrastructure were originally designed to allow properties from Testcontainers-based tests to be exposed easily to Spring integration tests. 
-
-
-
-
 
 ```java
 @Testcontainers
