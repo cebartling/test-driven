@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -29,6 +30,8 @@ import reactor.test.StepVerifier;
 import java.util.List;
 
 import static com.pintailconsultingllc.webflux.demo.TestSupport.DOCKER_NAME_MONGO;
+import static com.pintailconsultingllc.webflux.demo.TestSupport.MONGO_EXPOSED_PORT;
+import static com.pintailconsultingllc.webflux.demo.TestSupport.PROPERTY_SPRING_DATA_MONGODB_URI;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -38,12 +41,15 @@ class DepartmentApiIntegrationTests {
 
     @Container
     static MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse(DOCKER_NAME_MONGO))
-            .withExposedPorts(27017);
+            .withExposedPorts(MONGO_EXPOSED_PORT);
 
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+        registry.add(PROPERTY_SPRING_DATA_MONGODB_URI, mongoDBContainer::getReplicaSetUrl);
     }
+
+    @Autowired
+    private ReactiveMongoTemplate reactiveMongoTemplate;
 
     @LocalServerPort
     int randomServerPort;
