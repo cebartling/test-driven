@@ -71,8 +71,8 @@ class DepartmentApiIntegrationTests {
     public void doBeforeEachTest() {
         final Mono<Void> voidMono = departmentRepository.deleteAll();
         StepVerifier.create(voidMono).expectNext().expectComplete().verify();
-        final Mono<Department> mono1 = departmentRepository.save(new Department(null, "Finance", false));
-        final Mono<Department> mono2 = departmentRepository.save(new Department(null, "Engineering", false));
+        final Mono<Department> mono1 = reactiveMongoTemplate.save(Department.builder().name("Finance").build());
+        final Mono<Department> mono2 = reactiveMongoTemplate.save(Department.builder().name("Engineering").build());
         final Flux<Department> departmentsFlux = Flux.concat(mono1, mono2);
         StepVerifier.create(departmentsFlux)
                 .consumeNextWith(department -> financeDepartment = department)
@@ -110,6 +110,5 @@ class DepartmentApiIntegrationTests {
         void verifyAppropriateResourceRepresentation() {
             responseSpec.expectBody().json(expectedJson);
         }
-
     }
 }
