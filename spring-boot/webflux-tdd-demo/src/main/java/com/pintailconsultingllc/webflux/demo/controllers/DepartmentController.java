@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -40,7 +41,7 @@ public class DepartmentController {
 
     @GetMapping("/{id}")
     public Mono<ResponseEntity<DepartmentDTO>> getDepartmentById(
-            @PathVariable("id") int id
+            @PathVariable("id") BigInteger id
     ) {
         return departmentRepository.findById(id)
                 .map(DepartmentDTO::new)
@@ -59,7 +60,7 @@ public class DepartmentController {
     @PutMapping(value = "/{id}", consumes = APPLICATION_JSON)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> update(
-            @PathVariable("id") Integer id,
+            @PathVariable("id") BigInteger id,
             @RequestBody DepartmentDTO departmentDTO
     ) {
         return departmentService.update(id, departmentDTO)
@@ -70,7 +71,7 @@ public class DepartmentController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable("id") Integer id
+            @PathVariable("id") BigInteger id
     ) {
         return departmentService.delete(id)
                 .map(department -> ResponseEntity.noContent().<Void>build())

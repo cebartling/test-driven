@@ -6,12 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class EmployeeDTO {
-    Integer id;
+    BigInteger id;
     String name;
     Integer salary;
 

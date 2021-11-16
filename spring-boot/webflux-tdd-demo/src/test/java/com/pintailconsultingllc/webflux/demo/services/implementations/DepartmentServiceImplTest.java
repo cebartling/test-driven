@@ -16,6 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.math.BigInteger;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -38,11 +40,12 @@ class DepartmentServiceImplTest {
 
     Mono<Department> actualDepartmentMono;
     Department actualDepartment;
+    final static BigInteger ID = new BigInteger("2000");
 
     @BeforeEach
     public void doBeforeEachTest() {
         departmentDTO = DepartmentDTO.builder().name("Finance").build();
-        department = Department.builder().id(2000).name("Finance").build();
+        department = Department.builder().id(ID).name("Finance").build();
     }
 
     @Nested

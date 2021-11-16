@@ -1,7 +1,9 @@
 package com.pintailconsultingllc.webflux.demo.repositories;
 
 import com.pintailconsultingllc.webflux.demo.entities.Department;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
-public interface DepartmentRepository extends ReactiveCrudRepository<Department, Integer> {
+import java.math.BigInteger;
+
+public interface DepartmentRepository extends ReactiveMongoRepository<Department, BigInteger> {
 }

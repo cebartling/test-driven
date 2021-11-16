@@ -16,6 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.math.BigInteger;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -27,7 +29,7 @@ import static org.mockito.Mockito.when;
 @Tag(TestSupport.UNIT_TEST)
 class EmployeeServiceImplTest {
 
-    public static final int ID = 3468;
+    public static final BigInteger ID = new BigInteger("3476");
 
     @Mock
     EmployeeRepository employeeRepositoryMock;
@@ -47,7 +49,7 @@ class EmployeeServiceImplTest {
         public void doBeforeEachTest() {
             employeeDTO = EmployeeDTO.builder().name("Joe Smith").salary(45000).build();
             expectedEmployee = new Employee(employeeDTO);
-            expectedEmployee.setId(3468);
+            expectedEmployee.setId(new BigInteger("3476"));
             when(employeeRepositoryMock.save(any(Employee.class))).thenReturn(Mono.just(expectedEmployee));
             employeeMono = service.create(employeeDTO);
             StepVerifier.create(employeeMono)

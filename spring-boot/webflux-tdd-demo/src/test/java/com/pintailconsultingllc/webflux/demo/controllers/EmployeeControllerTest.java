@@ -21,6 +21,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.math.BigInteger;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -51,22 +53,23 @@ class EmployeeControllerTest {
         @DisplayName("when employee is found")
         class WhenFoundTests {
             Employee employee;
+            final BigInteger id = new BigInteger("100");
 
             @BeforeEach
             void doBeforeEachSpec() {
                 employee = Employee.builder()
-                        .id(100)
+                        .id(id)
                         .name("Test Employee 1")
                         .salary(1000)
                         .build();
-                when(employeeRepository.findById(100)).thenReturn(Mono.just(employee));
+                when(employeeRepository.findById(id)).thenReturn(Mono.just(employee));
                 responseSpec = webTestClient.get().uri("/employees/{id}", 100).exchange();
             }
 
             @Test
             @DisplayName("should invoke findById method on employee repository")
             void verifyFindByIdCollaboration() {
-                verify(employeeRepository, times(1)).findById(100);
+                verify(employeeRepository, times(1)).findById(id);
             }
 
             @Test
@@ -88,16 +91,18 @@ class EmployeeControllerTest {
         @Nested
         @DisplayName("when employee is not found")
         class WhenNotFoundTests {
+            final BigInteger id = new BigInteger("100");
+
             @BeforeEach
             void doBeforeEachSpec() {
-                when(employeeRepository.findById(100)).thenReturn(Mono.empty());
-                responseSpec = webTestClient.get().uri("/employees/{id}", 100).exchange();
+                when(employeeRepository.findById(id)).thenReturn(Mono.empty());
+                responseSpec = webTestClient.get().uri("/employees/{id}", id).exchange();
             }
 
             @Test
             @DisplayName("should invoke findById method on employee repository")
             void verifyFindByIdCollaboration() {
-                verify(employeeRepository, times(1)).findById(100);
+                verify(employeeRepository, times(1)).findById(id);
             }
 
             @Test
@@ -117,12 +122,12 @@ class EmployeeControllerTest {
         @BeforeEach
         void doBeforeEachSpec() {
             employee1 = Employee.builder()
-                    .id(100)
+                    .id(new BigInteger("100"))
                     .name("Test Employee 1")
                     .salary(1000)
                     .build();
             employee2 = Employee.builder()
-                    .id(101)
+                    .id(new BigInteger("101"))
                     .name("Test Employee 2")
                     .salary(2000)
                     .build();
@@ -170,7 +175,7 @@ class EmployeeControllerTest {
                     .salary(1000)
                     .build();
             employee = new Employee(employeeDTO);
-            employee.setId(101);
+            employee.setId(new BigInteger("101"));
             when(employeeService.create(any(EmployeeDTO.class))).thenReturn(Mono.just(employee));
             responseSpec = webTestClient.post()
                     .uri("/employees")
@@ -182,7 +187,7 @@ class EmployeeControllerTest {
 
         @Test
         @DisplayName("should invoke EmployeeService.create method")
-        public void verifyCreateInvocationOnEmployeeServiceTest() {
+        void verifyCreateInvocationOnEmployeeServiceTest() {
             verify(employeeService).create(any(EmployeeDTO.class));
         }
 
@@ -200,7 +205,7 @@ class EmployeeControllerTest {
 
         @Test
         @DisplayName("should not return a resource representation in the response entity-body")
-        public void verifyNoBodyTest() {
+        void verifyNoBodyTest() {
             responseSpec.expectBody().isEmpty();
         }
     }
@@ -213,7 +218,7 @@ class EmployeeControllerTest {
         class WhenEmployeeIsFoundTests {
             EmployeeDTO employeeDTO;
             Employee employee;
-            int id = 2094;
+            BigInteger id = new BigInteger("2094");
 
             @BeforeEach
             void doBeforeEachSpec() {
@@ -234,7 +239,7 @@ class EmployeeControllerTest {
 
             @Test
             @DisplayName("should invoke EmployeeService.update method")
-            public void verifyUpdateInvocationOnEmployeeServiceTest() {
+            void verifyUpdateInvocationOnEmployeeServiceTest() {
                 verify(employeeService).update(id, employeeDTO);
             }
 
@@ -246,7 +251,7 @@ class EmployeeControllerTest {
 
             @Test
             @DisplayName("should not return a resource representation in the response entity-body")
-            public void verifyNoBodyTest() {
+            void verifyNoBodyTest() {
                 responseSpec.expectBody().isEmpty();
             }
         }
@@ -255,7 +260,7 @@ class EmployeeControllerTest {
         @DisplayName("when employee is not found")
         class WhenEmployeeIsNotFoundTests {
             EmployeeDTO employeeDTO;
-            int id = 2094;
+            BigInteger id = new BigInteger("2094");
 
             @BeforeEach
             void doBeforeEachSpec() {
@@ -275,7 +280,7 @@ class EmployeeControllerTest {
 
             @Test
             @DisplayName("should invoke EmployeeService.update method")
-            public void verifyUpdateInvocationOnEmployeeServiceTest() {
+            void verifyUpdateInvocationOnEmployeeServiceTest() {
                 verify(employeeService).update(id, employeeDTO);
             }
 
@@ -287,7 +292,7 @@ class EmployeeControllerTest {
 
             @Test
             @DisplayName("should not return a resource representation in the response entity-body")
-            public void verifyNoBodyTest() {
+            void verifyNoBodyTest() {
                 responseSpec.expectBody().isEmpty();
             }
         }
@@ -299,7 +304,7 @@ class EmployeeControllerTest {
         @Nested
         @DisplayName("when the employee is found")
         class WhenEmployeeIsFoundTests {
-            int id = 2094;
+            BigInteger id = new BigInteger("101");
             Employee employee;
 
             @BeforeEach
@@ -317,7 +322,7 @@ class EmployeeControllerTest {
 
             @Test
             @DisplayName("should invoke EmployeeService.delete method")
-            public void verifyDeleteInvocationOnEmployeeServiceTest() {
+            void verifyDeleteInvocationOnEmployeeServiceTest() {
                 verify(employeeService).delete(id);
             }
 
@@ -329,7 +334,7 @@ class EmployeeControllerTest {
 
             @Test
             @DisplayName("should not return a resource representation in the response entity-body")
-            public void verifyNoBodyTest() {
+            void verifyNoBodyTest() {
                 responseSpec.expectBody().isEmpty();
             }
         }
@@ -337,7 +342,7 @@ class EmployeeControllerTest {
         @Nested
         @DisplayName("when the employee is not found")
         class WhenEmployeeIsNotFoundTests {
-            int id = 2094;
+            BigInteger id = new BigInteger("2094");
 
             @BeforeEach
             void doBeforeEachSpec() {
@@ -349,7 +354,7 @@ class EmployeeControllerTest {
 
             @Test
             @DisplayName("should invoke EmployeeService.delete method")
-            public void verifyDeleteInvocationOnEmployeeServiceTest() {
+            void verifyDeleteInvocationOnEmployeeServiceTest() {
                 verify(employeeService).delete(id);
             }
 
@@ -361,7 +366,7 @@ class EmployeeControllerTest {
 
             @Test
             @DisplayName("should not return a resource representation in the response entity-body")
-            public void verifyNoBodyTest() {
+            void verifyNoBodyTest() {
                 responseSpec.expectBody().isEmpty();
             }
         }

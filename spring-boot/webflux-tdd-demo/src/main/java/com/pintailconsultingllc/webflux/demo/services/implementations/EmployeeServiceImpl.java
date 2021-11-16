@@ -7,6 +7,8 @@ import com.pintailconsultingllc.webflux.demo.services.EmployeeService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.math.BigInteger;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -22,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Mono<Employee> update(Integer id, EmployeeDTO employeeDTO) {
+    public Mono<Employee> update(BigInteger id, EmployeeDTO employeeDTO) {
         return employeeRepository.findById(id)
                 .flatMap(employee -> {
                     employee.setName(employeeDTO.getName());
@@ -33,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Mono<Employee> delete(Integer id) {
+    public Mono<Employee> delete(BigInteger id) {
         return employeeRepository.findById(id)
                 .flatMap(employee -> {
                     employee.setDeleted(true);

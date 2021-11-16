@@ -10,7 +10,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
-        http.authorizeExchange()
+        http.csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .authorizeExchange()
                 .anyExchange()
                 .permitAll();
         return http.build();
