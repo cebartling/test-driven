@@ -74,13 +74,15 @@ describe('EarthquakeDataService', () => {
       const startDateTime = DateTime.fromObject({ year: 2021, month: 8, day: 1 });
       const endDateTime = DateTime.fromObject({ year: 2021, month: 8, day: 15 });
       const featureCollection$ = of(featureCollection);
+      let params: HttpParams;
 
       beforeEach((done: DoneFn) => {
-        const params = new HttpParams()
+        params = new HttpParams()
           .set('format', FORMAT_GEOJSON)
           .set('starttime', startDateTime.toFormat(DATE_FORMAT))
           .set('endtime', endDateTime.toFormat(DATE_FORMAT));
-        httpClientSpy.get.withArgs(expectedUrl, { params }).and.returnValue(featureCollection$);
+        const expectedOptions = { params };
+        httpClientSpy.get.withArgs(expectedUrl, expectedOptions).and.returnValue(featureCollection$);
         service.query(startDateTime, endDateTime).subscribe(
           (data) => {
             captured = data;
@@ -102,10 +104,6 @@ describe('EarthquakeDataService', () => {
       });
 
       it('should invoke get on the HttpClient', () => {
-        const params = new HttpParams()
-          .set('format', 'geojson')
-          .set('starttime', startDateTime.toFormat('yyyy-MM-dd'))
-          .set('endtime', endDateTime.toFormat('yyyy-MM-dd'));
         const expectedOptions = { params };
         expect(httpClientSpy.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
       });
