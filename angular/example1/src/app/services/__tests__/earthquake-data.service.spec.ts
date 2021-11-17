@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { of } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
-import { EarthquakeDataService } from '../earthquake-data.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { DATE_FORMAT, EarthquakeDataService, FORMAT_GEOJSON } from '../earthquake-data.service';
 import { FeatureCollection } from '../../models/earthquake/feature-collection';
 import { featureCollection } from '../../__tests__/data/feature-collection-test-data';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -61,9 +61,11 @@ describe('EarthquakeDataService', () => {
       let httpClientSpy: { get: jasmine.Spy };
 
       beforeEach(() => {
-        // Create dependencies and SUT manually and handle the constructor dependency injection in the test.
         httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-        service = new EarthquakeDataService(httpClientSpy as any);
+        TestBed.configureTestingModule({
+          providers: [EarthquakeDataService, { provide: HttpClient, useValue: httpClientSpy }],
+        });
+        service = TestBed.inject(EarthquakeDataService);
       });
 
       let captured: FeatureCollection;
@@ -74,7 +76,11 @@ describe('EarthquakeDataService', () => {
       const featureCollection$ = of(featureCollection);
 
       beforeEach((done: DoneFn) => {
-        httpClientSpy.get.and.returnValue(featureCollection$);
+        const params = new HttpParams()
+          .set('format', FORMAT_GEOJSON)
+          .set('starttime', startDateTime.toFormat(DATE_FORMAT))
+          .set('endtime', endDateTime.toFormat(DATE_FORMAT));
+        httpClientSpy.get.withArgs(expectedUrl, { params }).and.returnValue(featureCollection$);
         service.query(startDateTime, endDateTime).subscribe(
           (data) => {
             captured = data;

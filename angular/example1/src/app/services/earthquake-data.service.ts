@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { DateTime } from 'luxon';
 import { FeatureCollection } from '../models/earthquake/feature-collection';
 
-const DATE_FORMAT = 'yyyy-MM-dd';
-const FORMAT_GEOJSON = 'geojson';
+export const DATE_FORMAT = 'yyyy-MM-dd';
+export const FORMAT_GEOJSON = 'geojson';
 
 @Injectable({
   providedIn: 'root',
