@@ -5,7 +5,7 @@ import { EarthquakeDataService } from '../earthquake-data.service';
 import { FeatureCollection } from '../../models/earthquake/feature-collection';
 import { featureCollection } from '../../__tests__/data/feature-collection-test-data';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 describe('EarthquakeDataService', () => {
   let service: EarthquakeDataService;
@@ -14,16 +14,14 @@ describe('EarthquakeDataService', () => {
     describe('using HttpClientTestingModule', () => {
       let httpTestingController: HttpTestingController;
 
-      beforeEach(
-        waitForAsync(() => {
-          TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [EarthquakeDataService],
-          }).compileComponents();
-          service = TestBed.inject(EarthquakeDataService);
-          httpTestingController = TestBed.inject(HttpTestingController);
-        })
-      );
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          providers: [EarthquakeDataService],
+        });
+        service = TestBed.inject(EarthquakeDataService);
+        httpTestingController = TestBed.inject(HttpTestingController);
+      });
 
       afterEach(() => {
         httpTestingController.verify();
