@@ -1,10 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MapViewComponent } from '../map-view.component';
 import { EarthquakeDataService } from '../../../services/earthquake-data.service';
 import { of } from 'rxjs';
 import { featureCollection } from '../../../__tests__/data/feature-collection-test-data';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 import { MapComponent } from '../../../components/map/map.component';
 
 describe('MapViewComponent', () => {
@@ -12,13 +11,15 @@ describe('MapViewComponent', () => {
   let fixture: ComponentFixture<MapViewComponent>;
   let earthquakeDataServiceMock: { query: jasmine.Spy };
 
-  beforeEach(async () => {
-    earthquakeDataServiceMock = jasmine.createSpyObj('EarthquakeDataService', ['query']);
-    await TestBed.configureTestingModule({
-      declarations: [MapViewComponent, MapComponent],
-      providers: [{ provide: EarthquakeDataService, useValue: earthquakeDataServiceMock }],
-    }).compileComponents();
-  });
+  beforeEach(
+    waitForAsync(() => {
+      earthquakeDataServiceMock = jasmine.createSpyObj('EarthquakeDataService', ['query']);
+      TestBed.configureTestingModule({
+        declarations: [MapViewComponent, MapComponent],
+        providers: [{ provide: EarthquakeDataService, useValue: earthquakeDataServiceMock }],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MapViewComponent);

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { WelcomeViewComponent } from '../welcome-view.component';
 
@@ -6,11 +6,13 @@ describe('WelcomeViewComponent', () => {
   let component: WelcomeViewComponent;
   let fixture: ComponentFixture<WelcomeViewComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [WelcomeViewComponent],
-    }).compileComponents();
-  });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [WelcomeViewComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WelcomeViewComponent);

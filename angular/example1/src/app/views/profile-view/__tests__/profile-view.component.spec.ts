@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProfileViewComponent } from '../profile-view.component';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -7,12 +7,14 @@ describe('ProfileViewComponent', () => {
   let component: ProfileViewComponent;
   let fixture: ComponentFixture<ProfileViewComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ProfileViewComponent],
-      providers: [FormBuilder],
-    }).compileComponents();
-  });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ProfileViewComponent],
+        providers: [FormBuilder],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProfileViewComponent);
