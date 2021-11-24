@@ -20,3 +20,10 @@ Various test-driven development journeys.
 - [Exploding Software-Engineering Myths](https://www.microsoft.com/en-us/research/blog/exploding-software-engineering-myths/)
 - [Pragmatic TDD](https://devblogs.microsoft.com/premier-developer/pragmatic-tdd/)
 - [Test-driven development topic at Microsoft Academic](https://academic.microsoft.com/topic/4478048/publication/search?q=Test-driven%20development&qe=And(Composite(F.FId%253D4478048)%252CTy%253D%270%27)&f=&orderBy=0)
+
+
+### Test pyramid
+
+- [The Practical Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html)
+- [TestPyramind bliki entry](https://martinfowler.com/bliki/TestPyramid.html)
+- [The Testing Pyramid](http://www.agilenutshell.com/episodes/41-testing-pyramid)
