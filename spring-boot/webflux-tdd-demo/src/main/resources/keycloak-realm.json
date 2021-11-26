@@ -1,0 +1,29 @@
+{
+  "enabled": true,
+  "realm": "example",
+  "smtpServer": {
+    "from": "keycloak-config-cli@example.com",
+    "fromDisplayName": "keycloak-config-cli",
+    "host": "mailing.example.com",
+    "auth": true,
+    "envelopeFrom": "keycloak-config-cli@example.com",
+    "user": "username",
+    "password": "password"
+  },
+  "clients": [
+    {
+      "clientId": "example-client",
+      "name": "example-client",
+      "enabled": true,
+      "publicClient": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "my-special-client-secret",
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ]
+}

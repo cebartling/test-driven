@@ -33,7 +33,7 @@ import static com.pintailconsultingllc.webflux.demo.TestSupport.DOCKER_NAME_MONG
 import static com.pintailconsultingllc.webflux.demo.TestSupport.MONGO_EXPOSED_PORT;
 import static com.pintailconsultingllc.webflux.demo.TestSupport.PROPERTY_SPRING_DATA_MONGODB_URI;
 
-@Testcontainers
+@Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag(TestSupport.INTEGRATION_TEST)
 @DisplayName("Department API integration tests")

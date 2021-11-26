@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Testcontainers
+@Testcontainers(disabledWithoutDocker = true)
 @DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
 @Tag(TestSupport.INTEGRATION_TEST)
 @DisplayName("EmployeeRepository integration tests")
