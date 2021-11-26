@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
@@ -34,6 +36,7 @@ import static com.pintailconsultingllc.webflux.demo.TestSupport.MONGO_EXPOSED_PO
 import static com.pintailconsultingllc.webflux.demo.TestSupport.PROPERTY_SPRING_DATA_MONGODB_URI;
 
 @Testcontainers(disabledWithoutDocker = true)
+@EnableAutoConfiguration(exclude = EmbeddedMongoAutoConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag(TestSupport.INTEGRATION_TEST)
 @DisplayName("Department API integration tests")
@@ -84,7 +87,6 @@ class DepartmentApiIntegrationTests {
     @DisplayName("GET /departments")
     class GetAllDepartmentsTests {
         String expectedJson;
-
 
         @BeforeEach
         public void doBeforeEachTest() throws JsonProcessingException {

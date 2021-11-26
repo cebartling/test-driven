@@ -11,6 +11,10 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static com.pintailconsultingllc.webflux.demo.TestSupport.DOCKER_NAME_KEYCLOAK;
+import static com.pintailconsultingllc.webflux.demo.TestSupport.KEYCLOAK_ADMIN_PASSWORD;
+import static com.pintailconsultingllc.webflux.demo.TestSupport.KEYCLOAK_ADMIN_USERNAME;
+import static com.pintailconsultingllc.webflux.demo.TestSupport.KEYCLOAK_AUTH_SERVER_URL_REGISTRY_KEY;
+import static com.pintailconsultingllc.webflux.demo.TestSupport.KEYCLOAK_REALM_IMPORT_JSON;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Testcontainers(disabledWithoutDocker = true)
@@ -19,13 +23,13 @@ class KeycloakIntegrationTests {
 
     @Container
     static KeycloakContainer keycloakContainer = new KeycloakContainer(DOCKER_NAME_KEYCLOAK)
-            .withRealmImportFile("keycloak-realm.json")
-            .withAdminUsername("admin")
-            .withAdminPassword("admin");
+            .withRealmImportFile(KEYCLOAK_REALM_IMPORT_JSON)
+            .withAdminUsername(KEYCLOAK_ADMIN_USERNAME)
+            .withAdminPassword(KEYCLOAK_ADMIN_PASSWORD);
 
     @DynamicPropertySource
     public static void registerKeycloakProperties(DynamicPropertyRegistry registry) {
-        registry.add("keycloak.auth-server-url", keycloakContainer::getAuthServerUrl);
+        registry.add(KEYCLOAK_AUTH_SERVER_URL_REGISTRY_KEY, keycloakContainer::getAuthServerUrl);
     }
 
     @Test
@@ -40,11 +44,11 @@ class KeycloakIntegrationTests {
         assertTrue(keycloakContainer.isCreated());
     }
 
-    @Test
-    @DisplayName("verify that Keycloak is healthy")
-    void VerifyKeycloakIsHealthyTest() {
-        assertTrue(keycloakContainer.isHealthy());
-    }
+//    @Test
+//    @DisplayName("verify that Keycloak is healthy")
+//    void VerifyKeycloakIsHealthyTest() {
+//        assertTrue(keycloakContainer.isHealthy());
+//    }
 
 //    @Test
 //    @DisplayName("verify that Keycloak is healthy")
