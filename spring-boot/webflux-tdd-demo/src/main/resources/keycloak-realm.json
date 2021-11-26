@@ -1,6 +1,9 @@
 {
+  "id": "example",
   "enabled": true,
   "realm": "example",
+  "displayName": "Example",
+  "displayNameHtml": "<div class=\"kc-logo-text\"><span>Example</span></div>",
   "smtpServer": {
     "from": "keycloak-config-cli@example.com",
     "fromDisplayName": "keycloak-config-cli",
