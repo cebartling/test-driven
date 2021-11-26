@@ -19,6 +19,11 @@ Make sure you set the *Gradle VM* in your IntelliJ IDEA project to Java 11 JDK.
 ![Gradle preferences](./documentation/images/gradle-preferences.png)
 
 
+## Keycloak Identity and Access Management
+
+- [Keycloak Admin Console](http://localhost:8080/auth)
+
+
 ## Tests
 
 - The `UnitTest` tag is used on unit test suites to tag them as unit tests. You can use this tag to run a subset of JUnit 5 Jupiter tests in this project.
