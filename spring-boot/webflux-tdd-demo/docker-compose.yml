@@ -1,4 +1,6 @@
 version: "3.8"
+networks:
+  default:
 services:
   mongodb:
     image : mongo
@@ -11,3 +13,18 @@ services:
     ports:
       - 27017:27017
     restart: unless-stopped
+  keycloak:
+#    image: jboss/keycloak
+    image: mihaibob/keycloak:15.0.1
+    container_name: keycloak
+    restart: always
+    environment:
+      KEYCLOAK_VERSION: 15.0.1
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/keycloak-realm.json
+    volumes:
+      - ./src/main/resources/keycloak-realm.json:/tmp/keycloak-realm.json
+    ports:
+      - "8080:8080"
+
