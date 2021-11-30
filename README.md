@@ -27,3 +27,9 @@ Various test-driven development journeys.
 - [The Practical Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html)
 - [TestPyramind bliki entry](https://martinfowler.com/bliki/TestPyramid.html)
 - [The Testing Pyramid](http://www.agilenutshell.com/episodes/41-testing-pyramid)
+
+### Integration Testing
+
+- [Integrated Tests are a Scam](https://blog.thecodewhisperer.com/permalink/integrated-tests-are-a-scam)
+
+
