@@ -55,7 +55,7 @@ class EmployeeRepositoryIntegrationTests {
 
     @AfterEach
     void cleanUp() {
-        employeeRepository.deleteAll();
+        StepVerifier.create(employeeRepository.deleteAll()).verifyComplete();
     }
 
     @Nested

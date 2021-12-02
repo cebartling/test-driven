@@ -7,6 +7,7 @@ import com.pintailconsultingllc.webflux.demo.dtos.DepartmentDTO;
 import com.pintailconsultingllc.webflux.demo.entities.Department;
 import com.pintailconsultingllc.webflux.demo.repositories.DepartmentRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
@@ -29,6 +30,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.pintailconsultingllc.webflux.demo.TestSupport.DOCKER_NAME_MONGO;
@@ -40,6 +43,7 @@ import static com.pintailconsultingllc.webflux.demo.TestSupport.PROPERTY_SPRING_
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag(TestSupport.INTEGRATION_TEST)
 @DisplayName("Department API integration tests")
+@Disabled
 class DepartmentApiIntegrationTests {
 
     @Container

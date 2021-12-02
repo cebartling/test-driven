@@ -12,6 +12,10 @@ public class TestSupport {
     public static final String KEYCLOAK_ADMIN_USERNAME = "admin";
     public static final String KEYCLOAK_ADMIN_PASSWORD = "admin";
     public static final String KEYCLOAK_AUTH_SERVER_URL_REGISTRY_KEY = "keycloak.auth-server-url";
+    public static final String KEYCLOAK_AUTH_URI = "/auth";
+    public static final String KEYCLOAK_REALM = "example";
+    public static final String KEYCLOAK_CLIENT_ID = "example-client";
+
 
     // JUnit 5 Jupiter tags
     public static final String UNIT_TEST = "UnitTest";
