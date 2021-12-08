@@ -85,18 +85,4 @@ public class AssertionDemonstrationTests {
             assertDoesNotThrow(() -> sut.doSomethingThatDoesNotThrowException());
         }
     }
-
-    /**
-     * Asserts that an object instance is of a specific type.
-     */
-    @Nested
-    @DisplayName("assertInstanceOf")
-    class AssertInstanceOfTests {
-
-        @UnitTest
-        @DisplayName("basic usage")
-        void basic_usage() {
-
-        }
-    }
 }
