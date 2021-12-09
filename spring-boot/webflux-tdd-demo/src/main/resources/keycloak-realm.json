@@ -20,7 +20,7 @@
       "enabled": true,
       "publicClient": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "my-special-client-secret",
+      "secret": "afc4d549-2f0b-4a4c-add3-1f257dc5b5e5",
       "redirectUris": [
         "*"
       ],

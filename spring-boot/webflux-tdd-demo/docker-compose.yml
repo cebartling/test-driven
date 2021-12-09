@@ -17,7 +17,7 @@ services:
 #    image: jboss/keycloak
     image: mihaibob/keycloak:15.0.1
     container_name: keycloak
-    restart: always
+    restart: unless-stopped
     environment:
       KEYCLOAK_VERSION: 15.0.1
       KEYCLOAK_USER: admin
