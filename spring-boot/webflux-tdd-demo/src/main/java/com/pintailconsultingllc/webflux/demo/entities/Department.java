@@ -21,5 +21,5 @@ public class Department {
     @Id
     BigInteger id;
     String name;
-    Boolean deleted;
+    Boolean deleted = Boolean.FALSE;
 }

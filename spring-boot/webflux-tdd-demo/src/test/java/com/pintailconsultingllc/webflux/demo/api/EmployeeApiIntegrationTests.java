@@ -3,9 +3,9 @@ package com.pintailconsultingllc.webflux.demo.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pintailconsultingllc.webflux.demo.TestSupport;
-import com.pintailconsultingllc.webflux.demo.dtos.DepartmentDTO;
-import com.pintailconsultingllc.webflux.demo.entities.Department;
-import com.pintailconsultingllc.webflux.demo.repositories.DepartmentRepository;
+import com.pintailconsultingllc.webflux.demo.dtos.EmployeeDTO;
+import com.pintailconsultingllc.webflux.demo.entities.Employee;
+import com.pintailconsultingllc.webflux.demo.repositories.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -36,14 +36,15 @@ import static com.pintailconsultingllc.webflux.demo.TestSupport.MONGO_EXPOSED_PO
 import static com.pintailconsultingllc.webflux.demo.TestSupport.PROPERTY_SPRING_DATA_MONGODB_URI;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag(TestSupport.INTEGRATION_TEST)
-@DisplayName("Department API integration tests")
-class DepartmentApiIntegrationTests {
+@DisplayName("Employee API integration tests")
+class EmployeeApiIntegrationTests {
 
     @Container
     static MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse(DOCKER_NAME_MONGO))
@@ -67,39 +68,39 @@ class DepartmentApiIntegrationTests {
     ObjectMapper objectMapper;
 
     @Autowired
-    DepartmentRepository departmentRepository;
+    EmployeeRepository employeeRepository;
 
-    Department financeDepartment;
-    Department engineeringDepartment;
+    Employee employee1;
+    Employee employee2;
     WebTestClient.ResponseSpec responseSpec;
 
     @BeforeEach
     public void doBeforeEachTest() {
-        final Mono<Void> voidMono = departmentRepository.deleteAll();
+        final Mono<Void> voidMono = employeeRepository.deleteAll();
         StepVerifier.create(voidMono).expectNext().expectComplete().verify();
-        final Mono<Department> mono1 = reactiveMongoTemplate.save(Department.builder().name("Finance").build());
-        final Mono<Department> mono2 = reactiveMongoTemplate.save(Department.builder().name("Engineering").build());
-        final Flux<Department> departmentsFlux = Flux.concat(mono1, mono2);
-        StepVerifier.create(departmentsFlux)
-                .consumeNextWith(department -> financeDepartment = department)
-                .consumeNextWith(department -> engineeringDepartment = department)
+        final Mono<Employee> mono1 = reactiveMongoTemplate.save(Employee.builder().name("Joe Doe").salary(56000).build());
+        final Mono<Employee> mono2 = reactiveMongoTemplate.save(Employee.builder().name("Jane Doe").salary(64000).build());
+        final Flux<Employee> employeesFlux = Flux.concat(mono1, mono2);
+        StepVerifier.create(employeesFlux)
+                .consumeNextWith(employee -> this.employee1 = employee)
+                .consumeNextWith(employee -> this.employee2 = employee)
                 .expectComplete().verify();
     }
 
     @Nested
-    @DisplayName("GET /departments")
-    class GetAllDepartmentsTests {
+    @DisplayName("GET /employees")
+    class GetAllEmployeesTests {
         String expectedJson;
 
         @BeforeEach
         public void doBeforeEachTest() throws JsonProcessingException {
-            List<DepartmentDTO> departmentDTOs = List.of(
-                    new DepartmentDTO(engineeringDepartment),
-                    new DepartmentDTO(financeDepartment)
+            List<EmployeeDTO> employeeDTOs = List.of(
+                    new EmployeeDTO(employee2),
+                    new EmployeeDTO(employee1)
             );
-            expectedJson = objectMapper.writeValueAsString(departmentDTOs);
+            expectedJson = objectMapper.writeValueAsString(employeeDTOs);
             responseSpec = webTestClient.get()
-                    .uri("/departments")
+                    .uri("/employees")
                     .accept(MediaType.APPLICATION_JSON)
                     .exchange();
         }
@@ -111,21 +112,21 @@ class DepartmentApiIntegrationTests {
         }
 
         @Test
-        @DisplayName("should return an appropriate resource representation for the collection of departments")
+        @DisplayName("should return an appropriate resource representation for the collection of employees")
         void verifyAppropriateResourceRepresentation() {
             responseSpec.expectBody().json(expectedJson);
         }
     }
 
     @Nested
-    @DisplayName("GET /departments/{id}")
-    class GetDepartmentByIdTests {
+    @DisplayName("GET /employees/{id}")
+    class GetEmployeeByIdTests {
         String expectedJson;
 
         @BeforeEach
         public void doBeforeEachTest() throws JsonProcessingException {
-            expectedJson = objectMapper.writeValueAsString(new DepartmentDTO(engineeringDepartment));
-            final String uri = String.format("/departments/%s", engineeringDepartment.getId());
+            expectedJson = objectMapper.writeValueAsString(new EmployeeDTO(employee2));
+            final String uri = String.format("/employees/%s", employee2.getId());
             responseSpec = webTestClient.get()
                     .uri(uri)
                     .accept(MediaType.APPLICATION_JSON)
@@ -139,32 +140,34 @@ class DepartmentApiIntegrationTests {
         }
 
         @Test
-        @DisplayName("should return an appropriate resource representation for the single department")
+        @DisplayName("should return an appropriate resource representation for the single employee")
         void verifyAppropriateResourceRepresentation() {
             responseSpec.expectBody().json(expectedJson);
         }
     }
 
     @Nested
-    @DisplayName("POST /departments")
-    class CreateDepartmentTests {
-        Department newlyCreatedDepartment;
-        final String uri = "/departments";
-        final String expectedName = "Manufacturing";
+    @DisplayName("POST /employees")
+    class CreateEmployeeTests {
+        Employee newlyCreatedEmployee;
+        final String uri = "/employees";
+        final String expectedName = "Jane Doe-Rama";
+        final Integer expectedSalary = 72000;
 
         @BeforeEach
         public void doBeforeEachTest() {
-            DepartmentDTO departmentDto = DepartmentDTO.builder().name(expectedName).build();
+            EmployeeDTO employeeDto = EmployeeDTO.builder().name(expectedName).salary(expectedSalary).build();
             responseSpec = webTestClient.post()
                     .uri(uri)
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(Mono.just(departmentDto), DepartmentDTO.class)
+                    .body(Mono.just(employeeDto), EmployeeDTO.class)
                     .exchange();
-            final Query query = Query.query(Criteria.byExample(Department.builder().name(expectedName).build()));
-            final Mono<Department> departmentMono = reactiveMongoTemplate.findOne(query, Department.class);
-            StepVerifier.create(departmentMono)
-                    .consumeNextWith(department -> newlyCreatedDepartment = department)
+            final Employee example = Employee.builder().name(expectedName).salary(expectedSalary).build();
+            final Query query = Query.query(Criteria.byExample(example));
+            final Mono<Employee> employeeMono = reactiveMongoTemplate.findOne(query, Employee.class);
+            StepVerifier.create(employeeMono)
+                    .consumeNextWith(employee -> newlyCreatedEmployee = employee)
                     .expectComplete()
                     .verify();
         }
@@ -178,32 +181,35 @@ class DepartmentApiIntegrationTests {
         @Test
         @DisplayName("should return a URI for the newly created resource in the Location header")
         void verifyAppropriateLocationHeader() {
-            final String uriPattern = String.format("/departments/%s", newlyCreatedDepartment.getId());
+            final String uriPattern = String.format("/employees/%s", newlyCreatedEmployee.getId());
             responseSpec.expectHeader().valueMatches("location", uriPattern);
         }
     }
 
     @Nested
-    @DisplayName("PUT /departments/{id}")
-    class UpdateDepartmentTests {
-        final String expectedName = "Mechanical engineering";
-        Department updatedDepartment;
+    @DisplayName("PUT /employees/{id}")
+    class UpdateEmployeeTests {
+        final String expectedName = "Jane Doe-Buck";
+        final Integer expectedSalary = 96000;
+        Employee updatedEmployee;
 
         @BeforeEach
         void doBeforeEachTest() {
-            final String uri = String.format("/departments/%s", engineeringDepartment.getId());
-            DepartmentDTO departmentDto = new DepartmentDTO(engineeringDepartment);
-            departmentDto.setName(expectedName);
+            final String uri = String.format("/employees/%s", employee2.getId());
+            EmployeeDTO employeeDto = new EmployeeDTO(employee2);
+            employeeDto.setName(expectedName);
+            employeeDto.setSalary(expectedSalary);
             responseSpec = webTestClient.put()
                     .uri(uri)
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(Mono.just(departmentDto), DepartmentDTO.class)
+                    .body(Mono.just(employeeDto), EmployeeDTO.class)
                     .exchange();
-            final Query query = Query.query(Criteria.byExample(Department.builder().name(expectedName).build()));
-            final Mono<Department> departmentMono = reactiveMongoTemplate.findOne(query, Department.class);
-            StepVerifier.create(departmentMono)
-                    .consumeNextWith(department -> updatedDepartment = department)
+            final Employee example = Employee.builder().id(employee2.getId()).build();
+            final Query query = Query.query(Criteria.byExample(example));
+            final Mono<Employee> employeeMono = reactiveMongoTemplate.findOne(query, Employee.class);
+            StepVerifier.create(employeeMono)
+                    .consumeNextWith(employee -> updatedEmployee = employee)
                     .expectComplete()
                     .verify();
         }
@@ -215,33 +221,35 @@ class DepartmentApiIntegrationTests {
         }
 
         @Test
-        @DisplayName("should update the name of the existing department")
-        void verifyDepartmentRecordChangeTest() {
+        @DisplayName("should update the existing employee")
+        void verifyEmployeeRecordChangeTest() {
             assertAll(
-                    () -> assertNotNull(updatedDepartment),
-                    () -> assertEquals(engineeringDepartment.getId(), updatedDepartment.getId()),
-                    () -> assertEquals(expectedName, updatedDepartment.getName())
+                    () -> assertNotNull(updatedEmployee),
+                    () -> assertEquals(employee2.getId(), updatedEmployee.getId()),
+                    () -> assertFalse(updatedEmployee.getDeleted()),
+                    () -> assertEquals(expectedSalary, updatedEmployee.getSalary()),
+                    () -> assertEquals(expectedName, updatedEmployee.getName())
             );
         }
     }
 
     @Nested
-    @DisplayName("DELETE /departments/{id}")
-    class SoftDeleteDepartmentTests {
-        Department deletedDepartment;
+    @DisplayName("DELETE /employees/{id}")
+    class SoftDeleteEmployeeTests {
+        Employee deletedEmployee;
 
         @BeforeEach
         void doBeforeEachTest() {
-            final String uri = String.format("/departments/%s", engineeringDepartment.getId());
+            final String uri = String.format("/employees/%s", employee2.getId());
             responseSpec = webTestClient.delete()
                     .uri(uri)
                     .accept(MediaType.APPLICATION_JSON)
                     .exchange();
-            final Department example = Department.builder().id(engineeringDepartment.getId()).build();
+            final Employee example = Employee.builder().id(employee2.getId()).build();
             final Query query = Query.query(Criteria.byExample(example));
-            final Mono<Department> departmentMono = reactiveMongoTemplate.findOne(query, Department.class);
-            StepVerifier.create(departmentMono)
-                    .consumeNextWith(department -> deletedDepartment = department)
+            final Mono<Employee> employeeMono = reactiveMongoTemplate.findOne(query, Employee.class);
+            StepVerifier.create(employeeMono)
+                    .consumeNextWith(employee -> deletedEmployee = employee)
                     .expectComplete()
                     .verify();
         }
@@ -253,11 +261,11 @@ class DepartmentApiIntegrationTests {
         }
 
         @Test
-        @DisplayName("should update the name of the existing department")
-        void verifyDepartmentRecordChangeTest() {
+        @DisplayName("should update the name of the existing employee")
+        void verifyEmployeeRecordChangeTest() {
             assertAll(
-                    () -> assertNotNull(deletedDepartment),
-                    () -> assertTrue(deletedDepartment.getDeleted())
+                    () -> assertNotNull(deletedEmployee),
+                    () -> assertTrue(deletedEmployee.getDeleted())
             );
         }
     }
