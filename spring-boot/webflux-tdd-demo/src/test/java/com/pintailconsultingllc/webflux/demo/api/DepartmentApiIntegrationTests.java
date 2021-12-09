@@ -45,11 +45,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Testcontainers(disabledWithoutDocker = true)
-@EnableAutoConfiguration(exclude = EmbeddedMongoAutoConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag(TestSupport.INTEGRATION_TEST)
 @DisplayName("Department API integration tests")
-@Disabled
 class DepartmentApiIntegrationTests {
 
     @Container
