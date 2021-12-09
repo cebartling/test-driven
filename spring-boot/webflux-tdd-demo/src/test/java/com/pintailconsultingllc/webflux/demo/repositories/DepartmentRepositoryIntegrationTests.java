@@ -1,7 +1,7 @@
 package com.pintailconsultingllc.webflux.demo.repositories;
 
 import com.pintailconsultingllc.webflux.demo.TestSupport;
-import com.pintailconsultingllc.webflux.demo.entities.Employee;
+import com.pintailconsultingllc.webflux.demo.entities.Department;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,11 +32,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Testcontainers(disabledWithoutDocker = true)
+@Testcontainers
 @DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
 @Tag(TestSupport.INTEGRATION_TEST)
-@DisplayName("EmployeeRepository integration tests")
-class EmployeeRepositoryIntegrationTests {
+@DisplayName("DepartmentRepository integration tests")
+class DepartmentRepositoryIntegrationTests {
 
     @Container
     static MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse(DOCKER_NAME_MONGO))
@@ -51,48 +51,47 @@ class EmployeeRepositoryIntegrationTests {
     private ReactiveMongoTemplate reactiveMongoTemplate;
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private DepartmentRepository departmentRepository;
 
     @AfterEach
     void cleanUp() {
-        StepVerifier.create(employeeRepository.deleteAll()).verifyComplete();
+        departmentRepository.deleteAll();
     }
 
     @Nested
     @DisplayName("save method")
     class SaveMethodTests {
         @Nested
-        @DisplayName("saving a new employee")
+        @DisplayName("saving a new department")
         class SaveTests {
-            Employee newlyCreatedEmployee;
-            Employee actualPersistedEmployee;
-            Mono<Employee> saveMono;
+            Department newlyCreatedDepartment;
+            Department actualPersistedDepartment;
+            Mono<Department> saveMono;
 
             @BeforeEach
             public void doBeforeEachTest() {
-                newlyCreatedEmployee = new Employee(null, "Joe Smith", 50000, false);
-                saveMono = employeeRepository.save(newlyCreatedEmployee);
+                newlyCreatedDepartment = new Department(null, "Engineering",  false);
+                saveMono = departmentRepository.save(newlyCreatedDepartment);
                 StepVerifier.create(saveMono)
-                        .consumeNextWith(employee -> actualPersistedEmployee = employee)
+                        .consumeNextWith(department -> actualPersistedDepartment = department)
                         .expectComplete()
                         .verify();
             }
 
             @Test
-            @DisplayName("verify that employee document was persisted and returned in a Mono")
+            @DisplayName("verify that department document was persisted and returned in a Mono")
             void verifySaveMonoTest() {
                 assertAll(
-                        () -> assertNotNull(actualPersistedEmployee.getId()),
-                        () -> assertFalse(actualPersistedEmployee.getDeleted()),
-                        () -> assertEquals(newlyCreatedEmployee.getSalary(), actualPersistedEmployee.getSalary()),
-                        () -> assertEquals(newlyCreatedEmployee.getName(), actualPersistedEmployee.getName())
+                        () -> assertNotNull(actualPersistedDepartment.getId()),
+                        () -> assertFalse(actualPersistedDepartment.getDeleted()),
+                        () -> assertEquals(newlyCreatedDepartment.getName(), actualPersistedDepartment.getName())
                 );
             }
 
             @Test
-            @DisplayName("verify the newly persistent employee document in the Mongo database")
+            @DisplayName("verify the newly persistent department document in the Mongo database")
             void verifyRecordInDatabaseTest() {
-                final Mono<Long> countMono = employeeRepository.count(Example.of(actualPersistedEmployee));
+                final Mono<Long> countMono = departmentRepository.count(Example.of(actualPersistedDepartment));
                 StepVerifier.create(countMono)
                         .expectNext(1L)
                         .expectComplete()
@@ -101,44 +100,42 @@ class EmployeeRepositoryIntegrationTests {
         }
 
         @Nested
-        @DisplayName("updating an existing employee")
+        @DisplayName("updating an existing department")
         class UpdateTests {
-            Employee existingEmployee;
-            Employee latestVersionEmployee;
+            Department existingDepartment;
+            Department latestVersionDepartment;
 
             @BeforeEach
             public void doBeforeEachTest() {
-                final Mono<Employee> existingEmployeeMono = reactiveMongoTemplate.save(Employee.builder()
-                        .deleted(false).salary(100000).name("Jane Seymour").build());
-                StepVerifier.create(existingEmployeeMono)
-                        .consumeNextWith(employee -> existingEmployee = employee)
+                final Mono<Department> existingDepartmentMono = reactiveMongoTemplate.save(Department.builder()
+                        .deleted(false).name("Engineering").build());
+                StepVerifier.create(existingDepartmentMono)
+                        .consumeNextWith(department -> existingDepartment = department)
                         .expectComplete()
                         .verify();
-                existingEmployee.setName("Jannel Seymour");
-                existingEmployee.setSalary(110000);
-                final Mono<Employee> saveMono = employeeRepository.save(existingEmployee);
+                existingDepartment.setName("Mechanical engineering");
+                final Mono<Department> saveMono = departmentRepository.save(existingDepartment);
                 StepVerifier.create(saveMono)
-                        .consumeNextWith(employee -> latestVersionEmployee = employee)
+                        .consumeNextWith(department -> latestVersionDepartment = department)
                         .expectComplete()
                         .verify();
             }
 
             @Test
-            @DisplayName("verify that employee document was persisted and returned in a Mono")
+            @DisplayName("verify that department document was persisted and returned in a Mono")
             void verifySaveMonoTest() {
                 assertAll(
-                        () -> assertNotNull(latestVersionEmployee.getId()),
-                        () -> assertFalse(latestVersionEmployee.getDeleted()),
-                        () -> assertEquals(existingEmployee.getSalary(), latestVersionEmployee.getSalary()),
-                        () -> assertEquals(existingEmployee.getName(), latestVersionEmployee.getName())
+                        () -> assertNotNull(latestVersionDepartment.getId()),
+                        () -> assertFalse(latestVersionDepartment.getDeleted()),
+                        () -> assertEquals(existingDepartment.getName(), latestVersionDepartment.getName())
                 );
             }
 
             @Test
-            @DisplayName("verify the newly persistent employee document in the Mongo database")
+            @DisplayName("verify the newly persistent department document in the Mongo database")
             void verifyRecordInDatabaseTest() {
-                final Query idQuery = new Query(Criteria.where("id").is(latestVersionEmployee.getId()));
-                final Mono<Long> countMono = reactiveMongoTemplate.count(idQuery, Employee.class);
+                final Query idQuery = new Query(Criteria.where("id").is(latestVersionDepartment.getId()));
+                final Mono<Long> countMono = reactiveMongoTemplate.count(idQuery, Department.class);
                 StepVerifier.create(countMono)
                         .expectNext(1L)
                         .expectComplete()
