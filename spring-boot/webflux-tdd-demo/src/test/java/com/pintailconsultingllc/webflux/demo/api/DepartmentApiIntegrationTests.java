@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -85,7 +87,6 @@ class DepartmentApiIntegrationTests {
     class GetAllDepartmentsTests {
         String expectedJson;
 
-
         @BeforeEach
         public void doBeforeEachTest() throws JsonProcessingException {
             List<DepartmentDTO> departmentDTOs = List.of(
@@ -109,6 +110,72 @@ class DepartmentApiIntegrationTests {
         @DisplayName("should return an appropriate resource representation for the collection of departments")
         void verifyAppropriateResourceRepresentation() {
             responseSpec.expectBody().json(expectedJson);
+        }
+    }
+
+    @Nested
+    @DisplayName("GET /departments/{id}")
+    class GetDepartmentByIdTests {
+        String expectedJson;
+
+        @BeforeEach
+        public void doBeforeEachTest() throws JsonProcessingException {
+            expectedJson = objectMapper.writeValueAsString(new DepartmentDTO(engineeringDepartment));
+            final String uri = String.format("/departments/%s", engineeringDepartment.getId());
+            responseSpec = webTestClient.get()
+                    .uri(uri)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .exchange();
+        }
+
+        @Test
+        @DisplayName("should return a HTTP status code of 200 (OK)")
+        void verifyStatusCodeTest() {
+            responseSpec.expectStatus().isOk();
+        }
+
+        @Test
+        @DisplayName("should return an appropriate resource representation for the single department")
+        void verifyAppropriateResourceRepresentation() {
+            responseSpec.expectBody().json(expectedJson);
+        }
+    }
+
+    @Nested
+    @DisplayName("POST /departments")
+    class CreateDepartmentTests {
+        Department newlyCreatedDepartment;
+        final String uri = "/departments";
+        final String expectedName = "Manufacturing";
+
+        @BeforeEach
+        public void doBeforeEachTest() throws JsonProcessingException {
+            DepartmentDTO departmentDto = DepartmentDTO.builder().name(expectedName).build();
+            responseSpec = webTestClient.post()
+                    .uri(uri)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(Mono.just(departmentDto), DepartmentDTO.class)
+                    .exchange();
+            final Query query = Query.query(Criteria.byExample(Department.builder().name(expectedName).build()));
+            final Mono<Department> departmentMono = reactiveMongoTemplate.findOne(query, Department.class);
+            StepVerifier.create(departmentMono)
+                    .consumeNextWith(department -> newlyCreatedDepartment = department)
+                    .expectComplete()
+                    .verify();
+        }
+
+        @Test
+        @DisplayName("should return a HTTP status code of 201 (Created)")
+        void verifyStatusCodeTest() {
+            responseSpec.expectStatus().isCreated();
+        }
+
+        @Test
+        @DisplayName("should return a URI for the newly created resource in the Location header")
+        void verifyAppropriateLocationHeader() {
+            final String uriPattern = String.format("/departments/%s", newlyCreatedDepartment.getId());
+            responseSpec.expectHeader().valueMatches("location", uriPattern);
         }
     }
 }
