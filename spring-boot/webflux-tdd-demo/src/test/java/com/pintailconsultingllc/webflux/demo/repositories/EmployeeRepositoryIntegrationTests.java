@@ -83,7 +83,7 @@ class EmployeeRepositoryIntegrationTests {
             void verifySaveMonoTest() {
                 assertAll(
                         () -> assertNotNull(actualPersistedEmployee.getId()),
-                        () -> assertFalse(actualPersistedEmployee.isDeleted()),
+                        () -> assertFalse(actualPersistedEmployee.getDeleted()),
                         () -> assertEquals(newlyCreatedEmployee.getSalary(), actualPersistedEmployee.getSalary()),
                         () -> assertEquals(newlyCreatedEmployee.getName(), actualPersistedEmployee.getName())
                 );
@@ -128,7 +128,7 @@ class EmployeeRepositoryIntegrationTests {
             void verifySaveMonoTest() {
                 assertAll(
                         () -> assertNotNull(latestVersionEmployee.getId()),
-                        () -> assertFalse(latestVersionEmployee.isDeleted()),
+                        () -> assertFalse(latestVersionEmployee.getDeleted()),
                         () -> assertEquals(existingEmployee.getSalary(), latestVersionEmployee.getSalary()),
                         () -> assertEquals(existingEmployee.getName(), latestVersionEmployee.getName())
                 );
