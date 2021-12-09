@@ -34,6 +34,10 @@ import java.util.List;
 import static com.pintailconsultingllc.webflux.demo.TestSupport.DOCKER_NAME_MONGO;
 import static com.pintailconsultingllc.webflux.demo.TestSupport.MONGO_EXPOSED_PORT;
 import static com.pintailconsultingllc.webflux.demo.TestSupport.PROPERTY_SPRING_DATA_MONGODB_URI;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -149,7 +153,7 @@ class DepartmentApiIntegrationTests {
         final String expectedName = "Manufacturing";
 
         @BeforeEach
-        public void doBeforeEachTest() throws JsonProcessingException {
+        public void doBeforeEachTest() {
             DepartmentDTO departmentDto = DepartmentDTO.builder().name(expectedName).build();
             responseSpec = webTestClient.post()
                     .uri(uri)
@@ -176,6 +180,85 @@ class DepartmentApiIntegrationTests {
         void verifyAppropriateLocationHeader() {
             final String uriPattern = String.format("/departments/%s", newlyCreatedDepartment.getId());
             responseSpec.expectHeader().valueMatches("location", uriPattern);
+        }
+    }
+
+    @Nested
+    @DisplayName("PUT /departments/{id}")
+    class UpdateDepartmentTests {
+        final String expectedName = "Mechanical engineering";
+        Department updatedDepartment;
+
+        @BeforeEach
+        void doBeforeEachTest() {
+            final String uri = String.format("/departments/%s", engineeringDepartment.getId());
+            DepartmentDTO departmentDto = new DepartmentDTO(engineeringDepartment);
+            departmentDto.setName(expectedName);
+            responseSpec = webTestClient.put()
+                    .uri(uri)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(Mono.just(departmentDto), DepartmentDTO.class)
+                    .exchange();
+            final Query query = Query.query(Criteria.byExample(Department.builder().name(expectedName).build()));
+            final Mono<Department> departmentMono = reactiveMongoTemplate.findOne(query, Department.class);
+            StepVerifier.create(departmentMono)
+                    .consumeNextWith(department -> updatedDepartment = department)
+                    .expectComplete()
+                    .verify();
+        }
+
+        @Test
+        @DisplayName("should return a HTTP status code of 204 (No Content)")
+        void verifyStatusCodeTest() {
+            responseSpec.expectStatus().isNoContent();
+        }
+
+        @Test
+        @DisplayName("should update the name of the existing department")
+        void verifyDepartmentRecordChangeTest() {
+            assertAll(
+                    () -> assertNotNull(updatedDepartment),
+                    () -> assertEquals(engineeringDepartment.getId(), updatedDepartment.getId()),
+                    () -> assertEquals(expectedName, updatedDepartment.getName())
+            );
+        }
+    }
+
+    @Nested
+    @DisplayName("DELETE /departments/{id}")
+    class SoftDeleteDepartmentTests {
+        Department deletedDepartment;
+
+        @BeforeEach
+        void doBeforeEachTest() {
+            final String uri = String.format("/departments/%s", engineeringDepartment.getId());
+            responseSpec = webTestClient.delete()
+                    .uri(uri)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .exchange();
+            final Department example = Department.builder().id(engineeringDepartment.getId()).build();
+            final Query query = Query.query(Criteria.byExample(example));
+            final Mono<Department> departmentMono = reactiveMongoTemplate.findOne(query, Department.class);
+            StepVerifier.create(departmentMono)
+                    .consumeNextWith(department -> deletedDepartment = department)
+                    .expectComplete()
+                    .verify();
+        }
+
+        @Test
+        @DisplayName("should return a HTTP status code of 204 (No Content)")
+        void verifyStatusCodeTest() {
+            responseSpec.expectStatus().isNoContent();
+        }
+
+        @Test
+        @DisplayName("should update the name of the existing department")
+        void verifyDepartmentRecordChangeTest() {
+            assertAll(
+                    () -> assertNotNull(deletedDepartment),
+                    () -> assertTrue(deletedDepartment.getDeleted())
+            );
         }
     }
 }
