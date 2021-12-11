@@ -8,7 +8,7 @@ public class TestSupport {
 
     // Keycloak settings
     public static final String DOCKER_NAME_KEYCLOAK = "mihaibob/keycloak:15.0.1";
-    public static final String KEYCLOAK_REALM_IMPORT_JSON = "keycloak-realm.json";
+    public static final String KEYCLOAK_REALM_IMPORT_JSON = "keycloak.json";
     public static final String KEYCLOAK_ADMIN_USERNAME = "admin";
     public static final String KEYCLOAK_ADMIN_PASSWORD = "admin";
     public static final String KEYCLOAK_AUTH_SERVER_URL_REGISTRY_KEY = "keycloak.auth-server-url";

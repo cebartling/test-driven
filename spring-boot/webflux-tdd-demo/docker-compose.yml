@@ -11,7 +11,7 @@ services:
     volumes:
       - ./mongodb:/data/db
     ports:
-      - 27017:27017
+      - "27017:27017"
     restart: unless-stopped
   keycloak:
 #    image: jboss/keycloak
@@ -22,9 +22,9 @@ services:
       KEYCLOAK_VERSION: 15.0.1
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
-      KEYCLOAK_IMPORT: /tmp/keycloak-realm.json
+      KEYCLOAK_IMPORT: /tmp/keycloak.json
     volumes:
-      - ./src/main/resources/keycloak-realm.json:/tmp/keycloak-realm.json
+      - ./src/main/resources/keycloak.json:/tmp/keycloak.json
     ports:
       - "8080:8080"
 

@@ -1,0 +1,53 @@
+server:
+  port: 8081
+
+#spring:
+#  main:
+#    allow-bean-definition-overriding: true
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          keycloak:
+#            client-id: example-client
+##            client-secret: ff7e376a-0205-46e2-9980-6476fe90b3f7
+#            #clientName: Keycloak
+#            #authorization-grant-type: authorization_code
+#            #redirectUriTemplate: '{baseUrl}/login/oauth2/code/{registrationId}'
+#            #scope: openid
+#        provider:
+#          keycloak:
+#            issuer-uri: http://localhost:8080/auth/realms/dev
+#            #authorization-uri: http://localhost:9001/auth/realms/dev/protocol/openid-connect/auth
+#            #token-uri: http://localhost:9001/auth/realms/dev/protocol/openid-connect/token
+#            #user-info-uri: http://localhost:9001/auth/realms/dev/protocol/openid-connect/userinfo
+#            #jwk-set-uri: http://localhost:9001/auth/realms/dev/protocol/openid-connect/certs
+#            #user-name-attribute: preferred_username
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri: http://localhost:8080/auth/realms/dev/protocol/openid-connect/certs
+
+mongo:
+  dbport: 27017
+  dbname: SpringWebFluxDemoDB
+
+## Keycloak configuration
+keycloak:
+  public-client: true
+  realm: example
+  auth-server-url: http://localhost:8080/auth
+  ssl-required: external
+  # keycloak resource is the client ID
+  resource: example-client
+  use-resource-role-mappings: true
+  # The line below will prevent redirect to login page
+  bearer-only: true
+  principal-attribute: preferred_username
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure: INFO
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+    com.pintailconsultingllc.webflux.demo: DEBUG
+
