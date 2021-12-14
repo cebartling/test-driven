@@ -1,9 +1,9 @@
 server:
   port: 8081
 
-#spring:
-#  main:
-#    allow-bean-definition-overriding: true
+spring:
+  main:
+    allow-bean-definition-overriding: true
 #  security:
 #    oauth2:
 #      client:
@@ -32,17 +32,17 @@ mongo:
   dbname: SpringWebFluxDemoDB
 
 ## Keycloak configuration
-keycloak:
-  public-client: true
-  realm: example
-  auth-server-url: http://localhost:8080/auth
-  ssl-required: external
-  # keycloak resource is the client ID
-  resource: example-client
-  use-resource-role-mappings: true
-  # The line below will prevent redirect to login page
-  bearer-only: true
-  principal-attribute: preferred_username
+#keycloak:
+#  public-client: true
+#  realm: example
+#  auth-server-url: http://localhost:8080/auth
+#  ssl-required: external
+#  # keycloak resource is the client ID
+#  resource: example-client
+#  use-resource-role-mappings: true
+#  # The line below will prevent redirect to login page
+#  bearer-only: true
+#  principal-attribute: preferred_username
 
 logging:
   level:

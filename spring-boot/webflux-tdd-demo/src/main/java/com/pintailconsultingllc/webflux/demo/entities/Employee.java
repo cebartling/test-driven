@@ -23,7 +23,7 @@ public class Employee {
     BigInteger id;
     String name;
     Integer salary;
-    Boolean deleted = Boolean.FALSE;
+    Boolean deleted;
 
     public Employee(EmployeeDTO employeeDTO) {
         this.id = employeeDTO.getId();
