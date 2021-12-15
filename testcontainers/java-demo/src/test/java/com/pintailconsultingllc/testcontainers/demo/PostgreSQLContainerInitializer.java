@@ -23,5 +23,4 @@ public class PostgreSQLContainerInitializer
                 "spring.datasource.password=" + sqlContainer.getPassword()
         ).applyTo(configurableApplicationContext.getEnvironment());
     }
-
 }

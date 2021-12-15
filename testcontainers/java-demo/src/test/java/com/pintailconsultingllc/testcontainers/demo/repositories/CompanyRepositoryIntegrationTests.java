@@ -27,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Tag(TestSupport.INTEGRATION_TEST)
 class CompanyRepositoryIntegrationTests {
 
+    public static final String COMPANY_NAME = "Foobar";
+
     @Autowired
     EntityManager entityManager;
 
@@ -38,7 +40,7 @@ class CompanyRepositoryIntegrationTests {
     @BeforeEach
     public void doBeforeEachTest() {
         final Company transientCompany = new Company();
-        transientCompany.setName("Foobar");
+        transientCompany.setName(COMPANY_NAME);
         transientCompany.setId(UUID.randomUUID());
         persistedCompany = companyRepository.save(transientCompany);
     }
