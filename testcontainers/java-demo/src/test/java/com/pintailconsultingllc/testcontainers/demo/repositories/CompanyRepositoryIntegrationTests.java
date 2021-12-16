@@ -5,6 +5,7 @@ import com.pintailconsultingllc.testcontainers.demo.TestSupport;
 import com.pintailconsultingllc.testcontainers.demo.entities.Company;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,34 +28,60 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Tag(TestSupport.INTEGRATION_TEST)
 class CompanyRepositoryIntegrationTests {
 
-    public static final String COMPANY_NAME = "Foobar";
-
     @Autowired
     EntityManager entityManager;
 
     @Autowired
     private CompanyRepository companyRepository;
 
-    Company persistedCompany;
+    @Nested
+    @DisplayName("findById method")
+    class FindIdTests {
+        public static final String COMPANY_NAME = "Foobar";
 
-    @BeforeEach
-    public void doBeforeEachTest() {
-        final Company transientCompany = new Company();
-        transientCompany.setName(COMPANY_NAME);
-        transientCompany.setId(UUID.randomUUID());
-        persistedCompany = companyRepository.save(transientCompany);
+        Company persistedCompany;
+
+        @BeforeEach
+        public void doBeforeEachTest() {
+            final Company transientCompany = new Company();
+            transientCompany.setName(COMPANY_NAME);
+            transientCompany.setId(UUID.randomUUID());
+            persistedCompany = companyRepository.save(transientCompany);
+        }
+
+        @Test
+        @DisplayName("should find a company by its unique generated identifier")
+        void verifyFindById() {
+            final Optional<Company> companyOptional = companyRepository.findById(persistedCompany.getId());
+
+            assertAll(
+                    () -> assertTrue(companyOptional.isPresent()),
+                    () -> assertEquals(persistedCompany.getId(), companyOptional.get().getId()),
+                    () -> assertEquals(persistedCompany.getName(), companyOptional.get().getName())
+            );
+        }
     }
 
-    @Test
-    @DisplayName("should find a company by its unique generated identifier")
-    void verifyFindById() {
-        final Optional<Company> companyOptional = companyRepository.findById(persistedCompany.getId());
+    @Nested
+    @DisplayName("save method")
+    class SaveTests {
+        public static final String COMPANY_NAME = "Barfoo";
 
-        assertAll(
-                () -> assertTrue(companyOptional.isPresent()),
-                () -> assertEquals(persistedCompany.getId(), companyOptional.get().getId()),
-                () -> assertEquals(persistedCompany.getName(), companyOptional.get().getName())
-        );
+        @Test
+        @DisplayName("should find a company by its unique generated identifier")
+        void verifyFindById() {
+            final Company transientCompany = new Company();
+            transientCompany.setName(COMPANY_NAME);
+            transientCompany.setId(UUID.randomUUID());
+            Company persistedCompany = companyRepository.save(transientCompany);
+
+            final Optional<Company> companyOptional = companyRepository.findById(persistedCompany.getId());
+
+            assertAll(
+                    () -> assertTrue(companyOptional.isPresent()),
+                    () -> assertEquals(persistedCompany.getId(), companyOptional.get().getId()),
+                    () -> assertEquals(persistedCompany.getName(), companyOptional.get().getName())
+            );
+        }
     }
-
 }
