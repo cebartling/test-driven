@@ -12,8 +12,8 @@ pool:
 steps:
 - task: Gradle@2
   inputs:
-    workingDirectory: 'testcontainers/java-demo'
-    gradleWrapperFile: 'gradlew'
+    workingDirectory: "$(Build.Repository.LocalPath)/testcontainers/java-demo"
+    gradleWrapperFile: "$(Build.Repository.LocalPath)/testcontainers/java-demo/gradlew"
     gradleOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.11'
