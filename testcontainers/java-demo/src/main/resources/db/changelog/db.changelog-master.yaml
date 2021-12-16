@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/migrations/2021-12-14-1630-create-company.yaml
+  - include:
+      file: db/changelog/migrations/2021-12-14-1911-create-stock-price-event.yaml
