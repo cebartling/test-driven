@@ -136,7 +136,7 @@ class FoobarServiceTest {
                 @DisplayName("collaboration test: verify ExternalApiWebClient.post invocation")
                 void verifyDependencyInvocationTest() throws JsonProcessingException {
                     service.createEvent(EVENT_NAME, DATA);
-                    verify(externalApiWebClientMock).post(URI_EVENTS, jsonString);
+                    verify(externalApiWebClientMock).post(eq(URI_EVENTS), eq(jsonString));
                 }
 
                 @Test
@@ -149,8 +149,6 @@ class FoobarServiceTest {
             @Nested
             @DisplayName("ApiException thrown")
             class WhenUnsuccessfulTests {
-                MockedStatic<ZonedDateTime> zonedDateTimeMockedStatic;
-
                 @BeforeEach
                 public void doBeforeEachTest() {
                     when(responseMock.getStatusCode()).thenReturn(400);
