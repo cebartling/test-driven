@@ -1,3 +1,16 @@
+# Svelte Example 1
+
+
+## Testing
+
+### svelte-jester 
+
+- [Typescript configuuration for svelte-jester](https://github.com/mihar-22/svelte-jester#typescript)
+
+
+
+
+
 *Psst — looking for a more complete solution? Check out [SvelteKit](https://kit.svelte.dev), the official framework for building web applications of all sizes, with a beautiful development experience and flexible filesystem-based routing.*
 
 *Looking for a shareable component template instead? You can [use SvelteKit for that as well](https://kit.svelte.dev/docs#packaging) or the older [sveltejs/component-template](https://github.com/sveltejs/component-template)*

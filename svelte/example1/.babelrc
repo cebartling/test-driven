@@ -1,0 +1,16 @@
+{
+  "transform": {
+    "^.+\\.js$": "babel-jest",
+    "^.+\\.svelte$": "svelte-jester"
+  },
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ]
+}
