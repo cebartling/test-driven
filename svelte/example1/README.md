@@ -3,6 +3,14 @@
 
 ## Testing
 
+### ts-jest
+
+- [Documentation](https://kulshekhar.github.io/ts-jest/docs/)
+
+### svelte-preprocess
+
+- [Typescript configuration for svelte-preprocess](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/preprocessing.md#typescript)
+
 ### svelte-jester 
 
 - [Typescript configuuration for svelte-jester](https://github.com/mihar-22/svelte-jester#typescript)
