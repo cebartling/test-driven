@@ -1,4 +1,4 @@
-import {lookupZipCode} from "../ZipCodeLookupService";
+import {lookupZipCode} from '../ZipCodeLookupService';
 
 describe('ZipCodeLookupService', () => {
   describe('lookupZipCode function', () => {

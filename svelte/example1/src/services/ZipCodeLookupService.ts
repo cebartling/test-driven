@@ -1,3 +1,7 @@
-export const lookupZipCode = function(): Promise<string> {
-  return Promise.resolve("something");
+import axios from 'axios';
+
+export const lookupZipCode = function(zipCode: string): Promise<any> {
+  const url = `/zipCodes?zipCode=${zipCode}`;
+  const config = {};
+  return axios.get(url, config);
 };

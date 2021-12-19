@@ -1,0 +1,7 @@
+{
+  "zipCodes": [
+    { "id": 1, "zipCode": "55379", "area": "Shakopee, MN" },
+    { "id": 2, "zipCode": "55601", "area": "Beaver Bay, MN" },
+    { "id": 3, "zipCode": "55616", "area": "Two Harbors, MN" }
+  ]
+}
