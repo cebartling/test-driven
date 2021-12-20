@@ -33,3 +33,6 @@ hs_err_pid*
 .DS_Store
 
 .idea/
+testcontainers/java-demo/build/
+testcontainers/java-demo/.gradle/
+
