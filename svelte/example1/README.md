@@ -1,5 +1,13 @@
 # Svelte Example 1
 
+## Configuring your environment
+
+```
+nvm use
+npm i -g json-server
+```
+
+
 
 ## Testing
 
