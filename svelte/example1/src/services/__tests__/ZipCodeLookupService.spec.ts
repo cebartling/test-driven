@@ -1,19 +1,20 @@
+import axios from 'axios';
 import {lookupZipCode} from '../ZipCodeLookupService';
-import axios from "axios";
+import type {ZipCodeLookupResult} from '../../models/ZipCodeLookupResult';
 
 describe('ZipCodeLookupService', () => {
   describe('lookupZipCode function', () => {
     const zipCode = '55379';
-    let actual;
-    const expected = '';
+    const expected: ZipCodeLookupResult[] = [];
     const expectedConfig = {};
+    let actual;
 
     beforeEach(async () => {
       jest.spyOn(axios, 'get').mockResolvedValue(expected);
       actual = await lookupZipCode(zipCode);
     });
 
-    it('should return a Promise<string>',  () => {
+    it('should return a Promise<ZipCodeLookupResult[]>',  () => {
       expect(actual).toEqual(expected);
     });
 
