@@ -36,6 +36,7 @@
     "sirv-cli": "^1.0.0"
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "transform": {
       "^.+\\.svelte$": [
         "svelte-jester",
