@@ -1,11 +1,14 @@
 <script lang="ts">
-  import {lookupZipCode} from "../services/ZipCodeLookupService";
+  import type {ZipCodeLookupResult} from '../models/ZipCodeLookupResult';
+  import axios from "axios";
 
-  export let zipCode: string = undefined;
+  export let zipCode: string;
+  export let zipCodeLookupResults: ZipCodeLookupResult[] = undefined;
 
-  export async function handleOnSubmit() {
-    console.log('handleOnSubmit');
-    let zipCodeLookupResults = await lookupZipCode(zipCode);
+  async function handleOnSubmit() {
+    const url = `/zipCodes?zipCode=${zipCode}`;
+    const config = {};
+    zipCodeLookupResults = await axios.get(url, config);
   }
 </script>
 
@@ -16,9 +19,9 @@
       <input type="text">
     </div>
     <div class="">
-      <button type="button"
-              on:click={handleOnSubmit}
-              data-testid="zip-code-lookup-submit-button">Search</button>
+      <button type="submit">
+        Search
+      </button>
     </div>
   </form>
 </div>

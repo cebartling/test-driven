@@ -14,8 +14,10 @@
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
+    "@testing-library/dom": "^8.11.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/svelte": "^3.0.3",
+    "@testing-library/user-event": "^13.5.0",
     "@tsconfig/svelte": "^2.0.0",
     "jest": "^27.4.5",
     "rollup": "^2.3.4",
@@ -38,13 +40,13 @@
   "jest": {
     "testEnvironment": "jsdom",
     "transform": {
+      "^.+\\.ts$": "ts-jest",
       "^.+\\.svelte$": [
         "svelte-jester",
         {
           "preprocess": true
         }
-      ],
-      "^.+\\.ts$": "ts-jest"
+      ]
     },
     "moduleFileExtensions": [
       "js",

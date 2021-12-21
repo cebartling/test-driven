@@ -1,8 +1,7 @@
 import {cleanup, fireEvent, render, RenderResult} from '@testing-library/svelte'
 import ZipCodeLookup from "../ZipCodeLookup.svelte";
-import * as zipCodeLookupServiceExports from '../../services/ZipCodeLookupService';
 import type {ZipCodeLookupResult} from "../../models/ZipCodeLookupResult";
-import SpyInstance = jest.SpyInstance;
+import axios from "axios";
 
 describe('ZipCodeLookup.svelte component', () => {
   let renderedComponent: RenderResult;
@@ -27,20 +26,24 @@ describe('ZipCodeLookup.svelte component', () => {
   });
 
 
-  // describe('handleOnSubmit function', () => {
-  //   const expectedResult = [] as ZipCodeLookupResult[];
-  //   let lookupZipCodeSpyInstance: SpyInstance;
-  //
-  //   beforeEach(async () => {
-  //     lookupZipCodeSpyInstance = jest.spyOn(zipCodeLookupServiceExports, 'lookupZipCode')
-  //       .mockResolvedValue(expectedResult);
-  //     const {getByTestId} = renderedComponent;
-  //     const button = getByTestId('zip-code-lookup-submit-button')
-  //     await fireEvent.click(button);
-  //   });
-  //
-  //   it('should invoke lookupZipCode function from ZipCodeLookupService', () => {
-  //     expect(lookupZipCodeSpyInstance).toHaveBeenCalledTimes(1);
-  //   });
-  // });
+  describe('handleOnSubmit function', () => {
+    const expectedResult = [
+      {} as ZipCodeLookupResult,
+      {} as ZipCodeLookupResult,
+      {} as ZipCodeLookupResult
+    ];
+    const expectedConfig = {};
+
+    beforeEach(async () => {
+      jest.spyOn(axios, 'get').mockResolvedValue(expectedResult);
+      const {getByTestId} = renderedComponent;
+      const form = getByTestId('zip-code-lookup-form')
+      await fireEvent.submit(form);
+    });
+
+    it('should invoke axios.get', () => {
+      expect(axios.get).toHaveBeenCalledWith('/zipCodes?zipCode=55379', expectedConfig);
+      expect(renderedComponent.component.zipCodeLookupResults).toEqual(expectedResult);
+    });
+  });
 });
