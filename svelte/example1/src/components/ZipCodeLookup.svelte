@@ -1,8 +1,8 @@
 <script lang="ts">
   import type {ZipCodeLookupResult} from '../models/ZipCodeLookupResult';
-  import axios from "axios";
+  import axios from 'axios';
 
-  export let zipCode: string;
+  export let zipCode: string = undefined;
   export let zipCodeLookupResults: ZipCodeLookupResult[] = undefined;
 
   async function handleOnSubmit() {

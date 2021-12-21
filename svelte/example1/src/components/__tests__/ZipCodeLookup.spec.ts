@@ -1,13 +1,14 @@
 import {cleanup, fireEvent, render, RenderResult} from '@testing-library/svelte'
+import axios from "axios";
 import ZipCodeLookup from "../ZipCodeLookup.svelte";
 import type {ZipCodeLookupResult} from "../../models/ZipCodeLookupResult";
-import axios from "axios";
 
 describe('ZipCodeLookup.svelte component', () => {
   let renderedComponent: RenderResult;
+  const props = {zipCode: '55379'};
 
   beforeEach(() => {
-    renderedComponent = render(ZipCodeLookup, {props: {zipCode: '55379'}});
+    renderedComponent = render(ZipCodeLookup, {props});
   });
 
   afterEach(() => {
@@ -41,8 +42,8 @@ describe('ZipCodeLookup.svelte component', () => {
       await fireEvent.submit(form);
     });
 
-    it('should invoke axios.get', () => {
-      expect(axios.get).toHaveBeenCalledWith('/zipCodes?zipCode=55379', expectedConfig);
+    it('should invoke axios.get to fetch zip code information', () => {
+      expect(axios.get).toHaveBeenCalledWith(`/zipCodes?zipCode=${props.zipCode}`, expectedConfig);
       expect(renderedComponent.component.zipCodeLookupResults).toEqual(expectedResult);
     });
   });
