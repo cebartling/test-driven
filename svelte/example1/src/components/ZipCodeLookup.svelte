@@ -1,25 +1,29 @@
 <script lang="ts">
   import type {ZipCodeLookupResult} from '../models/ZipCodeLookupResult';
-  import axios from 'axios';
 
   export let zipCode: string = undefined;
   export let zipCodeLookupResults: ZipCodeLookupResult[] = undefined;
 
-  async function handleOnSubmit() {
-    const url = `/zipCodes?zipCode=${zipCode}`;
-    const config = {};
-    zipCodeLookupResults = await axios.get(url, config);
+  async function handleOnClick() {
+    const url = `/api/zipCodes?zipCode=${zipCode}`;
+
+    try {
+      const response = await fetch(url);
+      zipCodeLookupResults = await response.json();
+      console.log(zipCodeLookupResults);
+    } catch (error) {
+      console.error(error);
+    }
   }
 </script>
 
 <div>
-  <form on:submit={handleOnSubmit}
-        data-testid="zip-code-lookup-form">
+  <form>
     <div class="">
-      <input type="text">
+      <input type="text" bind:value={zipCode}>
     </div>
     <div class="">
-      <button type="submit">
+      <button type="button" on:click={handleOnClick} data-testid="zip-code-lookup-button">
         Search
       </button>
     </div>

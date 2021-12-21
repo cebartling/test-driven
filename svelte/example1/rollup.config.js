@@ -46,7 +46,8 @@ export default {
       ],
       port: 5555,
       proxy: [
-        {from: '/api', to: 'http://localhost:3000'}
+        {from: '/api', to: 'http://localhost:3000'},
+        {from: '/zipcodelookup', to: 'http://localhost:5555'},
       ]
     }),
     svelte({
