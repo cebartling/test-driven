@@ -11,13 +11,19 @@
       <li class="nav-item">
         <a href="/"
            class="nav-link"
-           class:active="{activeView === 'home'}"
+           class:active={activeView === 'home'}
            aria-current="page">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="/profile"
+           class="nav-link"
+           class:active={activeView === 'profile'}
+           aria-current="page">Profile</a>
       </li>
       <li class="nav-item">
         <a href="/zipcodelookup"
            class="nav-link"
-           class:active="{activeView === 'zipcodelookup'}"
+           class:active={activeView === 'zipcodelookup'}
            aria-current="page">Zip code lookup</a>
       </li>
     </ul>
