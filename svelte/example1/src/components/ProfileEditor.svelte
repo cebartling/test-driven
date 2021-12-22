@@ -3,6 +3,19 @@
 
   export let profile: Profile;
 
+  const handleOnClickSaveButton = async () => {
+    const requestInit = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(profile)
+    } as RequestInit;
+    const response = await fetch(`/api/profiles/${profile.id}`, requestInit);
+    if (!response.ok) {
+      throw new Error(`Error updating profile. Status code: ${response.status}`)
+    }
+  }
 </script>
 
 <div class="row">
@@ -41,6 +54,9 @@
 </div>
 <div class="row">
   <div class="col-6">
-    <button type="button" class="btn btn-success">Save</button>
+    <button type="button"
+            class="btn btn-success"
+            on:click={handleOnClickSaveButton}>Save
+    </button>
   </div>
 </div>
