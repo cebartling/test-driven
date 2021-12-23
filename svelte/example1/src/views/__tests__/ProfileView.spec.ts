@@ -12,9 +12,10 @@ describe('ProfileEditor.svelte component', () => {
   } as Profile;
 
   beforeEach(() => {
-    global.fetch = jest.fn().mockResolvedValue({
+    const response = {
       json: () => Promise.resolve(profile)
-    });
+    };
+    global.fetch = jest.fn().mockResolvedValue(response);
     renderResult = render(ProfileView);
   });
 
