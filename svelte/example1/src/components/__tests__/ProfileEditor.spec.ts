@@ -79,6 +79,12 @@ describe('ProfileEditor.svelte component', () => {
         buttonElement = renderResult.container.querySelector('button')
       });
 
+      afterEach(() => {
+        // @ts-ignore
+        global.fetch.mockClear();
+        delete global.fetch;
+      });
+
       it('should be present in the DOM', () => {
         expect(buttonElement).toBeInTheDocument();
       });
@@ -109,34 +115,44 @@ describe('ProfileEditor.svelte component', () => {
           await renderResult.component.handleOnClickSaveButton();
         });
 
+        afterEach(() => {
+          // @ts-ignore
+          global.fetch.mockClear();
+          delete global.fetch;
+        });
+
         it('should invoke fetch API to update profile information in backend system', () => {
           expect(global.fetch).toHaveBeenCalledWith(url, requestInit);
         });
       });
 
       describe('when the response returns unsuccessful status code', () => {
-        beforeEach(() => {
+        let error: Error;
+
+        beforeEach(async () => {
           const response = {ok: false, status: 400} as Response;
           // We are working in the JSDOM world, so global.fetch is not defined. So define it!
           global.fetch = jest.fn().mockResolvedValue(response);
+          try {
+            await renderResult.component.handleOnClickSaveButton();
+            fail('Should have thrown an error');
+          } catch (e) {
+            error = e;
+          }
+        });
+
+        afterEach(() => {
+          // @ts-ignore
+          global.fetch.mockClear();
+          delete global.fetch;
         });
 
         it('should invoke fetch API to update profile information in backend system', async () => {
-          try {
-            await renderResult.component.handleOnClickSaveButton();
-            fail('Should have thrown an error');
-          } catch (e) {
-            expect(global.fetch).toHaveBeenCalledWith(url, requestInit);
-          }
+          expect(global.fetch).toHaveBeenCalledWith(url, requestInit);
         });
 
-        it('should throw an error', async () => {
-          try {
-            await renderResult.component.handleOnClickSaveButton();
-            fail('Should have thrown an error');
-          } catch (e) {
-            expect(e.message).toBe('Error updating profile. Status code: 400');
-          }
+        it('should throw an error with an appropriate message', async () => {
+          expect(error.message).toBe('Error updating profile. Status code: 400');
         });
       });
     });
