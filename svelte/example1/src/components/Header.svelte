@@ -9,28 +9,20 @@
     </a>
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a href="/"
+        <a id="homeNav"
+           href="/"
            class="nav-link"
            class:active={activeView === 'home'}
            aria-current="page">Home</a>
       </li>
       <li class="nav-item">
-        <a href="/profile"
+        <a id="profileNav"
+           href="/profile"
            class="nav-link"
            class:active={activeView === 'profile'}
            aria-current="page">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a href="/zipcodelookup"
-           class="nav-link"
-           class:active={activeView === 'zipcodelookup'}
-           aria-current="page">Zip code lookup</a>
       </li>
     </ul>
   </header>
 </div>
 
-
-<style>
-
-</style>
