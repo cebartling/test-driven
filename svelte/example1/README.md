@@ -4,10 +4,21 @@
 
 ```
 nvm use
-npm i -g json-server
 ```
 
+## Running the dev server
 
+1. Run the json-server for a mock REST API backend:
+    ```
+    npm run start-json-server
+    ```
+   
+2. Run the Rollup dev server:
+    ```
+    npm run dev
+    ```
+
+3. Navigate to http://localhost:5555.
 
 ## Testing
 
