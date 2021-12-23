@@ -4,14 +4,13 @@ import type {Profile} from '../../models/Profile';
 
 describe('ProfileEditor.svelte component', () => {
   let renderResult: RenderResult;
-  const props = {
-    profile: {
-      id: "78b6c7b2-6c30-4604-b7cd-56e6cecaae83",
-      emailAddress: "jasper.shaw@example.com",
-      givenName: "Jasper",
-      surname: "Shawn"
-    } as Profile
-  };
+  const profile = {
+    id: "78b6c7b2-6c30-4604-b7cd-56e6cecaae83",
+    emailAddress: "jasper.shaw@example.com",
+    givenName: "Jasper",
+    surname: "Shawn"
+  } as Profile;
+  const props = {profile};
 
   beforeEach(() => {
     renderResult = render(ProfileEditor, {props});
@@ -34,7 +33,7 @@ describe('ProfileEditor.svelte component', () => {
       });
 
       it('should be bound to profile.emailAddress property', () => {
-        expect(inputElement.value).toBe(props.profile.emailAddress);
+        expect(inputElement.value).toBe(profile.emailAddress);
       });
     });
 
@@ -50,7 +49,7 @@ describe('ProfileEditor.svelte component', () => {
       });
 
       it('should be bound to profile.givenName property', () => {
-        expect(inputElement.value).toBe(props.profile.givenName);
+        expect(inputElement.value).toBe(profile.givenName);
       });
     });
 
@@ -66,7 +65,7 @@ describe('ProfileEditor.svelte component', () => {
       });
 
       it('should be bound to profile.surname property', () => {
-        expect(inputElement.value).toBe(props.profile.surname);
+        expect(inputElement.value).toBe(profile.surname);
       });
     });
 
@@ -98,9 +97,9 @@ describe('ProfileEditor.svelte component', () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(props.profile)
+        body: JSON.stringify(profile)
       } as RequestInit;
-      const url = `/api/profiles/${props.profile.id}`;
+      const url = `/api/profiles/${profile.id}`;
 
       describe('when the response returns successful status code', () => {
         beforeEach(async () => {
