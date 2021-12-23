@@ -31,7 +31,7 @@ describe('ProfileEditor.svelte component', () => {
       expect(getByText(/Surname/)).toBeInTheDocument();
     });
 
-    it('should invoke fetch to get the profile', () => {
+    it('should invoke the fetch API to retrieve the profile from the backend REST API', () => {
       expect(global.fetch).toHaveBeenCalledWith(`/api/profiles/${renderResult.component.profileId}`)
     });
   });
