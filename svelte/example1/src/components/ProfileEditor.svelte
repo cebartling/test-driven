@@ -3,7 +3,7 @@
 
   export let profile: Profile;
 
-  const handleOnClickSaveButton = async () => {
+  export async function handleOnClickSaveButton() {
     const requestInit = {
       method: 'PUT',
       headers: {
@@ -56,6 +56,7 @@
   <div class="col-6">
     <button type="button"
             class="btn btn-success"
+            id="saveProfileButton"
             on:click={handleOnClickSaveButton}>Save
     </button>
   </div>
