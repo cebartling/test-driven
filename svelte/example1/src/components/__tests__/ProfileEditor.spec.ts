@@ -2,9 +2,8 @@ import {cleanup, fireEvent, render, RenderResult} from '@testing-library/svelte'
 import ProfileEditor from '../ProfileEditor.svelte';
 import type {Profile} from '../../models/Profile';
 
-
 describe('ProfileEditor.svelte component', () => {
-  let renderedComponent: RenderResult;
+  let renderResult: RenderResult;
   const props = {
     profile: {
       id: "78b6c7b2-6c30-4604-b7cd-56e6cecaae83",
@@ -15,7 +14,7 @@ describe('ProfileEditor.svelte component', () => {
   };
 
   beforeEach(() => {
-    renderedComponent = render(ProfileEditor, {props});
+    renderResult = render(ProfileEditor, {props});
   });
 
   afterEach(() => {
@@ -27,7 +26,7 @@ describe('ProfileEditor.svelte component', () => {
       let inputElement: HTMLInputElement;
 
       beforeEach(() => {
-        inputElement = renderedComponent.container.querySelector('input#emailFormControlInput')
+        inputElement = renderResult.container.querySelector('input#emailFormControlInput')
       });
 
       it('should be present in the DOM', () => {
@@ -43,7 +42,7 @@ describe('ProfileEditor.svelte component', () => {
       let inputElement: HTMLInputElement;
 
       beforeEach(() => {
-        inputElement = renderedComponent.container.querySelector('input#givenNameFormControlInput')
+        inputElement = renderResult.container.querySelector('input#givenNameFormControlInput')
       });
 
       it('should be present in the DOM', () => {
@@ -59,7 +58,7 @@ describe('ProfileEditor.svelte component', () => {
       let inputElement: HTMLInputElement;
 
       beforeEach(() => {
-        inputElement = renderedComponent.container.querySelector('input#surnameFormControlInput')
+        inputElement = renderResult.container.querySelector('input#surnameFormControlInput')
       });
 
       it('should be present in the DOM', () => {
@@ -76,8 +75,9 @@ describe('ProfileEditor.svelte component', () => {
 
       beforeEach(() => {
         const response = {ok: true} as Response;
+        // We are working in the JSDOM world, so global.fetch is not defined. So define it!
         global.fetch = jest.fn().mockResolvedValue(response);
-        buttonElement = renderedComponent.container.querySelector('button')
+        buttonElement = renderResult.container.querySelector('button')
       });
 
       it('should be present in the DOM', () => {
@@ -91,25 +91,55 @@ describe('ProfileEditor.svelte component', () => {
     });
   });
 
+  describe('exported behavior', () => {
+    describe('handleOnClickSaveButton', () => {
+      const requestInit = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(props.profile)
+      } as RequestInit;
+      const url = `/api/profiles/${props.profile.id}`;
 
-  // describe('handleOnSubmit function', () => {
-  //   const expectedResult = [
-  //     {} as ZipCodeLookupResult,
-  //     {} as ZipCodeLookupResult,
-  //     {} as ZipCodeLookupResult
-  //   ];
-  //   const expectedConfig = {};
-  //
-  //   beforeEach(async () => {
-  //     jest.spyOn(axios, 'get').mockResolvedValue(expectedResult);
-  //     const {getByTestId} = renderedComponent;
-  //     const form = getByTestId('zip-code-lookup-form')
-  //     await fireEvent.submit(form);
-  //   });
-  //
-  //   it('should invoke axios.get to fetch zip code information', () => {
-  //     expect(axios.get).toHaveBeenCalledWith(`/zipCodes?zipCode=${props.zipCode}`, expectedConfig);
-  //     expect(renderedComponent.component.zipCodeLookupResults).toEqual(expectedResult);
-  //   });
-  // });
+      describe('when the response returns successful status code', () => {
+        beforeEach(async () => {
+          const response = {ok: true} as Response;
+          // We are working in the JSDOM world, so global.fetch is not defined. So define it!
+          global.fetch = jest.fn().mockResolvedValue(response);
+          await renderResult.component.handleOnClickSaveButton();
+        });
+
+        it('should invoke fetch API to update profile information in backend system', () => {
+          expect(global.fetch).toHaveBeenCalledWith(url, requestInit);
+        });
+      });
+
+      describe('when the response returns unsuccessful status code', () => {
+        beforeEach(() => {
+          const response = {ok: false, status: 400} as Response;
+          // We are working in the JSDOM world, so global.fetch is not defined. So define it!
+          global.fetch = jest.fn().mockResolvedValue(response);
+        });
+
+        it('should invoke fetch API to update profile information in backend system', async () => {
+          try {
+            await renderResult.component.handleOnClickSaveButton();
+            fail('Should have thrown an error');
+          } catch (e) {
+            expect(global.fetch).toHaveBeenCalledWith(url, requestInit);
+          }
+        });
+
+        it('should throw an error', async () => {
+          try {
+            await renderResult.component.handleOnClickSaveButton();
+            fail('Should have thrown an error');
+          } catch (e) {
+            expect(e.message).toBe('Error updating profile. Status code: 400');
+          }
+        });
+      });
+    });
+  });
 });
