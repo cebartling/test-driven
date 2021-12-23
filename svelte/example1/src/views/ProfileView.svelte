@@ -1,8 +1,8 @@
 <script lang="ts">
+  import {onMount} from 'svelte';
   import Header from '../components/Header.svelte';
-  import ProfileEditor from "../components/ProfileEditor.svelte";
-  import {onMount} from "svelte";
-  import type {Profile} from "../models/Profile";
+  import ProfileEditor from '../components/ProfileEditor.svelte';
+  import type {Profile} from '../models/Profile';
 
   export let profileId = "78b6c7b2-6c30-4604-b7cd-56e6cecaae83";
   let profile: Profile;
