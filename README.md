@@ -14,6 +14,8 @@ Various test-driven development journeys.
 
 - [Jasmine testing patterns, tips and tricks](./documentation/jasmine/README.md)
 - [Angular TDD demo](./angular/example1/README.md)
+- [Svelte TDD demo](./svelte/example1/README.md)
+
 
 ## Further Reading
 - [Realizing quality improvement through test driven development: results and experiences of four industrial teams](https://www.microsoft.com/en-us/research/wp-content/uploads/2009/10/Realizing-Quality-Improvement-Through-Test-Driven-Development-Results-and-Experiences-of-Four-Industrial-Teams-nagappan_tdd.pdf)
