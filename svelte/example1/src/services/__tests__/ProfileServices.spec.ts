@@ -1,9 +1,9 @@
 import type {Profile} from '../../models/Profile';
-import {updateProfile} from '../ProfileServices';
+import {ProfileServices} from '../ProfileServices';
 
-describe('Profile services', () => {
+describe('ProfileServices', () => {
 
-  describe('updateProfile', () => {
+  describe('updateProfile static method', () => {
     const profile = {
       id: "78b6c7b2-6c30-4604-b7cd-56e6cecaae83",
       emailAddress: "jasper.shaw@example.com",
@@ -26,7 +26,7 @@ describe('Profile services', () => {
       const response = {ok: true} as Response;
       // We are working in the JSDOM world, so global.fetch is not defined. So define it!
       global.fetch = jest.fn().mockResolvedValue(response);
-      result = updateProfile(profile);
+      result = ProfileServices.updateProfile(profile);
     });
 
     afterEach(() => {
