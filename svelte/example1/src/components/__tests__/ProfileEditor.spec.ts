@@ -1,6 +1,7 @@
 import {cleanup, fireEvent, render, RenderResult} from '@testing-library/svelte'
 import ProfileEditor from '../ProfileEditor.svelte';
 import type {Profile} from '../../models/Profile';
+import {ProfileServices} from '../../services/ProfileServices';
 
 describe('ProfileEditor.svelte component', () => {
   let renderResult: RenderResult;
@@ -74,15 +75,8 @@ describe('ProfileEditor.svelte component', () => {
 
       beforeEach(() => {
         const response = {ok: true} as Response;
-        // We are working in the JSDOM world, so global.fetch is not defined. So define it!
-        global.fetch = jest.fn().mockResolvedValue(response);
+        ProfileServices.updateProfile = jest.fn().mockResolvedValue(response);
         buttonElement = renderResult.container.querySelector('button')
-      });
-
-      afterEach(() => {
-        // @ts-ignore
-        global.fetch.mockClear();
-        delete global.fetch;
       });
 
       it('should be present in the DOM', () => {
@@ -91,38 +85,22 @@ describe('ProfileEditor.svelte component', () => {
 
       it('should have the onclick handler wired up properly', async () => {
         await fireEvent.click(buttonElement);
-        expect(global.fetch).toHaveBeenCalled();
+        expect(ProfileServices.updateProfile).toHaveBeenCalledWith(profile);
       });
     });
   });
 
   describe('exported behavior', () => {
     describe('handleOnClickSaveButton', () => {
-      const requestInit = {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(profile)
-      } as RequestInit;
-      const url = `/api/profiles/${profile.id}`;
-
       describe('when the response returns successful status code', () => {
         beforeEach(async () => {
           const response = {ok: true} as Response;
-          // We are working in the JSDOM world, so global.fetch is not defined. So define it!
-          global.fetch = jest.fn().mockResolvedValue(response);
+          ProfileServices.updateProfile = jest.fn().mockResolvedValue(response);
           await renderResult.component.handleOnClickSaveButton();
         });
 
-        afterEach(() => {
-          // @ts-ignore
-          global.fetch.mockClear();
-          delete global.fetch;
-        });
-
-        it('should invoke fetch API to update profile information in backend system', () => {
-          expect(global.fetch).toHaveBeenCalledWith(url, requestInit);
+        it('should invoke ProfileServices.updateProfile', () => {
+          expect(ProfileServices.updateProfile).toHaveBeenCalledWith(profile);
         });
       });
 
@@ -131,8 +109,7 @@ describe('ProfileEditor.svelte component', () => {
 
         beforeEach(async () => {
           const response = {ok: false, status: 400} as Response;
-          // We are working in the JSDOM world, so global.fetch is not defined. So define it!
-          global.fetch = jest.fn().mockResolvedValue(response);
+          ProfileServices.updateProfile = jest.fn().mockResolvedValue(response);
           try {
             await renderResult.component.handleOnClickSaveButton();
             fail('Should have thrown an error');
@@ -141,14 +118,9 @@ describe('ProfileEditor.svelte component', () => {
           }
         });
 
-        afterEach(() => {
-          // @ts-ignore
-          global.fetch.mockClear();
-          delete global.fetch;
-        });
 
-        it('should invoke fetch API to update profile information in backend system', async () => {
-          expect(global.fetch).toHaveBeenCalledWith(url, requestInit);
+        it('should invoke ProfileServices.updateProfile', async () => {
+          expect(ProfileServices.updateProfile).toHaveBeenCalledWith(profile);
         });
 
         it('should throw an error with an appropriate message', async () => {
