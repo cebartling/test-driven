@@ -2,13 +2,18 @@
 
 ## Configuring your environment
 
+Use Node Version Manager (`nvm`) to set the Node.js runtime:
+
 ```
 nvm use
 ```
 
+The `.nvmrc` file contains the Node.js runtime version that this project uses.
+
+
 ## Running the dev server
 
-1. Run the json-server for a mock REST API backend:
+1. Run the **json-server** for a mock REST API backend:
     ```
     npm run start-json-server
     ```
