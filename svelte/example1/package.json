@@ -12,6 +12,8 @@
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-typescript": "^7.16.5",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
@@ -20,6 +22,8 @@
     "@testing-library/svelte": "^3.0.3",
     "@testing-library/user-event": "^13.5.0",
     "@tsconfig/svelte": "^2.0.0",
+    "@types/jest": "^27.0.3",
+    "babel-jest": "^27.4.5",
     "jest": "^27.4.5",
     "json-server": "^0.17.0",
     "rollup": "^2.3.4",
@@ -45,6 +49,7 @@
     "testEnvironment": "jsdom",
     "transform": {
       "^.+\\.ts$": "ts-jest",
+      "^.+\\.js$": "ts-jest",
       "^.+\\.svelte$": [
         "svelte-jester",
         {

@@ -1,20 +1,19 @@
 <script lang="ts">
   import {ProfileServices} from '../services/ProfileServices';
   import type {Profile} from '../models/Profile';
-  import { form, field } from 'svelte-forms';
-  import { required, email } from 'svelte-forms/validators';
+  import {field, form} from 'svelte-forms';
+  import {email, required} from 'svelte-forms/validators';
 
   export let profile: Profile;
-
-  const emailAddress = field('emailAddress', profile.emailAddress, [required(), email()]);
-  const givenName = field('givenName', profile.givenName, [required()]);
-  const surname = field('surname', profile.surname, [required()]);
-  const profileForm = form(emailAddress, givenName, surname);
+  const emailAddressField = field('emailAddress', profile.emailAddress, [required(), email()]);
+  const givenNameField = field('givenName', profile.givenName, [required()]);
+  const surnameField = field('surname', profile.surname, [required()]);
+  const profileForm = form(emailAddressField, givenNameField, surnameField);
 
   export async function handleOnClickSaveButton() {
-    profile.emailAddress = $emailAddress.value;
-    profile.givenName = $givenName.value;
-    profile.surname = $surname.value;
+    profile.emailAddress = $emailAddressField.value;
+    profile.givenName = $givenNameField.value;
+    profile.surname = $surnameField.value;
     const response = await ProfileServices.updateProfile(profile);
     if (!response.ok) {
       throw new Error(`Error updating profile. Status code: ${response.status}`)
@@ -34,10 +33,10 @@
     <label for="emailFormControlInput" class="form-label">Email address</label>
     <input type="email"
            class="form-control"
-           class:is-invalid={!$emailAddress.valid}
+           class:is-invalid={!$emailAddressField.valid}
            id="emailFormControlInput"
            placeholder="name@example.com"
-           bind:value={$emailAddress.value}>
+           bind:value={$emailAddressField.value}>
   </div>
   <div class="mb-3 col-8 error-message">
     {#if $profileForm.hasError('emailAddress.required')}
@@ -53,9 +52,9 @@
     <label for="givenNameFormControlInput" class="form-label">Given name</label>
     <input type="text"
            class="form-control"
-           class:is-invalid={!$givenName.valid}
+           class:is-invalid={!$givenNameField.valid}
            id="givenNameFormControlInput"
-           bind:value={$givenName.value}>
+           bind:value={$givenNameField.value}>
   </div>
   <div class="mb-3 col-8 error-message">
     {#if $profileForm.hasError('givenName.required')}The given name is a required field!{/if}
@@ -66,9 +65,9 @@
     <label for="surnameFormControlInput" class="form-label">Surname</label>
     <input type="text"
            class="form-control"
-           class:is-invalid={!$surname.valid}
+           class:is-invalid={!$surnameField.valid}
            id="surnameFormControlInput"
-           bind:value={$surname.value}>
+           bind:value={$surnameField.value}>
   </div>
   <div class="mb-3 col-8 error-message">
     {#if $profileForm.hasError('surname.required')}The surname is a required field!{/if}
@@ -97,10 +96,10 @@
 
 
 <style>
-  .error-message {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: darkred;
-      margin-top: 2.5rem;
-  }
+    .error-message {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: darkred;
+        margin-top: 2.5rem;
+    }
 </style>
