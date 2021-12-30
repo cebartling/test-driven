@@ -1,10 +1,20 @@
 <script lang="ts">
   import {ProfileServices} from '../services/ProfileServices';
   import type {Profile} from '../models/Profile';
+  import { form, field } from 'svelte-forms';
+  import { required, email } from 'svelte-forms/validators';
 
   export let profile: Profile;
 
+  const emailAddress = field('emailAddress', profile.emailAddress, [required(), email()]);
+  const givenName = field('givenName', profile.givenName, [required()]);
+  const surname = field('surname', profile.surname, [required()]);
+  const profileForm = form(emailAddress, givenName, surname);
+
   export async function handleOnClickSaveButton() {
+    profile.emailAddress = $emailAddress.value;
+    profile.givenName = $givenName.value;
+    profile.surname = $surname.value;
     const response = await ProfileServices.updateProfile(profile);
     if (!response.ok) {
       throw new Error(`Error updating profile. Status code: ${response.status}`)
@@ -22,7 +32,7 @@
            class="form-control"
            id="emailFormControlInput"
            placeholder="name@example.com"
-           bind:value={profile.emailAddress}>
+           bind:value={$emailAddress.value}>
   </div>
 </div>
 <div class="row">
@@ -31,7 +41,7 @@
     <input type="text"
            class="form-control"
            id="givenNameFormControlInput"
-           bind:value={profile.givenName}>
+           bind:value={$givenName.value}>
   </div>
 </div>
 <div class="row">
@@ -40,7 +50,7 @@
     <input type="text"
            class="form-control"
            id="surnameFormControlInput"
-           bind:value={profile.surname}>
+           bind:value={$surname.value}>
   </div>
 </div>
 <div class="row">
@@ -51,6 +61,7 @@
     <button type="button"
             class="btn btn-success"
             id="saveProfileButton"
+            disabled={!$profileForm.valid}
             on:click={handleOnClickSaveButton}>Save
     </button>
   </div>
