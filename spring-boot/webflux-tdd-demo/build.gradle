@@ -21,7 +21,7 @@ repositories {
 
 ext {
     springBootVersion = '2.6.2'
-    springFrameworkSessionCoreVersion = '2.5.3'
+    springFrameworkSessionCoreVersion = '2.6.1'
     springFrameworkSecurityVersion = '5.5.1'
     lombokVersion = '1.18.22'
     projectReactorTestVersion = '3.4.12'
