@@ -22,10 +22,9 @@ repositories {
 ext {
     springBootVersion = '2.6.2'
     springFrameworkSessionCoreVersion = '2.6.1'
-    springFrameworkSecurityVersion = '5.5.1'
+    springFrameworkSecurityVersion = '5.6.1'
     lombokVersion = '1.18.22'
-    projectReactorTestVersion = '3.4.12'
-    embeddedMongoVersion = '3.2.0'
+    projectReactorTestVersion = '3.4.13'
     junitJupiterVersion = '5.8.1'
     testContainersVersion = '1.16.2'
 }
@@ -36,7 +35,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
     implementation "org.springframework.session:spring-session-core:${springFrameworkSessionCoreVersion}"
-    implementation 'org.projectlombok:lombok:1.18.20'
+    implementation "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
