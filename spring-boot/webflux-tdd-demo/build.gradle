@@ -27,7 +27,7 @@ ext {
     projectReactorTestVersion = '3.4.13'
     junitJupiterVersion = '5.8.1'
     testContainersVersion = '1.16.2'
-    wiremockVersion = '2.27.2'
+    wiremockVersion = '2.32.0'
 }
 
 dependencies {
@@ -47,7 +47,7 @@ dependencies {
     testImplementation "org.testcontainers:testcontainers:${testContainersVersion}"
     testImplementation "org.testcontainers:junit-jupiter:${testContainersVersion}"
     testImplementation "org.testcontainers:mongodb:${testContainersVersion}"
-    testImplementation "com.github.tomakehurst:wiremock:${wiremockVersion}"
+    testImplementation "com.github.tomakehurst:wiremock-jre8-standalone:${wiremockVersion}"
 }
 
 test {
