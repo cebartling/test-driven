@@ -13,6 +13,9 @@ import java.net.URISyntaxException;
 @Component
 public class FinanceWebClient {
 
+    public static final String APPLICATION_JSON = "application/json";
+    public static final String HEADER_CONTENT_TYPE = "Content-Type";
+    public static final String HEADER_ACCEPTS = "Accepts";
     private final WebClient webClient;
 
     @Value("webclients.finance.baseUrl")
@@ -22,7 +25,34 @@ public class FinanceWebClient {
         this.webClient = webClientBuilder.baseUrl(financeBaseUrl).build();
     }
 
+    /**
+     * Retrieve employee financial information from external API.
+     *
+     * @param employeeId A string identifier for the specific employee in the external API system.
+     * @return A Mono emitting a single FinanceInformationDTO object instance.
+     */
     public Mono<FinanceInformationDTO> getFinanceInformationByEmployeeId(String employeeId) {
+        return webClient
+                .get()
+                .uri(createUri(employeeId))
+                .header(HEADER_CONTENT_TYPE, APPLICATION_JSON)
+                .header(HEADER_ACCEPTS, APPLICATION_JSON)
+                .retrieve()
+                .onStatus(HttpStatus::is4xxClientError,
+                        response -> Mono.error(new WebClientException("Invalid request for employee financial information.")))
+                .onStatus(HttpStatus::is5xxServerError,
+                        response -> Mono.error(new WebClientException("Service error occurred.")))
+                .bodyToMono(FinanceInformationDTO.class)
+                .onErrorResume(throwable -> {
+                    if (throwable instanceof WebClientException) {
+                        return Mono.error(throwable);
+                    } else {
+                        return Mono.error(new WebClientException("Unable to parse the API response."));
+                    }
+                });
+    }
+
+    private URI createUri(String employeeId) {
         final URI uri;
         final String urlString = String.format("%s/%s", financeBaseUrl, employeeId);
         try {
@@ -30,16 +60,6 @@ public class FinanceWebClient {
         } catch (URISyntaxException e) {
             throw new WebClientException(String.format("Unable to create employee financial information URL: %s", urlString), e);
         }
-
-        return webClient
-                .get()
-                .uri(uri)
-                .header("Content-Type", "application/json")
-                .retrieve()
-                .onStatus(HttpStatus::is4xxClientError,
-                        response -> Mono.error(new WebClientException("Invalid request for employee financial information.")))
-                .onStatus(HttpStatus::is5xxServerError,
-                        response -> Mono.error(new WebClientException("Service error occurred.")))
-                .bodyToMono(FinanceInformationDTO.class);
+        return uri;
     }
 }

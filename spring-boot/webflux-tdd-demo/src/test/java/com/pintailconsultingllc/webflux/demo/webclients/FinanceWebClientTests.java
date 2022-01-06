@@ -38,6 +38,8 @@ class FinanceWebClientTests {
     final private String financeBaseUrl = "http://localhost:9000/api/employees";
     private ObjectMapper objectMapper;
     private FinanceWebClient financeWebClient;
+    final private String expectedEmployeeId = "234568";
+
 
     @BeforeEach
     public void doBeforeEachTest() {
@@ -65,7 +67,6 @@ class FinanceWebClientTests {
         @Nested
         @DisplayName("successful pathway: Mono emitting DTO returned")
         class SuccessPathwayTests {
-            final private String expectedEmployeeId = "234568";
             FinanceInformationDTO actual;
             FinanceInformationDTO expected;
 
@@ -95,6 +96,35 @@ class FinanceWebClientTests {
             @DisplayName("should return a valid FinanceInformationDTO instance from the external API endpoint")
             void verifyDirectOutputTest() {
                 assertEquals(expected, actual);
+            }
+        }
+
+        @Nested
+        @DisplayName("failure pathway: response body is unparse-able")
+        class FailurePathwayResponseUnparseableTests {
+            Throwable actualError;
+
+            @BeforeEach
+            public void doBeforeEachTest() throws JsonProcessingException {
+                String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
+                ResponseDefinitionBuilder responseDefBuilder = aResponse()
+                        .withStatus(200)
+                        .withBody("djhfajdhafhdluhfl")
+                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                MappingBuilder mappingBuilder = get(urlEqualTo(url));
+                stubFor(mappingBuilder.willReturn(responseDefBuilder));
+
+                Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                StepVerifier.create(resultMono)
+                        .consumeErrorWith(error -> actualError = error)
+                        .verify();
+            }
+
+            @Test
+            @DisplayName("should return an exception for unparse-able employee financial info returned in response")
+            void verifyDirectOutputTest() {
+                assertInstanceOf(WebClientException.class, actualError);
+                assertEquals("Unable to parse the API response.", actualError.getMessage());
             }
         }
 
