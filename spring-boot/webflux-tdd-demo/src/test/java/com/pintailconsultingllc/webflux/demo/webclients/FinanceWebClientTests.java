@@ -2,12 +2,13 @@ package com.pintailconsultingllc.webflux.demo.webclients;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
-import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.pintailconsultingllc.webflux.demo.TestSupport;
 import com.pintailconsultingllc.webflux.demo.dtos.FinanceInformationDTO;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -18,29 +19,43 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.notFound;
-import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
-import static com.github.tomakehurst.wiremock.client.WireMock.serviceUnavailable;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 @Tag(TestSupport.UNIT_TEST)
-@WireMockTest(httpPort = 9000)
 @DisplayName("FinanceWebClient unit tests")
 class FinanceWebClientTests {
 
-    private WireMockRuntimeInfo wireMockRuntimeInfo;
+    public static final String HEADER_CONTENT_TYPE = "Content-Type";
+    public static final String MEDIA_TYPE_APPLICATION_JSON = "application/json";
+    private static WireMockServer wireMockServer;
+
     final private String financeBaseUrl = "http://localhost:9000/api/employees";
     private ObjectMapper objectMapper;
     private FinanceWebClient financeWebClient;
 
     @BeforeEach
-    public void doBeforeEachTest(WireMockRuntimeInfo wireMockRuntimeInfo) {
+    public void doBeforeEachTest() {
         this.financeWebClient = new FinanceWebClient(WebClient.builder());
         ReflectionTestUtils.setField(this.financeWebClient, "financeBaseUrl", financeBaseUrl);
-        this.wireMockRuntimeInfo = wireMockRuntimeInfo;
         this.objectMapper = new ObjectMapper();
+    }
+
+    @BeforeAll
+    public static void doBeforeAllTestsRun() {
+        wireMockServer = new WireMockServer(9000);
+        wireMockServer.start();
+        configureFor("localhost", 9000);
+    }
+
+    @AfterAll
+    public static void doAfterAllTestsRun() {
+        wireMockServer.stop();
     }
 
     @Nested
@@ -53,7 +68,6 @@ class FinanceWebClientTests {
             final private String expectedEmployeeId = "234568";
             FinanceInformationDTO actual;
             FinanceInformationDTO expected;
-            private MappingBuilder mappingBuilder;
 
             @BeforeEach
             public void doBeforeEachTest() throws JsonProcessingException {
@@ -62,10 +76,15 @@ class FinanceWebClientTests {
                         .federalIncomeTaxesYearToDateInCents(456787)
                         .stateIncomeTaxesYearToDateInCents(125677)
                         .build();
-                mappingBuilder = get(String.format("%s/%s", "/api/employees", expectedEmployeeId));
                 final String jsonBody = objectMapper.writeValueAsString(expected);
-                WireMock wireMock = wireMockRuntimeInfo.getWireMock();
-                wireMock.register(mappingBuilder.willReturn(okJson(jsonBody)));
+                String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
+                ResponseDefinitionBuilder responseDefBuilder = aResponse()
+                        .withStatus(200)
+                        .withBody(jsonBody)
+                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                MappingBuilder mappingBuilder = get(urlEqualTo(url));
+                stubFor(mappingBuilder.willReturn(responseDefBuilder));
+
                 Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
                 StepVerifier.create(resultMono)
                         .consumeNextWith(consumer -> actual = consumer)
@@ -84,13 +103,15 @@ class FinanceWebClientTests {
         class FailurePathway4xxStatusCodeTests {
             final private String expectedEmployeeId = "2342768";
             private Throwable actualError;
-            private MappingBuilder mappingBuilder;
 
             @BeforeEach
-            public void doBeforeEachTest() throws JsonProcessingException {
-                mappingBuilder = get(String.format("%s/%s", "/api/employees", expectedEmployeeId));
-                WireMock wireMock = wireMockRuntimeInfo.getWireMock();
-                wireMock.register(mappingBuilder.willReturn(notFound()));
+            public void doBeforeEachTest() {
+                String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
+                ResponseDefinitionBuilder responseDefBuilder = aResponse()
+                        .withStatus(403)
+                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                stubFor(get(urlEqualTo(url)).willReturn(responseDefBuilder));
+
                 Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
                 StepVerifier.create(resultMono)
                         .consumeErrorWith(error -> actualError = error)
@@ -110,13 +131,14 @@ class FinanceWebClientTests {
         class FailurePathway5xxStatusCodeTests {
             final private String expectedEmployeeId = "2342755";
             private Throwable actualError;
-            private MappingBuilder mappingBuilder;
 
             @BeforeEach
-            public void doBeforeEachTest() throws JsonProcessingException {
-                mappingBuilder = get(String.format("%s/%s", "/api/employees", expectedEmployeeId));
-                WireMock wireMock = wireMockRuntimeInfo.getWireMock();
-                wireMock.register(mappingBuilder.willReturn(serviceUnavailable()));
+            public void doBeforeEachTest() {
+                String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
+                ResponseDefinitionBuilder responseDefBuilder = aResponse()
+                        .withStatus(503)
+                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                stubFor(get(urlEqualTo(url)).willReturn(responseDefBuilder));
                 Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
                 StepVerifier.create(resultMono)
                         .consumeErrorWith(error -> actualError = error)
