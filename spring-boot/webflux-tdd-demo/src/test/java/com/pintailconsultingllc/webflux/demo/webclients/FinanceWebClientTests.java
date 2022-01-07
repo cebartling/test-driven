@@ -33,6 +33,7 @@ class FinanceWebClientTests {
 
     public static final String HEADER_CONTENT_TYPE = "Content-Type";
     public static final String MEDIA_TYPE_APPLICATION_JSON = "application/json";
+    public static final int WIRE_MOCK_PORT = 9000;
     private static WireMockServer wireMockServer;
 
     final private String financeBaseUrl = "http://localhost:9000/api/employees";
@@ -50,9 +51,9 @@ class FinanceWebClientTests {
 
     @BeforeAll
     static void doBeforeAllTestsRun() {
-        wireMockServer = new WireMockServer(9000);
+        wireMockServer = new WireMockServer(WIRE_MOCK_PORT);
         wireMockServer.start();
-        configureFor("localhost", 9000);
+        configureFor("localhost", WIRE_MOCK_PORT);
     }
 
     @AfterAll
