@@ -49,14 +49,14 @@ class FinanceWebClientTests {
     }
 
     @BeforeAll
-    public static void doBeforeAllTestsRun() {
+    static void doBeforeAllTestsRun() {
         wireMockServer = new WireMockServer(9000);
         wireMockServer.start();
         configureFor("localhost", 9000);
     }
 
     @AfterAll
-    public static void doAfterAllTestsRun() {
+    static void doAfterAllTestsRun() {
         wireMockServer.stop();
     }
 
