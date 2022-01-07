@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.6'
+    id 'org.springframework.boot' version '2.6.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'idea'
@@ -20,14 +20,14 @@ repositories {
 }
 
 ext {
-    springBootVersion = '2.5.6'
-    springFrameworkSessionCoreVersion = '2.5.3'
-    springFrameworkSecurityVersion = '5.5.1'
+    springBootVersion = '2.6.2'
+    springFrameworkSessionCoreVersion = '2.6.1'
+    springFrameworkSecurityVersion = '5.6.1'
     lombokVersion = '1.18.22'
-    projectReactorTestVersion = '3.4.12'
-    embeddedMongoVersion = '3.2.0'
+    projectReactorTestVersion = '3.4.13'
     junitJupiterVersion = '5.8.1'
     testContainersVersion = '1.16.2'
+    wiremockVersion = '2.32.0'
 }
 
 dependencies {
@@ -36,7 +36,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
     implementation "org.springframework.session:spring-session-core:${springFrameworkSessionCoreVersion}"
-    implementation 'org.projectlombok:lombok:1.18.20'
+    implementation "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
@@ -47,6 +47,7 @@ dependencies {
     testImplementation "org.testcontainers:testcontainers:${testContainersVersion}"
     testImplementation "org.testcontainers:junit-jupiter:${testContainersVersion}"
     testImplementation "org.testcontainers:mongodb:${testContainersVersion}"
+    testImplementation "com.github.tomakehurst:wiremock-jre8-standalone:${wiremockVersion}"
 }
 
 test {
