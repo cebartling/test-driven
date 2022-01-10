@@ -1,3 +1,5 @@
+// Manual mocks: https://jestjs.io/docs/manual-mocks
+
 import {writable} from 'svelte/store';
 import type {Profile} from '../../models/Profile';
 
