@@ -1,6 +1,8 @@
+import {get} from 'svelte/store';
 import {cleanup, getByText, render, RenderResult} from '@testing-library/svelte';
 import type {Profile} from '../../models/Profile';
 import ProfileView from '../ProfileView.svelte';
+import {profileId} from "../../stores/ProfileStore";
 
 describe('ProfileEditor.svelte component', () => {
   let renderResult: RenderResult;
@@ -13,9 +15,10 @@ describe('ProfileEditor.svelte component', () => {
 
   beforeEach(() => {
     const response = {
+      ok: true,
       json: () => Promise.resolve(profile)
     };
-    global.fetch = jest.fn().mockResolvedValue(response);
+    global.window.fetch = jest.fn().mockResolvedValue(response);
     renderResult = render(ProfileView);
   });
 
@@ -32,7 +35,7 @@ describe('ProfileEditor.svelte component', () => {
     });
 
     it('should invoke the fetch API to retrieve the profile from the backend REST API', () => {
-      expect(global.fetch).toHaveBeenCalledWith(`/api/profiles/${renderResult.component.profileId}`)
+      expect(global.window.fetch).toHaveBeenCalledWith(`/api/profiles/${get(profileId)}`, {"method": "GET"});
     });
   });
 });
