@@ -7,7 +7,7 @@ import {fetchProfile} from '../../stores/ProfileStore';
 // Mock the module using the manual mocks found in '../../stores/__mocks__/ProfileStore'
 jest.mock('../../stores/ProfileStore');
 
-describe('ProfileEditor.svelte component', () => {
+describe('ProfileView.svelte component', () => {
   let renderResult: RenderResult;
 
   beforeEach(() => {
