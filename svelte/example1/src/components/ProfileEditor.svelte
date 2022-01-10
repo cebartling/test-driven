@@ -1,20 +1,11 @@
 <script lang="ts">
   import type {Profile} from '../models/Profile';
+  import {profileService} from "../stores/ProfileStore";
 
   export let profile: Profile;
 
   export async function handleOnClickSaveButton() {
-    const requestInit = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(profile)
-    } as RequestInit;
-    const response = await fetch(`/api/profiles/${profile.id}`, requestInit);
-    if (!response.ok) {
-      throw new Error(`Error updating profile. Status code: ${response.status}`)
-    }
+    await profileService.saveProfile(profile);
   }
 </script>
 
