@@ -14,3 +14,5 @@ export const profileId = writable(expectedProfile.id);
 export const profile = writable(expectedProfile);
 
 export const fetchProfile = jest.fn();
+export const saveProfile = jest.fn();
+
