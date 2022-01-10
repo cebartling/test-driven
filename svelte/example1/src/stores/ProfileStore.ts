@@ -7,7 +7,7 @@ export const profile = writable(undefined);
 class ProfileService {
   async fetchProfile() {
     const requestInit = {method: "GET"} as RequestInit;
-    const response = await global.window.fetch(`/api/profiles/${get(profileId)}`, requestInit);
+    const response = await fetch(`/api/profiles/${get(profileId)}`, requestInit);
     if (response.ok) {
       const profileData = await response.json();
       profile.set(profileData);
@@ -22,7 +22,7 @@ class ProfileService {
       },
       body: JSON.stringify(updatedProfile)
     } as RequestInit;
-    const response = await global.window.fetch(`/api/profiles/${updatedProfile.id}`, requestInit);
+    const response = await fetch(`/api/profiles/${updatedProfile.id}`, requestInit);
     if (response.ok) {
       profileId.set(updatedProfile.id);
       await this.fetchProfile();
