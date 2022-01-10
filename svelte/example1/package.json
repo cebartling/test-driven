@@ -44,7 +44,7 @@
   "jest": {
     "testEnvironment": "jsdom",
     "transform": {
-      "^.+\\.ts$": "ts-jest",
+      "^.+\\.(ts|js)": "ts-jest",
       "^.+\\.svelte$": [
         "svelte-jester",
         {

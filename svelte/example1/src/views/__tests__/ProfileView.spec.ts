@@ -1,21 +1,16 @@
 import {cleanup, getByText, render, RenderResult} from '@testing-library/svelte';
-import type {Profile} from '../../models/Profile';
 import ProfileView from '../ProfileView.svelte';
+import {fetchProfile} from '../../stores/ProfileStore';
+
+// https://jestjs.io/docs/mock-functions#mocking-modules
+// https://jestjs.io/docs/manual-mocks
+// Mock the module using the manual mocks found in '../../stores/__mocks__/ProfileStore'
+jest.mock('../../stores/ProfileStore');
 
 describe('ProfileEditor.svelte component', () => {
   let renderResult: RenderResult;
-  const profile = {
-    id: "78b6c7b2-6c30-4604-b7cd-56e6cecaae83",
-    emailAddress: "jasper.shaw@example.com",
-    givenName: "Jasper",
-    surname: "Shawn"
-  } as Profile;
 
   beforeEach(() => {
-    const response = {
-      json: () => Promise.resolve(profile)
-    };
-    global.fetch = jest.fn().mockResolvedValue(response);
     renderResult = render(ProfileView);
   });
 
@@ -31,8 +26,9 @@ describe('ProfileEditor.svelte component', () => {
       expect(getByText(/Surname/)).toBeInTheDocument();
     });
 
-    it('should invoke the fetch API to retrieve the profile from the backend REST API', () => {
-      expect(global.fetch).toHaveBeenCalledWith(`/api/profiles/${renderResult.component.profileId}`)
+    it('should invoke the fetchProfile function', () => {
+      // This is a spy defined in '../../stores/__mocks__/ProfileStore'
+      expect(fetchProfile).toHaveBeenCalled();
     });
   });
 });
