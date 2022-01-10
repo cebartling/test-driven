@@ -2,9 +2,9 @@
   import {onMount} from 'svelte';
   import Header from '../components/Header.svelte';
   import ProfileEditor from '../components/ProfileEditor.svelte';
-  import {fetchProfile, profile} from "../stores/ProfileStore";
+  import {profileService, profile} from "../stores/ProfileStore";
 
-  onMount(fetchProfile);
+  onMount(profileService.fetchProfile);
 </script>
 
 <main class="flex-shrink-0">

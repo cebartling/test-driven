@@ -4,7 +4,7 @@ import type {Profile} from '../models/Profile';
 export const profileId = writable("78b6c7b2-6c30-4604-b7cd-56e6cecaae83");
 export const profile = writable(undefined);
 
-export class ProfileService {
+class ProfileService {
   async fetchProfile() {
     const requestInit = {method: "GET"} as RequestInit;
     const response = await global.window.fetch(`/api/profiles/${get(profileId)}`, requestInit);
@@ -32,4 +32,6 @@ export class ProfileService {
     }
   };
 }
+
+export const profileService = new ProfileService();
 

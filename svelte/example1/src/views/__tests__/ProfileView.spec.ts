@@ -1,6 +1,6 @@
 import {cleanup, getByText, render, RenderResult} from '@testing-library/svelte';
 import ProfileView from '../ProfileView.svelte';
-import {fetchProfile} from '../../stores/ProfileStore';
+import {profileService} from '../../stores/ProfileStore';
 
 // https://jestjs.io/docs/mock-functions#mocking-modules
 // https://jestjs.io/docs/manual-mocks
@@ -26,9 +26,8 @@ describe('ProfileView.svelte component', () => {
       expect(getByText(/Surname/)).toBeInTheDocument();
     });
 
-    it('should invoke the fetchProfile function', () => {
-      // This is a spy defined in '../../stores/__mocks__/ProfileStore'
-      expect(fetchProfile).toHaveBeenCalled();
+    it('should invoke the profileService.fetchProfile function', () => {
+      expect(profileService.fetchProfile).toHaveBeenCalled();
     });
   });
 });

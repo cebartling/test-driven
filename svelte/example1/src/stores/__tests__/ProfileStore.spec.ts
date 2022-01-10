@@ -1,17 +1,10 @@
 import {tick} from 'svelte';
 import {get} from 'svelte/store';
-import {profile, profileId, ProfileService} from '../ProfileStore';
+import {profile, profileId, profileService} from '../ProfileStore';
 import type {Profile} from '../../models/Profile';
 
 describe('ProfileStore unit tests', () => {
-
   describe('ProfileService', () => {
-    let profileService: ProfileService;
-
-    beforeEach(() => {
-      profileService = new ProfileService();
-    });
-
     describe('fetchProfile', () => {
 
       const expectedProfile = {
@@ -102,6 +95,7 @@ describe('ProfileStore unit tests', () => {
         let capturedError: Error;
 
         beforeEach(async () => {
+          jest.clearAllMocks();
           const response = {
             ok: false,
             status: '503'
