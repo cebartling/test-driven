@@ -4,7 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- main
+  branches:
+    include:
+    - '*'  
 
 pool:
   vmImage: ubuntu-latest
@@ -21,3 +23,13 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'build'
+
+- task: NodeTool@0 
+  inputs:
+    versionSpec: '16.x' 
+  displayName: 'Install Node.js version 16'
+
+# - task: Npm@1
+#   inputs:
+#     command: 'install'
+#     workingDir: "$(Build.Repository.LocalPath)/svelte/example1"
