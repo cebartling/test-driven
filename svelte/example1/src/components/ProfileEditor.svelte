@@ -6,6 +6,7 @@
 
   export async function handleOnClickSaveButton() {
     await profileService.saveProfile(profile);
+    window.MyNamespace.showAlert('The profile was saved!');
   }
 </script>
 

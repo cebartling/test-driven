@@ -1,4 +1,4 @@
-import {cleanup, getByText, render, RenderResult} from '@testing-library/svelte';
+import {cleanup, getByText, render, type RenderResult} from '@testing-library/svelte';
 import ProfileView from '../ProfileView.svelte';
 import {profileService} from '../../stores/ProfileStore';
 
