@@ -29,13 +29,7 @@ steps:
     versionSpec: '16.x' 
   displayName: 'Install Node.js version 16'
 
-- script: |
-    npm install
-  displayName: 'npm install'
-  workingDirectory: "$(Build.Repository.LocalPath)/svelte/example1"
-
-- script: |
-    npm test
-  displayName: 'npm test'
-  workingDirectory: "$(Build.Repository.LocalPath)/svelte/example1"
-
+# - task: Npm@1
+#   inputs:
+#     command: 'install'
+#     workingDir: "$(Build.Repository.LocalPath)/svelte/example1"
