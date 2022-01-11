@@ -8,6 +8,9 @@
     "__sapper__/*",
     "public/*"
   ],
+  "files": [
+    "global.d.ts"
+  ],
   "compilerOptions": {
     "types": [
       "node",

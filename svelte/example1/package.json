@@ -42,6 +42,11 @@
     "svelte-router-spa": "^6.0.3"
   },
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json"
+      }
+    },
     "testEnvironment": "jsdom",
     "transform": {
       "^.+\\.(ts|js)": "ts-jest",
@@ -56,6 +61,8 @@
       "js",
       "ts",
       "svelte"
+    ],
+    "setupFiles": [
     ],
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"

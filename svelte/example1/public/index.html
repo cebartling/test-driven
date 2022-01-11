@@ -14,6 +14,13 @@
   <link rel='stylesheet' href='/global.css'>
   <link rel='stylesheet' href='/build/bundle.css'>
 
+  <script>
+    window.MyNamespace = window.MyNamespace || {};
+    window.MyNamespace.showAlert = function(message) {
+      console.log('This is a function hooked to window.');
+      alert(message);
+    }
+  </script>
   <script defer src='/build/bundle.js'></script>
 </head>
 

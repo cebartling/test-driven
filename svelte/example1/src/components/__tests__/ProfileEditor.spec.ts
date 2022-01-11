@@ -16,10 +16,13 @@ describe('ProfileEditor.svelte component', () => {
     givenName: "Jasper",
     surname: "Shawn"
   } as Profile;
-  const props = {profile};
 
   beforeEach(() => {
-    renderResult = render(ProfileEditor, {props});
+    // @ts-ignore
+    window.MyNamespace = {
+      showAlert: jest.fn()
+    };
+    renderResult = render(ProfileEditor, {props: {profile}});
   });
 
   afterEach(() => {
@@ -86,9 +89,20 @@ describe('ProfileEditor.svelte component', () => {
         expect(buttonElement).toBeInTheDocument();
       });
 
-      it('should have the onclick handler wired up properly', async () => {
-        await fireEvent.click(buttonElement);
-        expect(profileService.saveProfile).toHaveBeenCalledWith(profile);
+      describe('onclick event handler', () => {
+
+        beforeEach(async () => {
+          await fireEvent.click(buttonElement);
+        });
+
+        it('should invoke profileService.saveProfile function', () => {
+          expect(profileService.saveProfile).toHaveBeenCalledWith(profile);
+        });
+
+        it('should invoke window.MyNamespace.showAlert function', () => {
+          // @ts-ignore
+          expect(window.MyNamespace.showAlert).toHaveBeenCalledWith('The profile was saved!');
+        });
       });
     });
   });
