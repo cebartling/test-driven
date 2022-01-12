@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.matching.UrlPattern;
 import com.pintailconsultingllc.webflux.demo.TestSupport;
 import com.pintailconsultingllc.webflux.demo.dtos.FinanceInformationDTO;
 import org.junit.jupiter.api.AfterAll;
@@ -22,6 +24,7 @@ import reactor.test.StepVerifier;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,6 +67,13 @@ class FinanceWebClientTests {
     @Nested
     @DisplayName("getFinanceInformationByEmployeeId method")
     class GetFinanceInformationByEmployeeIdTests {
+        UrlPattern urlPattern;
+
+        @BeforeEach
+        public void doBeforeEachTest() {
+            final String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
+            urlPattern = urlEqualTo(url);
+        }
 
         @Nested
         @DisplayName("successful pathway: Mono emitting DTO returned")
@@ -79,18 +89,25 @@ class FinanceWebClientTests {
                         .stateIncomeTaxesYearToDateInCents(125677)
                         .build();
                 final String jsonBody = objectMapper.writeValueAsString(expected);
-                String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
+
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(200)
                         .withBody(jsonBody)
                         .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                MappingBuilder mappingBuilder = get(urlEqualTo(url));
+
+                MappingBuilder mappingBuilder = get(urlPattern);
                 stubFor(mappingBuilder.willReturn(responseDefBuilder));
 
                 Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
                 StepVerifier.create(resultMono)
                         .consumeNextWith(consumer -> actual = consumer)
                         .verifyComplete();
+            }
+
+            @Test
+            @DisplayName("should invoke GET /api/employees/{employeeId}")
+            void verifyWireMockInvocationTest() {
+                WireMock.verify(getRequestedFor(urlPattern));
             }
 
             @Test
@@ -106,7 +123,7 @@ class FinanceWebClientTests {
             Throwable actualError;
 
             @BeforeEach
-            public void doBeforeEachTest() throws JsonProcessingException {
+            public void doBeforeEachTest() {
                 String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(200)
@@ -119,6 +136,12 @@ class FinanceWebClientTests {
                 StepVerifier.create(resultMono)
                         .consumeErrorWith(error -> actualError = error)
                         .verify();
+            }
+
+            @Test
+            @DisplayName("should invoke GET /api/employees/{employeeId}")
+            void verifyWireMockInvocationTest() {
+                WireMock.verify(getRequestedFor(urlPattern));
             }
 
             @Test
@@ -141,12 +164,19 @@ class FinanceWebClientTests {
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(403)
                         .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                stubFor(get(urlEqualTo(url)).willReturn(responseDefBuilder));
+                urlPattern = urlEqualTo(url);
+                stubFor(get(urlPattern).willReturn(responseDefBuilder));
 
                 Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
                 StepVerifier.create(resultMono)
                         .consumeErrorWith(error -> actualError = error)
                         .verify();
+            }
+
+            @Test
+            @DisplayName("should invoke GET /api/employees/{employeeId}")
+            void verifyWireMockInvocationTest() {
+                WireMock.verify(getRequestedFor(urlPattern));
             }
 
             @Test
@@ -169,11 +199,18 @@ class FinanceWebClientTests {
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(503)
                         .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                stubFor(get(urlEqualTo(url)).willReturn(responseDefBuilder));
+                urlPattern = urlEqualTo(url);
+                stubFor(get(urlPattern).willReturn(responseDefBuilder));
                 Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
                 StepVerifier.create(resultMono)
                         .consumeErrorWith(error -> actualError = error)
                         .verify();
+            }
+
+            @Test
+            @DisplayName("should invoke GET /api/employees/{employeeId}")
+            void verifyWireMockInvocationTest() {
+                WireMock.verify(getRequestedFor(urlPattern));
             }
 
             @Test
