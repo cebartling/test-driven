@@ -39,15 +39,14 @@ class FinanceWebClientTests {
     public static final int WIRE_MOCK_PORT = 9000;
     private static WireMockServer wireMockServer;
 
-    final private String financeBaseUrl = "http://localhost:9000/api/employees";
     private ObjectMapper objectMapper;
     private FinanceWebClient financeWebClient;
     final private String expectedEmployeeId = "234568";
 
-
     @BeforeEach
     public void doBeforeEachTest() {
         this.financeWebClient = new FinanceWebClient(WebClient.builder());
+        String financeBaseUrl = "http://localhost:9000/api/employees";
         ReflectionTestUtils.setField(this.financeWebClient, "financeBaseUrl", financeBaseUrl);
         this.objectMapper = new ObjectMapper();
     }
@@ -89,12 +88,10 @@ class FinanceWebClientTests {
                         .stateIncomeTaxesYearToDateInCents(125677)
                         .build();
                 final String jsonBody = objectMapper.writeValueAsString(expected);
-
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(200)
                         .withBody(jsonBody)
                         .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-
                 MappingBuilder mappingBuilder = get(urlPattern);
                 stubFor(mappingBuilder.willReturn(responseDefBuilder));
 
@@ -124,12 +121,11 @@ class FinanceWebClientTests {
 
             @BeforeEach
             public void doBeforeEachTest() {
-                String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(200)
                         .withBody("djhfajdhafhdluhfl")
                         .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                MappingBuilder mappingBuilder = get(urlEqualTo(url));
+                MappingBuilder mappingBuilder = get(urlPattern);
                 stubFor(mappingBuilder.willReturn(responseDefBuilder));
 
                 Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
@@ -155,16 +151,13 @@ class FinanceWebClientTests {
         @Nested
         @DisplayName("failure pathway: 4xx HTTP status returned")
         class FailurePathway4xxStatusCodeTests {
-            final private String expectedEmployeeId = "2342768";
             private Throwable actualError;
 
             @BeforeEach
             public void doBeforeEachTest() {
-                String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(403)
                         .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                urlPattern = urlEqualTo(url);
                 stubFor(get(urlPattern).willReturn(responseDefBuilder));
 
                 Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
@@ -190,17 +183,15 @@ class FinanceWebClientTests {
         @Nested
         @DisplayName("failure pathway: 5xx HTTP status returned")
         class FailurePathway5xxStatusCodeTests {
-            final private String expectedEmployeeId = "2342755";
             private Throwable actualError;
 
             @BeforeEach
             public void doBeforeEachTest() {
-                String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(503)
                         .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                urlPattern = urlEqualTo(url);
                 stubFor(get(urlPattern).willReturn(responseDefBuilder));
+
                 Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
                 StepVerifier.create(resultMono)
                         .consumeErrorWith(error -> actualError = error)
