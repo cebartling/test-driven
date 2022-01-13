@@ -1,17 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": "4cbefb0e-7bcd-4ade-8d0b-7abbb1548764"
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "example1": {
+    "storybook-example": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        },
         "@schematics/angular:application": {
           "strict": true
         }
@@ -23,18 +17,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/example1",
+            "outputPath": "dist/storybook-example",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -75,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "example1:build:production"
+              "browserTarget": "storybook-example:build:production"
             },
             "development": {
-              "browserTarget": "example1:build:development"
+              "browserTarget": "storybook-example:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "example1:build"
+            "browserTarget": "storybook-example:build"
           }
         },
         "test": {
@@ -96,13 +89,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css"
             ],
             "scripts": []
           }
@@ -110,5 +102,5 @@
       }
     }
   },
-  "defaultProject": "example1"
+  "defaultProject": "storybook-example"
 }
