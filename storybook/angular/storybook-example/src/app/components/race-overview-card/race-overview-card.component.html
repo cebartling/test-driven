@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{race.name}}</h3>
+    <h4 class="card-subtitle mb-2 text-muted">
+      {{race.startDateTime | date:'longDate'}} at {{race.startDateTime | date:'shortTime'}}
+    </h4>
+    <h5 class="card-subtitle mb-2 text-muted">
+      {{race.location}}, {{race.state}}
+    </h5>
+
+    <p class="card-text">
+      {{race.description}}
+    </p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>

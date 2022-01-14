@@ -1,6 +1,8 @@
-# StorybookExample
+# Storybook Example
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.15.
+
+- [StoryBook Angular tutorial](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started/)
 
 ## Development server
 

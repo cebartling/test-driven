@@ -8,7 +8,7 @@ export default {
   component: NavigationalHeaderComponent,
   // More on argTypes: https://storybook.js.org/docs/angular/api/argtypes
   argTypes: {
-    backgroundColor: { control: 'color' },
+    // backgroundColor: { control: 'color' },
   },
 } as Meta;
 
@@ -17,8 +17,10 @@ const Template: Story<NavigationalHeaderComponent> = (args: NavigationalHeaderCo
   props: args,
 });
 
-export const Primary = Template.bind({});
+export const HomeActive = Template.bind({});
 // More on args: https://storybook.js.org/docs/angular/writing-stories/args
-Primary.args = {
-};
+HomeActive.args = {};
 
+export const RacesActive = Template.bind({});
+// More on args: https://storybook.js.org/docs/angular/writing-stories/args
+RacesActive.args = {};

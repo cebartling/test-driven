@@ -2,6 +2,74 @@
     "pipes": [],
     "interfaces": [
         {
+            "name": "Race",
+            "id": "interface-Race-6caf794ba8c0a23025ac34ed9f9667c4812799571f40990af6e95d9feda69d6d8138de1fdaad32b4eb944cbc94060be6f11d786ec1af1dd1b71a35af9e048a54",
+            "file": "src/app/types/race.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "export interface Race {\n  id: string;\n  name: string;\n  location: string;\n  state: string;\n  startDateTime: string;\n  year: number;\n}\n",
+            "properties": [
+                {
+                    "name": "id",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                },
+                {
+                    "name": "location",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                },
+                {
+                    "name": "startDateTime",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "state",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "year",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
             "name": "User",
             "id": "interface-User-9c7e5f1bbbab702cb032307d130876cb68969b0cd4eedef32a0c8cad8081a54e5f8f577ed6ad4539c1b99a1d246cb34031d198c2ea8eba440e64e91b14f01fdc",
             "file": "src/stories/User.ts",
@@ -112,7 +180,7 @@
                 }
             ],
             "stylesData": "",
-            "templateData": "<div class=\"container\">\n  <app-navigational-header></app-navigational-header>\n  <router-outlet></router-outlet>\n</div>\n"
+            "templateData": "<div class=\"d-flex flex-column h-100\">\n  <app-navigational-header></app-navigational-header>\n  <main class=\"flex-shrink-0 flex-grow-1\">\n    <div class=\"container\">\n      <router-outlet></router-outlet>\n    </div>\n  </main>\n</div>\n"
         },
         {
             "name": "ButtonComponent",
@@ -371,7 +439,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<header class=\"d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom\">\n  <a href=\"/\" class=\"d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none\">\n    <svg class=\"bi me-2\" width=\"40\" height=\"32\"><use xlink:href=\"#bootstrap\"/></svg>\n    <span class=\"fs-4\">Minnesota Fat Tire Bike Association (MFTBA)</span>\n  </a>\n\n  <ul class=\"nav nav-pills\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\"\n         aria-current=\"page\"\n         routerLink=\"/welcome\"\n         routerLinkActive=\"active\">Home</a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\"\n         aria-current=\"page\"\n         routerLink=\"/races\"\n         routerLinkActive=\"active\">Races</a>\n    </li>\n  </ul>\n</header>\n"
+            "templateData": "<header class=\"d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom\">\n  <svg class=\"bi me-2\" width=\"40\" height=\"32\"></svg>\n  <a href=\"/\" class=\"d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none\">\n    <span class=\"fs-4\">Minnesota Fat Tire Bike Association (MFTBA)</span>\n  </a>\n  <ul class=\"nav nav-pills\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\"\n         aria-current=\"page\"\n         routerLink=\"/welcome\"\n         routerLinkActive=\"active\">Home</a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\"\n         aria-current=\"page\"\n         routerLink=\"/races\"\n         routerLinkActive=\"active\">Races</a>\n    </li>\n  </ul>\n  <svg class=\"bi me-2\" width=\"40\" height=\"32\"></svg>\n</header>\n"
         },
         {
             "name": "PageComponent",
@@ -507,6 +575,68 @@
                 "OnInit"
             ],
             "templateData": "<div class=\"row\">\n  <h1>Races</h1>\n</div>\n"
+        },
+        {
+            "name": "RaceOverviewCardComponent",
+            "id": "component-RaceOverviewCardComponent-b6bdd58e7aed2011e73b1838bdfdc32d609ab69c294da18a65ec3a478f7aa18f6c2933b8118f3e80fe75acbdb7ea40b4ca77156fe29f906e1a242293b9cfeafd",
+            "file": "src/app/components/race-overview-card/race-overview-card.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-race-overview-card",
+            "styleUrls": [
+                "./race-overview-card.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./race-overview-card.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-race-overview-card',\n  templateUrl: './race-overview-card.component.html',\n  styleUrls: ['./race-overview-card.component.css']\n})\nexport class RaceOverviewCardComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./race-overview-card.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<p>race-overview-card works!</p>\n"
         },
         {
             "name": "RaceResultsViewComponent",
@@ -698,13 +828,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-74421d7abdfa8005731d4697a0654c5e3c211504b345011f56adf9f01c7b6efca7c2c7d4a25955761e40b5a79bcca860dddc9b513c0110199959dd13a73471f7",
+            "id": "module-AppModule-dcb7fca3cc4ed2923772e5fb33c1441d82c78dbf6c0b7ef9269f81a1656744d9f19eca5be0c3c8fe1ec861b31c69f9ca3fde0f336befa593ddd52d5def5652de",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceResultsViewComponent } from './views/race-results-view/race-results-view.component';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    RaceViewComponent,\n    WelcomeViewComponent,\n    RaceResultsViewComponent,\n    RaceListingViewComponent,\n    NavigationalHeaderComponent\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceResultsViewComponent } from './views/race-results-view/race-results-view.component';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';\nimport { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    RaceViewComponent,\n    WelcomeViewComponent,\n    RaceResultsViewComponent,\n    RaceListingViewComponent,\n    NavigationalHeaderComponent,\n    RaceOverviewCardComponent,\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
             "children": [
                 {
                     "type": "providers",
@@ -721,6 +851,9 @@
                         },
                         {
                             "name": "RaceListingViewComponent"
+                        },
+                        {
+                            "name": "RaceOverviewCardComponent"
                         },
                         {
                             "name": "RaceResultsViewComponent"
@@ -809,14 +942,14 @@
                 "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
             },
             {
-                "name": "environment",
+                "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.prod.ts",
+                "file": "src/stories/components/RaceOverviewCard.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\n  production: true\n}"
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "environment",
@@ -827,6 +960,26 @@
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\n  production: false\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: true\n}"
+            },
+            {
+                "name": "HomeActive",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/NavigationalHeader.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "Large",
@@ -889,7 +1042,7 @@
                 "defaultValue": "Template.bind({})"
             },
             {
-                "name": "Primary",
+                "name": "RacesActive",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/components/NavigationalHeader.stories.ts",
@@ -961,6 +1114,16 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/components/RaceOverviewCard.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<RaceOverviewCardComponent>",
+                "defaultValue": "(args: RaceOverviewCardComponent) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/components/NavigationalHeader.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -993,16 +1156,26 @@
                     "type": "literal type"
                 }
             ],
-            "src/environments/environment.prod.ts": [
+            "src/stories/components/RaceOverviewCard.stories.ts": [
                 {
-                    "name": "environment",
+                    "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/environments/environment.prod.ts",
+                    "file": "src/stories/components/RaceOverviewCard.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\n  production: true\n}"
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/RaceOverviewCard.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<RaceOverviewCardComponent>",
+                    "defaultValue": "(args: RaceOverviewCardComponent) => ({\n  props: args,\n})"
                 }
             ],
             "src/environments/environment.ts": [
@@ -1015,6 +1188,50 @@
                     "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\n  production: false\n}"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: true\n}"
+                }
+            ],
+            "src/stories/components/NavigationalHeader.stories.ts": [
+                {
+                    "name": "HomeActive",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/NavigationalHeader.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "RacesActive",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/NavigationalHeader.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/NavigationalHeader.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<NavigationalHeaderComponent>",
+                    "defaultValue": "(args: NavigationalHeaderComponent) => ({\n  props: args,\n})"
                 }
             ],
             "src/stories/Button.stories.ts": [
@@ -1132,28 +1349,6 @@
                     "type": "Story<Page>",
                     "defaultValue": "(args: Page) => ({\n  props: args,\n})"
                 }
-            ],
-            "src/stories/components/NavigationalHeader.stories.ts": [
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/NavigationalHeader.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/NavigationalHeader.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<NavigationalHeaderComponent>",
-                    "defaultValue": "(args: NavigationalHeaderComponent) => ({\n  props: args,\n})"
-                }
             ]
         },
         "groupedFunctions": {},
@@ -1206,6 +1401,15 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/components/race-overview-card/race-overview-card.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "RaceOverviewCardComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/services/participant.service.ts",
                 "type": "injectable",
                 "linktype": "injectable",
@@ -1221,6 +1425,15 @@
                 "name": "RaceService",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/types/race.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Race",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -1412,13 +1625,43 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Primary",
+                "name": "HomeActive",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
             {
                 "filePath": "src/stories/components/NavigationalHeader.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "RacesActive",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/NavigationalHeader.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/RaceOverviewCard.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/components/RaceOverviewCard.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",

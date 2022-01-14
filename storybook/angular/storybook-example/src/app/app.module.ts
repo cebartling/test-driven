@@ -8,6 +8,7 @@ import { WelcomeViewComponent } from './views/welcome-view/welcome-view.componen
 import { RaceResultsViewComponent } from './views/race-results-view/race-results-view.component';
 import { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';
 import { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';
+import { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavigationalHeaderComponent } from './components/navigational-header/na
     WelcomeViewComponent,
     RaceResultsViewComponent,
     RaceListingViewComponent,
-    NavigationalHeaderComponent
+    NavigationalHeaderComponent,
+    RaceOverviewCardComponent,
   ],
   imports: [
     BrowserModule,
