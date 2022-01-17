@@ -14,7 +14,7 @@ const raceServiceMock = {
 
 // More on default export: https://storybook.js.org/docs/angular/writing-stories/introduction#default-export
 export default {
-  title: 'Components/Race list',
+  title: 'Components/Race overview list',
   component: RaceOverviewListComponent,
   decorators: [
     moduleMetadata({

@@ -1,8 +1,6 @@
 .race-overview-card {
-
 }
 
-.race-overview-card {
-
+.race-overview-card:hover {
+  background-color: #f1f1f1;
 }
-
