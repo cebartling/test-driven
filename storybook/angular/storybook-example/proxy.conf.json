@@ -1,0 +1,6 @@
+{
+  "/api/races": {
+    "target": "http://localhost:3000/races",
+    "secure": false
+  }
+}

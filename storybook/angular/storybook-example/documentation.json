@@ -832,7 +832,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/RaceOverviewList.stories.ts",
+                "file": "src/stories/components/RaceOverviewCard.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -842,7 +842,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/RaceOverviewCard.stories.ts",
+                "file": "src/stories/components/RaceOverviewList.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -921,11 +921,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/RaceOverviewList.stories.ts",
+                "file": "src/stories/components/RaceOverviewCard.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<RaceOverviewListComponent>",
-                "defaultValue": "(args: RaceOverviewListComponent) => ({\n  props: args,\n})"
+                "type": "Story<RaceOverviewCardComponent>",
+                "defaultValue": "(args: RaceOverviewCardComponent) => ({\n  props: args,\n})"
             },
             {
                 "name": "Template",
@@ -941,11 +941,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/RaceOverviewCard.stories.ts",
+                "file": "src/stories/components/RaceOverviewList.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<RaceOverviewCardComponent>",
-                "defaultValue": "(args: RaceOverviewCardComponent) => ({\n  props: args,\n})"
+                "type": "Story<RaceOverviewListComponent>",
+                "defaultValue": "(args: RaceOverviewListComponent) => ({\n  props: args,\n})"
             }
         ],
         "functions": [],
@@ -973,28 +973,6 @@
                     "type": "literal type"
                 }
             ],
-            "src/stories/components/RaceOverviewList.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/RaceOverviewList.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/RaceOverviewList.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<RaceOverviewListComponent>",
-                    "defaultValue": "(args: RaceOverviewListComponent) => ({\n  props: args,\n})"
-                }
-            ],
             "src/stories/components/RaceOverviewCard.stories.ts": [
                 {
                     "name": "Default",
@@ -1015,6 +993,28 @@
                     "deprecationMessage": "",
                     "type": "Story<RaceOverviewCardComponent>",
                     "defaultValue": "(args: RaceOverviewCardComponent) => ({\n  props: args,\n})"
+                }
+            ],
+            "src/stories/components/RaceOverviewList.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/RaceOverviewList.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/RaceOverviewList.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<RaceOverviewListComponent>",
+                    "defaultValue": "(args: RaceOverviewListComponent) => ({\n  props: args,\n})"
                 }
             ],
             "src/environments/environment.prod.ts": [

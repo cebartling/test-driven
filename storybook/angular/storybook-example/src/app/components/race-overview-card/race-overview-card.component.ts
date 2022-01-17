@@ -8,7 +8,7 @@ import {Race} from "../../types/race";
 })
 export class RaceOverviewCardComponent implements OnInit, OnChanges {
 
-  @Input() race: Race | undefined;
+  @Input()  race!: Race;
 
   constructor() {
   }
@@ -17,8 +17,5 @@ export class RaceOverviewCardComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.race) {
-      throw new TypeError("The race property is required!");
-    }
   }
 }

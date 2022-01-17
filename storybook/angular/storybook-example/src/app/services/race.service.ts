@@ -11,6 +11,6 @@ export class RaceService {
   constructor(private httpClient: HttpClient) { }
 
   getRaces(): Observable<Race[]> {
-    return this.httpClient.get<Race[]>('http://localhost:3000/races');
+    return this.httpClient.get<Race[]>('/api/races');
   }
 }
