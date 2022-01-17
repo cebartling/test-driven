@@ -19,7 +19,7 @@ describe('RaceOverviewCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RaceOverviewCardComponent,
+      declarations: [RaceOverviewCardComponent],
     }).compileComponents();
   });
 

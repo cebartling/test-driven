@@ -16,7 +16,7 @@ export default {
 const Template: Story<RaceOverviewCardComponent> = (
   args: RaceOverviewCardComponent
 ) => ({
-  props: arg,
+  props: args,
 });
 
 export const Default = Template.bind({});

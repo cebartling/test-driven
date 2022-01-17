@@ -24,9 +24,9 @@ export default {
       providers: [
         {
           provide: RaceService,
-          useValue: raceServiceMoc,
-        ,
-      ,
+          useValue: raceServiceMock,
+        },
+      ],
     }),
     //👇 Wraps our stories with a decorator
     // componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
@@ -41,7 +41,7 @@ export default {
 const Template: Story<RaceOverviewListComponent> = (
   args: RaceOverviewListComponent
 ) => ({
-  props: args
+  props: ags,
 });
 
 export const Default = Template.bind({});
