@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {RaceListingViewComponent} from "./views/race-listing-view/race-listing-view.component";
-import {WelcomeViewComponent} from "./views/welcome-view/welcome-view.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';
+import { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';
 
 const routes: Routes = [
   { path: 'races', component: RaceListingViewComponent },
@@ -12,6 +12,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

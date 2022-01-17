@@ -10,7 +10,7 @@ import { RaceListingViewComponent } from './views/race-listing-view/race-listing
 import { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';
 import { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';
 import { RaceOverviewListComponent } from './components/race-overview-list/race-overview-list.component';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,12 +23,8 @@ import {HttpClientModule} from "@angular/common/http";
     RaceOverviewCardComponent,
     RaceOverviewListComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

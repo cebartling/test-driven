@@ -1,6 +1,6 @@
-import {Meta, Story} from '@storybook/angular';
-import {RaceOverviewCardComponent} from "../../app/components/race-overview-card/race-overview-card.component";
-import {race1} from "../data/race-test-data";
+import { Meta, Story } from '@storybook/angular';
+import { RaceOverviewCardComponent } from '../../app/components/race-overview-card/race-overview-card.component';
+import { race1 } from '../data/race-test-data';
 
 // More on default export: https://storybook.js.org/docs/angular/writing-stories/introduction#default-export
 export default {
@@ -13,8 +13,10 @@ export default {
 } as Meta;
 
 // More on component templates: https://storybook.js.org/docs/angular/writing-stories/introduction#using-args
-const Template: Story<RaceOverviewCardComponent> = (args: RaceOverviewCardComponent) => ({
-  props: args,
+const Template: Story<RaceOverviewCardComponent> = (
+  args: RaceOverviewCardComponent
+) => ({
+  props: arg,
 });
 
 export const Default = Template.bind({});
