@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {RaceService} from "../../services/race.service";
+import {Observable} from "rxjs";
+import {Race} from "../../types/race";
 
 @Component({
   selector: 'app-race-overview-list',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RaceOverviewListComponent implements OnInit {
 
-  constructor() { }
+  races$: Observable<Race[]> | undefined;
+
+  constructor(private raceService: RaceService) { }
 
   ngOnInit(): void {
+    this.races$ = this.raceService.getRaces();
   }
 
 }

@@ -1,1 +1,6 @@
-<p>race-overview-list works!</p>
+<div class="d-flex flex-column">
+  <app-race-overview-card
+    *ngFor="let race of races$ | async"
+    [race]="race">
+  </app-race-overview-card>
+</div>
