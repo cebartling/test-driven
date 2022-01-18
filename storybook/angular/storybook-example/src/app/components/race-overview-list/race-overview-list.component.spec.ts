@@ -5,6 +5,7 @@ import { RaceOverviewListComponent } from './race-overview-list.component';
 import { races } from '../../../stories/data/races-test-data';
 import { RaceService } from '../../services/race.service';
 import { RaceOverviewCardComponent } from '../race-overview-card/race-overview-card.component';
+import { RouterModule } from '@angular/router';
 
 describe('RaceOverviewListComponent', () => {
   let component: RaceOverviewListComponent;
@@ -14,7 +15,7 @@ describe('RaceOverviewListComponent', () => {
   beforeEach(
     waitForAsync(async () => {
       await TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
+        imports: [RouterModule.forRoot([]), HttpClientTestingModule],
         declarations: [RaceOverviewListComponent, RaceOverviewCardComponent],
         providers: [RaceService],
       }).compileComponents();
@@ -42,8 +43,8 @@ describe('RaceOverviewListComponent', () => {
 
     it('should render main flexbox column div', () => {
       expect(
-        rootElement.querySelector('div.d-flex.flex-column')
-      ).not.toBeUndefined();
+        rootElement.querySelector"div.d-flex.flex-column"')
+      ).not.toBeNull();
     });
   });
 });
