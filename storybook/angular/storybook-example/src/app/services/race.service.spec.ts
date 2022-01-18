@@ -40,7 +40,7 @@ describe('RaceService', () => {
           'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',
       } as Race,
     ] as Race[];
-    const expectedUrl = 'http://localhost:3000/races';
+    const expectedUrl = '/api/races';
 
     beforeEach((done: DoneFn) => {
       races$ = service.getRaces();

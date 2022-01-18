@@ -41,7 +41,7 @@ export default {
 const Template: Story<RaceOverviewListComponent> = (
   args: RaceOverviewListComponent
 ) => ({
-  props: ags,
+  props: args,
 });
 
 export const Default = Template.bind({});
