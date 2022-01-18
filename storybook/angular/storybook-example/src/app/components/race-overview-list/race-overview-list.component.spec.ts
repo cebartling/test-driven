@@ -1,34 +1,29 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { RaceOverviewListComponent } from './race-overview-list.component';
 import { races } from '../../../stories/data/races-test-data';
 import { RaceService } from '../../services/race.service';
+import { RaceOverviewCardComponent } from '../race-overview-card/race-overview-card.component';
 
 describe('RaceOverviewListComponent', () => {
   let component: RaceOverviewListComponent;
   let fixture: ComponentFixture<RaceOverviewListComponent>;
+  let raceService: RaceService;
 
-  const raceServiceMock = {
-    getRaces: () => {
-      return of(races);
-    },
-  };
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [RaceOverviewListComponent],
-      imports: [HttpClientTestingModule],
-      providers: [
-        {
-          provide: RaceService,
-          useValue: raceServiceMock,
-        },
-      ],
-    }).compileComponents();
-  });
+  beforeEach(
+    waitForAsync(async () => {
+      await TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
+        declarations: [RaceOverviewListComponent, RaceOverviewCardComponent],
+        providers: [RaceService],
+      }).compileComponents();
+      raceService = TestBed.inject(RaceService);
+    })
+  );
 
   beforeEach(() => {
+    spyOn(raceService, 'getRaces').and.returnValue(of(races));
     fixture = TestBed.createComponent(RaceOverviewListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
