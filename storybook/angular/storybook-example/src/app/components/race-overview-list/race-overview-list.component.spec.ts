@@ -32,4 +32,18 @@ describe('RaceOverviewListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('rendered template', () => {
+    let rootElement: HTMLElement;
+
+    beforeEach(() => {
+      rootElement = fixture.nativeElement as HTMLElement;
+    });
+
+    it('should render main flexbox column div', () => {
+      expect(
+        rootElement.querySelector('div.d-flex.flex-column')
+      ).not.toBeUndefined();
+    });
+  });
 });
