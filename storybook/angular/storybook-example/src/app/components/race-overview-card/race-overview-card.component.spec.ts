@@ -32,55 +32,55 @@ describe('RaceOverviewCardComponent', () => {
     fixture.detectChanges();
   });
 
-  it"should create"', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  describe"rendered template"', () => {
+  describe('rendered template', () => {
     let rootElement: HTMLElement;
 
     beforeEach(() => {
       rootElement = fixture.nativeElement as HTMLElement;
     });
 
-    it"should render main overview card div"', () => {
+    it('should render main overview card div', () => {
       expect(
-        rootElement.querySelector"div.race-overview-card"')
+        rootElement.querySelector('div.race-overview-card')
       ).not.toBeNull();
     });
 
-    it"should render overview card body div"', () => {
-      expect(rootElement.querySelector"div.card-body"')).not.toBeNull();
+    it('should render overview card body div', () => {
+      expect(rootElement.querySelector('div.card-body')).not.toBeNull();
     });
 
-    it"should render overview card title heading with appropriate textual content"', () => {
-      expect(rootElement.querySelector"h3.card-title"')?.textContent).toEqual(
+    it('should render overview card title heading with appropriate textual content', () => {
+      expect(rootElement.querySelector('h3.card-title')?.textContent).toEqual(
         race.name
       );
     });
 
-    it"should render overview card subtitle heading with appropriate textual content"', () => {
+    it('should render overview card subtitle heading with appropriate textual content', () => {
       expect(
-        rootElement.querySelector"h4.card-subtitle"')?.textContent
-      ).toEqual" March 12, 2022 at 9:00 AM "');
+        rootElement.querySelector('h4.card-subtitle')?.textContent
+      ).toEqual(' March 12, 2022 at 9:00 AM ');
     });
 
-    it"should render overview card second subtitle heading with appropriate textual content"', () => {
+    it('should render overview card second subtitle heading with appropriate textual content', () => {
       expect(
-        rootElement.querySelector"h5.card-subtitle"')?.textContent
+        rootElement.querySelector('h5.card-subtitle')?.textContent
       ).toEqual(` ${race.location}, ${race.state} `);
     });
 
-    it"should render overview card text with appropriate textual content"', () => {
-      expect(rootElement.querySelector"p.card-text"')?.textContent).toEqual(
+    it('should render overview card text with appropriate textual content', () => {
+      expect(rootElement.querySelector('p.card-text')?.textContent).toEqual(
         ` ${race.description} `
       );
     });
 
-    it"should render details hyperlink"', () => {
-      const match = rootElement.querySelector"a.card-link"');
-      expect(match?.textContent).toEqual"Details"');
-      expect(match?.attributes.getNamedItem"href"')?.value).toEqual(
+    it('should render details hyperlink', () => {
+      const match = rootElement.querySelector('a.card-link');
+      expect(match?.textContent).toEqual('Details');
+      expect(match?.attributes.getNamedItem('href')?.value).toEqual(
         `/race/${race.id}`
       );
     });

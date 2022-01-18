@@ -43,7 +43,7 @@ describe('RaceOverviewListComponent', () => {
 
     it('should render main flexbox column div', () => {
       expect(
-        rootElement.querySelector"div.d-flex.flex-column"')
+        rootElement.querySelector('div.d-flex.flex-column')
       ).not.toBeNull();
     });
   });
