@@ -1,0 +1,12 @@
+<h1>
+  {{race.name}}
+</h1>
+<h2 class="mb-2 text-muted">
+  {{race.startDateTime | date:'longDate'}} at {{race.startDateTime | date:'shortTime'}}
+</h2>
+<h3 class="mb-2 text-muted">
+  {{race.location}}, {{race.state}}
+</h3>
+<p class="">
+  {{race.description}}
+</p>

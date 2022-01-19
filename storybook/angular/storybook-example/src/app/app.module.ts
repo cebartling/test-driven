@@ -11,6 +11,7 @@ import { NavigationalHeaderComponent } from './components/navigational-header/na
 import { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';
 import { RaceOverviewListComponent } from './components/race-overview-list/race-overview-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RaceDetailComponent } from './components/race-detail/race-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     NavigationalHeaderComponent,
     RaceOverviewCardComponent,
     RaceOverviewListComponent,
+    RaceDetailComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

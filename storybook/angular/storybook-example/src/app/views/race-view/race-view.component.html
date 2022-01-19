@@ -1,1 +1,9 @@
-<p>race-view works!</p>
+<div class="row" *ngIf="!race$">
+  <div class="alert alert-info">
+    <strong>Please wait!</strong>
+  </div>
+</div>
+<div class="row" *ngIf="race$ | async as race">
+  <app-race-detail [race]="race"></app-race-detail>
+</div>
+

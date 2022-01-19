@@ -1,6 +1,9 @@
 {
-  "/api/races": {
-    "target": "http://localhost:3000/races",
+  "/api": {
+    "target": "http://localhost:3000",
+    "pathRewrite": {
+      "^/api": ""
+    },
     "secure": false
   }
 }

@@ -81,58 +81,86 @@
     ],
     "injectables": [
         {
-            "name": "ParticipantService",
-            "id": "injectable-ParticipantService-c813a58d4d9fd0563732cb35e0751bd59a8d5d534663160a299f2a1822cc11914781177391c07d4f58302a50bff500abef8b54ce1bb70c7d95bacea2fc740bd1",
-            "file": "src/app/services/participant.service.ts",
-            "properties": [],
-            "methods": [],
+          "name": "ParticipantService",
+          "id": "injectable-ParticipantService-c22c39edfca4053ca4b436944105e767873033cc38b7b1e4b6fd49790df9c3cc96f0531f1de322ae356327a99a90fbf499b0827a72d2d6db189d49d005028a7e",
+          "file": "src/app/services/participant.service.ts",
+          "properties": [],
+          "methods": [],
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "rawdescription": "\n",
+          "sourceCode": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class ParticipantService {\n  constructor() {}\n}\n",
+          "constructorObj": {
+            "name": "constructor",
+            "description": "",
             "deprecated": false,
             "deprecationMessage": "",
-            "description": "",
-            "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class ParticipantService {\n\n  constructor() { }\n}\n",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [],
-                "line": 6
-            },
-            "type": "injectable"
+            "args": [],
+            "line": 6
+          },
+          "type": "injectable"
         },
-        {
-            "name": "RaceService",
-            "id": "injectable-RaceService-182c82ffc8e34407722466359770e4cea17831539c04e933bd9b2fa28a63ab47dc48858b9087e369d961205969cf84e3ac65ba55a37661ffd58e97ea2d8c74cd",
-            "file": "src/app/services/race.service.ts",
-            "properties": [],
-            "methods": [
-                {
-                    "name": "getRaces",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "Observable<Race[]>",
-                    "typeParameters": [],
-                    "line": 13,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
+      {
+        "name": "RaceService",
+        "id": "injectable-RaceService-b54165de8edb4122a5a7cf5d5b65edfe6ecff3b2c2d8cce0f84c00189c93f9ddfbef6db4210892dfb2462903c4cf7d38cdd4f4fcc6d628329238eb34cdece98f",
+        "file": "src/app/services/race.service.ts",
+        "properties": [],
+        "methods": [
+          {
+            "name": "getRace",
+            "args": [
+              {
+                "name": "id",
+                "type": "string",
+                "deprecated": false,
+                "deprecationMessage": ""
+              }
             ],
+            "optional": false,
+            "returnType": "Observable<Race>",
+            "typeParameters": [],
+            "line": 16,
             "deprecated": false,
             "deprecationMessage": "",
-            "description": "",
-            "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport {Observable} from \"rxjs\";\nimport {Race} from \"../types/race\";\nimport {HttpClient} from \"@angular/common/http\";\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class RaceService {\n\n  constructor(private httpClient: HttpClient) { }\n\n  getRaces(): Observable<Race[]> {\n    return this.httpClient.get<Race[]>('/api/races');\n  }\n}\n",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
+            "jsdoctags": [
+              {
+                "name": "id",
+                "type": "string",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "args": [
-                    {
-                        "name": "httpClient",
-                        "type": "HttpClient",
-                        "deprecated": false,
+                "tagName": {
+                  "text": "param"
+                }
+              }
+            ]
+          },
+          {
+            "name": "getRaces",
+            "args": [],
+            "optional": false,
+            "returnType": "Observable<Race[]>",
+            "typeParameters": [],
+            "line": 12,
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "rawdescription": "\n",
+        "sourceCode": "import { Injectable } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { Race } from '../types/race';\nimport { HttpClient } from '@angular/common/http';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class RaceService {\n  constructor(private httpClient: HttpClient) {}\n\n  getRaces(): Observable<Race[]> {\n    return this.httpClient.get<Race[]>('/api/races');\n  }\n\n  getRace(id: string): Observable<Race> {\n    return this.httpClient.get<Race>(`/api/races/${id}`);\n  }\n}\n",
+        "constructorObj": {
+          "name": "constructor",
+          "description": "",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "args": [
+            {
+              "name": "httpClient",
+              "type": "HttpClient",
+              "deprecated": false,
                         "deprecationMessage": ""
                     }
                 ],
@@ -157,19 +185,19 @@
     "classes": [],
     "directives": [],
     "components": [
-        {
-            "name": "AppComponent",
-            "id": "component-AppComponent-40b4706b9db98ae2d9a1e1fee0d050cdcd6d796cc7bec10f76f788620eecdbcdbc8eb693c8c92b39e7edef72b30bf78a7cae088ec0aa28154e7f86cbd506f9b1",
-            "file": "src/app/app.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-root",
-            "styleUrls": [
-                "./app.component.css"
-            ],
+      {
+        "name": "AppComponent",
+        "id": "component-AppComponent-21e125ad75aa4b7ebc3b858b992c358f65f9a94ce4d4beeda8cf60a9b5871e652d7cba7c20d354434968a8cac130fb19ad6bd14c958df94a7d985a291f1403ff",
+        "file": "src/app/app.component.ts",
+        "encapsulation": [],
+        "entryComponents": [],
+        "inputs": [],
+        "outputs": [],
+        "providers": [],
+        "selector": "app-root",
+        "styleUrls": [
+          "./app.component.css"
+        ],
             "styles": [],
             "templateUrl": [
                 "./app.component.html"
@@ -189,38 +217,38 @@
                     "line": 9
                 }
             ],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.css']\n})\nexport class AppComponent {\n  title = 'Fat Tire Races';\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./app.component.css"
-                }
-            ],
-            "stylesData": "",
-            "templateData": "<div class=\"d-flex flex-column h-100\">\n  <app-navigational-header></app-navigational-header>\n  <main class=\"flex-shrink-0 flex-grow-1\">\n    <div class=\"container\">\n      <router-outlet></router-outlet>\n    </div>\n  </main>\n</div>\n"
-        },
-        {
-            "name": "NavigationalHeaderComponent",
-            "id": "component-NavigationalHeaderComponent-9b690481f5de519a2142c794f5e5b9b1259740785a604ec3a87de4912e2ca93c37e7852682540e1b65334cd4cff9b8ac2420b95f61f14bfb49753b581784ad47",
-            "file": "src/app/components/navigational-header/navigational-header.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-navigational-header",
-            "styleUrls": [
-                "./navigational-header.component.css"
-            ],
+        "methodsClass": [],
+        "deprecated": false,
+        "deprecationMessage": "",
+        "hostBindings": [],
+        "hostListeners": [],
+        "description": "",
+        "rawdescription": "\n",
+        "type": "component",
+        "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.css'],\n})\nexport class AppComponent {\n  title = 'Fat Tire Races';\n}\n",
+        "assetsDirs": [],
+        "styleUrlsData": [
+          {
+            "data": "",
+            "styleUrl": "./app.component.css"
+          }
+        ],
+        "stylesData": "",
+        "templateData": "<div class=\"d-flex flex-column h-100\">\n  <app-navigational-header></app-navigational-header>\n  <main class=\"flex-shrink-0 flex-grow-1\">\n    <div class=\"container\">\n      <router-outlet></router-outlet>\n    </div>\n  </main>\n</div>\n"
+      },
+      {
+        "name": "NavigationalHeaderComponent",
+        "id": "component-NavigationalHeaderComponent-4a3e6a2919e7ed9bdfb1a364b4b4149035c16f7f85b1d4d306774dfdbdd94c99ad0ef6acec050aa594970f9d10407411e719b090b10bc8aa3061a32c78ec0f7c",
+        "file": "src/app/components/navigational-header/navigational-header.component.ts",
+        "encapsulation": [],
+        "entryComponents": [],
+        "inputs": [],
+        "outputs": [],
+        "providers": [],
+        "selector": "app-navigational-header",
+        "styleUrls": [
+          "./navigational-header.component.css"
+        ],
             "styles": [],
             "templateUrl": [
                 "./navigational-header.component.html"
@@ -230,59 +258,130 @@
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 12,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
+              {
+                "name": "ngOnInit",
+                "args": [],
+                "optional": false,
+                "returnType": "void",
+                "typeParameters": [],
+                "line": 11,
+                "deprecated": false,
+                "deprecationMessage": ""
+              }
             ],
+        "deprecated": false,
+        "deprecationMessage": "",
+        "hostBindings": [],
+        "hostListeners": [],
+        "description": "",
+        "rawdescription": "\n",
+        "type": "component",
+        "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-navigational-header',\n  templateUrl: './navigational-header.component.html',\n  styleUrls: ['./navigational-header.component.css'],\n})\nexport class NavigationalHeaderComponent implements OnInit {\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+        "assetsDirs": [],
+        "styleUrlsData": [
+          {
+            "data": "",
+            "styleUrl": "./navigational-header.component.css"
+          }
+        ],
+        "stylesData": "",
+        "constructorObj": {
+          "name": "constructor",
+          "description": "",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "args": [],
+          "line": 8
+        },
+        "implements": [
+          "OnInit"
+        ],
+        "templateData": "<header class=\"d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom\">\n  <svg class=\"bi me-2\" height=\"32\" width=\"40\"></svg>\n  <a class=\"d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none\" href=\"/\">\n    <span class=\"fs-4\">Minnesota Fat Tire Bike Association (MFTBA)</span>\n  </a>\n  <ul class=\"nav nav-pills\">\n    <li class=\"nav-item\">\n      <a aria-current=\"page\"\n         class=\"nav-link\"\n         routerLink=\"/welcome\"\n         routerLinkActive=\"active\">Home</a>\n    </li>\n    <li class=\"nav-item\">\n      <a aria-current=\"page\"\n         class=\"nav-link\"\n         routerLink=\"/races\"\n         routerLinkActive=\"active\">Races</a>\n    </li>\n  </ul>\n  <svg class=\"bi me-2\" height=\"32\" width=\"40\"></svg>\n</header>\n"
+      },
+      {
+        "name": "RaceDetailComponent",
+        "id": "component-RaceDetailComponent-3638059bf163b9f72b52d2ed9a74e5d00ea877a30d1be0e864d70c65b9111a3cca3397f01cf2c69ca4e2eeead8fe47833628ea66f40e85b4f154d150a494468b",
+        "file": "src/app/components/race-detail/race-detail.component.ts",
+        "encapsulation": [],
+        "entryComponents": [],
+        "inputs": [],
+        "outputs": [],
+        "providers": [],
+        "selector": "app-race-detail",
+        "styleUrls": [
+          "./race-detail.component.css"
+        ],
+        "styles": [],
+        "templateUrl": [
+          "./race-detail.component.html"
+        ],
+        "viewProviders": [],
+        "inputsClass": [
+          {
+            "name": "race",
             "deprecated": false,
             "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-navigational-header',\n  templateUrl: './navigational-header.component.html',\n  styleUrls: ['./navigational-header.component.css']\n})\nexport class NavigationalHeaderComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./navigational-header.component.css"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [],
-                "line": 8
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<header class=\"d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom\">\n  <svg class=\"bi me-2\" width=\"40\" height=\"32\"></svg>\n  <a href=\"/\" class=\"d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none\">\n    <span class=\"fs-4\">Minnesota Fat Tire Bike Association (MFTBA)</span>\n  </a>\n  <ul class=\"nav nav-pills\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link\"\n         aria-current=\"page\"\n         routerLink=\"/welcome\"\n         routerLinkActive=\"active\">Home</a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\"\n         aria-current=\"page\"\n         routerLink=\"/races\"\n         routerLinkActive=\"active\">Races</a>\n    </li>\n  </ul>\n  <svg class=\"bi me-2\" width=\"40\" height=\"32\"></svg>\n</header>\n"
+            "line": 10,
+            "type": "Race",
+            "decorators": []
+          }
+        ],
+        "outputsClass": [],
+        "propertiesClass": [],
+        "methodsClass": [
+          {
+            "name": "ngOnInit",
+            "args": [],
+            "optional": false,
+            "returnType": "void",
+            "typeParameters": [],
+            "line": 16,
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "deprecated": false,
+        "deprecationMessage": "",
+        "hostBindings": [],
+        "hostListeners": [],
+        "description": "",
+        "rawdescription": "\n",
+        "type": "component",
+        "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\nimport { Race } from '../../types/race';\n\n@Component({\n  selector: 'app-race-detail',\n  templateUrl: './race-detail.component.html',\n  styleUrls: ['./race-detail.component.css'],\n})\nexport class RaceDetailComponent implements OnInit {\n  @Input() race!: Race;\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  constructor() {}\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  ngOnInit(): void {}\n}\n",
+        "assetsDirs": [],
+        "styleUrlsData": [
+          {
+            "data": "",
+            "styleUrl": "./race-detail.component.css"
+          }
+        ],
+        "stylesData": "",
+        "constructorObj": {
+          "name": "constructor",
+          "description": "",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "args": [],
+          "line": 10
         },
-        {
-            "name": "RaceListingViewComponent",
-            "id": "component-RaceListingViewComponent-9b85d66a00330a880c95f52b9da93002095a701706e65a15c38c98c92dcbc39c4561027446aa9fa582291ac9ee8d1bdffcb2d6cdec9a23cd4b2354f9bf3d016a",
-            "file": "src/app/views/race-listing-view/race-listing-view.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-race-listing-view",
-            "styleUrls": [
-                "./race-listing-view.component.css"
-            ],
+        "implements": [
+          "OnInit"
+        ],
+        "templateData": "<h1>{{race.name}}</h1>\n"
+      },
+      {
+        "name": "RaceListingViewComponent",
+        "id": "component-RaceListingViewComponent-b44ee5e8d6e136fd06ede8d82ee7fbd627088bef1e2b98b20e72aa89f6147a476e9b8bc78da7bb13748073e786d8deedb06d3835f266554b710e3d014e57f29b",
+        "file": "src/app/views/race-listing-view/race-listing-view.component.ts",
+        "encapsulation": [],
+        "entryComponents": [],
+        "inputs": [],
+        "outputs": [],
+        "providers": [],
+        "selector": "app-race-listing-view",
+        "styleUrls": [
+          "./race-listing-view.component.css"
+        ],
             "styles": [],
             "templateUrl": [
                 "./race-listing-view.component.html"
@@ -292,35 +391,35 @@
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 12,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
+              {
+                "name": "ngOnInit",
+                "args": [],
+                "optional": false,
+                "returnType": "void",
+                "typeParameters": [],
+                "line": 11,
+                "deprecated": false,
+                "deprecationMessage": ""
+              }
             ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-race-listing-view',\n  templateUrl: './race-listing-view.component.html',\n  styleUrls: ['./race-listing-view.component.css']\n})\nexport class RaceListingViewComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./race-listing-view.component.css"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "hostBindings": [],
+        "hostListeners": [],
+        "description": "",
+        "rawdescription": "\n",
+        "type": "component",
+        "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-race-listing-view',\n  templateUrl: './race-listing-view.component.html',\n  styleUrls: ['./race-listing-view.component.css'],\n})\nexport class RaceListingViewComponent implements OnInit {\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+        "assetsDirs": [],
+        "styleUrlsData": [
+          {
+            "data": "",
+            "styleUrl": "./race-listing-view.component.css"
+          }
+        ],
+        "stylesData": "",
+        "constructorObj": {
+          "name": "constructor",
                 "description": "",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -332,119 +431,90 @@
             ],
             "templateData": "<div class=\"row\">\n  <h1>Races</h1>\n  <app-race-overview-list></app-race-overview-list>\n</div>\n"
         },
-        {
-            "name": "RaceOverviewCardComponent",
-            "id": "component-RaceOverviewCardComponent-5238ed13a51e7143fc50f7713e71f171706aef8e384bdba774cddcc5c84cbfe5f60d4381d64371eb906cc110517abefd15c58f3f9ccfeb328b7f8aaf0f779266",
-            "file": "src/app/components/race-overview-card/race-overview-card.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-race-overview-card[race]",
-            "styleUrls": [
-                "./race-overview-card.component.css"
-            ],
+      {
+        "name": "RaceOverviewCardComponent",
+        "id": "component-RaceOverviewCardComponent-7ebeb6ad42c68e815c6fea8e5e0bfd20e3d4d2c2071b3592958e6b40727a3bb120a37fb42d87ed234449880d1aee57769e36875b24a2ab3b5400a4c6aae67010",
+        "file": "src/app/components/race-overview-card/race-overview-card.component.ts",
+        "encapsulation": [],
+        "entryComponents": [],
+        "inputs": [],
+        "outputs": [],
+        "providers": [],
+        "selector": "app-race-overview-card[race]",
+        "styleUrls": [
+          "./race-overview-card.component.css"
+        ],
             "styles": [],
             "templateUrl": [
                 "./race-overview-card.component.html"
             ],
             "viewProviders": [],
             "inputsClass": [
-                {
-                    "name": "race",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 11,
-                    "type": "Race",
-                    "decorators": []
-                }
+              {
+                "name": "race",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "line": 16,
+                "type": "Race",
+                "decorators": []
+              }
             ],
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [
-                {
-                    "name": "ngOnChanges",
-                    "args": [
-                        {
-                            "name": "changes",
-                            "type": "SimpleChanges",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 19,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "changes",
-                            "type": "SimpleChanges",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 16,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
+              {
+                "name": "ngOnInit",
+                "args": [],
+                "optional": false,
+                "returnType": "void",
+                "typeParameters": [],
+                "line": 20,
+                "deprecated": false,
+                "deprecationMessage": ""
+              }
             ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';\nimport {Race} from \"../../types/race\";\n\n@Component({\n  selector: 'app-race-overview-card[race]',\n  templateUrl: './race-overview-card.component.html',\n  styleUrls: ['./race-overview-card.component.css']\n})\nexport class RaceOverviewCardComponent implements OnInit, OnChanges {\n\n  @Input()  race!: Race;\n\n  constructor() {\n  }\n\n  ngOnInit(): void {\n  }\n\n  ngOnChanges(changes: SimpleChanges): void {\n  }\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ".race-overview-card {\n\n}\n\n.race-overview-card:hover {\n  background-color: beige;\n}\n\n",
-                    "styleUrl": "./race-overview-card.component.css"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "hostBindings": [],
+        "hostListeners": [],
+        "description": "",
+        "rawdescription": "\n",
+        "type": "component",
+        "sourceCode": "import {\n  Component,\n  Input,\n  OnChanges,\n  OnInit,\n  SimpleChanges,\n} from '@angular/core';\nimport { Race } from '../../types/race';\n\n@Component({\n  selector: 'app-race-overview-card[race]',\n  templateUrl: './race-overview-card.component.html',\n  styleUrls: ['./race-overview-card.component.css'],\n})\nexport class RaceOverviewCardComponent implements OnInit {\n  @Input() race!: Race;\n\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+        "assetsDirs": [],
+        "styleUrlsData": [
+          {
+            "data": ".race-overview-card {\n}\n\n.race-overview-card:hover {\n  background-color: #f1f1f1;\n}\n",
+            "styleUrl": "./race-overview-card.component.css"
+          }
+        ],
+        "stylesData": "",
+        "constructorObj": {
+          "name": "constructor",
                 "description": "",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "args": [],
-                "line": 11
+          "line": 16
             },
             "implements": [
-                "OnInit",
-                "OnChanges"
+              "OnInit"
             ],
             "templateData": "<div class=\"card mb-2 race-overview-card\">\n  <div class=\"card-body\">\n    <h3 class=\"card-title\">{{race.name}}</h3>\n    <h4 class=\"card-subtitle mb-2 text-muted\">\n      {{race.startDateTime | date:'longDate'}} at {{race.startDateTime | date:'shortTime'}}\n    </h4>\n    <h5 class=\"card-subtitle mb-2 text-muted\">\n      {{race.location}}, {{race.state}}\n    </h5>\n\n    <p class=\"card-text\">\n      {{race.description}}\n    </p>\n    <a class=\"card-link\" routerLink=\"/race/{{race.id}}\">Details</a>\n  </div>\n</div>\n"
         },
-        {
-            "name": "RaceOverviewListComponent",
-            "id": "component-RaceOverviewListComponent-994f6cb19f2ecdce174b31468982bcc64b81e6b770718ebf4a9df72dac80ae6dc91ff0370bab6744d897a820f75d230c4aa4dbc87aa97d4458b67b217d6e83b6",
-            "file": "src/app/components/race-overview-list/race-overview-list.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-race-overview-list",
-            "styleUrls": [
-                "./race-overview-list.component.css"
-            ],
+      {
+        "name": "RaceOverviewListComponent",
+        "id": "component-RaceOverviewListComponent-26594a2cc3123a35dbda47fdd8f7acb6289f2e65272b9e683d2ddad2a96f92f6c705ee5ad5c90a5682f0291f6c40c4b802d038f1ddec300abaaeff6c46b58e86",
+        "file": "src/app/components/race-overview-list/race-overview-list.component.ts",
+        "encapsulation": [],
+        "entryComponents": [],
+        "inputs": [],
+        "outputs": [],
+        "providers": [],
+        "selector": "app-race-overview-list",
+        "styleUrls": [
+          "./race-overview-list.component.css"
+        ],
             "styles": [],
             "templateUrl": [
                 "./race-overview-list.component.html"
@@ -460,61 +530,61 @@
                     "type": "Observable<Race[]> | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 13
+                  "line": 12
                 }
             ],
             "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 17,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport {RaceService} from \"../../services/race.service\";\nimport {Observable} from \"rxjs\";\nimport {Race} from \"../../types/race\";\n\n@Component({\n  selector: 'app-race-overview-list',\n  templateUrl: './race-overview-list.component.html',\n  styleUrls: ['./race-overview-list.component.css']\n})\nexport class RaceOverviewListComponent implements OnInit {\n\n  races$: Observable<Race[]> | undefined;\n\n  constructor(private raceService: RaceService) { }\n\n  ngOnInit(): void {\n    this.races$ = this.raceService.getRaces();\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./race-overview-list.component.css"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
+              {
+                "name": "ngOnInit",
+                "args": [],
+                "optional": false,
+                "returnType": "void",
+                "typeParameters": [],
+                "line": 16,
                 "deprecated": false,
-                "deprecationMessage": "",
-                "args": [
-                    {
-                        "name": "raceService",
-                        "type": "RaceService",
-                        "deprecated": false,
-                        "deprecationMessage": ""
-                    }
-                ],
-                "line": 13,
-                "jsdoctags": [
-                    {
-                        "name": "raceService",
-                        "type": "RaceService",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
+                "deprecationMessage": ""
+              }
+            ],
+        "deprecated": false,
+        "deprecationMessage": "",
+        "hostBindings": [],
+        "hostListeners": [],
+        "description": "",
+        "rawdescription": "\n",
+        "type": "component",
+        "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { RaceService } from '../../services/race.service';\nimport { Observable } from 'rxjs';\nimport { Race } from '../../types/race';\n\n@Component({\n  selector: 'app-race-overview-list',\n  templateUrl: './race-overview-list.component.html',\n  styleUrls: ['./race-overview-list.component.css'],\n})\nexport class RaceOverviewListComponent implements OnInit {\n  races$: Observable<Race[]> | undefined;\n\n  constructor(private raceService: RaceService) {}\n\n  ngOnInit(): void {\n    this.races$ = this.raceService.getRaces();\n  }\n}\n",
+        "assetsDirs": [],
+        "styleUrlsData": [
+          {
+            "data": "",
+            "styleUrl": "./race-overview-list.component.css"
+          }
+        ],
+        "stylesData": "",
+        "constructorObj": {
+          "name": "constructor",
+                "description": "",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "args": [
+            {
+              "name": "raceService",
+              "type": "RaceService",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "line": 12,
+          "jsdoctags": [
+            {
+              "name": "raceService",
+              "type": "RaceService",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
                 ]
             },
             "implements": [
@@ -522,19 +592,19 @@
             ],
             "templateData": "<div class=\"d-flex flex-column\">\n  <app-race-overview-card\n    *ngFor=\"let race of races$ | async\"\n    [race]=\"race\">\n  </app-race-overview-card>\n</div>\n"
         },
-        {
-            "name": "RaceResultsViewComponent",
-            "id": "component-RaceResultsViewComponent-f301e55e1d13464e996417f35a7b2653a03201c553cfccb5da468bbda660ad60fb371b9a9e95db19a1d6056a1a9acf959162edbdce004cc369b7e3ed913df9d1",
-            "file": "src/app/views/race-results-view/race-results-view.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-race-results-view",
-            "styleUrls": [
-                "./race-results-view.component.css"
-            ],
+      {
+        "name": "RaceResultsViewComponent",
+        "id": "component-RaceResultsViewComponent-a05ef2894deb60d6c3fcd6ee0c964467ba11be610b5d42a68b6c73ccea3cca109911be48ed42c49962deeac2d7d3df04aa3d29ed5afd020e6318a4971e6246b5",
+        "file": "src/app/views/race-results-view/race-results-view.component.ts",
+        "encapsulation": [],
+        "entryComponents": [],
+        "inputs": [],
+        "outputs": [],
+        "providers": [],
+        "selector": "app-race-results-view",
+        "styleUrls": [
+          "./race-results-view.component.css"
+        ],
             "styles": [],
             "templateUrl": [
                 "./race-results-view.component.html"
@@ -544,35 +614,35 @@
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 12,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
+              {
+                "name": "ngOnInit",
+                "args": [],
+                "optional": false,
+                "returnType": "void",
+                "typeParameters": [],
+                "line": 11,
+                "deprecated": false,
+                "deprecationMessage": ""
+              }
             ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-race-results-view',\n  templateUrl: './race-results-view.component.html',\n  styleUrls: ['./race-results-view.component.css']\n})\nexport class RaceResultsViewComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./race-results-view.component.css"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "hostBindings": [],
+        "hostListeners": [],
+        "description": "",
+        "rawdescription": "\n",
+        "type": "component",
+        "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-race-results-view',\n  templateUrl: './race-results-view.component.html',\n  styleUrls: ['./race-results-view.component.css'],\n})\nexport class RaceResultsViewComponent implements OnInit {\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+        "assetsDirs": [],
+        "styleUrlsData": [
+          {
+            "data": "",
+            "styleUrl": "./race-results-view.component.css"
+          }
+        ],
+        "stylesData": "",
+        "constructorObj": {
+          "name": "constructor",
                 "description": "",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -584,81 +654,133 @@
             ],
             "templateData": "<p>race-results-view works!</p>\n"
         },
-        {
-            "name": "RaceViewComponent",
-            "id": "component-RaceViewComponent-e3c66e8ca4f779cb5bd2650dd5e4672b9ae951abdaaa7b323115220ccdfe183c623ef01ab0c44c5385c554df21ecaa59ce6d310dfe13e9889c2efb4ddfe8ea09",
-            "file": "src/app/views/race-view/race-view.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-race-view",
-            "styleUrls": [
-                "./race-view.component.css"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./race-view.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 12,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
+      {
+        "name": "RaceViewComponent",
+        "id": "component-RaceViewComponent-7b1b943b38687977924161829c2716b98d9c4df82cd4d76c2ab92ccf49c5fea4ef6ab7398df5aa0f9abbc6dac19e2b23f7e91804cc882b4bf58401264515b01a",
+        "file": "src/app/views/race-view/race-view.component.ts",
+        "encapsulation": [],
+        "entryComponents": [],
+        "inputs": [],
+        "outputs": [],
+        "providers": [],
+        "selector": "app-race-view",
+        "styleUrls": [
+          "./race-view.component.css"
+        ],
+        "styles": [],
+        "templateUrl": [
+          "./race-view.component.html"
+        ],
+        "viewProviders": [],
+        "inputsClass": [],
+        "outputsClass": [],
+        "propertiesClass": [
+          {
+            "name": "race$",
             "deprecated": false,
             "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
+            "type": "Observable<Race> | undefined",
+            "optional": false,
             "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-race-view',\n  templateUrl: './race-view.component.html',\n  styleUrls: ['./race-view.component.css']\n})\nexport class RaceViewComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./race-view.component.css"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [],
-                "line": 8
+            "line": 14
+          },
+          {
+            "name": "raceId",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "string | null | undefined",
+            "optional": false,
+            "description": "",
+            "line": 13
+          }
+        ],
+        "methodsClass": [
+          {
+            "name": "ngOnInit",
+            "args": [],
+            "optional": false,
+            "returnType": "void",
+            "typeParameters": [],
+            "line": 21,
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "deprecated": false,
+        "deprecationMessage": "",
+        "hostBindings": [],
+        "hostListeners": [],
+        "description": "",
+        "rawdescription": "\n",
+        "type": "component",
+        "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { ActivatedRoute } from '@angular/router';\nimport { RaceService } from '../../services/race.service';\nimport { Observable } from 'rxjs';\nimport { Race } from '../../types/race';\n\n@Component({\n  selector: 'app-race-view',\n  templateUrl: './race-view.component.html',\n  styleUrls: ['./race-view.component.css'],\n})\nexport class RaceViewComponent implements OnInit {\n  raceId: string | null | undefined;\n  race$: Observable<Race> | undefined;\n\n  constructor(\n    private route: ActivatedRoute,\n    private raceService: RaceService\n  ) {}\n\n  ngOnInit(): void {\n    this.raceId = this.route.snapshot.params.id;\n    if (this.raceId) {\n      this.race$ = this.raceService.getRace(this.raceId);\n    }\n  }\n}\n",
+        "assetsDirs": [],
+        "styleUrlsData": [
+          {
+            "data": "",
+            "styleUrl": "./race-view.component.css"
+          }
+        ],
+        "stylesData": "",
+        "constructorObj": {
+          "name": "constructor",
+          "description": "",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "args": [
+            {
+              "name": "route",
+              "type": "ActivatedRoute",
+              "deprecated": false,
+              "deprecationMessage": ""
             },
+            {
+              "name": "raceService",
+              "type": "RaceService",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "line": 14,
+          "jsdoctags": [
+            {
+              "name": "route",
+              "type": "ActivatedRoute",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            },
+            {
+              "name": "raceService",
+              "type": "RaceService",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<p>race-view works!</p>\n"
+        "templateData": "<div class=\"row\" *ngIf=\"!race$\">\n  <div class=\"alert alert-info\">\n    <strong>Please wait!</strong>\n  </div>\n</div>\n<div class=\"row\" *ngIf=\"race$ | async as race\">\n  <app-race-detail [race]=\"race\"></app-race-detail>\n</div>\n\n"
         },
-        {
-            "name": "WelcomeViewComponent",
-            "id": "component-WelcomeViewComponent-8bd37b856a0b06d2af4f2dd7c3c42cfe91b6def27226c9b3ddfb9deb1f8c5a2d4b86ecad0c2e919ee02d510d2c8b2556d9aa74c88976e762cb01b16f44c19732",
-            "file": "src/app/views/welcome-view/welcome-view.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-welcome-view",
-            "styleUrls": [
-                "./welcome-view.component.css"
-            ],
+      {
+        "name": "WelcomeViewComponent",
+        "id": "component-WelcomeViewComponent-1f5308acff05a79fea2eb0edcd2d8ad94f923e59c346c64e6a050ed064cf9152d04135125246128eb63bc05a24e9ddce3ee1889e70d91b371c3d19c042c46f2d",
+        "file": "src/app/views/welcome-view/welcome-view.component.ts",
+        "encapsulation": [],
+        "entryComponents": [],
+        "inputs": [],
+        "outputs": [],
+        "providers": [],
+        "selector": "app-welcome-view",
+        "styleUrls": [
+          "./welcome-view.component.css"
+        ],
             "styles": [],
             "templateUrl": [
                 "./welcome-view.component.html"
@@ -668,35 +790,35 @@
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 12,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
+              {
+                "name": "ngOnInit",
+                "args": [],
+                "optional": false,
+                "returnType": "void",
+                "typeParameters": [],
+                "line": 11,
+                "deprecated": false,
+                "deprecationMessage": ""
+              }
             ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-welcome-view',\n  templateUrl: './welcome-view.component.html',\n  styleUrls: ['./welcome-view.component.css']\n})\nexport class WelcomeViewComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./welcome-view.component.css"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "hostBindings": [],
+        "hostListeners": [],
+        "description": "",
+        "rawdescription": "\n",
+        "type": "component",
+        "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-welcome-view',\n  templateUrl: './welcome-view.component.html',\n  styleUrls: ['./welcome-view.component.css'],\n})\nexport class WelcomeViewComponent implements OnInit {\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+        "assetsDirs": [],
+        "styleUrlsData": [
+          {
+            "data": "",
+            "styleUrl": "./welcome-view.component.css"
+          }
+        ],
+        "stylesData": "",
+        "constructorObj": {
+          "name": "constructor",
                 "description": "",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -710,40 +832,43 @@
         }
     ],
     "modules": [
-        {
-            "name": "AppModule",
-            "id": "module-AppModule-a84b762e6835206cb48db1c04eb4239474c7bbd29001b1db39b405ce95c2c10789ff8783f9723e66609722293f976ebbe21316e84fc81378467773a663b35734",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "src/app/app.module.ts",
-            "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceResultsViewComponent } from './views/race-results-view/race-results-view.component';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';\nimport { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';\nimport { RaceOverviewListComponent } from './components/race-overview-list/race-overview-list.component';\nimport {HttpClientModule} from \"@angular/common/http\";\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    RaceViewComponent,\n    WelcomeViewComponent,\n    RaceResultsViewComponent,\n    RaceListingViewComponent,\n    NavigationalHeaderComponent,\n    RaceOverviewCardComponent,\n    RaceOverviewListComponent,\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule,\n    HttpClientModule\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": [
-                        {
-                            "name": "AppComponent"
-                        },
-                        {
-                            "name": "NavigationalHeaderComponent"
-                        },
-                        {
-                            "name": "RaceListingViewComponent"
-                        },
-                        {
-                            "name": "RaceOverviewCardComponent"
-                        },
-                        {
-                            "name": "RaceOverviewListComponent"
-                        },
-                        {
-                            "name": "RaceResultsViewComponent"
+      {
+        "name": "AppModule",
+        "id": "module-AppModule-e33397e7aa12c16f61b0958d5509f9bc3ae56645ae9fc08243d0f4595be7c458bf2bd051fe9f838d789d532f3f0fd381034f59d6011ec54f5d32e2cd03a565d1",
+        "description": "",
+        "deprecationMessage": "",
+        "deprecated": false,
+        "file": "src/app/app.module.ts",
+        "methods": [],
+        "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceResultsViewComponent } from './views/race-results-view/race-results-view.component';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';\nimport { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';\nimport { RaceOverviewListComponent } from './components/race-overview-list/race-overview-list.component';\nimport { HttpClientModule } from '@angular/common/http';\nimport { RaceDetailComponent } from './components/race-detail/race-detail.component';\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    RaceViewComponent,\n    WelcomeViewComponent,\n    RaceResultsViewComponent,\n    RaceListingViewComponent,\n    NavigationalHeaderComponent,\n    RaceOverviewCardComponent,\n    RaceOverviewListComponent,\n    RaceDetailComponent,\n  ],\n  imports: [BrowserModule, AppRoutingModule, HttpClientModule],\n  providers: [],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
+        "children": [
+          {
+            "type": "providers",
+            "elements": []
+          },
+          {
+            "type": "declarations",
+            "elements": [
+              {
+                "name": "AppComponent"
+              },
+              {
+                "name": "NavigationalHeaderComponent"
+              },
+              {
+                "name": "RaceDetailComponent"
+              },
+              {
+                "name": "RaceListingViewComponent"
+              },
+              {
+                "name": "RaceOverviewCardComponent"
+              },
+              {
+                "name": "RaceOverviewListComponent"
+              },
+              {
+                "name": "RaceResultsViewComponent"
                         },
                         {
                             "name": "RaceViewComponent"
@@ -779,25 +904,25 @@
                 }
             ]
         },
-        {
-            "name": "AppRoutingModule",
-            "id": "module-AppRoutingModule-a8b839b82c372140994b935eaefe2a51ee6f2434c42e21c0c7022a64d78021f4e99f4339a2f49d8d0ab4afa497c5e054f9c00543bf9ad5c14e5a4f48a1b08ba1",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "src/app/app-routing.module.ts",
-            "methods": [],
-            "sourceCode": "import {NgModule} from '@angular/core';\nimport {RouterModule, Routes} from '@angular/router';\nimport {RaceListingViewComponent} from \"./views/race-listing-view/race-listing-view.component\";\nimport {WelcomeViewComponent} from \"./views/welcome-view/welcome-view.component\";\n\nconst routes: Routes = [\n  { path: 'races', component: RaceListingViewComponent },\n  // { path: 'race/{}', component: RaceViewComponent },\n  // { path: 'race/{}/results', component: RaceResultsViewComponent },\n  { path: '**', component: WelcomeViewComponent },\n];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": []
-                },
-                {
+      {
+        "name": "AppRoutingModule",
+        "id": "module-AppRoutingModule-198054eb9cf5e46ab97d991f207f0207391815c20caf413a7386d3b7223d349526260698960579e704ce5fdfe4b9a91c74e2d6f3d21ac6b7bef7c41b5b326d3e",
+        "description": "",
+        "deprecationMessage": "",
+        "deprecated": false,
+        "file": "src/app/app-routing.module.ts",
+        "methods": [],
+        "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\n\nconst routes: Routes = [\n  { path: 'races', component: RaceListingViewComponent },\n  { path: 'race/:id', component: RaceViewComponent },\n  // { path: 'race/:id/results', component: RaceResultsViewComponent },\n  { path: '**', component: WelcomeViewComponent },\n];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule],\n})\nexport class AppRoutingModule {}\n",
+        "children": [
+          {
+            "type": "providers",
+            "elements": []
+          },
+          {
+            "type": "declarations",
+            "elements": []
+          },
+          {
                     "type": "imports",
                     "elements": []
                 },
@@ -819,26 +944,36 @@
     "miscellaneous": {
         "variables": [
             {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+              "name": "context",
+              "ctype": "miscellaneous",
+              "subtype": "variable",
+              "file": "src/test.ts",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "type": "",
+              "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
             },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/RaceOverviewCard.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
+          {
+            "name": "Default",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/RaceDetail.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "",
+            "defaultValue": "Template.bind({})"
+          },
+          {
+            "name": "Default",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/RaceOverviewCard.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "",
+            "defaultValue": "Template.bind({})"
+          },
+          {
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -848,26 +983,26 @@
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/environments/environment.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\n  production: false\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/environments/environment.prod.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\n  production: true\n}"
-            },
+          {
+            "name": "environment",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/environments/environment.prod.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "object",
+            "defaultValue": "{\n  production: true\n}"
+          },
+          {
+            "name": "environment",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/environments/environment.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "object",
+            "defaultValue": "{\n  production: false\n}"
+          },
             {
                 "name": "HomeActive",
                 "ctype": "miscellaneous",
@@ -886,7 +1021,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "{\n  id: \"bb54c76f-3c78-40e3-808b-75dec4986c0e\",\n  name: \"Fat Bike Birkie 2022\",\n  location: \"Seeley\",\n  state: \"WI\",\n  startDateTime: new Date(\"2022-03-12T09:00:00\"),\n  year: 2022,\n  description: \"The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!\"\n} as Race"
+              "defaultValue": "{\n  id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  name: 'Fat Bike Birkie 2022',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-03-12T09:00:00'),\n  year: 2022,\n  description:\n    'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n} as Race"
             },
             {
                 "name": "races",
@@ -896,7 +1031,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
-                "defaultValue": "[\n  {\n    id: \"bb54c76f-3c78-40e3-808b-75dec4986c0e\",\n    name: \"Fat Bike Birkie 2022\",\n    location: \"Cable\",\n    state: \"WI\",\n    startDateTime: new Date(\"2022-03-12T09:00:00\"),\n    year: 2022,\n    description: \"The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!\"\n  } as Race,\n  {\n    id: \"2c88bb8c-76e3-4324-af2e-76e1400fd162\",\n    name: \"Fat Forest Fourteen 2022\",\n    location: \"Cohasset\",\n    state: \"MN\",\n    startDateTime: new Date(\"2022-02-12T09:30:00\"),\n    year: 2022,\n    description: \"Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.\"\n  } as Race,\n  {\n    id: \"681c2514-7f94-4e8e-8845-acdc4042bd8b\",\n    name: \"Seeley Big Fat Fourteen\",\n    location: \"Seeley\",\n    state: \"WI\",\n    startDateTime: new Date(\"2022-01-22T10:00:00\"),\n    year: 2022,\n    description: \"The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.\"\n  } as Race,\n]"
+              "defaultValue": "[\n  {\n    id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n    name: 'Fat Bike Birkie 2022',\n    location: 'Cable',\n    state: 'WI',\n    startDateTime: new Date('2022-03-12T09:00:00'),\n    year: 2022,\n    description:\n      'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n  } as Race,\n  {\n    id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n    name: 'Fat Forest Fourteen 2022',\n    location: 'Cohasset',\n    state: 'MN',\n    startDateTime: new Date('2022-02-12T09:30:00'),\n    year: 2022,\n    description:\n      'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n  } as Race,\n  {\n    id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n    name: 'Seeley Big Fat Fourteen',\n    location: 'Seeley',\n    state: 'WI',\n    startDateTime: new Date('2022-01-22T10:00:00'),\n    year: 2022,\n    description:\n      'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n  } as Race,\n]"
             },
             {
                 "name": "RacesActive",
@@ -916,7 +1051,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\n  getRaces: () => {\n    return of(races);\n  }\n}"
+              "defaultValue": "{\n  getRaces: () => {\n    return of(races);\n  },\n}"
             },
             {
                 "name": "require",
@@ -925,27 +1060,37 @@
                 "file": "src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "literal type"
+              "type": "literal type"
             },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/NavigationalHeader.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<NavigationalHeaderComponent>",
-                "defaultValue": "(args: NavigationalHeaderComponent) => ({\n  props: args,\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/RaceOverviewCard.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<RaceOverviewCardComponent>",
-                "defaultValue": "(args: RaceOverviewCardComponent) => ({\n  props: args,\n})"
+          {
+            "name": "Template",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/NavigationalHeader.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "Story<NavigationalHeaderComponent>",
+            "defaultValue": "(\n  args: NavigationalHeaderComponent\n) => ({\n  props: args,\n})"
+          },
+          {
+            "name": "Template",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/RaceDetail.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "Story<RaceDetailComponent>",
+            "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
+          },
+          {
+            "name": "Template",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/RaceOverviewCard.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "Story<RaceOverviewCardComponent>",
+            "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
             },
             {
                 "name": "Template",
@@ -955,7 +1100,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<RaceOverviewListComponent>",
-                "defaultValue": "(args: RaceOverviewListComponent) => ({\n  props: args,\n})"
+              "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
             }
         ],
         "functions": [],
@@ -973,26 +1118,48 @@
                     "type": "",
                     "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
                 },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type"
-                }
+              {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type"
+              }
             ],
-            "src/stories/components/RaceOverviewCard.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/RaceOverviewCard.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
+          "src/stories/components/RaceDetail.stories.ts": [
+            {
+              "name": "Default",
+              "ctype": "miscellaneous",
+              "subtype": "variable",
+              "file": "src/stories/components/RaceDetail.stories.ts",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "type": "",
+              "defaultValue": "Template.bind({})"
+            },
+            {
+              "name": "Template",
+              "ctype": "miscellaneous",
+              "subtype": "variable",
+              "file": "src/stories/components/RaceDetail.stories.ts",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "type": "Story<RaceDetailComponent>",
+              "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
+            }
+          ],
+          "src/stories/components/RaceOverviewCard.stories.ts": [
+            {
+              "name": "Default",
+              "ctype": "miscellaneous",
+              "subtype": "variable",
+              "file": "src/stories/components/RaceOverviewCard.stories.ts",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "type": "",
+              "defaultValue": "Template.bind({})"
                 },
                 {
                     "name": "Template",
@@ -1002,7 +1169,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<RaceOverviewCardComponent>",
-                    "defaultValue": "(args: RaceOverviewCardComponent) => ({\n  props: args,\n})"
+                  "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
                 }
             ],
             "src/stories/components/RaceOverviewList.stories.ts": [
@@ -1024,7 +1191,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\n  getRaces: () => {\n    return of(races);\n  }\n}"
+                  "defaultValue": "{\n  getRaces: () => {\n    return of(races);\n  },\n}"
                 },
                 {
                     "name": "Template",
@@ -1034,32 +1201,32 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<RaceOverviewListComponent>",
-                    "defaultValue": "(args: RaceOverviewListComponent) => ({\n  props: args,\n})"
+                  "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
                 }
             ],
-            "src/environments/environment.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\n  production: false\n}"
-                }
+          "src/environments/environment.prod.ts": [
+            {
+              "name": "environment",
+              "ctype": "miscellaneous",
+              "subtype": "variable",
+              "file": "src/environments/environment.prod.ts",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "type": "object",
+              "defaultValue": "{\n  production: true\n}"
+            }
             ],
-            "src/environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\n  production: true\n}"
-                }
+          "src/environments/environment.ts": [
+            {
+              "name": "environment",
+              "ctype": "miscellaneous",
+              "subtype": "variable",
+              "file": "src/environments/environment.ts",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "type": "object",
+              "defaultValue": "{\n  production: false\n}"
+            }
             ],
             "src/stories/components/NavigationalHeader.stories.ts": [
                 {
@@ -1090,7 +1257,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<NavigationalHeaderComponent>",
-                    "defaultValue": "(args: NavigationalHeaderComponent) => ({\n  props: args,\n})"
+                  "defaultValue": "(\n  args: NavigationalHeaderComponent\n) => ({\n  props: args,\n})"
                 }
             ],
             "src/stories/data/race-test-data.ts": [
@@ -1102,7 +1269,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "{\n  id: \"bb54c76f-3c78-40e3-808b-75dec4986c0e\",\n  name: \"Fat Bike Birkie 2022\",\n  location: \"Seeley\",\n  state: \"WI\",\n  startDateTime: new Date(\"2022-03-12T09:00:00\"),\n  year: 2022,\n  description: \"The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!\"\n} as Race"
+                  "defaultValue": "{\n  id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  name: 'Fat Bike Birkie 2022',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-03-12T09:00:00'),\n  year: 2022,\n  description:\n    'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n} as Race"
                 }
             ],
             "src/stories/data/races-test-data.ts": [
@@ -1114,7 +1281,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "[]",
-                    "defaultValue": "[\n  {\n    id: \"bb54c76f-3c78-40e3-808b-75dec4986c0e\",\n    name: \"Fat Bike Birkie 2022\",\n    location: \"Cable\",\n    state: \"WI\",\n    startDateTime: new Date(\"2022-03-12T09:00:00\"),\n    year: 2022,\n    description: \"The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!\"\n  } as Race,\n  {\n    id: \"2c88bb8c-76e3-4324-af2e-76e1400fd162\",\n    name: \"Fat Forest Fourteen 2022\",\n    location: \"Cohasset\",\n    state: \"MN\",\n    startDateTime: new Date(\"2022-02-12T09:30:00\"),\n    year: 2022,\n    description: \"Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.\"\n  } as Race,\n  {\n    id: \"681c2514-7f94-4e8e-8845-acdc4042bd8b\",\n    name: \"Seeley Big Fat Fourteen\",\n    location: \"Seeley\",\n    state: \"WI\",\n    startDateTime: new Date(\"2022-01-22T10:00:00\"),\n    year: 2022,\n    description: \"The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.\"\n  } as Race,\n]"
+                  "defaultValue": "[\n  {\n    id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n    name: 'Fat Bike Birkie 2022',\n    location: 'Cable',\n    state: 'WI',\n    startDateTime: new Date('2022-03-12T09:00:00'),\n    year: 2022,\n    description:\n      'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n  } as Race,\n  {\n    id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n    name: 'Fat Forest Fourteen 2022',\n    location: 'Cohasset',\n    state: 'MN',\n    startDateTime: new Date('2022-02-12T09:30:00'),\n    year: 2022,\n    description:\n      'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n  } as Race,\n  {\n    id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n    name: 'Seeley Big Fat Fourteen',\n    location: 'Seeley',\n    state: 'WI',\n    startDateTime: new Date('2022-01-22T10:00:00'),\n    year: 2022,\n    description:\n      'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n  } as Race,\n]"
                 }
             ]
         },
@@ -1132,14 +1299,18 @@
                 "filename": "src/app/app-routing.module.ts",
                 "module": "AppRoutingModule",
                 "children": [
-                    {
-                        "path": "races",
-                        "component": "RaceListingViewComponent"
-                    },
-                    {
-                        "path": "**",
-                        "component": "WelcomeViewComponent"
-                    }
+                  {
+                    "path": "races",
+                    "component": "RaceListingViewComponent"
+                  },
+                  {
+                    "path": "race/:id",
+                    "component": "RaceViewComponent"
+                  },
+                  {
+                    "path": "**",
+                    "component": "WelcomeViewComponent"
+                  }
                 ],
                 "kind": "module"
             }
@@ -1158,26 +1329,35 @@
                 "coverageCount": "0/2",
                 "status": "low"
             },
-            {
-                "filePath": "src/app/components/navigational-header/navigational-header.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "NavigationalHeaderComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/components/race-overview-card/race-overview-card.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "RaceOverviewCardComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/5",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/components/race-overview-list/race-overview-list.component.ts",
+          {
+            "filePath": "src/app/components/navigational-header/navigational-header.component.ts",
+            "type": "component",
+            "linktype": "component",
+            "name": "NavigationalHeaderComponent",
+            "coveragePercent": 0,
+            "coverageCount": "0/3",
+            "status": "low"
+          },
+          {
+            "filePath": "src/app/components/race-detail/race-detail.component.ts",
+            "type": "component",
+            "linktype": "component",
+            "name": "RaceDetailComponent",
+            "coveragePercent": 0,
+            "coverageCount": "0/4",
+            "status": "low"
+          },
+          {
+            "filePath": "src/app/components/race-overview-card/race-overview-card.component.ts",
+            "type": "component",
+            "linktype": "component",
+            "name": "RaceOverviewCardComponent",
+            "coveragePercent": 0,
+            "coverageCount": "0/4",
+            "status": "low"
+          },
+          {
+            "filePath": "src/app/components/race-overview-list/race-overview-list.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "RaceOverviewListComponent",
@@ -1194,15 +1374,15 @@
                 "coverageCount": "0/2",
                 "status": "low"
             },
-            {
-                "filePath": "src/app/services/race.service.ts",
-                "type": "injectable",
-                "linktype": "injectable",
-                "name": "RaceService",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
+          {
+            "filePath": "src/app/services/race.service.ts",
+            "type": "injectable",
+            "linktype": "injectable",
+            "name": "RaceService",
+            "coveragePercent": 0,
+            "coverageCount": "0/4",
+            "status": "low"
+          },
             {
                 "filePath": "src/app/types/race.ts",
                 "type": "interface",
@@ -1230,15 +1410,15 @@
                 "coverageCount": "0/3",
                 "status": "low"
             },
-            {
-                "filePath": "src/app/views/race-view/race-view.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "RaceViewComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
+          {
+            "filePath": "src/app/views/race-view/race-view.component.ts",
+            "type": "component",
+            "linktype": "component",
+            "name": "RaceViewComponent",
+            "coveragePercent": 0,
+            "coverageCount": "0/5",
+            "status": "low"
+          },
             {
                 "filePath": "src/app/views/welcome-view/welcome-view.component.ts",
                 "type": "component",
@@ -1285,26 +1465,46 @@
                 "linksubtype": "variable",
                 "name": "RacesActive",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
+              "coverageCount": "0/1",
+              "status": "low"
             },
-            {
-                "filePath": "src/stories/components/NavigationalHeader.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Template",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/components/RaceOverviewCard.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Default",
-                "coveragePercent": 0,
+          {
+            "filePath": "src/stories/components/NavigationalHeader.stories.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "Template",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
+          {
+            "filePath": "src/stories/components/RaceDetail.stories.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "Default",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
+          {
+            "filePath": "src/stories/components/RaceDetail.stories.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "Template",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
+          {
+            "filePath": "src/stories/components/RaceOverviewCard.stories.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "Default",
+            "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },

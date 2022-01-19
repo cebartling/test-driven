@@ -10,8 +10,8 @@ import { Race } from '../../types/race';
   styleUrls: ['./race-view.component.css'],
 })
 export class RaceViewComponent implements OnInit {
-  private raceId: string | null | undefined;
-  private race$: Observable<Race> | undefined;
+  raceId: string | null | undefined;
+  race$: Observable<Race> | undefined;
 
   constructor(
     private route: ActivatedRoute,

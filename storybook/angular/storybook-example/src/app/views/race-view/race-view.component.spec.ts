@@ -6,6 +6,7 @@ import { Race } from '../../types/race';
 import { RaceService } from '../../services/race.service';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RaceDetailComponent } from '../../components/race-detail/race-detail.component';
 
 const race = {
   id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',
@@ -26,7 +27,7 @@ describe('RaceViewComponent', () => {
   beforeEach(
     waitForAsync(async () => {
       await TestBed.configureTestingModule({
-        declarations: [RaceViewComponent],
+        declarations: [RaceViewComponent, RaceDetailComponent],
         imports: [RouterTestingModule, HttpClientTestingModule],
         providers: [
           RaceService,
