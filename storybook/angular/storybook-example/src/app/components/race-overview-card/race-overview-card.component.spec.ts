@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { RaceOverviewCardComponent } from './race-overview-card.component';
 import { Race } from '../../types/race';
-import { RouterModule } from '@angular/router';
 
 describe('RaceOverviewCardComponent', () => {
   let component: RaceOverviewCardComponent;
@@ -21,7 +20,7 @@ describe('RaceOverviewCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RaceOverviewCardComponent],
-      imports: [RouterModule.forRoot([])],
+      imports: [RouterTestingModule],
     }).compileComponents();
   });
 

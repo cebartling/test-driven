@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { RaceService } from '../../services/race.service';
+import { Observable } from 'rxjs';
+import { Race } from '../../types/race';
 
 @Component({
   selector: 'app-race-view',
@@ -6,7 +10,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./race-view.component.css'],
 })
 export class RaceViewComponent implements OnInit {
-  constructor() {}
+  private raceId: string | null | undefined;
+  private race$: Observable<Race> | undefined;
 
-  ngOnInit(): void {}
+  constructor(
+    private route: ActivatedRoute,
+    private raceService: RaceService
+  ) {}
+
+  ngOnInit(): void {
+    this.raceId = this.route.snapshot.params.id;
+    if (this.raceId) {
+      this.race$ = this.raceService.getRace(this.raceId);
+    }
+  }
 }
