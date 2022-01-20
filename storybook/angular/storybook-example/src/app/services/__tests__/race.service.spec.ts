@@ -4,8 +4,8 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
-import { RaceService } from './race.service';
-import { Race } from '../types/race';
+import { RaceService } from '../race.service';
+import { Race } from '../../types/race';
 
 describe('RaceService', () => {
   let service: RaceService;

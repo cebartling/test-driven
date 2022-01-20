@@ -12,6 +12,7 @@ import { RaceOverviewCardComponent } from './components/race-overview-card/race-
 import { RaceOverviewListComponent } from './components/race-overview-list/race-overview-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RaceDetailComponent } from './components/race-detail/race-detail.component';
+import { ParticipantListCardComponent } from './components/participant-list-card/participant-list-card.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { RaceDetailComponent } from './components/race-detail/race-detail.compon
     RaceOverviewCardComponent,
     RaceOverviewListComponent,
     RaceDetailComponent,
+    ParticipantListCardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

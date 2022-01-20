@@ -27,5 +27,32 @@
       "year": 2022,
       "description": "The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own."
     }
+  ],
+  "riders": [
+    {
+      "id": "9a46a083-3d8e-451f-aeca-c4c1b0d98951",
+      "givenName": "John",
+      "surname": "Jones",
+      "birthDate": "1986-01-02",
+      "gender": "MALE"
+    },
+    {
+      "id": "cf70aa7a-61aa-4d5d-b312-427249b4088a",
+      "givenName": "Jack",
+      "surname": "Smith",
+      "birthDate": "1987-10-22",
+      "gender": "MALE"
+    }
+  ],
+  "raceParticipants": [
+    {
+      "id": "",
+      "raceId": "",
+      "riderId": "",
+      "startedRace": true,
+      "finishedRace": true,
+      "startDateTime": "2022-01-22T10:02:34",
+      "endDateTime": "2022-01-22T11:47:02"
+    }
   ]
 }
