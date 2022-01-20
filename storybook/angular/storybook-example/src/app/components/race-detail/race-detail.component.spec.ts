@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RaceDetailComponent } from './race-detail.component';
+import { race1 } from '../../../stories/data/race-test-data';
 
 describe('RaceDetailComponent', () => {
   let component: RaceDetailComponent;
@@ -15,6 +16,7 @@ describe('RaceDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RaceDetailComponent);
     component = fixture.componentInstance;
+    component.race = race1;
     fixture.detectChanges();
   });
 
