@@ -42,7 +42,7 @@
     "@storybook/angular": "^6.4.13",
     "@storybook/builder-webpack5": "^6.4.13",
     "@storybook/manager-webpack5": "^6.4.13",
-    "@types/jasmine": "~3.8.0",
+    "@types/jasmine": "~3.10.3",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
