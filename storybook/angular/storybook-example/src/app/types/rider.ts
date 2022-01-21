@@ -17,18 +17,12 @@ export class RiderImpl implements Rider {
   birthDate: Date;
   gender: Gender;
 
-  constructor(
-    id: string,
-    givenName: string,
-    surname: string,
-    birthDateString: string,
-    genderString: string
-  ) {
-    this.id = id;
-    this.givenName = givenName;
-    this.surname = surname;
-    this.birthDate = new Date(birthDateString);
-    this.gender = genderString === 'MALE' ? Gender.Male : Gender.Female;
+  constructor(rider: Rider) {
+    this.id = rider.id;
+    this.givenName = rider.givenName;
+    this.surname = rider.surname;
+    this.birthDate = rider.birthDate;
+    this.gender = rider.gender;
   }
 
   calculateAgeToday(): number {

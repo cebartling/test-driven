@@ -1,9 +1,22 @@
-<div class="row" *ngIf="!race$">
-  <div class="alert alert-info">
-    <strong>Please wait!</strong>
+<ng-container
+  *ngIf="{
+          race: (race$ | async),
+          riders: (riders$ | async),
+          raceParticipants: (raceParticipants$ | async)
+         } as data">
+  <div class="row" *ngIf="data.race && data.riders && data.raceParticipants; else loading">
+    <app-race-detail
+      [race]="data.race"
+      [riders]="data.riders"
+      [raceParticipants]="data.raceParticipants">
+    </app-race-detail>
   </div>
-</div>
-<div class="row" *ngIf="race$ | async as race">
-  <app-race-detail [race]="race"></app-race-detail>
-</div>
 
+  <ng-template #loading>
+    <div class="row">
+      <div class="alert alert-info">
+        <strong>Please wait!</strong>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>

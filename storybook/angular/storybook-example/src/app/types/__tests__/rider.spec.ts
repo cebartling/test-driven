@@ -1,26 +1,21 @@
 import { Rider, RiderImpl } from '../rider';
+import { Gender } from '../gender';
 
 describe('RiderImpl model class', () => {
   const data = {
     id: '9a46a083-3d8e-451f-aeca-c4c1b0d98951',
     givenName: 'John',
     surname: 'Jones',
-    birthDate: '1986-01-02',
-    gender: 'MALE',
-  };
+    birthDate: new Date('1986-01-02'),
+    gender: Gender.Male,
+  } as Rider;
 
   describe('calculateAgeToday method', () => {
     let rider: Rider;
     let age = 0;
 
     beforeEach(() => {
-      rider = new RiderImpl(
-        data.id,
-        data.givenName,
-        data.surname,
-        data.birthDate,
-        data.gender
-      );
+      rider = new RiderImpl(data);
       const today = new Date();
       const birthDate = new Date(data.birthDate);
       age = today.getFullYear() - birthDate.getFullYear();

@@ -5,20 +5,20 @@ import {
 } from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
 import { RiderService } from '../rider.service';
-import { Rider } from '../../types/rider';
+import { Rider, RiderImpl } from '../../types/rider';
 import { Gender } from '../../types/gender';
 
 describe('RiderService', () => {
   let service: RiderService;
   let httpTestingController: HttpTestingController;
 
-  const expectedRider = {
+  const expectedRider = new RiderImpl({
     id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',
     givenName: 'James',
     surname: 'Morris',
     birthDate: new Date('1986-03-12'),
     gender: Gender.Male,
-  } as Rider;
+  } as Rider);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
