@@ -12,13 +12,13 @@ describe('RiderService', () => {
   let service: RiderService;
   let httpTestingController: HttpTestingController;
 
-  const expectedRider = new RiderImpl({
+  const expectedRider = {
     id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',
     givenName: 'James',
     surname: 'Morris',
     birthDate: new Date('1986-03-12'),
     gender: Gender.Male,
-  } as Rider);
+  } as Rider;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -37,7 +37,6 @@ describe('RiderService', () => {
     let riders$: Observable<Rider[]>;
     let captured: Rider[];
     let capturedError: Error;
-    const expectedRiders = [expectedRider] as Rider[];
     const expectedUrl = '/api/riders';
 
     beforeEach((done: DoneFn) => {
@@ -52,10 +51,11 @@ describe('RiderService', () => {
           done();
         }
       );
-      httpTestingController.expectOne(expectedUrl).flush(expectedRiders);
+      httpTestingController.expectOne(expectedUrl).flush([expectedRider]);
     });
 
     it('should return the appropriate response', () => {
+      const expectedRiders = [new RiderImpl(expectedRider)] as Rider[];
       expect(captured).toEqual(expectedRiders);
     });
 
@@ -87,7 +87,7 @@ describe('RiderService', () => {
     });
 
     it('should return the appropriate response', () => {
-      expect(captured).toEqual(expectedRider);
+      expect(captured).toEqual(new RiderImpl(expectedRider));
     });
 
     it('should not throw an error', () => {
