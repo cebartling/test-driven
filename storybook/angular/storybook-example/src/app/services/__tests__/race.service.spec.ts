@@ -65,4 +65,44 @@ describe('RaceService', () => {
       expect(capturedError).toBeUndefined();
     });
   });
+
+  describe('getRace', () => {
+    let race$: Observable<Race>;
+    let captured: Race;
+    let capturedError: Error;
+    const expectedRace = {
+      id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',
+      name: 'Fat Bike Birkie 2022',
+      location: 'Seeley',
+      state: 'WI',
+      startDateTime: new Date('2022-03-12T09:00:00'),
+      year: 2022,
+      description:
+        'The Fat Bike Birkie is the premier on snow bike event in North America.',
+    } as Race;
+    const expectedUrl = `/api/races/${expectedRace.id}`;
+
+    beforeEach((done: DoneFn) => {
+      race$ = service.getRace(expectedRace.id);
+      race$.subscribe(
+        (data: Race) => {
+          captured = data;
+          done();
+        },
+        (error) => {
+          capturedError = error;
+          done();
+        }
+      );
+      httpTestingController.expectOne(expectedUrl).flush(expectedRace);
+    });
+
+    it('should return the appropriate response', () => {
+      expect(captured).toEqual(expectedRace);
+    });
+
+    it('should not throw an error', () => {
+      expect(capturedError).toBeUndefined();
+    });
+  });
 });
