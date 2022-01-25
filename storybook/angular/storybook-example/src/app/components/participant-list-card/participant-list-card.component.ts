@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Rider } from '../../types/rider';
+import { RaceParticipant } from '../../types/race-participant';
+import { Race } from '../../types/race';
 
 @Component({
   selector: 'app-participant-list-card',
@@ -6,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./participant-list-card.component.css'],
 })
 export class ParticipantListCardComponent implements OnInit {
-  constructor() {}
+  @Input() rider!: Rider;
+  @Input() raceParticipant!: RaceParticipant;
+  @Input() race!: Race;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   ngOnInit(): void {}
+
+  get ageToday(): number {
+    return this.rider.calculateAgeAtDate(this.race.startDateTime);
+  }
 }

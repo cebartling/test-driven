@@ -7,7 +7,7 @@ export interface Rider {
   birthDate: Date;
   gender: Gender;
 
-  calculateAgeToday(): number;
+  calculateAgeAtDate(referenceDate: Date): number;
 }
 
 export class RiderImpl implements Rider {
@@ -25,12 +25,11 @@ export class RiderImpl implements Rider {
     this.gender = rider.gender;
   }
 
-  calculateAgeToday(): number {
-    const today = new Date();
+  calculateAgeAtDate(referenceDate: Date): number {
     const birthDate = new Date(this.birthDate);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    let age = referenceDate.getFullYear() - birthDate.getFullYear();
+    const m = referenceDate.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && referenceDate.getDate() < birthDate.getDate())) {
       age--;
     }
     return age;
