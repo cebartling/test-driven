@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="912px" height="620px" viewBox="0 0 912 620" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>feedback-loops</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Development" fill="#09004F" x="16" y="288" width="211" height="91"></rect>
+        <text id="Development" font-family="Helvetica" font-size="21" font-weight="normal" fill="#FFFFFF">
+            <tspan x="59" y="341">Development</tspan>
+        </text>
+        <rect id="Integration" fill="#10008D" x="240" y="288" width="211" height="91"></rect>
+        <text id="Integration" font-family="Helvetica" font-size="21" font-weight="normal" fill="#FFFFFF">
+            <tspan x="296" y="341">Integration</tspan>
+        </text>
+        <rect id="Staging" fill="#1600C2" x="464" y="288" width="211" height="91"></rect>
+        <rect id="Production" fill="#3100FF" x="688" y="288" width="211" height="91"></rect>
+        <path id="Development-feedback" d="M123.148438,172 C179.575465,172 209.543031,210.624447 212.562514,285.554805 L212.645765,287.836533 L212.809232,292.83386 L202.814578,293.160794 L202.65111,288.163467 C200.309917,216.59132 173.976886,182 123.148438,182 C86.8270182,182 63.306458,199.477766 51.7487867,235.282435 L72.6589819,238.117309 L38.6484375,288 L19.1486113,230.86195 L41.6949296,233.916831 C54.3522082,192.935631 81.7961628,172 123.148438,172 Z" fill="#09004F" fill-rule="nonzero"></path>
+        <path id="Integration-feedback" d="M234.5,130 C360.433865,130 427.877599,181.796484 434.801201,284.595164 L434.99248,287.725886 L435.266594,292.718367 L425.281633,293.266594 L425.00752,288.274114 C419.565175,189.151838 356.760048,140 234.5,140 C136.067868,140 76.2596107,171.936564 53.8120154,235.739971 L74.6428183,239.27024 L39,288 L21.401883,230.247889 L43.8164153,234.045719 C67.3798531,164.658101 131.372361,130 234.5,130 Z" fill="#10008D" fill-rule="nonzero"></path>
+        <path id="Staging-feedback" d="M346,75 C542.256082,75 646.898361,144.568018 657.691634,283.453657 L657.989975,287.68353 L658.306445,292.673504 L648.326496,293.306445 L648.010025,288.31647 C639.408186,152.686137 539.506052,85 346,85 C179.39214,85 82.1856646,135.273242 52.912552,235.515581 L73.9992099,238.805942 L39,288 L20.6442799,230.484197 L42.9525582,233.960527 C73.220184,127.884244 174.731213,75 346,75 Z" fill="#1600C2" fill-rule="nonzero"></path>
+        <path id="Production-feedback" d="M459,20 C726.58902,20 868.880724,107.426093 883.581838,282.330784 L883.98827,287.657703 L884.330566,292.645973 L874.354027,293.330566 L874.01173,288.342297 C862.194607,116.132137 724.645187,30 459,30 C222.082811,30 87.0341713,98.603923 52.2562362,235.357516 L73.5029825,238.456643 L39,288 L20.067104,230.6716 L42.3077498,233.910024 C78.0066407,91.1508307 217.440517,20 459,20 Z" fill="#3100FF" fill-rule="nonzero"></path>
+        <text id="Integration-Copy" font-family="Helvetica" font-size="21" font-weight="normal" fill="#FFFFFF">
+            <tspan x="534" y="341">Staging</tspan>
+        </text>
+        <text id="Integration-Copy-2" font-family="Helvetica" font-size="21" font-weight="normal" fill="#FFFFFF">
+            <tspan x="744" y="341">Production</tspan>
+        </text>
+        <text id="$" font-family="Helvetica-Bold, Helvetica" font-size="21" font-weight="bold" fill="#000000">
+            <tspan x="183" y="279">$</tspan>
+        </text>
+        <text id="$-copy" font-family="Helvetica-Bold, Helvetica" font-size="36" font-weight="bold" fill="#000000">
+            <tspan x="396" y="278">$</tspan>
+        </text>
+        <text id="$" font-family="Helvetica-Bold, Helvetica" font-size="48" font-weight="bold" fill="#000000">
+            <tspan x="606" y="276">$</tspan>
+        </text>
+        <text id="$$$" font-family="Helvetica-Bold, Helvetica" font-size="60" font-weight="bold" fill="#000000">
+            <tspan x="761" y="271">$$$</tspan>
+        </text>
+        <path id="Line" d="M106,399 L106,411 L838,411 L838,416 L106,416 L106,428 L77,413.5 L106,399 Z" fill="#000000" fill-rule="nonzero"></path>
+        <text id="“Shift-left”-strateg" font-family="Helvetica-Bold, Helvetica" font-size="24" font-weight="bold" fill="#000000">
+            <tspan x="106" y="471">“Shift left” strategy reduces the cost of remediating any issues</tspan>
+            <tspan x="106" y="500">	</tspan>
+            <tspan x="134" y="500" font-family="Helvetica" font-size="21" font-weight="normal">- Using test-driven development to promote writing tests and code together</tspan>
+            <tspan x="106" y="529" font-family="Helvetica" font-size="21" font-weight="normal">	- Running specifications from within Visual Studio Code</tspan>
+            <tspan x="106" y="554" font-family="Helvetica" font-size="21" font-weight="normal">	- Using SonarLint plugin within IntelliJ and Visual Studio Code</tspan>
+            <tspan x="106" y="579" font-family="Helvetica" font-size="21" font-weight="normal">	- Running dependabot for early detection and remediation of dependencies</tspan>
+            <tspan x="106" y="604" font-family="Helvetica" font-size="21" font-weight="normal">	- Using TwistLock for cloud container scanning</tspan>
+        </text>
+    </g>
+</svg>
