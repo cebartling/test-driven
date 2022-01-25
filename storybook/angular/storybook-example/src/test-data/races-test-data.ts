@@ -1,4 +1,4 @@
-import { Race } from '../../app/types/race';
+import { Race } from '../app/types/race';
 
 export const races = [
   {

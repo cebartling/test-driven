@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RaceDetailComponent } from './race-detail.component';
-import { race1 } from '../../../stories/data/race-test-data';
+import { race1 } from '../../../test-data/race-test-data';
 
 describe('RaceDetailComponent', () => {
   let component: RaceDetailComponent;

@@ -64,15 +64,15 @@
                     "description": "",
                     "line": 5
                 },
-                {
-                    "name": "year",
-                    "deprecated": false,
-                  "deprecationMessage": "",
-                  "type": "number",
-                  "optional": false,
-                  "description": "",
-                  "line": 7
-                }
+              {
+                "name": "year",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "number",
+                "optional": false,
+                "description": "",
+                "line": 7
+              }
             ],
           "indexSignatures": [],
           "kind": 165,
@@ -1463,119 +1463,119 @@
       "templateData": "<div class=\"row\">\n  <h1>Welcome to MFTBA</h1>\n</div>\n\n\n"
     }
   ],
-    "modules": [
-      {
-        "name": "AppModule",
-        "id": "module-AppModule-2c7162d1c9989e601ff88e5c09ca0c9b353881c29cb8ff457d4ba58197c8f693d5324d8c09a09baed780034636df278cf75c2534b454a391d235ad294bdd11a0",
-        "description": "",
-        "deprecationMessage": "",
-        "deprecated": false,
-        "file": "src/app/app.module.ts",
-        "methods": [],
-        "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceResultsViewComponent } from './views/race-results-view/race-results-view.component';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';\nimport { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';\nimport { RaceOverviewListComponent } from './components/race-overview-list/race-overview-list.component';\nimport { HttpClientModule } from '@angular/common/http';\nimport { RaceDetailComponent } from './components/race-detail/race-detail.component';\nimport { ParticipantListCardComponent } from './components/participant-list-card/participant-list-card.component';\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    RaceViewComponent,\n    WelcomeViewComponent,\n    RaceResultsViewComponent,\n    RaceListingViewComponent,\n    NavigationalHeaderComponent,\n    RaceOverviewCardComponent,\n    RaceOverviewListComponent,\n    RaceDetailComponent,\n    ParticipantListCardComponent,\n  ],\n  imports: [BrowserModule, AppRoutingModule, HttpClientModule],\n  providers: [],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
-        "children": [
-          {
-            "type": "providers",
-            "elements": []
-          },
-          {
-            "type": "declarations",
-            "elements": [
-              {
-                "name": "AppComponent"
-              },
-              {
-                "name": "NavigationalHeaderComponent"
-              },
-              {
-                "name": "ParticipantListCardComponent"
-              },
-              {
-                "name": "RaceDetailComponent"
-              },
-              {
-                "name": "RaceListingViewComponent"
-              },
-              {
-                "name": "RaceOverviewCardComponent"
-              },
-              {
-                "name": "RaceOverviewListComponent"
-              },
-              {
-                "name": "RaceResultsViewComponent"
-              },
-              {
-                "name": "RaceViewComponent"
-              },
-              {
-                "name": "WelcomeViewComponent"
-              }
-            ]
-          },
-          {
-            "type": "imports",
-            "elements": [
-              {
-                "name": "AppRoutingModule"
-              }
-            ]
-          },
-          {
-            "type": "exports",
-            "elements": []
-          },
-          {
-            "type": "bootstrap",
-            "elements": [
-              {
-                "name": "AppComponent"
-              }
-            ]
-          },
-          {
-            "type": "classes",
-            "elements": []
-          }
-        ]
-      },
-      {
-        "name": "AppRoutingModule",
-        "id": "module-AppRoutingModule-198054eb9cf5e46ab97d991f207f0207391815c20caf413a7386d3b7223d349526260698960579e704ce5fdfe4b9a91c74e2d6f3d21ac6b7bef7c41b5b326d3e",
-        "description": "",
-        "deprecationMessage": "",
-        "deprecated": false,
-        "file": "src/app/app-routing.module.ts",
-        "methods": [],
-        "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\n\nconst routes: Routes = [\n  { path: 'races', component: RaceListingViewComponent },\n  { path: 'race/:id', component: RaceViewComponent },\n  // { path: 'race/:id/results', component: RaceResultsViewComponent },\n  { path: '**', component: WelcomeViewComponent },\n];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule],\n})\nexport class AppRoutingModule {}\n",
-        "children": [
-          {
-            "type": "providers",
-            "elements": []
-          },
-          {
-            "type": "declarations",
-            "elements": []
-          },
-          {
-            "type": "imports",
-            "elements": []
-          },
-          {
-            "type": "exports",
-            "elements": []
-          },
-          {
-            "type": "bootstrap",
-            "elements": []
-          },
-          {
-            "type": "classes",
-            "elements": []
-          }
-        ]
-      }
-    ],
+  "modules": [
+    {
+      "name": "AppModule",
+      "id": "module-AppModule-2c7162d1c9989e601ff88e5c09ca0c9b353881c29cb8ff457d4ba58197c8f693d5324d8c09a09baed780034636df278cf75c2534b454a391d235ad294bdd11a0",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/app.module.ts",
+      "methods": [],
+      "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceResultsViewComponent } from './views/race-results-view/race-results-view.component';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';\nimport { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';\nimport { RaceOverviewListComponent } from './components/race-overview-list/race-overview-list.component';\nimport { HttpClientModule } from '@angular/common/http';\nimport { RaceDetailComponent } from './components/race-detail/race-detail.component';\nimport { ParticipantListCardComponent } from './components/participant-list-card/participant-list-card.component';\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    RaceViewComponent,\n    WelcomeViewComponent,\n    RaceResultsViewComponent,\n    RaceListingViewComponent,\n    NavigationalHeaderComponent,\n    RaceOverviewCardComponent,\n    RaceOverviewListComponent,\n    RaceDetailComponent,\n    ParticipantListCardComponent,\n  ],\n  imports: [BrowserModule, AppRoutingModule, HttpClientModule],\n  providers: [],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "AppComponent"
+            },
+            {
+              "name": "NavigationalHeaderComponent"
+            },
+            {
+              "name": "ParticipantListCardComponent"
+            },
+            {
+              "name": "RaceDetailComponent"
+            },
+            {
+              "name": "RaceListingViewComponent"
+            },
+            {
+              "name": "RaceOverviewCardComponent"
+            },
+            {
+              "name": "RaceOverviewListComponent"
+            },
+            {
+              "name": "RaceResultsViewComponent"
+            },
+            {
+              "name": "RaceViewComponent"
+            },
+            {
+              "name": "WelcomeViewComponent"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": [
+            {
+              "name": "AppRoutingModule"
+            }
+          ]
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": [
+            {
+              "name": "AppComponent"
+            }
+          ]
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "AppRoutingModule",
+      "id": "module-AppRoutingModule-198054eb9cf5e46ab97d991f207f0207391815c20caf413a7386d3b7223d349526260698960579e704ce5fdfe4b9a91c74e2d6f3d21ac6b7bef7c41b5b326d3e",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/app-routing.module.ts",
+      "methods": [],
+      "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\n\nconst routes: Routes = [\n  { path: 'races', component: RaceListingViewComponent },\n  { path: 'race/:id', component: RaceViewComponent },\n  // { path: 'race/:id/results', component: RaceResultsViewComponent },\n  { path: '**', component: WelcomeViewComponent },\n];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule],\n})\nexport class AppRoutingModule {}\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": []
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    }
+  ],
     "miscellaneous": {
         "variables": [
           {
@@ -1592,7 +1592,7 @@
             "name": "Default",
             "ctype": "miscellaneous",
             "subtype": "variable",
-            "file": "src/stories/components/RaceDetail.stories.ts",
+            "file": "src/stories/components/ParticipantListCard.stories.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "",
@@ -1602,7 +1602,7 @@
             "name": "Default",
             "ctype": "miscellaneous",
             "subtype": "variable",
-            "file": "src/stories/components/RaceOverviewList.stories.ts",
+            "file": "src/stories/components/RaceDetail.stories.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "",
@@ -1619,14 +1619,14 @@
             "defaultValue": "Template.bind({})"
           },
           {
-            "name": "environment",
+            "name": "Default",
             "ctype": "miscellaneous",
             "subtype": "variable",
-            "file": "src/environments/environment.prod.ts",
+            "file": "src/stories/components/RaceOverviewList.stories.ts",
             "deprecated": false,
             "deprecationMessage": "",
-            "type": "object",
-            "defaultValue": "{\n  production: true\n}"
+            "type": "",
+            "defaultValue": "Template.bind({})"
           },
           {
             "name": "environment",
@@ -1637,6 +1637,16 @@
             "deprecationMessage": "",
             "type": "object",
             "defaultValue": "{\n  production: false\n}"
+          },
+          {
+            "name": "environment",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/environments/environment.prod.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "object",
+            "defaultValue": "{\n  production: true\n}"
           },
           {
             "name": "HomeActive",
@@ -1652,32 +1662,32 @@
             "name": "race1",
             "ctype": "miscellaneous",
             "subtype": "variable",
-            "file": "src/stories/data/race-test-data.ts",
+            "file": "src/test-data/race-test-data.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "",
             "defaultValue": "{\n  id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  name: 'Fat Bike Birkie 2022',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-03-12T09:00:00'),\n  year: 2022,\n  description:\n    'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n} as Race"
           },
-            {
-                "name": "races",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/data/races-test-data.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "[]",
-              "defaultValue": "[\n  {\n    id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n    name: 'Fat Bike Birkie 2022',\n    location: 'Cable',\n    state: 'WI',\n    startDateTime: new Date('2022-03-12T09:00:00'),\n    year: 2022,\n    description:\n      'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n  } as Race,\n  {\n    id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n    name: 'Fat Forest Fourteen 2022',\n    location: 'Cohasset',\n    state: 'MN',\n    startDateTime: new Date('2022-02-12T09:30:00'),\n    year: 2022,\n    description:\n      'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n  } as Race,\n  {\n    id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n    name: 'Seeley Big Fat Fourteen',\n    location: 'Seeley',\n    state: 'WI',\n    startDateTime: new Date('2022-01-22T10:00:00'),\n    year: 2022,\n    description:\n      'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n  } as Race,\n]"
-            },
-            {
-                "name": "RacesActive",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/NavigationalHeader.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
+          {
+            "name": "races",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/test-data/races-test-data.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "[]",
+            "defaultValue": "[\n  {\n    id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n    name: 'Fat Bike Birkie 2022',\n    location: 'Cable',\n    state: 'WI',\n    startDateTime: new Date('2022-03-12T09:00:00'),\n    year: 2022,\n    description:\n      'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n  } as Race,\n  {\n    id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n    name: 'Fat Forest Fourteen 2022',\n    location: 'Cohasset',\n    state: 'MN',\n    startDateTime: new Date('2022-02-12T09:30:00'),\n    year: 2022,\n    description:\n      'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n  } as Race,\n  {\n    id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n    name: 'Seeley Big Fat Fourteen',\n    location: 'Seeley',\n    state: 'WI',\n    startDateTime: new Date('2022-01-22T10:00:00'),\n    year: 2022,\n    description:\n      'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n  } as Race,\n]"
+          },
+          {
+            "name": "RacesActive",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/NavigationalHeader.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "",
+            "defaultValue": "Template.bind({})"
+          },
           {
             "name": "raceServiceMock",
             "ctype": "miscellaneous",
@@ -1696,6 +1706,16 @@
             "deprecated": false,
             "deprecationMessage": "",
             "type": "literal type"
+          },
+          {
+            "name": "Template",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/ParticipantListCard.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "Story<ParticipantListCardComponent>",
+            "defaultValue": "(\n  args: ParticipantListCardComponent\n) => ({\n  props: args,\n})"
           },
           {
             "name": "Template",
@@ -1721,21 +1741,21 @@
             "name": "Template",
             "ctype": "miscellaneous",
             "subtype": "variable",
-            "file": "src/stories/components/RaceOverviewList.stories.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "Story<RaceOverviewListComponent>",
-            "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
-          },
-          {
-            "name": "Template",
-            "ctype": "miscellaneous",
-            "subtype": "variable",
             "file": "src/stories/components/RaceOverviewCard.stories.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "Story<RaceOverviewCardComponent>",
             "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
+          },
+          {
+            "name": "Template",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/RaceOverviewList.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "Story<RaceOverviewListComponent>",
+            "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
           }
         ],
       "functions": [],
@@ -1787,6 +1807,28 @@
             "type": "literal type"
           }
         ],
+        "src/stories/components/ParticipantListCard.stories.ts": [
+          {
+            "name": "Default",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/ParticipantListCard.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "",
+            "defaultValue": "Template.bind({})"
+          },
+          {
+            "name": "Template",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/ParticipantListCard.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "Story<ParticipantListCardComponent>",
+            "defaultValue": "(\n  args: ParticipantListCardComponent\n) => ({\n  props: args,\n})"
+          }
+        ],
         "src/stories/components/RaceDetail.stories.ts": [
           {
             "name": "Default",
@@ -1807,6 +1849,28 @@
             "deprecationMessage": "",
             "type": "Story<RaceDetailComponent>",
             "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
+          }
+        ],
+        "src/stories/components/RaceOverviewCard.stories.ts": [
+          {
+            "name": "Default",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/RaceOverviewCard.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "",
+            "defaultValue": "Template.bind({})"
+          },
+          {
+            "name": "Template",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/RaceOverviewCard.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "Story<RaceOverviewCardComponent>",
+            "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
           }
         ],
         "src/stories/components/RaceOverviewList.stories.ts": [
@@ -1841,26 +1905,16 @@
             "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
           }
         ],
-        "src/stories/components/RaceOverviewCard.stories.ts": [
+        "src/environments/environment.ts": [
           {
-            "name": "Default",
+            "name": "environment",
             "ctype": "miscellaneous",
             "subtype": "variable",
-            "file": "src/stories/components/RaceOverviewCard.stories.ts",
+            "file": "src/environments/environment.ts",
             "deprecated": false,
             "deprecationMessage": "",
-            "type": "",
-            "defaultValue": "Template.bind({})"
-          },
-          {
-            "name": "Template",
-            "ctype": "miscellaneous",
-            "subtype": "variable",
-            "file": "src/stories/components/RaceOverviewCard.stories.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "Story<RaceOverviewCardComponent>",
-            "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
+            "type": "object",
+            "defaultValue": "{\n  production: false\n}"
           }
         ],
         "src/environments/environment.prod.ts": [
@@ -1873,18 +1927,6 @@
             "deprecationMessage": "",
             "type": "object",
             "defaultValue": "{\n  production: true\n}"
-          }
-        ],
-        "src/environments/environment.ts": [
-          {
-            "name": "environment",
-            "ctype": "miscellaneous",
-            "subtype": "variable",
-            "file": "src/environments/environment.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "object",
-            "defaultValue": "{\n  production: false\n}"
           }
         ],
         "src/stories/components/NavigationalHeader.stories.ts": [
@@ -1906,43 +1948,43 @@
             "deprecated": false,
             "deprecationMessage": "",
             "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/NavigationalHeader.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<NavigationalHeaderComponent>",
-                  "defaultValue": "(\n  args: NavigationalHeaderComponent\n) => ({\n  props: args,\n})"
+            "defaultValue": "Template.bind({})"
+          },
+          {
+            "name": "Template",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/stories/components/NavigationalHeader.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "Story<NavigationalHeaderComponent>",
+            "defaultValue": "(\n  args: NavigationalHeaderComponent\n) => ({\n  props: args,\n})"
                 }
             ],
-            "src/stories/data/race-test-data.ts": [
-                {
-                    "name": "race1",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/data/race-test-data.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                  "defaultValue": "{\n  id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  name: 'Fat Bike Birkie 2022',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-03-12T09:00:00'),\n  year: 2022,\n  description:\n    'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n} as Race"
-                }
+        "src/test-data/race-test-data.ts": [
+          {
+            "name": "race1",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/test-data/race-test-data.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "",
+            "defaultValue": "{\n  id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  name: 'Fat Bike Birkie 2022',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-03-12T09:00:00'),\n  year: 2022,\n  description:\n    'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n} as Race"
+          }
             ],
-            "src/stories/data/races-test-data.ts": [
-                {
-                    "name": "races",
-                    "ctype": "miscellaneous",
-                  "subtype": "variable",
-                  "file": "src/stories/data/races-test-data.ts",
-                  "deprecated": false,
-                  "deprecationMessage": "",
-                  "type": "[]",
-                  "defaultValue": "[\n  {\n    id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n    name: 'Fat Bike Birkie 2022',\n    location: 'Cable',\n    state: 'WI',\n    startDateTime: new Date('2022-03-12T09:00:00'),\n    year: 2022,\n    description:\n      'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n  } as Race,\n  {\n    id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n    name: 'Fat Forest Fourteen 2022',\n    location: 'Cohasset',\n    state: 'MN',\n    startDateTime: new Date('2022-02-12T09:30:00'),\n    year: 2022,\n    description:\n      'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n  } as Race,\n  {\n    id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n    name: 'Seeley Big Fat Fourteen',\n    location: 'Seeley',\n    state: 'WI',\n    startDateTime: new Date('2022-01-22T10:00:00'),\n    year: 2022,\n    description:\n      'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n  } as Race,\n]"
-                }
-            ]
+        "src/test-data/races-test-data.ts": [
+          {
+            "name": "races",
+            "ctype": "miscellaneous",
+            "subtype": "variable",
+            "file": "src/test-data/races-test-data.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "[]",
+            "defaultValue": "[\n  {\n    id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n    name: 'Fat Bike Birkie 2022',\n    location: 'Cable',\n    state: 'WI',\n    startDateTime: new Date('2022-03-12T09:00:00'),\n    year: 2022,\n    description:\n      'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n  } as Race,\n  {\n    id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n    name: 'Fat Forest Fourteen 2022',\n    location: 'Cohasset',\n    state: 'MN',\n    startDateTime: new Date('2022-02-12T09:30:00'),\n    year: 2022,\n    description:\n      'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n  } as Race,\n  {\n    id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n    name: 'Seeley Big Fat Fourteen',\n    location: 'Seeley',\n    state: 'WI',\n    startDateTime: new Date('2022-01-22T10:00:00'),\n    year: 2022,\n    description:\n      'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n  } as Race,\n]"
+          }
+        ]
       },
       "groupedFunctions": {},
       "groupedEnumerations": {
@@ -2178,15 +2220,15 @@
             "status": "low"
           },
           {
-                "filePath": "src/environments/environment.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "environment",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
+            "filePath": "src/environments/environment.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "environment",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
           {
             "filePath": "src/stories/components/NavigationalHeader.stories.ts",
             "type": "variable",
@@ -2209,6 +2251,26 @@
           },
           {
             "filePath": "src/stories/components/NavigationalHeader.stories.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "Template",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
+          {
+            "filePath": "src/stories/components/ParticipantListCard.stories.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "Default",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
+          {
+            "filePath": "src/stories/components/ParticipantListCard.stories.ts",
             "type": "variable",
             "linktype": "miscellaneous",
             "linksubtype": "variable",
@@ -2264,16 +2326,16 @@
             "linksubtype": "variable",
             "name": "Default",
             "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/components/RaceOverviewList.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "raceServiceMock",
-                "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
+          {
+            "filePath": "src/stories/components/RaceOverviewList.stories.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "raceServiceMock",
+            "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
@@ -2287,26 +2349,26 @@
                 "coverageCount": "0/1",
                 "status": "low"
             },
-            {
-                "filePath": "src/stories/data/race-test-data.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "race1",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/data/races-test-data.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "races",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
+          {
+            "filePath": "src/test-data/race-test-data.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "race1",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
+          {
+            "filePath": "src/test-data/races-test-data.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "races",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
             {
                 "filePath": "src/test.ts",
                 "type": "variable",

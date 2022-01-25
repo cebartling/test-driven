@@ -1,4 +1,4 @@
-import { Race } from '../../app/types/race';
+import { Race } from '../app/types/race';
 
 export const race1 = {
   id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',

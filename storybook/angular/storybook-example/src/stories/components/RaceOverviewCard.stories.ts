@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/angular';
 import { RaceOverviewCardComponent } from '../../app/components/race-overview-card/race-overview-card.component';
-import { race1 } from '../data/race-test-data';
+import { race1 } from '../../test-data/race-test-data';
 
 // More on default export: https://storybook.js.org/docs/angular/writing-stories/introduction#default-export
 export default {
