@@ -16,7 +16,7 @@ export class ParticipantListCardComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   ngOnInit(): void {}
 
-  get ageToday(): number {
+  get ageOnRaceDay(): number {
     return this.rider.calculateAgeAtDate(this.race.startDateTime);
   }
 }
