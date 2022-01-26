@@ -27,4 +27,19 @@ describe('ParticipantListCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('getters', () => {
+    describe('ageOnRaceDay', () => {
+      beforeEach(() => {
+        spyOn(rider1, 'calculateAgeAtDate').and.callThrough();
+      });
+
+      it('should calculate the age on race day', () => {
+        expect(component.ageOnRaceDay).toEqual(36);
+        expect(rider1.calculateAgeAtDate).toHaveBeenCalledWith(
+          race1.startDateTime
+        );
+      });
+    });
+  });
 });
