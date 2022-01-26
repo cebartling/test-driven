@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { RaceOverviewListComponent } from './race-overview-list.component';
-import { races } from '../../../test-data/races-test-data';
+import { races } from '../../../test-data/race-test-data';
 import { RaceService } from '../../services/race.service';
 import { RaceOverviewCardComponent } from '../race-overview-card/race-overview-card.component';
 import { RouterModule } from '@angular/router';

@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { RaceOverviewListComponent } from '../../app/components/race-overview-list/race-overview-list.component';
 import { RaceOverviewCardComponent } from '../../app/components/race-overview-card/race-overview-card.component';
 import { RaceService } from '../../app/services/race.service';
-import { races } from '../../test-data/races-test-data';
+import { races } from '../../test-data/race-test-data';
 
 const raceServiceMock = {
   getRaces: () => {
