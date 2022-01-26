@@ -1,4 +1,5 @@
-import {cleanup, fireEvent, render, type RenderResult} from '@testing-library/svelte'
+import {cleanup, fireEvent, render} from '@testing-library/svelte'
+import type {RenderResult} from '@testing-library/svelte'
 import ProfileEditor from '../ProfileEditor.svelte';
 import type {Profile} from '../../models/Profile';
 import {profileService} from '../../stores/ProfileStore';
