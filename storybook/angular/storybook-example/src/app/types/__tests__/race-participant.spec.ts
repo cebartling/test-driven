@@ -1,6 +1,6 @@
 import { RaceParticipant, RaceParticipantImpl } from '../race-participant';
 
-describe('RaceParticipantImpl class', () => {
+describe('RaceParticipantImpl model class', () => {
   describe('calculateCompletedRaceTimeInSeconds method', () => {
     describe('when startDateTime and endDateTime are populated', () => {
       it('should calculate an appropriate value', () => {

@@ -46,15 +46,15 @@
                     "description": "",
                     "line": 3
                 },
-                {
-                    "name": "startDateTime",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Date",
-                    "optional": false,
-                    "description": "",
-                    "line": 6
-                },
+              {
+                "name": "startDateTime",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Date",
+                "optional": false,
+                "description": "",
+                "line": 6
+              },
               {
                 "name": "state",
                 "deprecated": false,
@@ -168,12 +168,12 @@
       },
       {
         "name": "Rider",
-        "id": "interface-Rider-3f80196e7dad93915d5c96ecb10da25c31fd6decb6dfaba6e04326fdd84c209f1128b7f2dc40e62cc9c24f887c105faa94e8f512cf86b95370b8aae783ca2ba5",
+        "id": "interface-Rider-2ddd5cb045d1b6a1677ce806e9de3b331a976fec85a00a1fecf501f25e708b464e2b097dda6911e34e9d27593fd0d061f18cf2e3a422a4e3619a72b39dd6b59f",
         "file": "src/app/types/rider.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "interface",
-        "sourceCode": "import { Gender } from './gender';\n\nexport interface Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  calculateAgeToday(): number;\n}\n\nexport class RiderImpl implements Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  constructor(rider: Rider) {\n    this.id = rider.id;\n    this.givenName = rider.givenName;\n    this.surname = rider.surname;\n    this.birthDate = rider.birthDate;\n    this.gender = rider.gender;\n  }\n\n  calculateAgeToday(): number {\n    const today = new Date();\n    const birthDate = new Date(this.birthDate);\n    let age = today.getFullYear() - birthDate.getFullYear();\n    const m = today.getMonth() - birthDate.getMonth();\n    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {\n      age--;\n    }\n    return age;\n  }\n}\n",
+        "sourceCode": "import { Gender } from './gender';\n\nexport interface Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  calculateAgeAtDate(referenceDate: Date): number;\n}\n\nexport class RiderImpl implements Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  constructor(rider: Rider) {\n    this.id = rider.id;\n    this.givenName = rider.givenName;\n    this.surname = rider.surname;\n    this.birthDate = rider.birthDate;\n    this.gender = rider.gender;\n  }\n\n  calculateAgeAtDate(referenceDate: Date): number {\n    const birthDate = new Date(this.birthDate);\n    let age = referenceDate.getFullYear() - birthDate.getFullYear();\n    const m = referenceDate.getMonth() - birthDate.getMonth();\n    if (m < 0 || (m === 0 && referenceDate.getDate() < birthDate.getDate())) {\n      age--;\n    }\n    return age;\n  }\n}\n",
         "properties": [
           {
             "name": "birthDate",
@@ -225,14 +225,32 @@
         "kind": 167,
         "methods": [
           {
-            "name": "calculateAgeToday",
-            "args": [],
+            "name": "calculateAgeAtDate",
+            "args": [
+              {
+                "name": "referenceDate",
+                "type": "Date",
+                "deprecated": false,
+                "deprecationMessage": ""
+              }
+            ],
             "optional": false,
             "returnType": "number",
             "typeParameters": [],
             "line": 10,
             "deprecated": false,
-            "deprecationMessage": ""
+            "deprecationMessage": "",
+            "jsdoctags": [
+              {
+                "name": "referenceDate",
+                "type": "Date",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "tagName": {
+                  "text": "param"
+                }
+              }
+            ]
           }
         ]
       }
@@ -588,12 +606,12 @@
     },
     {
       "name": "RiderImpl",
-      "id": "class-RiderImpl-3f80196e7dad93915d5c96ecb10da25c31fd6decb6dfaba6e04326fdd84c209f1128b7f2dc40e62cc9c24f887c105faa94e8f512cf86b95370b8aae783ca2ba5",
+      "id": "class-RiderImpl-2ddd5cb045d1b6a1677ce806e9de3b331a976fec85a00a1fecf501f25e708b464e2b097dda6911e34e9d27593fd0d061f18cf2e3a422a4e3619a72b39dd6b59f",
       "file": "src/app/types/rider.ts",
       "deprecated": false,
       "deprecationMessage": "",
       "type": "class",
-      "sourceCode": "import { Gender } from './gender';\n\nexport interface Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  calculateAgeToday(): number;\n}\n\nexport class RiderImpl implements Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  constructor(rider: Rider) {\n    this.id = rider.id;\n    this.givenName = rider.givenName;\n    this.surname = rider.surname;\n    this.birthDate = rider.birthDate;\n    this.gender = rider.gender;\n  }\n\n  calculateAgeToday(): number {\n    const today = new Date();\n    const birthDate = new Date(this.birthDate);\n    let age = today.getFullYear() - birthDate.getFullYear();\n    const m = today.getMonth() - birthDate.getMonth();\n    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {\n      age--;\n    }\n    return age;\n  }\n}\n",
+      "sourceCode": "import { Gender } from './gender';\n\nexport interface Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  calculateAgeAtDate(referenceDate: Date): number;\n}\n\nexport class RiderImpl implements Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  constructor(rider: Rider) {\n    this.id = rider.id;\n    this.givenName = rider.givenName;\n    this.surname = rider.surname;\n    this.birthDate = rider.birthDate;\n    this.gender = rider.gender;\n  }\n\n  calculateAgeAtDate(referenceDate: Date): number {\n    const birthDate = new Date(this.birthDate);\n    let age = referenceDate.getFullYear() - birthDate.getFullYear();\n    const m = referenceDate.getMonth() - birthDate.getMonth();\n    if (m < 0 || (m === 0 && referenceDate.getDate() < birthDate.getDate())) {\n      age--;\n    }\n    return age;\n  }\n}\n",
       "constructorObj": {
         "name": "constructor",
         "description": "",
@@ -669,14 +687,32 @@
       ],
       "methods": [
         {
-          "name": "calculateAgeToday",
-          "args": [],
+          "name": "calculateAgeAtDate",
+          "args": [
+            {
+              "name": "referenceDate",
+              "type": "Date",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
           "optional": false,
           "returnType": "number",
           "typeParameters": [],
           "line": 28,
           "deprecated": false,
-          "deprecationMessage": ""
+          "deprecationMessage": "",
+          "jsdoctags": [
+            {
+              "name": "referenceDate",
+              "type": "Date",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
         }
       ],
       "indexSignatures": [],
@@ -806,7 +842,7 @@
     },
     {
       "name": "ParticipantListCardComponent",
-      "id": "component-ParticipantListCardComponent-7d5d5e094ba4b51537f5dbe15f1dc61bd7b58ce0916caaa0a699a211c1adc0d4fdd0889cbb1e5f4c492e6f2f32e6ce118d7f020f8079a51529a6290433d9ee25",
+      "id": "component-ParticipantListCardComponent-3fb312ca9d23dbe43d3c5ef6a4ff7e275f67715b81a49e2ce4f797e889ccfd5c3284de8e74d373bcbee1c1e139d918042ffa0cdc00f36bd6ab1d23ad0e4afe40",
       "file": "src/app/components/participant-list-card/participant-list-card.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -824,10 +860,18 @@
       "viewProviders": [],
       "inputsClass": [
         {
+          "name": "race",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 14,
+          "type": "Race",
+          "decorators": []
+        },
+        {
           "name": "raceParticipant",
           "deprecated": false,
           "deprecationMessage": "",
-          "line": 12,
+          "line": 13,
           "type": "RaceParticipant",
           "decorators": []
         },
@@ -835,7 +879,7 @@
           "name": "rider",
           "deprecated": false,
           "deprecationMessage": "",
-          "line": 11,
+          "line": 12,
           "type": "Rider",
           "decorators": []
         }
@@ -849,7 +893,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 15,
+          "line": 17,
           "deprecated": false,
           "deprecationMessage": ""
         }
@@ -861,7 +905,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\nimport { Rider } from '../../types/rider';\nimport { RaceParticipant } from '../../types/race-participant';\n\n@Component({\n  selector: 'app-participant-list-card',\n  templateUrl: './participant-list-card.component.html',\n  styleUrls: ['./participant-list-card.component.css'],\n})\nexport class ParticipantListCardComponent implements OnInit {\n  @Input() rider!: Rider;\n  @Input() raceParticipant!: RaceParticipant;\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  ngOnInit(): void {}\n}\n",
+      "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\nimport { Rider } from '../../types/rider';\nimport { RaceParticipant } from '../../types/race-participant';\nimport { Race } from '../../types/race';\n\n@Component({\n  selector: 'app-participant-list-card',\n  templateUrl: './participant-list-card.component.html',\n  styleUrls: ['./participant-list-card.component.css'],\n})\nexport class ParticipantListCardComponent implements OnInit {\n  @Input() rider!: Rider;\n  @Input() raceParticipant!: RaceParticipant;\n  @Input() race!: Race;\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  ngOnInit(): void {}\n\n  get ageOnRaceDay(): number {\n    return this.rider.calculateAgeAtDate(this.race.startDateTime);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
@@ -873,7 +917,18 @@
       "implements": [
         "OnInit"
       ],
-      "templateData": "<div class=\"row\">\n  <div class=\"col-1\">Place</div>\n  <div class=\"col-1\">Bib number</div>\n  <div class=\"col-3\">\n    {{rider.surname}}, {{rider.givenName}}\n  </div>\n  <div class=\"col-1\">{{rider.calculateAgeToday()}}</div>\n  <div class=\"col-1\">{{rider.gender}}</div>\n  <div class=\"col-1\">{{raceParticipant.calculateCompletedRaceTimeInSeconds()}}</div>\n  <div class=\"col-1\">{{raceParticipant.calculateCompletedRaceTimeInSeconds()}}</div>\n</div>\n"
+      "accessors": {
+        "ageOnRaceDay": {
+          "name": "ageOnRaceDay",
+          "getSignature": {
+            "name": "ageOnRaceDay",
+            "type": "number",
+            "returnType": "number",
+            "line": 19
+          }
+        }
+      },
+      "templateData": "<div class=\"row\">\n  <div class=\"col-1\">\n    Place\n  </div>\n  <div class=\"col-1\">\n    Bib number\n  </div>\n  <div class=\"col-4\">\n    {{rider.surname}}, {{rider.givenName}}\n  </div>\n  <div class=\"col-1\">\n    {{ageOnRaceDay}}\n  </div>\n  <div class=\"col-1\">\n    {{rider.gender}}\n  </div>\n  <div class=\"col-1\">\n    {{raceParticipant.calculateCompletedRaceTimeInSeconds()}}\n  </div>\n  <div class=\"col-1\">\n    {{raceParticipant.calculateCompletedRaceTimeInSeconds()}}\n  </div>\n</div>\n"
     },
     {
       "name": "RaceDetailComponent",
@@ -1601,26 +1656,6 @@
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/RaceDetail.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "",
-        "defaultValue": "Template.bind({})"
-      },
-      {
-        "name": "Default",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/components/ParticipantListCard.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "",
-        "defaultValue": "Template.bind({})"
-      },
-      {
-        "name": "Default",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
         "file": "src/stories/components/RaceOverviewCard.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
@@ -1631,7 +1666,27 @@
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
+        "file": "src/stories/components/RaceDetail.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "Default",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
         "file": "src/stories/components/RaceOverviewList.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "Default",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/ParticipantListCard.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
@@ -1675,7 +1730,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
-        "defaultValue": "{\n  id: '2ab31c4d-d920-4818-812a-b55edf2f8bb8',\n  raceId: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  riderId: '9a46a083-3d8e-451f-aeca-c4c1b0d98951',\n  startedRace: true,\n  finishedRace: true,\n  startDateTime: new Date('2022-01-22T10:02:34'),\n  endDateTime: new Date('2022-01-22T11:47:02'),\n} as RaceParticipant"
+        "defaultValue": "new RaceParticipantImpl({\n  id: '2ab31c4d-d920-4818-812a-b55edf2f8bb8',\n  raceId: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  riderId: '9a46a083-3d8e-451f-aeca-c4c1b0d98951',\n  startedRace: true,\n  finishedRace: true,\n  startDateTime: new Date('2022-01-22T10:02:34'),\n  endDateTime: new Date('2022-01-22T11:47:02'),\n} as RaceParticipant)"
       },
       {
         "name": "participant2",
@@ -1685,7 +1740,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
-        "defaultValue": "{\n  id: '2ab31c4d-d920-4818-812a-b55edf2f8bb8',\n  raceId: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  riderId: 'cf70aa7a-61aa-4d5d-b312-427249b4088a',\n  startedRace: true,\n  finishedRace: true,\n  startDateTime: new Date('2022-01-22T10:02:34'),\n  endDateTime: new Date('2022-01-22T11:37:36'),\n} as RaceParticipant"
+        "defaultValue": "new RaceParticipantImpl({\n  id: '2ab31c4d-d920-4818-812a-b55edf2f8bb8',\n  raceId: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  riderId: 'cf70aa7a-61aa-4d5d-b312-427249b4088a',\n  startedRace: true,\n  finishedRace: true,\n  startDateTime: new Date('2022-01-22T10:02:34'),\n  endDateTime: new Date('2022-01-22T11:37:36'),\n} as RaceParticipant)"
       },
       {
         "name": "participants",
@@ -1708,14 +1763,34 @@
         "defaultValue": "{\n  id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  name: 'Fat Bike Birkie 2022',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-03-12T09:00:00'),\n  year: 2022,\n  description:\n    'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n} as Race"
       },
       {
+        "name": "race2",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/test-data/race-test-data.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "{\n  id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n  name: 'Fat Forest Fourteen 2022',\n  location: 'Cohasset',\n  state: 'MN',\n  startDateTime: new Date('2022-02-12T09:30:00'),\n  year: 2022,\n  description:\n    'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n} as Race"
+      },
+      {
+        "name": "race3",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/test-data/race-test-data.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "{\n  id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n  name: 'Seeley Big Fat Fourteen',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-01-22T10:00:00'),\n  year: 2022,\n  description:\n    'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n} as Race"
+      },
+      {
         "name": "races",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/test-data/races-test-data.ts",
+        "file": "src/test-data/race-test-data.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "[]",
-        "defaultValue": "[\n  {\n    id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n    name: 'Fat Bike Birkie 2022',\n    location: 'Cable',\n    state: 'WI',\n    startDateTime: new Date('2022-03-12T09:00:00'),\n    year: 2022,\n    description:\n      'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n  } as Race,\n  {\n    id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n    name: 'Fat Forest Fourteen 2022',\n    location: 'Cohasset',\n    state: 'MN',\n    startDateTime: new Date('2022-02-12T09:30:00'),\n    year: 2022,\n    description:\n      'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n  } as Race,\n  {\n    id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n    name: 'Seeley Big Fat Fourteen',\n    location: 'Seeley',\n    state: 'WI',\n    startDateTime: new Date('2022-01-22T10:00:00'),\n    year: 2022,\n    description:\n      'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n  } as Race,\n]"
+        "defaultValue": "[race1, race2, race3]"
       },
       {
         "name": "RacesActive",
@@ -1754,7 +1829,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
-        "defaultValue": "{\n  id: '9a46a083-3d8e-451f-aeca-c4c1b0d98951',\n  givenName: 'John',\n  surname: 'Jones',\n  birthDate: new Date('1986-01-02'),\n  gender: Gender.Male,\n} as Rider"
+        "defaultValue": "new RiderImpl({\n  id: '9a46a083-3d8e-451f-aeca-c4c1b0d98951',\n  givenName: 'John',\n  surname: 'Jones',\n  birthDate: new Date('1986-01-02'),\n  gender: Gender.Male,\n} as Rider)"
       },
       {
         "name": "rider2",
@@ -1764,7 +1839,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
-        "defaultValue": "{\n  id: 'cf70aa7a-61aa-4d5d-b312-427249b4088a',\n  givenName: 'Jack',\n  surname: 'Smith',\n  birthDate: new Date('1987-10-22'),\n  gender: Gender.Male,\n} as Rider"
+        "defaultValue": "new RiderImpl({\n  id: 'cf70aa7a-61aa-4d5d-b312-427249b4088a',\n  givenName: 'Jack',\n  surname: 'Smith',\n  birthDate: new Date('1987-10-22'),\n  gender: Gender.Male,\n} as Rider)"
       },
       {
         "name": "riders",
@@ -1790,26 +1865,6 @@
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/RaceDetail.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story<RaceDetailComponent>",
-        "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
-      },
-      {
-        "name": "Template",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/components/ParticipantListCard.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story<ParticipantListCardComponent>",
-        "defaultValue": "(\n  args: ParticipantListCardComponent\n) => ({\n  props: args,\n})"
-      },
-      {
-        "name": "Template",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
         "file": "src/stories/components/RaceOverviewCard.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
@@ -1820,11 +1875,31 @@
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
+        "file": "src/stories/components/RaceDetail.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<RaceDetailComponent>",
+        "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
         "file": "src/stories/components/RaceOverviewList.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Story<RaceOverviewListComponent>",
         "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/ParticipantListCard.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<ParticipantListCardComponent>",
+        "defaultValue": "(\n  args: ParticipantListCardComponent\n) => ({\n  props: args,\n})"
       }
     ],
     "functions": [],
@@ -1876,50 +1951,6 @@
           "type": "literal type"
         }
       ],
-      "src/stories/components/RaceDetail.stories.ts": [
-        {
-          "name": "Default",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/RaceDetail.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "Template.bind({})"
-        },
-        {
-          "name": "Template",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/RaceDetail.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story<RaceDetailComponent>",
-          "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
-        }
-      ],
-      "src/stories/components/ParticipantListCard.stories.ts": [
-        {
-          "name": "Default",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/ParticipantListCard.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "Template.bind({})"
-        },
-        {
-          "name": "Template",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/ParticipantListCard.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story<ParticipantListCardComponent>",
-          "defaultValue": "(\n  args: ParticipantListCardComponent\n) => ({\n  props: args,\n})"
-        }
-      ],
       "src/stories/components/RaceOverviewCard.stories.ts": [
         {
           "name": "Default",
@@ -1940,6 +1971,28 @@
           "deprecationMessage": "",
           "type": "Story<RaceOverviewCardComponent>",
           "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
+        }
+      ],
+      "src/stories/components/RaceDetail.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceDetail.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceDetail.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<RaceDetailComponent>",
+          "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
         }
       ],
       "src/stories/components/RaceOverviewList.stories.ts": [
@@ -1972,6 +2025,28 @@
           "deprecationMessage": "",
           "type": "Story<RaceOverviewListComponent>",
           "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
+        }
+      ],
+      "src/stories/components/ParticipantListCard.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/ParticipantListCard.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/ParticipantListCard.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<ParticipantListCardComponent>",
+          "defaultValue": "(\n  args: ParticipantListCardComponent\n) => ({\n  props: args,\n})"
         }
       ],
       "src/environments/environment.prod.ts": [
@@ -2039,7 +2114,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "",
-          "defaultValue": "{\n  id: '2ab31c4d-d920-4818-812a-b55edf2f8bb8',\n  raceId: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  riderId: '9a46a083-3d8e-451f-aeca-c4c1b0d98951',\n  startedRace: true,\n  finishedRace: true,\n  startDateTime: new Date('2022-01-22T10:02:34'),\n  endDateTime: new Date('2022-01-22T11:47:02'),\n} as RaceParticipant"
+          "defaultValue": "new RaceParticipantImpl({\n  id: '2ab31c4d-d920-4818-812a-b55edf2f8bb8',\n  raceId: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  riderId: '9a46a083-3d8e-451f-aeca-c4c1b0d98951',\n  startedRace: true,\n  finishedRace: true,\n  startDateTime: new Date('2022-01-22T10:02:34'),\n  endDateTime: new Date('2022-01-22T11:47:02'),\n} as RaceParticipant)"
         },
         {
           "name": "participant2",
@@ -2049,7 +2124,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "",
-          "defaultValue": "{\n  id: '2ab31c4d-d920-4818-812a-b55edf2f8bb8',\n  raceId: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  riderId: 'cf70aa7a-61aa-4d5d-b312-427249b4088a',\n  startedRace: true,\n  finishedRace: true,\n  startDateTime: new Date('2022-01-22T10:02:34'),\n  endDateTime: new Date('2022-01-22T11:37:36'),\n} as RaceParticipant"
+          "defaultValue": "new RaceParticipantImpl({\n  id: '2ab31c4d-d920-4818-812a-b55edf2f8bb8',\n  raceId: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  riderId: 'cf70aa7a-61aa-4d5d-b312-427249b4088a',\n  startedRace: true,\n  finishedRace: true,\n  startDateTime: new Date('2022-01-22T10:02:34'),\n  endDateTime: new Date('2022-01-22T11:37:36'),\n} as RaceParticipant)"
         },
         {
           "name": "participants",
@@ -2072,18 +2147,36 @@
           "deprecationMessage": "",
           "type": "",
           "defaultValue": "{\n  id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n  name: 'Fat Bike Birkie 2022',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-03-12T09:00:00'),\n  year: 2022,\n  description:\n    'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n} as Race"
-        }
-      ],
-      "src/test-data/races-test-data.ts": [
+        },
+        {
+          "name": "race2",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/test-data/race-test-data.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "{\n  id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n  name: 'Fat Forest Fourteen 2022',\n  location: 'Cohasset',\n  state: 'MN',\n  startDateTime: new Date('2022-02-12T09:30:00'),\n  year: 2022,\n  description:\n    'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n} as Race"
+        },
+        {
+          "name": "race3",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/test-data/race-test-data.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "{\n  id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n  name: 'Seeley Big Fat Fourteen',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-01-22T10:00:00'),\n  year: 2022,\n  description:\n    'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n} as Race"
+        },
         {
           "name": "races",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/test-data/races-test-data.ts",
+          "file": "src/test-data/race-test-data.ts",
           "deprecated": false,
           "deprecationMessage": "",
           "type": "[]",
-          "defaultValue": "[\n  {\n    id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',\n    name: 'Fat Bike Birkie 2022',\n    location: 'Cable',\n    state: 'WI',\n    startDateTime: new Date('2022-03-12T09:00:00'),\n    year: 2022,\n    description:\n      'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America. Riders test their skill and endurance on the professionally groomed American Birkebeiner Ski Trail! THREE events to choose from: The Big Fat 47K, The Half Fat 21K, and the un-timed Fun Fat 10K Tour – there is something for every rider!',\n  } as Race,\n  {\n    id: '2c88bb8c-76e3-4324-af2e-76e1400fd162',\n    name: 'Fat Forest Fourteen 2022',\n    location: 'Cohasset',\n    state: 'MN',\n    startDateTime: new Date('2022-02-12T09:30:00'),\n    year: 2022,\n    description:\n      'Love fat tire biking? Come up to Grand Rapids on February 12th and participate in the Fat Forest Fourteen Fat Tire race hosted by GRIMBA (Grand Rapids Itasca Mountain Biking Association). Choose between the 7-mile Short course or 14-mile Long course (2 laps). The race will take place at Tioga Recreation Area.',\n  } as Race,\n  {\n    id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n    name: 'Seeley Big Fat Fourteen',\n    location: 'Seeley',\n    state: 'WI',\n    startDateTime: new Date('2022-01-22T10:00:00'),\n    year: 2022,\n    description:\n      'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n  } as Race,\n]"
+          "defaultValue": "[race1, race2, race3]"
         }
       ],
       "src/test-data/rider-test-data.ts": [
@@ -2095,7 +2188,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "",
-          "defaultValue": "{\n  id: '9a46a083-3d8e-451f-aeca-c4c1b0d98951',\n  givenName: 'John',\n  surname: 'Jones',\n  birthDate: new Date('1986-01-02'),\n  gender: Gender.Male,\n} as Rider"
+          "defaultValue": "new RiderImpl({\n  id: '9a46a083-3d8e-451f-aeca-c4c1b0d98951',\n  givenName: 'John',\n  surname: 'Jones',\n  birthDate: new Date('1986-01-02'),\n  gender: Gender.Male,\n} as Rider)"
         },
         {
           "name": "rider2",
@@ -2105,7 +2198,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "",
-          "defaultValue": "{\n  id: 'cf70aa7a-61aa-4d5d-b312-427249b4088a',\n  givenName: 'Jack',\n  surname: 'Smith',\n  birthDate: new Date('1987-10-22'),\n  gender: Gender.Male,\n} as Rider"
+          "defaultValue": "new RiderImpl({\n  id: 'cf70aa7a-61aa-4d5d-b312-427249b4088a',\n  givenName: 'Jack',\n  surname: 'Smith',\n  birthDate: new Date('1987-10-22'),\n  gender: Gender.Male,\n} as Rider)"
         },
         {
           "name": "riders",
@@ -2149,29 +2242,29 @@
     },
     "groupedTypeAliases": {}
   },
-    "routes": {
-        "name": "<root>",
-        "kind": "module",
-        "className": "AppModule",
+  "routes": {
+    "name": "<root>",
+    "kind": "module",
+    "className": "AppModule",
+    "children": [
+      {
+        "name": "routes",
+        "filename": "src/app/app-routing.module.ts",
+        "module": "AppRoutingModule",
         "children": [
-            {
-                "name": "routes",
-                "filename": "src/app/app-routing.module.ts",
-                "module": "AppRoutingModule",
-                "children": [
-                  {
-                    "path": "races",
-                    "component": "RaceListingViewComponent"
-                  },
-                  {
-                    "path": "race/:id",
-                    "component": "RaceViewComponent"
-                  },
-                  {
-                    "path": "**",
-                    "component": "WelcomeViewComponent"
-                  }
-                ],
+          {
+            "path": "races",
+            "component": "RaceListingViewComponent"
+          },
+          {
+            "path": "race/:id",
+            "component": "RaceViewComponent"
+          },
+          {
+            "path": "**",
+            "component": "WelcomeViewComponent"
+          }
+        ],
                 "kind": "module"
             }
         ]
@@ -2204,7 +2297,7 @@
             "linktype": "component",
             "name": "ParticipantListCardComponent",
             "coveragePercent": 0,
-            "coverageCount": "0/4",
+            "coverageCount": "0/5",
             "status": "low"
           },
           {
@@ -2523,7 +2616,27 @@
             "status": "low"
           },
           {
-            "filePath": "src/test-data/races-test-data.ts",
+            "filePath": "src/test-data/race-test-data.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "race2",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
+          {
+            "filePath": "src/test-data/race-test-data.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "race3",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          },
+          {
+            "filePath": "src/test-data/race-test-data.ts",
             "type": "variable",
             "linktype": "miscellaneous",
             "linksubtype": "variable",
@@ -2572,16 +2685,16 @@
             "coverageCount": "0/1",
             "status": "low"
           },
-            {
-                "filePath": "src/test.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "require",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            }
+          {
+            "filePath": "src/test.ts",
+            "type": "variable",
+            "linktype": "miscellaneous",
+            "linksubtype": "variable",
+            "name": "require",
+            "coveragePercent": 0,
+            "coverageCount": "0/1",
+            "status": "low"
+          }
         ]
     }
 }
