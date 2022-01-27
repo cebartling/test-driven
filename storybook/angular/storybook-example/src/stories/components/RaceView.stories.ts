@@ -22,7 +22,7 @@ const raceServiceMock = {
 const riderServiceMock = {
   getRiders: (): Observable<Rider[]> => {
     return of(riders);
-  ,
+  },
 } as RiderService;
 
 const raceParticipantServiceMock = {
@@ -50,10 +50,10 @@ export default {
         { provide: RiderService, useValue: riderServiceMock },
         {
           provide: RaceParticipantService,
-          useValue: raceParticipantServiceMock
+          useValue: raceParticipantServiceMoc,
         },
-        { provide: APP_BASE_HREF, useValue: "/" }
-      ]
+        { provide: APP_BASE_HREF, useValue:"/"' ,
+      ,
     }),
   ],
 } as Meta;
