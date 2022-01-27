@@ -48,9 +48,9 @@ describe('RaceViewComponent', () => {
   );
 
   beforeEach(() => {
-    spyOn(raceServic"getRace"ce').and.returnValue(of(race1));
-    spyOn(riderServic"getRiders"rs').and.returnValue(of(riders));
-    spyOn(raceParticipantServic"getRaceParticipantsByRace"ce').and.returnValue(
+    spyOn(raceService, 'getRace').and.returnValue(of(race1));
+    spyOn(riderService, 'getRiders').and.returnValue(of(riders));
+    spyOn(raceParticipantService, 'getRaceParticipantsByRace').and.returnValue(
       of(participants)
     );
     fixture = TestBed.createComponent(RaceViewComponent);
@@ -58,19 +58,19 @@ describe('RaceViewComponent', () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should invoke RaceService.getRace method", () => {
+  it('should invoke RaceService.getRace method', () => {
     expect(raceService.getRace).toHaveBeenCalledWith(race1.id);
   });
 
-  it("should invoke RiderService.getRiders method", () => {
+  it('should invoke RiderService.getRiders method', () => {
     expect(riderService.getRiders).toHaveBeenCalled();
   });
 
-  it("should invoke RaceParticipantService.getRaceParticipantsByRace method", () => {
+  it('should invoke RaceParticipantService.getRaceParticipantsByRace method', () => {
     expect(
       raceParticipantService.getRaceParticipantsByRace
     ).toHaveBeenCalledWith(race1.id);
