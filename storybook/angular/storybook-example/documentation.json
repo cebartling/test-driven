@@ -37,15 +37,15 @@
                     "description": "",
                     "line": 4
                 },
-                {
-                    "name": "name",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 3
-                },
+              {
+                "name": "name",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "optional": false,
+                "description": "",
+                "line": 3
+              },
               {
                 "name": "startDateTime",
                 "deprecated": false,
@@ -841,21 +841,100 @@
       "templateData": "<header class=\"d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom\">\n  <svg class=\"bi me-2\" height=\"32\" width=\"40\"></svg>\n  <a class=\"d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none\" href=\"/\">\n    <span class=\"fs-4\">Minnesota Fat Tire Bike Association (MFTBA)</span>\n  </a>\n  <ul class=\"nav nav-pills\">\n    <li class=\"nav-item\">\n      <a aria-current=\"page\"\n         class=\"nav-link\"\n         routerLink=\"/welcome\"\n         routerLinkActive=\"active\">Home</a>\n    </li>\n    <li class=\"nav-item\">\n      <a aria-current=\"page\"\n         class=\"nav-link\"\n         routerLink=\"/races\"\n         routerLinkActive=\"active\">Races</a>\n    </li>\n  </ul>\n  <svg class=\"bi me-2\" height=\"32\" width=\"40\"></svg>\n</header>\n"
     },
     {
-      "name": "ParticipantListCardComponent",
-      "id": "component-ParticipantListCardComponent-3fb312ca9d23dbe43d3c5ef6a4ff7e275f67715b81a49e2ce4f797e889ccfd5c3284de8e74d373bcbee1c1e139d918042ffa0cdc00f36bd6ab1d23ad0e4afe40",
-      "file": "src/app/components/participant-list-card/participant-list-card.component.ts",
+      "name": "ParticipantTableComponent",
+      "id": "component-ParticipantTableComponent-b93b94959ef6ab91f56b350f27eef30a393f37353da5cfa1d59789c20b1154fbab15bec47cdc7589a63efb596b57b5451d92228c43ea70aa9c5f2c50e1da554c",
+      "file": "src/app/components/participant-table/participant-table.component.ts",
       "encapsulation": [],
       "entryComponents": [],
       "inputs": [],
       "outputs": [],
       "providers": [],
-      "selector": "app-participant-list-card",
+      "selector": "app-participant-table",
       "styleUrls": [
-        "./participant-list-card.component.css"
+        "./participant-table.component.css"
       ],
       "styles": [],
       "templateUrl": [
-        "./participant-list-card.component.html"
+        "./participant-table.component.html"
+      ],
+      "viewProviders": [],
+      "inputsClass": [
+        {
+          "name": "race",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 12,
+          "type": "Race",
+          "decorators": []
+        },
+        {
+          "name": "raceParticipants",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 14,
+          "type": "RaceParticipant[]",
+          "decorators": []
+        },
+        {
+          "name": "riders",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 13,
+          "type": "Rider[]",
+          "decorators": []
+        }
+      ],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [
+        {
+          "name": "ngOnInit",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 17,
+          "deprecated": false,
+          "deprecationMessage": ""
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\nimport { Race } from '../../types/race';\nimport { Rider } from '../../types/rider';\nimport { RaceParticipant } from '../../types/race-participant';\n\n@Component({\n  selector: 'app-participant-table',\n  templateUrl: './participant-table.component.html',\n  styleUrls: ['./participant-table.component.css'],\n})\nexport class ParticipantTableComponent implements OnInit {\n  @Input() race!: Race;\n  @Input() riders!: Rider[];\n  @Input() raceParticipants!: RaceParticipant[];\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  ngOnInit(): void {}\n}\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "",
+          "styleUrl": "./participant-table.component.css"
+        }
+      ],
+      "stylesData": "",
+      "implements": [
+        "OnInit"
+      ],
+      "templateData": "<table class=\"table table-bordered\">\n  <thead>\n  <tr>\n    <th>Rank</th>\n    <th>Bib number</th>\n    <th>Participant</th>\n    <th>Age</th>\n    <th>Gender</th>\n    <th>Race time</th>\n    <th>Time difference from leader</th>\n  </tr>\n  </thead>\n  <tbody>\n\n  </tbody>\n</table>\n"
+    },
+    {
+      "name": "ParticipantTableRowComponent",
+      "id": "component-ParticipantTableRowComponent-b7bb956a6218045c0e1b4bd47b9860621393ee5bf1198fcb6b103dd9e3f62786f4f5bfc752f571bb7b9b4a304408dc385a76c0caf44b0dac87b25515e4da8b57",
+      "file": "src/app/components/participant-table-row/participant-table-row.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "app-participant-table-row",
+      "styleUrls": [
+        "./participant-table-row.component.css"
+      ],
+      "styles": [],
+      "templateUrl": [
+        "./participant-table-row.component.html"
       ],
       "viewProviders": [],
       "inputsClass": [
@@ -905,12 +984,12 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\nimport { Rider } from '../../types/rider';\nimport { RaceParticipant } from '../../types/race-participant';\nimport { Race } from '../../types/race';\n\n@Component({\n  selector: 'app-participant-list-card',\n  templateUrl: './participant-list-card.component.html',\n  styleUrls: ['./participant-list-card.component.css'],\n})\nexport class ParticipantListCardComponent implements OnInit {\n  @Input() rider!: Rider;\n  @Input() raceParticipant!: RaceParticipant;\n  @Input() race!: Race;\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  ngOnInit(): void {}\n\n  get ageOnRaceDay(): number {\n    return this.rider.calculateAgeAtDate(this.race.startDateTime);\n  }\n}\n",
+      "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\nimport { Rider } from '../../types/rider';\nimport { RaceParticipant } from '../../types/race-participant';\nimport { Race } from '../../types/race';\n\n@Component({\n  selector: 'app-participant-table-row',\n  templateUrl: './participant-table-row.component.html',\n  styleUrls: ['./participant-table-row.component.css'],\n})\nexport class ParticipantTableRowComponent implements OnInit {\n  @Input() rider!: Rider;\n  @Input() raceParticipant!: RaceParticipant;\n  @Input() race!: Race;\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  ngOnInit(): void {}\n\n  get ageOnRaceDay(): number {\n    return this.rider.calculateAgeAtDate(this.race.startDateTime);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
           "data": "",
-          "styleUrl": "./participant-list-card.component.css"
+          "styleUrl": "./participant-table-row.component.css"
         }
       ],
       "stylesData": "",
@@ -928,11 +1007,11 @@
           }
         }
       },
-      "templateData": "<div class=\"row\">\n  <div class=\"col-1\">\n    Place\n  </div>\n  <div class=\"col-1\">\n    Bib number\n  </div>\n  <div class=\"col-4\">\n    {{rider.surname}}, {{rider.givenName}}\n  </div>\n  <div class=\"col-1\">\n    {{ageOnRaceDay}}\n  </div>\n  <div class=\"col-1\">\n    {{rider.gender}}\n  </div>\n  <div class=\"col-1\">\n    {{raceParticipant.calculateCompletedRaceTimeInSeconds()}}\n  </div>\n  <div class=\"col-1\">\n    {{raceParticipant.calculateCompletedRaceTimeInSeconds()}}\n  </div>\n</div>\n"
+      "templateData": "<tr>\n  <td>TODO</td>\n  <td>TODO</td>\n  <td>{{rider.surname}}, {{rider.givenName}}</td>\n  <td>{{ageOnRaceDay}}</td>\n  <td>{{rider.gender}}</td>\n  <td>{{raceParticipant.calculateCompletedRaceTimeInSeconds()}}</td>\n  <td>TODO</td>\n</tr>\n"
     },
     {
       "name": "RaceDetailComponent",
-      "id": "component-RaceDetailComponent-b9fc2c65262007881180094f87d0c9c383eddf72b0cf715d17bc3820f9a44d6ff0b077ee80fc741897b5c65c35ddd3e4321eb0af57a5b89c96326870f0952ca6",
+      "id": "component-RaceDetailComponent-3638059bf163b9f72b52d2ed9a74e5d00ea877a30d1be0e864d70c65b9111a3cca3397f01cf2c69ca4e2eeead8fe47833628ea66f40e85b4f154d150a494468b",
       "file": "src/app/components/race-detail/race-detail.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -953,24 +1032,8 @@
           "name": "race",
           "deprecated": false,
           "deprecationMessage": "",
-          "line": 12,
+          "line": 10,
           "type": "Race",
-          "decorators": []
-        },
-        {
-          "name": "raceParticipants",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "line": 14,
-          "type": "RaceParticipant[]",
-          "decorators": []
-        },
-        {
-          "name": "riders",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "line": 13,
-          "type": "Rider[]",
           "decorators": []
         }
       ],
@@ -983,7 +1046,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 20,
+          "line": 16,
           "deprecated": false,
           "deprecationMessage": ""
         }
@@ -995,7 +1058,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\nimport { Race } from '../../types/race';\nimport { Rider } from '../../types/rider';\nimport { RaceParticipant } from '../../types/race-participant';\n\n@Component({\n  selector: 'app-race-detail',\n  templateUrl: './race-detail.component.html',\n  styleUrls: ['./race-detail.component.css'],\n})\nexport class RaceDetailComponent implements OnInit {\n  @Input() race!: Race;\n  @Input() riders!: Rider[];\n  @Input() raceParticipants!: RaceParticipant[];\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  constructor() {}\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  ngOnInit(): void {}\n}\n",
+      "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\nimport { Race } from '../../types/race';\n\n@Component({\n  selector: 'app-race-detail',\n  templateUrl: './race-detail.component.html',\n  styleUrls: ['./race-detail.component.css'],\n})\nexport class RaceDetailComponent implements OnInit {\n  @Input() race!: Race;\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  constructor() {}\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  ngOnInit(): void {}\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
@@ -1010,12 +1073,12 @@
         "deprecated": false,
         "deprecationMessage": "",
         "args": [],
-        "line": 14
+        "line": 10
       },
       "implements": [
         "OnInit"
       ],
-      "templateData": "<h1>\n  {{race.name}}\n</h1>\n<h2 class=\"mb-2 text-muted\">\n  {{race.startDateTime | date:'longDate'}} at {{race.startDateTime | date:'shortTime'}}\n</h2>\n<h3 class=\"mb-2 text-muted\">\n  {{race.location}}, {{race.state}}\n</h3>\n<p class=\"\">\n  {{race.description}}\n</p>\n"
+      "templateData": "<h1>\n  {{race.name}}\n</h1>\n<h2 class=\"mb-2 text-muted\">\n  {{race.startDateTime | date:'longDate'}} at {{race.startDateTime | date:'shortTime'}}\n</h2>\n<h3 class=\"mb-2 text-muted\">\n  {{race.location}}, {{race.state}}\n</h3>\n<p class=\"\">\n  {{race.description}}\n</p>\n\n"
     },
     {
       "name": "RaceListingViewComponent",
@@ -1462,7 +1525,7 @@
       "implements": [
         "OnInit"
       ],
-      "templateData": "<ng-container\n  *ngIf=\"{\n          race: (race$ | async),\n          riders: (riders$ | async),\n          raceParticipants: (raceParticipants$ | async)\n         } as data\">\n  <div class=\"row\" *ngIf=\"data.race && data.riders && data.raceParticipants; else loading\">\n    <app-race-detail\n      [race]=\"data.race\"\n      [riders]=\"data.riders\"\n      [raceParticipants]=\"data.raceParticipants\">\n    </app-race-detail>\n  </div>\n\n  <ng-template #loading>\n    <div class=\"row\">\n      <div class=\"alert alert-info\">\n        <strong>Please wait!</strong>\n      </div>\n    </div>\n  </ng-template>\n</ng-container>\n"
+      "templateData": "<ng-container\n  *ngIf=\"{\n          race: (race$ | async),\n          riders: (riders$ | async),\n          raceParticipants: (raceParticipants$ | async)\n         } as data\">\n  <div class=\"row\" *ngIf=\"data.race && data.riders && data.raceParticipants; else loading\">\n    <app-race-detail [race]=\"data.race\">\n    </app-race-detail>\n  </div>\n  <div class=\"row\" *ngIf=\"data.race && data.riders && data.raceParticipants; else loading\">\n    <app-participant-table\n      [race]=\"data.race\"\n      [riders]=\"data.riders\"\n      [raceParticipants]=\"data.raceParticipants\">\n    </app-participant-table>\n  </div>\n\n  <ng-template #loading>\n    <div class=\"row\">\n      <div class=\"alert alert-info\">\n        <strong>Please wait!</strong>\n      </div>\n    </div>\n  </ng-template>\n</ng-container>\n"
     },
     {
       "name": "WelcomeViewComponent",
@@ -1530,13 +1593,13 @@
   "modules": [
     {
       "name": "AppModule",
-      "id": "module-AppModule-2c7162d1c9989e601ff88e5c09ca0c9b353881c29cb8ff457d4ba58197c8f693d5324d8c09a09baed780034636df278cf75c2534b454a391d235ad294bdd11a0",
+      "id": "module-AppModule-ca67135b8e8f573f6c85ed437861f9e723e09cb0c8cce5851ec0c92fa9f1caae74bb566fbbe670328c5c5bbceffe5f7507eca2b357fdd29dee48ebeb027b2fe4",
       "description": "",
       "deprecationMessage": "",
       "deprecated": false,
       "file": "src/app/app.module.ts",
       "methods": [],
-      "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceResultsViewComponent } from './views/race-results-view/race-results-view.component';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';\nimport { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';\nimport { RaceOverviewListComponent } from './components/race-overview-list/race-overview-list.component';\nimport { HttpClientModule } from '@angular/common/http';\nimport { RaceDetailComponent } from './components/race-detail/race-detail.component';\nimport { ParticipantListCardComponent } from './components/participant-list-card/participant-list-card.component';\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    RaceViewComponent,\n    WelcomeViewComponent,\n    RaceResultsViewComponent,\n    RaceListingViewComponent,\n    NavigationalHeaderComponent,\n    RaceOverviewCardComponent,\n    RaceOverviewListComponent,\n    RaceDetailComponent,\n    ParticipantListCardComponent,\n  ],\n  imports: [BrowserModule, AppRoutingModule, HttpClientModule],\n  providers: [],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
+      "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { RaceViewComponent } from './views/race-view/race-view.component';\nimport { WelcomeViewComponent } from './views/welcome-view/welcome-view.component';\nimport { RaceResultsViewComponent } from './views/race-results-view/race-results-view.component';\nimport { RaceListingViewComponent } from './views/race-listing-view/race-listing-view.component';\nimport { NavigationalHeaderComponent } from './components/navigational-header/navigational-header.component';\nimport { RaceOverviewCardComponent } from './components/race-overview-card/race-overview-card.component';\nimport { RaceOverviewListComponent } from './components/race-overview-list/race-overview-list.component';\nimport { HttpClientModule } from '@angular/common/http';\nimport { RaceDetailComponent } from './components/race-detail/race-detail.component';\nimport { ParticipantTableRowComponent } from './components/participant-table-row/participant-table-row.component';\nimport { ParticipantTableComponent } from './components/participant-table/participant-table.component';\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    RaceViewComponent,\n    WelcomeViewComponent,\n    RaceResultsViewComponent,\n    RaceListingViewComponent,\n    NavigationalHeaderComponent,\n    RaceOverviewCardComponent,\n    RaceOverviewListComponent,\n    RaceDetailComponent,\n    ParticipantTableRowComponent,\n    ParticipantTableComponent,\n  ],\n  imports: [BrowserModule, AppRoutingModule, HttpClientModule],\n  providers: [],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
       "children": [
         {
           "type": "providers",
@@ -1552,7 +1615,10 @@
               "name": "NavigationalHeaderComponent"
             },
             {
-              "name": "ParticipantListCardComponent"
+              "name": "ParticipantTableComponent"
+            },
+            {
+              "name": "ParticipantTableRowComponent"
             },
             {
               "name": "RaceDetailComponent"
@@ -1656,7 +1722,17 @@
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/RaceOverviewCard.stories.ts",
+        "file": "src/stories/components/ParticipantTable.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "Default",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/ParticipantTableRow.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
@@ -1676,7 +1752,7 @@
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/RaceOverviewList.stories.ts",
+        "file": "src/stories/components/RaceOverviewCard.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
@@ -1686,21 +1762,11 @@
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/ParticipantListCard.stories.ts",
+        "file": "src/stories/components/RaceOverviewList.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
         "defaultValue": "Template.bind({})"
-      },
-      {
-        "name": "environment",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/environments/environment.prod.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "object",
-        "defaultValue": "{\n  production: true\n}"
       },
       {
         "name": "environment",
@@ -1711,6 +1777,16 @@
         "deprecationMessage": "",
         "type": "object",
         "defaultValue": "{\n  production: false\n}"
+      },
+      {
+        "name": "environment",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/environments/environment.prod.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "object",
+        "defaultValue": "{\n  production: true\n}"
       },
       {
         "name": "HomeActive",
@@ -1855,6 +1931,16 @@
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
+        "file": "src/stories/components/ParticipantTable.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<ParticipantTableComponent>",
+        "defaultValue": "(\n  args: ParticipantTableComponent\n) => ({\n  props: args,\n})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
         "file": "src/stories/components/NavigationalHeader.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
@@ -1865,11 +1951,11 @@
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/RaceOverviewCard.stories.ts",
+        "file": "src/stories/components/ParticipantTableRow.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
-        "type": "Story<RaceOverviewCardComponent>",
-        "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
+        "type": "Story<ParticipantTableRowComponent>",
+        "defaultValue": "(\n  args: ParticipantTableRowComponent\n) => ({\n  props: args,\n})"
       },
       {
         "name": "Template",
@@ -1885,21 +1971,21 @@
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/RaceOverviewList.stories.ts",
+        "file": "src/stories/components/RaceOverviewCard.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
-        "type": "Story<RaceOverviewListComponent>",
-        "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
+        "type": "Story<RaceOverviewCardComponent>",
+        "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
       },
       {
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/ParticipantListCard.stories.ts",
+        "file": "src/stories/components/RaceOverviewList.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
-        "type": "Story<ParticipantListCardComponent>",
-        "defaultValue": "(\n  args: ParticipantListCardComponent\n) => ({\n  props: args,\n})"
+        "type": "Story<RaceOverviewListComponent>",
+        "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
       }
     ],
     "functions": [],
@@ -1951,12 +2037,12 @@
           "type": "literal type"
         }
       ],
-      "src/stories/components/RaceOverviewCard.stories.ts": [
+      "src/stories/components/ParticipantTable.stories.ts": [
         {
           "name": "Default",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/stories/components/RaceOverviewCard.stories.ts",
+          "file": "src/stories/components/ParticipantTable.stories.ts",
           "deprecated": false,
           "deprecationMessage": "",
           "type": "",
@@ -1966,11 +2052,33 @@
           "name": "Template",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/stories/components/RaceOverviewCard.stories.ts",
+          "file": "src/stories/components/ParticipantTable.stories.ts",
           "deprecated": false,
           "deprecationMessage": "",
-          "type": "Story<RaceOverviewCardComponent>",
-          "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
+          "type": "Story<ParticipantTableComponent>",
+          "defaultValue": "(\n  args: ParticipantTableComponent\n) => ({\n  props: args,\n})"
+        }
+      ],
+      "src/stories/components/ParticipantTableRow.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/ParticipantTableRow.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/ParticipantTableRow.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<ParticipantTableRowComponent>",
+          "defaultValue": "(\n  args: ParticipantTableRowComponent\n) => ({\n  props: args,\n})"
         }
       ],
       "src/stories/components/RaceDetail.stories.ts": [
@@ -1993,6 +2101,28 @@
           "deprecationMessage": "",
           "type": "Story<RaceDetailComponent>",
           "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
+        }
+      ],
+      "src/stories/components/RaceOverviewCard.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceOverviewCard.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceOverviewCard.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<RaceOverviewCardComponent>",
+          "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
         }
       ],
       "src/stories/components/RaceOverviewList.stories.ts": [
@@ -2027,26 +2157,16 @@
           "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
         }
       ],
-      "src/stories/components/ParticipantListCard.stories.ts": [
+      "src/environments/environment.ts": [
         {
-          "name": "Default",
+          "name": "environment",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/stories/components/ParticipantListCard.stories.ts",
+          "file": "src/environments/environment.ts",
           "deprecated": false,
           "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "Template.bind({})"
-        },
-        {
-          "name": "Template",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/ParticipantListCard.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story<ParticipantListCardComponent>",
-          "defaultValue": "(\n  args: ParticipantListCardComponent\n) => ({\n  props: args,\n})"
+          "type": "object",
+          "defaultValue": "{\n  production: false\n}"
         }
       ],
       "src/environments/environment.prod.ts": [
@@ -2059,18 +2179,6 @@
           "deprecationMessage": "",
           "type": "object",
           "defaultValue": "{\n  production: true\n}"
-        }
-      ],
-      "src/environments/environment.ts": [
-        {
-          "name": "environment",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/environments/environment.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "object",
-          "defaultValue": "{\n  production: false\n}"
         }
       ],
       "src/stories/components/NavigationalHeader.stories.ts": [
@@ -2265,436 +2373,465 @@
             "component": "WelcomeViewComponent"
           }
         ],
-                "kind": "module"
-            }
-        ]
-    },
-    "coverage": {
-        "count": 0,
-        "status": "low",
-        "files": [
-          {
-            "filePath": "src/app/app.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "AppComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/2",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/components/navigational-header/navigational-header.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "NavigationalHeaderComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/3",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/components/participant-list-card/participant-list-card.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "ParticipantListCardComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/5",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/components/race-detail/race-detail.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "RaceDetailComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/6",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/components/race-overview-card/race-overview-card.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "RaceOverviewCardComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/4",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/components/race-overview-list/race-overview-list.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "RaceOverviewListComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/4",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/services/race-participant.service.ts",
-            "type": "injectable",
-            "linktype": "injectable",
-            "name": "RaceParticipantService",
-            "coveragePercent": 0,
-            "coverageCount": "0/3",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/services/race.service.ts",
-            "type": "injectable",
-            "linktype": "injectable",
-            "name": "RaceService",
-            "coveragePercent": 0,
-            "coverageCount": "0/4",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/services/rider.service.ts",
-            "type": "injectable",
-            "linktype": "injectable",
-            "name": "RiderService",
-            "coveragePercent": 0,
-            "coverageCount": "0/4",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/types/race-participant.ts",
-            "type": "class",
-            "linktype": "classe",
-            "name": "RaceParticipantImpl",
-            "coveragePercent": 0,
-            "coverageCount": "0/10",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/types/race-participant.ts",
-            "type": "interface",
-            "linktype": "interface",
-            "name": "RaceParticipant",
-            "coveragePercent": 0,
-            "coverageCount": "0/9",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/types/race.ts",
-            "type": "interface",
-            "linktype": "interface",
-            "name": "Race",
-            "coveragePercent": 0,
-            "coverageCount": "0/8",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/types/rider.ts",
-            "type": "class",
-            "linktype": "classe",
-            "name": "RiderImpl",
-            "coveragePercent": 0,
-            "coverageCount": "0/8",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/types/rider.ts",
-            "type": "interface",
-            "linktype": "interface",
-            "name": "Rider",
-            "coveragePercent": 0,
-            "coverageCount": "0/7",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/views/race-listing-view/race-listing-view.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "RaceListingViewComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/3",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/views/race-results-view/race-results-view.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "RaceResultsViewComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/3",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/views/race-view/race-view.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "RaceViewComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/7",
-            "status": "low"
-          },
-          {
-            "filePath": "src/app/views/welcome-view/welcome-view.component.ts",
-            "type": "component",
-            "linktype": "component",
-            "name": "WelcomeViewComponent",
-            "coveragePercent": 0,
-            "coverageCount": "0/3",
-            "status": "low"
-          },
-          {
-            "filePath": "src/environments/environment.prod.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "environment",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/environments/environment.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "environment",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/NavigationalHeader.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "HomeActive",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/NavigationalHeader.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "RacesActive",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/NavigationalHeader.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "Template",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/ParticipantListCard.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "Default",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/ParticipantListCard.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "Template",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/RaceDetail.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "Default",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/RaceDetail.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "Template",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/RaceOverviewCard.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "Default",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/RaceOverviewCard.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "Template",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/RaceOverviewList.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "Default",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/RaceOverviewList.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "raceServiceMock",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/stories/components/RaceOverviewList.stories.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "Template",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/participant-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "participant1",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/participant-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "participant2",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/participant-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "participants",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/race-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "race1",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/race-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "race2",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/race-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "race3",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/race-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "races",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/rider-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "rider1",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/rider-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "rider2",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test-data/rider-test-data.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "riders",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "context",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          },
-          {
-            "filePath": "src/test.ts",
-            "type": "variable",
-            "linktype": "miscellaneous",
-            "linksubtype": "variable",
-            "name": "require",
-            "coveragePercent": 0,
-            "coverageCount": "0/1",
-            "status": "low"
-          }
-        ]
+        "kind": "module"
+      }
+    ]
+  },
+  "coverage": {
+    "count": 0,
+    "status": "low",
+    "files": [
+      {
+        "filePath": "src/app/app.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "AppComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/2",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/components/navigational-header/navigational-header.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "NavigationalHeaderComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/components/participant-table-row/participant-table-row.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "ParticipantTableRowComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/5",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/components/participant-table/participant-table.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "ParticipantTableComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/5",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/components/race-detail/race-detail.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "RaceDetailComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/components/race-overview-card/race-overview-card.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "RaceOverviewCardComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/components/race-overview-list/race-overview-list.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "RaceOverviewListComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/services/race-participant.service.ts",
+        "type": "injectable",
+        "linktype": "injectable",
+        "name": "RaceParticipantService",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/services/race.service.ts",
+        "type": "injectable",
+        "linktype": "injectable",
+        "name": "RaceService",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/services/rider.service.ts",
+        "type": "injectable",
+        "linktype": "injectable",
+        "name": "RiderService",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/types/race-participant.ts",
+        "type": "class",
+        "linktype": "classe",
+        "name": "RaceParticipantImpl",
+        "coveragePercent": 0,
+        "coverageCount": "0/10",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/types/race-participant.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "RaceParticipant",
+        "coveragePercent": 0,
+        "coverageCount": "0/9",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/types/race.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "Race",
+        "coveragePercent": 0,
+        "coverageCount": "0/8",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/types/rider.ts",
+        "type": "class",
+        "linktype": "classe",
+        "name": "RiderImpl",
+        "coveragePercent": 0,
+        "coverageCount": "0/8",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/types/rider.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "Rider",
+        "coveragePercent": 0,
+        "coverageCount": "0/7",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/views/race-listing-view/race-listing-view.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "RaceListingViewComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/views/race-results-view/race-results-view.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "RaceResultsViewComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/views/race-view/race-view.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "RaceViewComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/7",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/views/welcome-view/welcome-view.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "WelcomeViewComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/environments/environment.prod.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "environment",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/environments/environment.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "environment",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/NavigationalHeader.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "HomeActive",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/NavigationalHeader.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "RacesActive",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/NavigationalHeader.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Template",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/ParticipantTable.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Default",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/ParticipantTable.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Template",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/ParticipantTableRow.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Default",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/ParticipantTableRow.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Template",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceDetail.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Default",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceDetail.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Template",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceOverviewCard.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Default",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceOverviewCard.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Template",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceOverviewList.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Default",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceOverviewList.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "raceServiceMock",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceOverviewList.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Template",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/participant-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "participant1",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/participant-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "participant2",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/participant-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "participants",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/race-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "race1",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/race-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "race2",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/race-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "race3",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/race-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "races",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/rider-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "rider1",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/rider-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "rider2",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test-data/rider-test-data.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "riders",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "context",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "require",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      }
+    ]
     }
 }

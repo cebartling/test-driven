@@ -1,0 +1,24 @@
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Rank</th>
+    <th>Bib number</th>
+    <th>Participant</th>
+    <th>Age</th>
+    <th>Gender</th>
+    <th>Race time</th>
+    <th>Time difference from leader</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let rider of riders">
+    <td>TODO</td>
+    <td>TODO</td>
+    <td>{{rider.surname}}, {{rider.givenName}}</td>
+    <td>{{rider.calculateAgeAtDate(race.startDateTime)}}</td>
+    <td>{{rider.gender}}</td>
+    <td>{{getRaceParticipant(rider).calculateCompletedRaceTimeInSeconds()}}</td>
+    <td>TODO</td>
+  </tr>
+  </tbody>
+</table>

@@ -1,13 +1,13 @@
 import { Meta, Story } from '@storybook/angular';
-import { ParticipantListCardComponent } from '../../app/components/participant-list-card/participant-list-card.component';
-import { rider1 } from '../../test-data/rider-test-data';
-import { participant1 } from '../../test-data/participant-test-data';
+import { riders } from '../../test-data/rider-test-data';
+import { participants } from '../../test-data/participant-test-data';
 import { race1 } from '../../test-data/race-test-data';
+import { ParticipantTableComponent } from '../../app/components/participant-table/participant-table.component';
 
 // More on default export: https://storybook.js.org/docs/angular/writing-stories/introduction#default-export
 export default {
-  title: 'Components/Participant list card',
-  component: ParticipantListCardComponent,
+  title: 'Components/Participant table',
+  component: ParticipantTableComponent,
   // More on argTypes: https://storybook.js.org/docs/angular/api/argtypes
   argTypes: {
     // backgroundColor: { control: 'color' },
@@ -15,16 +15,16 @@ export default {
 } as Meta;
 
 // More on component templates: https://storybook.js.org/docs/angular/writing-stories/introduction#using-args
-const Template: Story<ParticipantListCardComponent> = (
-  args: ParticipantListCardComponent
+const Template: Story<ParticipantTableComponent> = (
+  args: ParticipantTableComponent
 ) => ({
-  props: args,
+  props: arg,
 });
 
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/angular/writing-stories/args
 Default.args = {
-  rider: rider1,
-  raceParticipant: participant1,
+  riders: riders,
+  raceParticipants: participants,
   race: race1,
 };
