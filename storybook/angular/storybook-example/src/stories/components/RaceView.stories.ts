@@ -52,19 +52,19 @@ export default {
       ],
       imports: [CommonModule, RouterModule.forRoot([], { useHash: true })],
       providers: [
-        { provide: APP_BASE_HREF, useValue:"/"' },
+        { provide: APP_BASE_HREF, useValue: '/' },
         {
           provide: ActivatedRoute,
           useValue: {
-            snapshot: { params: { id: race1.id } ,
-          ,
+            snapshot: { params: { id: race1.id } },
+          },
         },
         { provide: RaceService, useValue: raceServiceMock },
         { provide: RiderService, useValue: riderServiceMock },
         {
           provide: RaceParticipantService,
-          useValue: raceParticipantServiceMoc,
-        ,
+          useValue: raceParticipantServiceMock,
+        },
       ],
     }),
   ],
