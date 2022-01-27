@@ -48,7 +48,7 @@ export default {
       declarations: [
         RaceViewComponent,
         RaceDetailComponent,
-        ParticipantTableComponen,
+        ParticipantTableComponent,
       ],
       imports: [CommonModule, RouterModule.forRoot([], { useHash: true })],
       providers: [
@@ -65,7 +65,7 @@ export default {
           provide: RaceParticipantService,
           useValue: raceParticipantServiceMoc,
         ,
-      ,
+      ],
     }),
   ],
 } as Meta;
