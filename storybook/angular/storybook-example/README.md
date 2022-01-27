@@ -2,6 +2,7 @@
 
 - [StoryBook Angular tutorial](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started/)
 
+
 ## Development cadence
 
 This Angular project has Storybook integrated into it. Storybook is useful for helping to facilitate the development of
@@ -15,6 +16,11 @@ template for component in Storybook, allowing me to iterate quickly on the isola
 Angular component is driven with Jasmine specifications. Using both techniques allows me to avoid starting up the
 Webpack dev server and the JSON API server until I have a collection of components and the view component fairly well
 fleshed out. My development cadence is definitely streamlined by using Storybook and TDD together.
+
+### Node.js runtime environment
+
+- Run `nvm use` to set the configured Node.js runtime environment.
+  - Follow the directions if that command fails due to not having the correct version of Node.js runtime.
 
 ### Storybook server
 
