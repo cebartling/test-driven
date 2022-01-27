@@ -1657,16 +1657,6 @@
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/ParticipantTable.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "",
-        "defaultValue": "Template.bind({})"
-      },
-      {
-        "name": "Default",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
         "file": "src/stories/components/RaceOverviewCard.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
@@ -1687,7 +1677,7 @@
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/RaceView.stories.ts",
+        "file": "src/stories/components/ParticipantTable.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
@@ -1698,6 +1688,16 @@
         "ctype": "miscellaneous",
         "subtype": "variable",
         "file": "src/stories/components/RaceDetail.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "Default",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/RaceView.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
@@ -1906,16 +1906,6 @@
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/ParticipantTable.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story<ParticipantTableComponent>",
-        "defaultValue": "(\n  args: ParticipantTableComponent\n) => ({\n  props: args,\n})"
-      },
-      {
-        "name": "Template",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
         "file": "src/stories/components/RaceOverviewCard.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
@@ -1936,11 +1926,11 @@
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/RaceView.stories.ts",
+        "file": "src/stories/components/ParticipantTable.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
-        "type": "Story<RaceViewComponent>",
-        "defaultValue": "(args: RaceViewComponent) => ({\n  props: args,\n})"
+        "type": "Story<ParticipantTableComponent>",
+        "defaultValue": "(\n  args: ParticipantTableComponent\n) => ({\n  props: args,\n})"
       },
       {
         "name": "Template",
@@ -1951,6 +1941,16 @@
         "deprecationMessage": "",
         "type": "Story<RaceDetailComponent>",
         "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/RaceView.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<RaceViewComponent>",
+        "defaultValue": "(args: RaceViewComponent) => ({\n  props: args,\n})"
       }
     ],
     "functions": [],
@@ -2000,28 +2000,6 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "literal type"
-        }
-      ],
-      "src/stories/components/ParticipantTable.stories.ts": [
-        {
-          "name": "Default",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/ParticipantTable.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "Template.bind({})"
-        },
-        {
-          "name": "Template",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/ParticipantTable.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story<ParticipantTableComponent>",
-          "defaultValue": "(\n  args: ParticipantTableComponent\n) => ({\n  props: args,\n})"
         }
       ],
       "src/stories/components/RaceOverviewCard.stories.ts": [
@@ -2078,6 +2056,50 @@
           "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
         }
       ],
+      "src/stories/components/ParticipantTable.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/ParticipantTable.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/ParticipantTable.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<ParticipantTableComponent>",
+          "defaultValue": "(\n  args: ParticipantTableComponent\n) => ({\n  props: args,\n})"
+        }
+      ],
+      "src/stories/components/RaceDetail.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceDetail.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceDetail.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<RaceDetailComponent>",
+          "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
+        }
+      ],
       "src/stories/components/RaceView.stories.ts": [
         {
           "name": "Default",
@@ -2128,28 +2150,6 @@
           "deprecationMessage": "",
           "type": "Story<RaceViewComponent>",
           "defaultValue": "(args: RaceViewComponent) => ({\n  props: args,\n})"
-        }
-      ],
-      "src/stories/components/RaceDetail.stories.ts": [
-        {
-          "name": "Default",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/RaceDetail.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "Template.bind({})"
-        },
-        {
-          "name": "Template",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/RaceDetail.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story<RaceDetailComponent>",
-          "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
         }
       ],
       "src/environments/environment.prod.ts": [

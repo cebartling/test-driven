@@ -10,8 +10,10 @@ import { riders } from '../../test-data/rider-test-data';
 import { RaceParticipantService } from '../../app/services/race-participant.service';
 import { RaceParticipant } from '../../app/types/race-participant';
 import { participants } from '../../test-data/participant-test-data';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
+import { RaceDetailComponent } from '../../app/components/race-detail/race-detail.component';
+import { ParticipantTableComponent } from '../../app/components/participant-table/participant-table.component';
 
 const raceServiceMock = {
   getRace: (id: string): Observable<Race> => {
@@ -43,17 +45,27 @@ export default {
   },
   decorators: [
     moduleMetadata({
-      declarations: [RaceViewComponent],
-      imports: [CommonModule, RouterModule.forRoot([])],
+      declarations: [
+        RaceViewComponent,
+        RaceDetailComponent,
+        ParticipantTableComponen,
+      ],
+      imports: [CommonModule, RouterModule.forRoot([], { useHash: true })],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/' },
+        { provide: APP_BASE_HREF, useValue:"/"' },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: { params: { id: race1.id } ,
+          ,
+        },
         { provide: RaceService, useValue: raceServiceMock },
         { provide: RiderService, useValue: riderServiceMock },
         {
           provide: RaceParticipantService,
-          useValue: raceParticipantServiceMock,
-        },
-      ],
+          useValue: raceParticipantServiceMoc,
+        ,
+      ,
     }),
   ],
 } as Meta;
