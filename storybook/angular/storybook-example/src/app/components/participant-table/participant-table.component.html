@@ -17,7 +17,7 @@
     <td>{{rider.surname}}, {{rider.givenName}}</td>
     <td>{{rider.calculateAgeAtDate(race.startDateTime)}}</td>
     <td>{{rider.gender}}</td>
-    <td>{{getRaceParticipant(rider).calculateCompletedRaceTimeInSeconds()}}</td>
+    <td>{{getRaceParticipant(rider)?.calculateCompletedRaceTimeInSeconds()}}</td>
     <td>TODO</td>
   </tr>
   </tbody>
