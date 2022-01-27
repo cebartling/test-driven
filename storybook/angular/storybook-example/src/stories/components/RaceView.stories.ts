@@ -46,14 +46,14 @@ export default {
       declarations: [RaceViewComponent],
       imports: [CommonModule, RouterModule.forRoot([])],
       providers: [
+        { provide: APP_BASE_HREF, useValue: '/' },
         { provide: RaceService, useValue: raceServiceMock },
         { provide: RiderService, useValue: riderServiceMock },
         {
           provide: RaceParticipantService,
-          useValue: raceParticipantServiceMoc,
+          useValue: raceParticipantServiceMock,
         },
-        { provide: APP_BASE_HREF, useValue:"/"' ,
-      ,
+      ],
     }),
   ],
 } as Meta;
