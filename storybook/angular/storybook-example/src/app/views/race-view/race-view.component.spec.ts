@@ -1,28 +1,23 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RaceViewComponent } from './race-view.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Race } from '../../types/race';
-import { RaceService } from '../../services/race.service';
 import { of } from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RaceViewComponent } from './race-view.component';
 import { RaceDetailComponent } from '../../components/race-detail/race-detail.component';
-
-const race = {
-  id: 'bb54c76f-3c78-40e3-808b-75dec4986c0e',
-  name: 'Fat Bike Birkie 2022',
-  location: 'Seeley',
-  state: 'WI',
-  startDateTime: new Date('2022-03-12T09:00:00'),
-  year: 2022,
-  description:
-    'The Fat Bike Birkie, presented by Freewheel Bike, is the premier on snow bike event in North America.',
-} as Race;
+import { RaceService } from '../../services/race.service';
+import { RiderService } from '../../services/rider.service';
+import { RaceParticipantService } from '../../services/race-participant.service';
+import { riders } from '../../../test-data/rider-test-data';
+import { race1 } from '../../../test-data/race-test-data';
+import { participants } from '../../../test-data/participant-test-data';
 
 describe('RaceViewComponent', () => {
   let component: RaceViewComponent;
   let fixture: ComponentFixture<RaceViewComponent>;
   let raceService: RaceService;
+  let riderService: RiderService;
+  let raceParticipantService: RaceParticipantService;
 
   beforeEach(
     waitForAsync(async () => {
@@ -31,30 +26,48 @@ describe('RaceViewComponent', () => {
         imports: [RouterTestingModule, HttpClientTestingModule],
         providers: [
           RaceService,
+          RiderService,
+          RaceParticipantService,
           {
             provide: ActivatedRoute,
             useValue: {
-              snapshot: { params: { id: race.id } },
+              snapshot: { params: { id: race1.id } },
             },
           },
         ],
       }).compileComponents();
       raceService = TestBed.inject(RaceService);
+      riderService = TestBed.inject(RiderService);
+      raceParticipantService = TestBed.inject(RaceParticipantService);
     })
   );
 
   beforeEach(() => {
-    spyOn(raceService, 'getRace').and.returnValue(of(race));
+    spyOn(raceServi"getRace"ace').and.returnValue(of(race1));
+    spyOn(riderServi"getRiders"ers').and.returnValue(of(riders));
+    spyOn(raceParticipantServi"getRaceParticipantsByRace"ace').and.returnValue(
+      of(participants)
+    );
     fixture = TestBed.createComponent(RaceViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+ "should create"ate', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should invoke RaceService.getRace method', () => {
-    expect(raceService.getRace).toHaveBeenCalledWith(race.id);
+ "should invoke RaceService.getRace method"hod', () => {
+    expect(raceService.getRace).toHaveBeenCalledWith(race1.id);
+  });
+
+ "should invoke RiderService.getRiders method"hod', () => {
+    expect(riderService.getRiders).toHaveBeenCalled();
+  });
+
+ "should invoke RaceParticipantService.getRaceParticipantsByRace method"hod', () => {
+    expect(
+      raceParticipantService.getRaceParticipantsByRace
+    ).toHaveBeenCalledWith(race1.id);
   });
 });
