@@ -1,6 +1,5 @@
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import { RaceViewComponent } from '../../app/views/race-view/race-view.component';
-import { APP_INITIALIZER } from '@angular/core';
 import { RaceService } from '../../app/services/race.service';
 import { Observable, of } from 'rxjs';
 import { Race } from '../../app/types/race';
@@ -12,33 +11,27 @@ import { RaceParticipantService } from '../../app/services/race-participant.serv
 import { RaceParticipant } from '../../app/types/race-participant';
 import { participants } from '../../test-data/participant-test-data';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { APP_BASE_HREF, CommonModule } from '@angular/common';
 
-const createRaceService = (): RaceService => {
-  return {
-    getRace: (id: string): Observable<Race> => {
-      return of(race1);
-    },
-  } as RaceService;
-};
+const raceServiceMock = {
+  getRace: (id: string): Observable<Race> => {
+    return of(race1);
+  },
+} as RaceService;
 
-const createRiderService = (): RiderService => {
-  return {
-    getRiders: (): Observable<Rider[]> => {
-      return of(riders);
-    },
-  } as RiderService;
-};
+const riderServiceMock = {
+  getRiders: (): Observable<Rider[]> => {
+    return of(riders);
+  ,
+} as RiderService;
 
-const createRaceParticipantService = (): RaceParticipantService => {
-  return {
-    getRaceParticipantsByRace: (
-      raceId: string
-    ): Observable<RaceParticipant[]> => {
-      return of(participants);
-    },
-  } as RaceParticipantService;
-};
+const raceParticipantServiceMock = {
+  getRaceParticipantsByRace: (
+    raceId: string
+  ): Observable<RaceParticipant[]> => {
+    return of(participants);
+  },
+} as RaceParticipantService;
 
 // More on default export: https://storybook.js.org/docs/angular/writing-stories/introduction#default-export
 export default {
@@ -50,37 +43,23 @@ export default {
   },
   decorators: [
     moduleMetadata({
-      imports: [RouterModule, HttpClientModule],
       declarations: [RaceViewComponent],
-      // providers: [RaceService, RiderService, RaceParticipantService],
+      imports: [CommonModule, RouterModule.forRoot([])],
+      providers: [
+        { provide: RaceService, useValue: raceServiceMock },
+        { provide: RiderService, useValue: riderServiceMock },
+        {
+          provide: RaceParticipantService,
+          useValue: raceParticipantServiceMock
+        },
+        { provide: APP_BASE_HREF, useValue: "/" }
+      ]
     }),
   ],
 } as Meta;
 
 // More on component templates: https://storybook.js.org/docs/angular/writing-stories/introduction#using-args
 const Template: Story<RaceViewComponent> = (args: RaceViewComponent) => ({
-  moduleMetadata: {
-    providers: [
-      {
-        provide: APP_INITIALIZER,
-        useFactory: createRaceService,
-        multi: true,
-        deps: [RaceService],
-      },
-      {
-        provide: APP_INITIALIZER,
-        useFactory: createRiderService,
-        multi: true,
-        deps: [RiderService],
-      },
-      {
-        provide: APP_INITIALIZER,
-        useFactory: createRaceParticipantService,
-        multi: true,
-        deps: [RaceParticipantService],
-      },
-    ],
-  },
   props: args,
 });
 

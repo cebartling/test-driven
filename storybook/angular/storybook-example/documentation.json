@@ -10,15 +10,15 @@
             "type": "interface",
             "sourceCode": "export interface Race {\n  id: string;\n  name: string;\n  location: string;\n  state: string;\n  startDateTime: Date;\n  year: number;\n  description: string;\n}\n",
             "properties": [
-                {
-                    "name": "description",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 8
-                },
+              {
+                "name": "description",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "optional": false,
+                "description": "",
+                "line": 8
+              },
               {
                 "name": "id",
                 "deprecated": false,
@@ -168,12 +168,12 @@
       },
       {
         "name": "Rider",
-        "id": "interface-Rider-2ddd5cb045d1b6a1677ce806e9de3b331a976fec85a00a1fecf501f25e708b464e2b097dda6911e34e9d27593fd0d061f18cf2e3a422a4e3619a72b39dd6b59f",
+        "id": "interface-Rider-7f1cb32c065220b185b1664bebcb3bebd2b461f6b3d85c58ebb3f55bd45a0d57029ded044f77c66d6b55e3efd1b763d78a2b01475d5b70fd5aa22632513e435b",
         "file": "src/app/types/rider.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "interface",
-        "sourceCode": "import { Gender } from './gender';\n\nexport interface Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  calculateAgeAtDate(referenceDate: Date): number;\n}\n\nexport class RiderImpl implements Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  constructor(rider: Rider) {\n    this.id = rider.id;\n    this.givenName = rider.givenName;\n    this.surname = rider.surname;\n    this.birthDate = rider.birthDate;\n    this.gender = rider.gender;\n  }\n\n  calculateAgeAtDate(referenceDate: Date): number {\n    const birthDate = new Date(this.birthDate);\n    let age = referenceDate.getFullYear() - birthDate.getFullYear();\n    const m = referenceDate.getMonth() - birthDate.getMonth();\n    if (m < 0 || (m === 0 && referenceDate.getDate() < birthDate.getDate())) {\n      age--;\n    }\n    return age;\n  }\n}\n",
+        "sourceCode": "import { Gender } from './gender';\n\nexport interface Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  calculateAgeAtDate(referenceDateString: any): number;\n}\n\nexport class RiderImpl implements Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  constructor(rider: Rider) {\n    this.id = rider.id;\n    this.givenName = rider.givenName;\n    this.surname = rider.surname;\n    this.birthDate = rider.birthDate;\n    this.gender = rider.gender;\n  }\n\n  calculateAgeAtDate(referenceDateString: any): number {\n    const birthDate = new Date(this.birthDate);\n    const referenceDate = new Date(referenceDateString);\n    let age = referenceDate.getFullYear() - birthDate.getFullYear();\n    const m = referenceDate.getMonth() - birthDate.getMonth();\n    if (m < 0 || (m === 0 && referenceDate.getDate() < birthDate.getDate())) {\n      age--;\n    }\n    return age;\n  }\n}\n",
         "properties": [
           {
             "name": "birthDate",
@@ -228,8 +228,8 @@
             "name": "calculateAgeAtDate",
             "args": [
               {
-                "name": "referenceDate",
-                "type": "Date",
+                "name": "referenceDateString",
+                "type": "any",
                 "deprecated": false,
                 "deprecationMessage": ""
               }
@@ -242,8 +242,8 @@
             "deprecationMessage": "",
             "jsdoctags": [
               {
-                "name": "referenceDate",
-                "type": "Date",
+                "name": "referenceDateString",
+                "type": "any",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "tagName": {
@@ -606,12 +606,12 @@
     },
     {
       "name": "RiderImpl",
-      "id": "class-RiderImpl-2ddd5cb045d1b6a1677ce806e9de3b331a976fec85a00a1fecf501f25e708b464e2b097dda6911e34e9d27593fd0d061f18cf2e3a422a4e3619a72b39dd6b59f",
+      "id": "class-RiderImpl-7f1cb32c065220b185b1664bebcb3bebd2b461f6b3d85c58ebb3f55bd45a0d57029ded044f77c66d6b55e3efd1b763d78a2b01475d5b70fd5aa22632513e435b",
       "file": "src/app/types/rider.ts",
       "deprecated": false,
       "deprecationMessage": "",
       "type": "class",
-      "sourceCode": "import { Gender } from './gender';\n\nexport interface Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  calculateAgeAtDate(referenceDate: Date): number;\n}\n\nexport class RiderImpl implements Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  constructor(rider: Rider) {\n    this.id = rider.id;\n    this.givenName = rider.givenName;\n    this.surname = rider.surname;\n    this.birthDate = rider.birthDate;\n    this.gender = rider.gender;\n  }\n\n  calculateAgeAtDate(referenceDate: Date): number {\n    const birthDate = new Date(this.birthDate);\n    let age = referenceDate.getFullYear() - birthDate.getFullYear();\n    const m = referenceDate.getMonth() - birthDate.getMonth();\n    if (m < 0 || (m === 0 && referenceDate.getDate() < birthDate.getDate())) {\n      age--;\n    }\n    return age;\n  }\n}\n",
+      "sourceCode": "import { Gender } from './gender';\n\nexport interface Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  calculateAgeAtDate(referenceDateString: any): number;\n}\n\nexport class RiderImpl implements Rider {\n  id: string;\n  givenName: string;\n  surname: string;\n  birthDate: Date;\n  gender: Gender;\n\n  constructor(rider: Rider) {\n    this.id = rider.id;\n    this.givenName = rider.givenName;\n    this.surname = rider.surname;\n    this.birthDate = rider.birthDate;\n    this.gender = rider.gender;\n  }\n\n  calculateAgeAtDate(referenceDateString: any): number {\n    const birthDate = new Date(this.birthDate);\n    const referenceDate = new Date(referenceDateString);\n    let age = referenceDate.getFullYear() - birthDate.getFullYear();\n    const m = referenceDate.getMonth() - birthDate.getMonth();\n    if (m < 0 || (m === 0 && referenceDate.getDate() < birthDate.getDate())) {\n      age--;\n    }\n    return age;\n  }\n}\n",
       "constructorObj": {
         "name": "constructor",
         "description": "",
@@ -690,8 +690,8 @@
           "name": "calculateAgeAtDate",
           "args": [
             {
-              "name": "referenceDate",
-              "type": "Date",
+              "name": "referenceDateString",
+              "type": "any",
               "deprecated": false,
               "deprecationMessage": ""
             }
@@ -704,8 +704,8 @@
           "deprecationMessage": "",
           "jsdoctags": [
             {
-              "name": "referenceDate",
-              "type": "Date",
+              "name": "referenceDateString",
+              "type": "any",
               "deprecated": false,
               "deprecationMessage": "",
               "tagName": {
@@ -945,7 +945,7 @@
       "implements": [
         "OnInit"
       ],
-      "templateData": "<table class=\"table table-bordered\">\n  <thead>\n  <tr>\n    <th>Rank</th>\n    <th>Bib number</th>\n    <th>Participant</th>\n    <th>Age</th>\n    <th>Gender</th>\n    <th>Race time</th>\n    <th>Time difference from leader</th>\n  </tr>\n  </thead>\n  <tbody>\n  <tr *ngFor=\"let rider of riders\">\n    <td>TODO</td>\n    <td>TODO</td>\n    <td>{{rider.surname}}, {{rider.givenName}}</td>\n    <td>{{rider.calculateAgeAtDate(race.startDateTime)}}</td>\n    <td>{{rider.gender}}</td>\n    <td>{{getRaceParticipant(rider).calculateCompletedRaceTimeInSeconds()}}</td>\n    <td>TODO</td>\n  </tr>\n  </tbody>\n</table>\n"
+      "templateData": "<table class=\"table table-bordered\">\n  <thead>\n  <tr>\n    <th>Rank</th>\n    <th>Bib number</th>\n    <th>Participant</th>\n    <th>Age</th>\n    <th>Gender</th>\n    <th>Race time</th>\n    <th>Time difference from leader</th>\n  </tr>\n  </thead>\n  <tbody>\n  <tr *ngFor=\"let rider of riders\">\n    <td>TODO</td>\n    <td>TODO</td>\n    <td>{{rider.surname}}, {{rider.givenName}}</td>\n    <td>{{rider.calculateAgeAtDate(race.startDateTime)}}</td>\n    <td>{{rider.gender}}</td>\n    <td>{{getRaceParticipant(rider)?.calculateCompletedRaceTimeInSeconds()}}</td>\n    <td>TODO</td>\n  </tr>\n  </tbody>\n</table>\n"
     },
     {
       "name": "RaceDetailComponent",
@@ -1654,40 +1654,10 @@
         "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
       },
       {
-        "name": "createRaceParticipantService",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/components/RaceView.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "",
-        "defaultValue": "(): RaceParticipantService => {\n  return {\n    getRaceParticipantsByRace: (\n      raceId: string\n    ): Observable<RaceParticipant[]> => {\n      return of(participants);\n    },\n  } as RaceParticipantService;\n}"
-      },
-      {
-        "name": "createRaceService",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/components/RaceView.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "",
-        "defaultValue": "(): RaceService => {\n  return {\n    getRace: (id: string): Observable<Race> => {\n      return of(race1);\n    },\n  } as RaceService;\n}"
-      },
-      {
-        "name": "createRiderService",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/components/RaceView.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "",
-        "defaultValue": "(): RiderService => {\n  return {\n    getRiders: (): Observable<Rider[]> => {\n      return of(riders);\n    },\n  } as RiderService;\n}"
-      },
-      {
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/RaceDetail.stories.ts",
+        "file": "src/stories/components/ParticipantTable.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
@@ -1707,6 +1677,16 @@
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
+        "file": "src/stories/components/RaceOverviewList.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "Default",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
         "file": "src/stories/components/RaceView.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
@@ -1717,31 +1697,11 @@
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/stories/components/ParticipantTable.stories.ts",
+        "file": "src/stories/components/RaceDetail.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
         "defaultValue": "Template.bind({})"
-      },
-      {
-        "name": "Default",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/components/RaceOverviewList.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "",
-        "defaultValue": "Template.bind({})"
-      },
-      {
-        "name": "environment",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/environments/environment.prod.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "object",
-        "defaultValue": "{\n  production: true\n}"
       },
       {
         "name": "environment",
@@ -1752,6 +1712,16 @@
         "deprecationMessage": "",
         "type": "object",
         "defaultValue": "{\n  production: false\n}"
+      },
+      {
+        "name": "environment",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/environments/environment.prod.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "object",
+        "defaultValue": "{\n  production: true\n}"
       },
       {
         "name": "HomeActive",
@@ -1824,6 +1794,16 @@
         "defaultValue": "{\n  id: '681c2514-7f94-4e8e-8845-acdc4042bd8b',\n  name: 'Seeley Big Fat Fourteen',\n  location: 'Seeley',\n  state: 'WI',\n  startDateTime: new Date('2022-01-22T10:00:00'),\n  year: 2022,\n  description:\n    'The Seeley Big Fat Race is a low-key, self-supported, 14-mile winter fat bike race plus a 6-mile option on the Seeley Hills bike and ski trails. Be sure to bring water, food, tools and anything else you might need on the trail, as you are on your own.',\n} as Race"
       },
       {
+        "name": "raceParticipantServiceMock",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/RaceView.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "{\n  getRaceParticipantsByRace: (\n    raceId: string\n  ): Observable<RaceParticipant[]> => {\n    return of(participants);\n  },\n} as RaceParticipantService"
+      },
+      {
         "name": "races",
         "ctype": "miscellaneous",
         "subtype": "variable",
@@ -1852,6 +1832,16 @@
         "deprecationMessage": "",
         "type": "object",
         "defaultValue": "{\n  getRaces: () => {\n    return of(races);\n  },\n}"
+      },
+      {
+        "name": "raceServiceMock",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/RaceView.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "{\n  getRace: (id: string): Observable<Race> => {\n    return of(race1);\n  },\n} as RaceService"
       },
       {
         "name": "require",
@@ -1893,6 +1883,16 @@
         "defaultValue": "[rider1, rider2] as Rider[]"
       },
       {
+        "name": "riderServiceMock",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/RaceView.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "{\n  getRiders: (): Observable<Rider[]> => {\n    return of(riders);\n  },\n} as RiderService"
+      },
+      {
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
@@ -1901,36 +1901,6 @@
         "deprecationMessage": "",
         "type": "Story<NavigationalHeaderComponent>",
         "defaultValue": "(\n  args: NavigationalHeaderComponent\n) => ({\n  props: args,\n})"
-      },
-      {
-        "name": "Template",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/components/RaceDetail.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story<RaceDetailComponent>",
-        "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
-      },
-      {
-        "name": "Template",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/components/RaceOverviewCard.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story<RaceOverviewCardComponent>",
-        "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
-      },
-      {
-        "name": "Template",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/components/RaceView.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story<RaceViewComponent>",
-        "defaultValue": "(args: RaceViewComponent) => ({\n  moduleMetadata: {\n    providers: [\n      {\n        provide: APP_INITIALIZER,\n        useFactory: createRaceService,\n        multi: true,\n        deps: [RaceService],\n      },\n      {\n        provide: APP_INITIALIZER,\n        useFactory: createRiderService,\n        multi: true,\n        deps: [RiderService],\n      },\n      {\n        provide: APP_INITIALIZER,\n        useFactory: createRaceParticipantService,\n        multi: true,\n        deps: [RaceParticipantService],\n      },\n    ],\n  },\n  props: args,\n})"
       },
       {
         "name": "Template",
@@ -1946,11 +1916,41 @@
         "name": "Template",
         "ctype": "miscellaneous",
         "subtype": "variable",
+        "file": "src/stories/components/RaceOverviewCard.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<RaceOverviewCardComponent>",
+        "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
         "file": "src/stories/components/RaceOverviewList.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Story<RaceOverviewListComponent>",
         "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/RaceView.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<RaceViewComponent>",
+        "defaultValue": "(args: RaceViewComponent) => ({\n  props: args,\n})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/components/RaceDetail.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<RaceDetailComponent>",
+        "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
       }
     ],
     "functions": [],
@@ -2002,42 +2002,12 @@
           "type": "literal type"
         }
       ],
-      "src/stories/components/RaceView.stories.ts": [
-        {
-          "name": "createRaceParticipantService",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/RaceView.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "(): RaceParticipantService => {\n  return {\n    getRaceParticipantsByRace: (\n      raceId: string\n    ): Observable<RaceParticipant[]> => {\n      return of(participants);\n    },\n  } as RaceParticipantService;\n}"
-        },
-        {
-          "name": "createRaceService",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/RaceView.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "(): RaceService => {\n  return {\n    getRace: (id: string): Observable<Race> => {\n      return of(race1);\n    },\n  } as RaceService;\n}"
-        },
-        {
-          "name": "createRiderService",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/RaceView.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "(): RiderService => {\n  return {\n    getRiders: (): Observable<Rider[]> => {\n      return of(riders);\n    },\n  } as RiderService;\n}"
-        },
+      "src/stories/components/ParticipantTable.stories.ts": [
         {
           "name": "Default",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/stories/components/RaceView.stories.ts",
+          "file": "src/stories/components/ParticipantTable.stories.ts",
           "deprecated": false,
           "deprecationMessage": "",
           "type": "",
@@ -2047,33 +2017,11 @@
           "name": "Template",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/stories/components/RaceView.stories.ts",
+          "file": "src/stories/components/ParticipantTable.stories.ts",
           "deprecated": false,
           "deprecationMessage": "",
-          "type": "Story<RaceViewComponent>",
-          "defaultValue": "(args: RaceViewComponent) => ({\n  moduleMetadata: {\n    providers: [\n      {\n        provide: APP_INITIALIZER,\n        useFactory: createRaceService,\n        multi: true,\n        deps: [RaceService],\n      },\n      {\n        provide: APP_INITIALIZER,\n        useFactory: createRiderService,\n        multi: true,\n        deps: [RiderService],\n      },\n      {\n        provide: APP_INITIALIZER,\n        useFactory: createRaceParticipantService,\n        multi: true,\n        deps: [RaceParticipantService],\n      },\n    ],\n  },\n  props: args,\n})"
-        }
-      ],
-      "src/stories/components/RaceDetail.stories.ts": [
-        {
-          "name": "Default",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/RaceDetail.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "Template.bind({})"
-        },
-        {
-          "name": "Template",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/RaceDetail.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story<RaceDetailComponent>",
-          "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
+          "type": "Story<ParticipantTableComponent>",
+          "defaultValue": "(\n  args: ParticipantTableComponent\n) => ({\n  props: args,\n})"
         }
       ],
       "src/stories/components/RaceOverviewCard.stories.ts": [
@@ -2096,28 +2044,6 @@
           "deprecationMessage": "",
           "type": "Story<RaceOverviewCardComponent>",
           "defaultValue": "(\n  args: RaceOverviewCardComponent\n) => ({\n  props: args,\n})"
-        }
-      ],
-      "src/stories/components/ParticipantTable.stories.ts": [
-        {
-          "name": "Default",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/ParticipantTable.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "Template.bind({})"
-        },
-        {
-          "name": "Template",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/components/ParticipantTable.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story<ParticipantTableComponent>",
-          "defaultValue": "(\n  args: ParticipantTableComponent\n) => ({\n  props: args,\n})"
         }
       ],
       "src/stories/components/RaceOverviewList.stories.ts": [
@@ -2152,16 +2078,78 @@
           "defaultValue": "(\n  args: RaceOverviewListComponent\n) => ({\n  props: args,\n})"
         }
       ],
-      "src/environments/environment.prod.ts": [
+      "src/stories/components/RaceView.stories.ts": [
         {
-          "name": "environment",
+          "name": "Default",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/environments/environment.prod.ts",
+          "file": "src/stories/components/RaceView.stories.ts",
           "deprecated": false,
           "deprecationMessage": "",
-          "type": "object",
-          "defaultValue": "{\n  production: true\n}"
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "raceParticipantServiceMock",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceView.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "{\n  getRaceParticipantsByRace: (\n    raceId: string\n  ): Observable<RaceParticipant[]> => {\n    return of(participants);\n  },\n} as RaceParticipantService"
+        },
+        {
+          "name": "raceServiceMock",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceView.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "{\n  getRace: (id: string): Observable<Race> => {\n    return of(race1);\n  },\n} as RaceService"
+        },
+        {
+          "name": "riderServiceMock",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceView.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "{\n  getRiders: (): Observable<Rider[]> => {\n    return of(riders);\n  },\n} as RiderService"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceView.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<RaceViewComponent>",
+          "defaultValue": "(args: RaceViewComponent) => ({\n  props: args,\n})"
+        }
+      ],
+      "src/stories/components/RaceDetail.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceDetail.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/components/RaceDetail.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<RaceDetailComponent>",
+          "defaultValue": "(args: RaceDetailComponent) => ({\n  props: args,\n})"
         }
       ],
       "src/environments/environment.ts": [
@@ -2174,6 +2162,18 @@
           "deprecationMessage": "",
           "type": "object",
           "defaultValue": "{\n  production: false\n}"
+        }
+      ],
+      "src/environments/environment.prod.ts": [
+        {
+          "name": "environment",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/environments/environment.prod.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "object",
+          "defaultValue": "{\n  production: true\n}"
         }
       ],
       "src/stories/components/NavigationalHeader.stories.ts": [
@@ -2683,37 +2683,37 @@
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
-        "name": "createRaceParticipantService",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/components/RaceView.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "createRaceService",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/components/RaceView.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "createRiderService",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/components/RaceView.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
         "name": "Default",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceView.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "raceParticipantServiceMock",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceView.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "raceServiceMock",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/components/RaceView.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "riderServiceMock",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"
