@@ -18,7 +18,7 @@ export default {
 const Template: Story<ParticipantTableComponent> = (
   args: ParticipantTableComponent
 ) => ({
-  props: arg,
+  props: args,
 });
 
 export const Default = Template.bind({});
