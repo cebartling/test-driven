@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { RaceViewComponent } from './race-view.component';
 import { RaceDetailComponent } from '../../components/race-detail/race-detail.component';
+import { ParticipantTableComponent } from '../../components/participant-table/participant-table.component';
 import { RaceService } from '../../services/race.service';
 import { RiderService } from '../../services/rider.service';
 import { RaceParticipantService } from '../../services/race-participant.service';
@@ -22,7 +23,11 @@ describe('RaceViewComponent', () => {
   beforeEach(
     waitForAsync(async () => {
       await TestBed.configureTestingModule({
-        declarations: [RaceViewComponent, RaceDetailComponent],
+        declarations: [
+          RaceViewComponent,
+          RaceDetailComponent,
+          ParticipantTableComponent,
+        ],
         imports: [RouterTestingModule, HttpClientTestingModule],
         providers: [
           RaceService,
@@ -43,9 +48,9 @@ describe('RaceViewComponent', () => {
   );
 
   beforeEach(() => {
-    spyOn(raceServi"getRace"ace').and.returnValue(of(race1));
-    spyOn(riderServi"getRiders"ers').and.returnValue(of(riders));
-    spyOn(raceParticipantServi"getRaceParticipantsByRace"ace').and.returnValue(
+    spyOn(raceServic"getRace"ce').and.returnValue(of(race1));
+    spyOn(riderServic"getRiders"rs').and.returnValue(of(riders));
+    spyOn(raceParticipantServic"getRaceParticipantsByRace"ce').and.returnValue(
       of(participants)
     );
     fixture = TestBed.createComponent(RaceViewComponent);
@@ -53,19 +58,19 @@ describe('RaceViewComponent', () => {
     fixture.detectChanges();
   });
 
- "should create"ate', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
- "should invoke RaceService.getRace method"hod', () => {
+  it("should invoke RaceService.getRace method", () => {
     expect(raceService.getRace).toHaveBeenCalledWith(race1.id);
   });
 
- "should invoke RiderService.getRiders method"hod', () => {
+  it("should invoke RiderService.getRiders method", () => {
     expect(riderService.getRiders).toHaveBeenCalled();
   });
 
- "should invoke RaceParticipantService.getRaceParticipantsByRace method"hod', () => {
+  it("should invoke RaceParticipantService.getRaceParticipantsByRace method", () => {
     expect(
       raceParticipantService.getRaceParticipantsByRace
     ).toHaveBeenCalledWith(race1.id);
