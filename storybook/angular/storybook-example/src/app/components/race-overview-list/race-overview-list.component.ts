@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { RaceService } from '../../services/race.service';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { Race } from '../../types/race';
 
 @Component({
@@ -9,11 +7,7 @@ import { Race } from '../../types/race';
   styleUrls: ['./race-overview-list.component.css'],
 })
 export class RaceOverviewListComponent implements OnInit {
-  races$: Observable<Race[]> | undefined;
+  @Input() races!: Race[];
 
-  constructor(private raceService: RaceService) {}
-
-  ngOnInit(): void {
-    this.races$ = this.raceService.getRaces();
-  }
+  ngOnInit(): void {}
 }

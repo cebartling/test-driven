@@ -20,59 +20,121 @@ describe('RaceViewComponent', () => {
   let riderService: RiderService;
   let raceParticipantService: RaceParticipantService;
 
-  beforeEach(
-    waitForAsync(async () => {
-      await TestBed.configureTestingModule({
-        declarations: [
-          RaceViewComponent,
-          RaceDetailComponent,
-          ParticipantTableComponent,
-        ],
-        imports: [RouterTestingModule, HttpClientTestingModule],
-        providers: [
-          RaceService,
-          RiderService,
-          RaceParticipantService,
-          {
-            provide: ActivatedRoute,
-            useValue: {
-              snapshot: { params: { id: race1.id } },
+  describe('when the activated route contains the race id', () => {
+    beforeEach(
+      waitForAsync(async () => {
+        await TestBed.configureTestingModule({
+          declarations: [
+            RaceViewComponent,
+            RaceDetailComponent,
+            ParticipantTableComponent,
+          ],
+          imports: [RouterTestingModule, HttpClientTestingModule],
+          providers: [
+            RaceService,
+            RiderService,
+            RaceParticipantService,
+            {
+              provide: ActivatedRoute,
+              useValue: {
+                snapshot: { params: { id: race1.id } },
+              },
             },
-          },
-        ],
-      }).compileComponents();
-      raceService = TestBed.inject(RaceService);
-      riderService = TestBed.inject(RiderService);
-      raceParticipantService = TestBed.inject(RaceParticipantService);
-    })
-  );
-
-  beforeEach(() => {
-    spyOn(raceService, 'getRace').and.returnValue(of(race1));
-    spyOn(riderService, 'getRiders').and.returnValue(of(riders));
-    spyOn(raceParticipantService, 'getRaceParticipantsByRace').and.returnValue(
-      of(participants)
+          ],
+        }).compileComponents();
+        raceService = TestBed.inject(RaceService);
+        riderService = TestBed.inject(RiderService);
+        raceParticipantService = TestBed.inject(RaceParticipantService);
+      })
     );
-    fixture = TestBed.createComponent(RaceViewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+
+    beforeEach(() => {
+      spyOn(raceService, 'getRace').and.returnValue(of(race1));
+      spyOn(riderService, 'getRiders').and.returnValue(of(riders));
+      spyOn(
+        raceParticipantService,
+        'getRaceParticipantsByRace'
+      ).and.returnValue(of(participants));
+      fixture = TestBed.createComponent(RaceViewComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should invoke RaceService.getRace method', () => {
+      expect(raceService.getRace).toHaveBeenCalledWith(race1.id);
+    });
+
+    it('should invoke RiderService.getRiders method', () => {
+      expect(riderService.getRiders).toHaveBeenCalled();
+    });
+
+    it('should invoke RaceParticipantService.getRaceParticipantsByRace method', () => {
+      expect(
+        raceParticipantService.getRaceParticipantsByRace
+      ).toHaveBeenCalledWith(race1.id);
+    });
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  describe('when the activated route does not contain the race id', () => {
+    beforeEach(
+      waitForAsync(async () => {
+        await TestBed.configureTestingModule({
+          declarations: [
+            RaceViewComponent,
+            RaceDetailComponent,
+            ParticipantTableComponent,
+          ],
+          imports: [RouterTestingModule, HttpClientTestingModule],
+          providers: [
+            RaceService,
+            RiderService,
+            RaceParticipantService,
+            {
+              provide: ActivatedRoute,
+              useValue: {
+                snapshot: { params: { id: undefined } },
+              },
+            },
+          ],
+        }).compileComponents();
+        raceService = TestBed.inject(RaceService);
+        riderService = TestBed.inject(RiderService);
+        raceParticipantService = TestBed.inject(RaceParticipantService);
+      })
+    );
 
-  it('should invoke RaceService.getRace method', () => {
-    expect(raceService.getRace).toHaveBeenCalledWith(race1.id);
-  });
+    beforeEach(() => {
+      spyOn(raceService, 'getRace').and.returnValue(of(race1));
+      spyOn(riderService, 'getRiders').and.returnValue(of(riders));
+      spyOn(
+        raceParticipantService,
+        'getRaceParticipantsByRace'
+      ).and.returnValue(of(participants));
+      fixture = TestBed.createComponent(RaceViewComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
 
-  it('should invoke RiderService.getRiders method', () => {
-    expect(riderService.getRiders).toHaveBeenCalled();
-  });
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
 
-  it('should invoke RaceParticipantService.getRaceParticipantsByRace method', () => {
-    expect(
-      raceParticipantService.getRaceParticipantsByRace
-    ).toHaveBeenCalledWith(race1.id);
+    it('should not invoke RaceService.getRace method', () => {
+      expect(raceService.getRace).not.toHaveBeenCalledWith(race1.id);
+    });
+
+    it('should not invoke RiderService.getRiders method', () => {
+      expect(riderService.getRiders).not.toHaveBeenCalled();
+    });
+
+    it('should not invoke RaceParticipantService.getRaceParticipantsByRace method', () => {
+      expect(
+        raceParticipantService.getRaceParticipantsByRace
+      ).not.toHaveBeenCalledWith(race1.id);
+    });
   });
 });
