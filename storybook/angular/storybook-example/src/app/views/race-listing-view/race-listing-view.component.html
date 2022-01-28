@@ -1,4 +1,15 @@
-<div class="row">
-  <h1>Races</h1>
-  <app-race-overview-list></app-race-overview-list>
-</div>
+<ng-container *ngIf="(races$ | async) as races; else loading">
+  <div class="row">
+    <h1>Races</h1>
+    <app-race-overview-list [races]="races"></app-race-overview-list>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="row">
+    <h1>Races</h1>
+    <div class="alert alert-info">
+      <strong>Please wait!</strong>
+    </div>
+  </div>
+</ng-template>

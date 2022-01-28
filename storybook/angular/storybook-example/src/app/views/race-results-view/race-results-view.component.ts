@@ -5,8 +5,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './race-results-view.component.html',
   styleUrls: ['./race-results-view.component.css'],
 })
-export class RaceResultsViewComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class RaceResultsViewComponent {}
