@@ -21,6 +21,7 @@ fleshed out. My development cadence is definitely streamlined by using Storybook
 
 - Run `nvm use` to set the configured Node.js runtime environment.
   - Follow the directions if that command fails due to not having the correct version of Node.js runtime.
+  - Currently using `lts/gallium` as the Node.js runtime environment.
 
 ### Storybook server
 
@@ -43,6 +44,11 @@ dev server and the JSON API server is a necessity.
 1. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Angular
+
+### Upgrading Angular
+
+- Visit [update.angular.io](https://update.angular.io) to obtain detailed instructions on how to upgrade from one
+  version to another.
 
 ### Code scaffolding
 
