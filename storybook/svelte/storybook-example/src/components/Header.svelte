@@ -17,10 +17,10 @@
       </li>
       <li class="nav-item">
         <a id="profileNav"
-           href="/profile"
+           href="/races"
            class="nav-link"
-           class:active={activeView === 'profile'}
-           aria-current="page">Profile</a>
+           class:active={activeView === 'races'}
+           aria-current="page">Races</a>
       </li>
     </ul>
   </header>
