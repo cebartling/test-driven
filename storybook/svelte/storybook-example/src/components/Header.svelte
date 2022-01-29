@@ -16,7 +16,7 @@
            aria-current="page">Home</a>
       </li>
       <li class="nav-item">
-        <a id="profileNav"
+        <a id="racesNav"
            href="/races"
            class="nav-link"
            class:active={activeView === 'races'}

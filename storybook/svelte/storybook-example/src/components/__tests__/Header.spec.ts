@@ -36,11 +36,11 @@ describe('Header.svelte component', () => {
       });
     });
 
-    describe('profile navigation link', () => {
+    describe('races navigation link', () => {
       let anchorElement: HTMLAnchorElement;
 
       beforeEach(() => {
-        anchorElement = renderResult.container.querySelector('a#profileNav');
+        anchorElement = renderResult.container.querySelector('a#racesNav');
       });
 
       it('should be present in the DOM', () => {
@@ -57,8 +57,8 @@ describe('Header.svelte component', () => {
     });
   });
 
-  describe('when activeView property is set to "profile"', () => {
-    const activeView = 'profile';
+  describe('when activeView property is set to "races"', () => {
+    const activeView = 'races';
     const props = {activeView};
 
     beforeEach(() => {
@@ -89,11 +89,11 @@ describe('Header.svelte component', () => {
       });
     });
 
-    describe('profile navigation link', () => {
+    describe('races navigation link', () => {
       let anchorElement: HTMLAnchorElement;
 
       beforeEach(() => {
-        anchorElement = renderResult.container.querySelector('a#profileNav');
+        anchorElement = renderResult.container.querySelector('a#racesNav');
       });
 
       it('should be present in the DOM', () => {
