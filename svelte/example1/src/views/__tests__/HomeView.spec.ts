@@ -1,4 +1,5 @@
-import {cleanup, render, type RenderResult} from "@testing-library/svelte";
+import type {RenderResult} from '@testing-library/svelte'
+import {cleanup, render} from '@testing-library/svelte'
 import HomeView from "../HomeView.svelte";
 
 describe('HomeView.svelte component', () => {
