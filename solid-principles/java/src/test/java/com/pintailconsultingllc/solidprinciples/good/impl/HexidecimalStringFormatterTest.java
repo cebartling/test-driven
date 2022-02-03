@@ -46,7 +46,6 @@ class HexidecimalStringFormatterTest {
         @DisplayName("should properly convert byte array to hexidecimal string with proper padding")
         void verifyDirectOutput() {
             assertEquals(expected, actual);
-            System.out.println(expected);
         }
     }
 }
