@@ -4,6 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Password hashing implementation that uses MD5 digest.
+ */
 public class MD5PasswordHasherImpl implements PasswordHasher {
 
     @Override
