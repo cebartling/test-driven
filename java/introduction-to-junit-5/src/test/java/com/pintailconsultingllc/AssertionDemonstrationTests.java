@@ -41,12 +41,12 @@ public class AssertionDemonstrationTests {
         @DisplayName("varargs usage")
         void assert_all_varargs_executables() {
             assertAll("isPrime",
-                    () -> assertTrue(sut.isPrime(2)),
-                    () -> assertFalse(sut.isPrime(4)),
+                    () -> assertTrue(sut.isPrime(2), "2 should be prime"),
+                    () -> assertFalse(sut.isPrime(4), "4 should not be prime"),
                     () -> assertFalse(sut.isPrime(2344))
             );
 //            assertTrue(sut.isPrime(2));
-//            assertFalse(sut.isPrime(4));
+//            assertFalse(sut.isPrime(5));
 //            assertFalse(sut.isPrime(2344));
         }
 

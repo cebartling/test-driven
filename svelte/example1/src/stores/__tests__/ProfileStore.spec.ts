@@ -62,6 +62,8 @@ describe('ProfileStore unit tests', () => {
 
       describe('when PUT invocation is successful', () => {
         beforeEach(async () => {
+          window.updateShoppingCart = () => {};
+          jest.spyOn(window, 'updateShoppingCart').mockImplementation(() => {});
           const response = {
             ok: true,
           };
@@ -88,6 +90,10 @@ describe('ProfileStore unit tests', () => {
 
         it('should invoke profileService.fetchProfile function', () => {
           expect(profileService.fetchProfile).toHaveBeenCalled();
+        });
+
+        it('should invoke updateShoppingCart global function', () => {
+          expect(window.updateShoppingCart).toHaveBeenCalled();
         });
       });
 
