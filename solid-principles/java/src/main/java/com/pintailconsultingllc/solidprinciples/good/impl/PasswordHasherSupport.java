@@ -1,21 +1,31 @@
 package com.pintailconsultingllc.solidprinciples.good.impl;
 
-public abstract class PasswordHasherSupport  {
+import com.pintailconsultingllc.solidprinciples.good.PasswordHasher;
 
-    protected String bytesToHex(byte[] hashByteArray) {
-        StringBuilder hexStringBuilder = new StringBuilder(2 * hashByteArray.length);
-        for (byte b : hashByteArray) {
-            // Since the parameter is an int, a widening primitive conversion is performed to the byte argument,
-            // which involves sign extension. The 8-bit byte, which is signed in Java, is sign-extended to a
-            // 32-bit int. To effectively undo this sign extension, mask the byte with 0xFF.
-            String hex = Integer.toHexString(0xff & b);
-            if (hex.length() == 1) {
-                // Pad with a zero if string is only one character in length.
-                hexStringBuilder.append('0');
-            }
-            hexStringBuilder.append(hex);
-        }
-        return hexStringBuilder.toString();
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+abstract class PasswordHasherSupport implements PasswordHasher {
+
+    private HexidecimalStringFormatter hexidecimalStringFormatter;
+
+    PasswordHasherSupport() {
+        hexidecimalStringFormatter = new HexidecimalStringFormatter();
     }
+
+    @Override
+    public String hashPassword(String password) throws NoSuchAlgorithmException {
+        final MessageDigest messageDigest = getMessageDigestInstance();
+        final byte[] digestedPassword = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
+        return hexidecimalStringFormatter.format(digestedPassword);
+    }
+
+    /**
+     * Implementations will return the appropriate message digest.
+     *
+     * @return A java.security.MessageDigest instance.
+     */
+    protected abstract MessageDigest getMessageDigestInstance() throws NoSuchAlgorithmException;
 
 }
