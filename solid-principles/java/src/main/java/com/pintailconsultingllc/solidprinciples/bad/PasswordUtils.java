@@ -17,7 +17,6 @@ public class PasswordUtils {
     public String hashPassword(String password, HashingType hashingType) {
         String hashedPassword = null;
         MessageDigest messageDigest = getMessageDigestInstance(hashingType);
-
         if (messageDigest != null) {
             byte[] encodedHash = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
             hashedPassword = bytesToHex(encodedHash);
@@ -26,43 +25,31 @@ public class PasswordUtils {
     }
 
 
-    public void savePassword(String hashedPassword) {
-        //save to the db
+    public void savePassword(String key, String hashedPassword) {
+        // save to the persistent storage
     }
 
-    public void hashAndSavePassword(String password, HashingType hashingType) {
+    public void hashAndSavePassword(String key, String password, HashingType hashingType) {
         final String hashedPassword = hashPassword(password, hashingType);
-        savePassword(hashedPassword);
+        savePassword(key, hashedPassword);
     }
 
-    public String unhashPassword(String hashedPassword, HashingType hashingType) {
-        String password = null;
-        if (HashingType.SHA3_256.equals(hashingType)) {
-            throw new UnsupportedOperationException("Cannot decrypt SHA3-256 hashing.");
-        } else if (HashingType.SHA256.equals(hashingType)) {
-            throw new UnsupportedOperationException("Cannot decrypt SHA-256 hashing.");
-        } else if (HashingType.MD5.equals(hashingType)) {
-            hashedPassword = "hashed with MD5";
-        }
-        return hashedPassword;
-    }
-
-    private String bytesToHex(byte[] hash) {
-        StringBuilder hexString = new StringBuilder(2 * hash.length);
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
+    private String bytesToHex(byte[] hashByteArray) {
+        StringBuilder hexStringBuilder = new StringBuilder(2 * hashByteArray.length);
+        for (byte b : hashByteArray) {
+            String hex = Integer.toHexString(0xff & b);
             if (hex.length() == 1) {
-                hexString.append('0');
+                hexStringBuilder.append('0');
             }
-            hexString.append(hex);
+            hexStringBuilder.append(hex);
         }
-        return hexString.toString();
+        return hexStringBuilder.toString();
     }
 
     private MessageDigest getMessageDigestInstance(HashingType hashingType) {
         try {
-            if (HashingType.SHA3_256.equals(hashingType)) {
-                return MessageDigest.getInstance("SHA3-256");
+            if (HashingType.SHA512.equals(hashingType)) {
+                return MessageDigest.getInstance("SHA-512");
             } else if (HashingType.SHA256.equals(hashingType)) {
                 return MessageDigest.getInstance("SHA-256");
             } else if (HashingType.MD5.equals(hashingType)) {
@@ -73,6 +60,4 @@ public class PasswordUtils {
         }
         return null;
     }
-
-
 }
