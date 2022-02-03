@@ -1,5 +1,6 @@
-package com.pintailconsultingllc.solidprinciples.good;
+package com.pintailconsultingllc.solidprinciples.good.impl;
 
+import com.pintailconsultingllc.solidprinciples.good.PasswordHasher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -12,9 +13,9 @@ import java.security.NoSuchAlgorithmException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("MD5 password hashing implementation")
-class MD5PasswordHasherImplTest {
+class MD5PasswordHasherTest {
 
-    PasswordHasher passwordHasher = new MD5PasswordHasherImpl();
+    PasswordHasher passwordHasher = new MD5PasswordHasher();
 
     @Nested
     @DisplayName("hashPassword method")
