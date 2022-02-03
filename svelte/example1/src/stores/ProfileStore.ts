@@ -26,6 +26,7 @@ class ProfileService {
     if (response.ok) {
       profileId.set(updatedProfile.id);
       await this.fetchProfile();
+      updateShoppingCart();
     }
     else {
       throw new Error(`Error updating profile. Status code: ${response.status}`)

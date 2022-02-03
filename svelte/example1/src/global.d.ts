@@ -1,5 +1,7 @@
 /// <reference types="svelte" />
 
+declare function updateShoppingCart(): void;
+
 declare global {
   interface Window {
     MyNamespace: {
@@ -9,3 +11,4 @@ declare global {
 }
 
 window.MyNamespace = window.MyNamespace || {};
+
