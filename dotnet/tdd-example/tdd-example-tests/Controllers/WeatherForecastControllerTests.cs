@@ -26,18 +26,21 @@ public class WeatherForecastControllerTests
     [TestMethod]
     public void GetTest()
     {
-        loggerMock.Setup(x => x.Log(
-                It.IsAny<LogLevel>(),
-                It.IsAny<EventId>(),
-                It.IsAny<It.IsAnyType>(),
-                It.IsAny<Exception>(),
-                (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()))
+        loggerMock.Setup(x =>
+                x.Log(
+                    It.IsAny<LogLevel>(),
+                    It.IsAny<EventId>(),
+                    It.IsAny<It.IsAnyType>(),
+                    It.IsAny<Exception>(),
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
+                )
+            )
             .Callback(new InvocationAction(invocation =>
             {
                 // The first two will always be whatever is specified in the setup above
                 // so I'm not sure you would ever want to actually use them
                 var logLevel = (LogLevel)invocation.Arguments[0];
-                var eventId = (EventId)invocation.Arguments[1]; 
+                var eventId = (EventId)invocation.Arguments[1];
                 var state = invocation.Arguments[2];
                 var exception = (Exception)invocation.Arguments[3];
                 var formatter = invocation.Arguments[4];
