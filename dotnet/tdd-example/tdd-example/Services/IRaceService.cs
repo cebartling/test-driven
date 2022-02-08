@@ -18,4 +18,12 @@ public interface IRaceService
     /// <param name="id">Represents the primary key identifier for the race in persistent storage.</param>
     /// /// <returns>A Race model instance.</returns>
     Race RetrieveById(string id);
+
+    /// <summary>
+    /// Creates a new race.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="raceDate"></param>
+    /// <returns></returns>
+    Race Create(string name, DateOnly raceDate);
 }
