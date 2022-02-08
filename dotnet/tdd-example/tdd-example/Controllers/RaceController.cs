@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using tdd_example.Models;
 using tdd_example.Services;
