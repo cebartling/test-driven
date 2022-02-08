@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -17,7 +18,7 @@ public class RaceControllerTests
 
     private Mock<ILogger<WeatherForecastController>> _loggerMock;
     private Mock<IRaceService> _raceServiceMock;
-    private RaceController _controller;
+    private RacesController _controller;
 
     private IEnumerable<Race> _expectedRaces = new List<Race>
     {
@@ -33,7 +34,7 @@ public class RaceControllerTests
     {
         _loggerMock = new Mock<ILogger<WeatherForecastController>>();
         _raceServiceMock = new Mock<IRaceService>();
-        _controller = new RaceController(_loggerMock.Object, _raceServiceMock.Object);
+        _controller = new RacesController(_loggerMock.Object, _raceServiceMock.Object);
     }
 
     #endregion
@@ -79,9 +80,11 @@ public class RaceControllerTests
     {
         ConfigureMockForGetRaceById();
 
-        Race race = _controller.GetRaceById(_expectedRace.Id);
+        var actionResult = _controller.GetRaceById(_expectedRace.Id);
 
-        Assert.AreEqual(_expectedRace, race);
+        var okOjbectResult = actionResult.Result as OkObjectResult;
+        Assert.AreEqual(StatusCodes.Status200OK, okOjbectResult.StatusCode);
+        Assert.AreEqual(_expectedRace, okOjbectResult.Value);
     }
 
     [TestMethod]
@@ -111,7 +114,8 @@ public class RaceControllerTests
     {
         ConfigureMocksForCreate();
 
-        var createdResult = _controller.Create(_expectedRace);
+        var actionResult = _controller.Create(_expectedRace);
+        var createdResult = actionResult.Result as CreatedResult;
 
         Assert.AreEqual($"races/{_expectedRace.Id}", createdResult.Location);
         Assert.AreEqual(StatusCodes.Status201Created, createdResult.StatusCode);
@@ -146,9 +150,10 @@ public class RaceControllerTests
     {
         ConfigureMocksForUpdate();
 
-        var actionResult = _controller.Update(_expectedRace);
-
-        Assert.AreEqual(StatusCodes.Status204NoContent, actionResult.StatusCode);
+        var actionResult = _controller.Update(_expectedRace.Id, _expectedRace);
+        
+        var noContentResult = actionResult.Result as NoContentResult;
+        Assert.AreEqual(StatusCodes.Status204NoContent, noContentResult!.StatusCode);
     }
 
     [TestMethod]
@@ -156,7 +161,7 @@ public class RaceControllerTests
     {
         ConfigureMocksForUpdate();
 
-        _controller.Update(_expectedRace);
+        _controller.Update(_expectedRace.Id, _expectedRace);
 
         _raceServiceMock.Verify(x => x.Update(It.Is<Race>(i => i.Equals(_expectedRace))));
     }
@@ -179,7 +184,8 @@ public class RaceControllerTests
 
         var actionResult = _controller.Delete(_expectedRace.Id);
 
-        Assert.AreEqual(StatusCodes.Status204NoContent, actionResult.StatusCode);
+        var noContentResult = actionResult.Result as NoContentResult;
+        Assert.AreEqual(StatusCodes.Status204NoContent, noContentResult.StatusCode);
     }
 
     [TestMethod]
