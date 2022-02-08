@@ -17,7 +17,7 @@ public class RaceController : ControllerBase
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _raceService = raceService ?? throw new ArgumentNullException(nameof(raceService));
     }
-    
+
     [HttpGet(Name = "races")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public IEnumerable<Race> GetAllRaces()
@@ -35,9 +35,28 @@ public class RaceController : ControllerBase
     [HttpPost(Name = "races")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<Race> Create(string name, DateOnly raceDate)
+    public CreatedResult Create(Race race)
     {
-        var newlyCreatedRace = _raceService.Create(name, raceDate);
-        return CreatedAtAction(nameof(GetRaceById), new {id = newlyCreatedRace.Id}, newlyCreatedRace);
+        var newlyCreatedRace = _raceService.Create(race);
+        var uriString = $"races/{newlyCreatedRace.Id}";
+        return Created(uriString, newlyCreatedRace);
+    }
+
+    [HttpPut(Name = "races/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public NoContentResult Update(Race race)
+    {
+        _raceService.Update(race);
+        return NoContent();
+    }
+
+    [HttpDelete(Name = "races/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public NoContentResult Delete(string id)
+    {
+        _raceService.Delete(id);
+        return NoContent();
     }
 }

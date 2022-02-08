@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -50,7 +49,7 @@ public class RaceControllerTests
     public void GetAllRaces_Success_ContractTest()
     {
         ConfigureMockForGetAllRaces();
-        
+
         IEnumerable<Race> races = _controller.GetAllRaces();
 
         Assert.AreEqual(_expectedRaces, races);
@@ -79,7 +78,7 @@ public class RaceControllerTests
     public void GetRaceById_Success_ContractTest()
     {
         ConfigureMockForGetRaceById();
-        
+
         Race race = _controller.GetRaceById(_expectedRace.Id);
 
         Assert.AreEqual(_expectedRace, race);
@@ -101,9 +100,8 @@ public class RaceControllerTests
 
     private void ConfigureMocksForCreate()
     {
-        _raceServiceMock.Setup(x => x.Create(
-                It.Is<string>(i => i.Equals(_expectedRace.Name)),
-                It.Is<DateOnly>(i => i.Equals(_expectedRace.RaceDate)))
+        _raceServiceMock.Setup(x =>
+                x.Create(It.Is<Race>(i => i.Equals(_expectedRace)))
             )
             .Returns(_expectedRace);
     }
@@ -112,12 +110,11 @@ public class RaceControllerTests
     public void CreateNewRace_ContractTest()
     {
         ConfigureMocksForCreate();
-        
-        var actionResult = _controller.Create(_expectedRace.Name, _expectedRace.RaceDate);
 
-        var createdAtActionResult = actionResult.Result as CreatedAtActionResult;
-        Assert.AreEqual("GetRaceById", createdAtActionResult.ActionName);
-        Assert.AreEqual(StatusCodes.Status201Created, createdAtActionResult.StatusCode);
+        var createdResult = _controller.Create(_expectedRace);
+
+        Assert.AreEqual($"races/{_expectedRace.Id}", createdResult.Location);
+        Assert.AreEqual(StatusCodes.Status201Created, createdResult.StatusCode);
     }
 
     [TestMethod]
@@ -125,12 +122,74 @@ public class RaceControllerTests
     {
         ConfigureMocksForCreate();
 
-        _controller.Create(_expectedRace.Name, _expectedRace.RaceDate);
+        _controller.Create(_expectedRace);
 
-        _raceServiceMock.Verify(x => x.Create(
-            It.Is<string>(i => i.Equals(_expectedRace.Name)),
-            It.Is<DateOnly>(i => i.Equals(_expectedRace.RaceDate)))
+        _raceServiceMock.Verify(x =>
+            x.Create(It.Is<Race>(i => i.Equals(_expectedRace)))
         );
+    }
+
+    #endregion
+
+    #region Update an existing race tests
+
+    private void ConfigureMocksForUpdate()
+    {
+        _raceServiceMock.Setup(x =>
+                x.Update(It.Is<Race>(i => i.Equals(_expectedRace)))
+            )
+            .Returns(_expectedRace);
+    }
+
+    [TestMethod]
+    public void Update_ContractTest()
+    {
+        ConfigureMocksForUpdate();
+
+        var actionResult = _controller.Update(_expectedRace);
+
+        Assert.AreEqual(StatusCodes.Status204NoContent, actionResult.StatusCode);
+    }
+
+    [TestMethod]
+    public void Update_CollaborationTest()
+    {
+        ConfigureMocksForUpdate();
+
+        _controller.Update(_expectedRace);
+
+        _raceServiceMock.Verify(x => x.Update(It.Is<Race>(i => i.Equals(_expectedRace))));
+    }
+
+    #endregion
+
+    #region Delete an existing race tests
+
+    private void ConfigureMocksForDelete()
+    {
+        _raceServiceMock.Setup(x =>
+            x.Delete(It.Is<string>(i => i.Equals(_expectedRace.Id)))
+        );
+    }
+
+    [TestMethod]
+    public void Delete_ContractTest()
+    {
+        ConfigureMocksForDelete();
+
+        var actionResult = _controller.Delete(_expectedRace.Id);
+
+        Assert.AreEqual(StatusCodes.Status204NoContent, actionResult.StatusCode);
+    }
+
+    [TestMethod]
+    public void Delete_CollaborationTest()
+    {
+        ConfigureMocksForDelete();
+
+        _controller.Delete(_expectedRace.Id);
+
+        _raceServiceMock.Verify(x => x.Delete(It.Is<string>(i => i.Equals(_expectedRace.Id))));
     }
 
     #endregion
