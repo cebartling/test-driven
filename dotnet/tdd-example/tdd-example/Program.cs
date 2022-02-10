@@ -1,7 +1,13 @@
+using tdd_example;
+using tdd_example.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Add database contexts.
+builder.Services.AddDbContext<AppDatabaseContext>();
+
 // Add services to the container.
-//builder.Services.AddScoped<IMyDependency, MyDependency2>();
+builder.Services.AddScoped<IRaceService, RaceService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

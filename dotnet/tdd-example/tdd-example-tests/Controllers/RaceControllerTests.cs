@@ -16,23 +16,43 @@ public class RaceControllerTests
 {
     #region Test suite setup
 
-    private Mock<ILogger<WeatherForecastController>> _loggerMock;
-    private Mock<IRaceService> _raceServiceMock;
-    private RacesController _controller;
+    private Mock<ILogger<RacesController>>? _loggerMock;
+    private Mock<IRaceService>? _raceServiceMock;
+    private RacesController? _controller;
 
     private IEnumerable<Race> _expectedRaces = new List<Race>
     {
-        new("0bfa5ac6-61c6-4210-8e2e-aff86732f5a1", "Fat Race 1", new DateOnly(2002, 1, 12)),
-        new("d2803a83-71fb-466a-8a57-4676638e71cc", "Fat Race 2", new DateOnly(2002, 1, 19)),
-        new("8186731f-f684-4eb2-9a73-11431ad8f1dd", "Fat Race 3", new DateOnly(2002, 1, 26))
+        new()
+        {
+            Id = "0bfa5ac6-61c6-4210-8e2e-aff86732f5a1",
+            Name = "Fat Race 1",
+            RaceDate = new DateOnly(2002, 1, 12)
+        },
+        new()
+        {
+            Id = "d2803a83-71fb-466a-8a57-4676638e71cc",
+            Name = "Fat Race 2",
+            RaceDate = new DateOnly(2002, 1, 19)
+        },
+        new()
+        {
+            Id = "8186731f-f684-4eb2-9a73-11431ad8f1dd",
+            Name = "Fat Race 3",
+            RaceDate = new DateOnly(2002, 1, 26)
+        }
     };
 
-    private Race _expectedRace = new("0bfa5ac6-61c6-4210-8e2e-aff86732f5a1", "Fat Race 1", new DateOnly(2002, 1, 12));
+    private Race _expectedRace = new()
+    {
+        Id = "0bfa5ac6-61c6-4210-8e2e-aff86732f5a1",
+        Name = "Fat Race 1",
+        RaceDate = new DateOnly(2002, 1, 12)
+    };
 
     [TestInitialize]
     public void DoBeforeEachTest()
     {
-        _loggerMock = new Mock<ILogger<WeatherForecastController>>();
+        _loggerMock = new Mock<ILogger<RacesController>>();
         _raceServiceMock = new Mock<IRaceService>();
         _controller = new RacesController(_loggerMock.Object, _raceServiceMock.Object);
     }
@@ -43,7 +63,7 @@ public class RaceControllerTests
 
     private void ConfigureMockForGetAllRaces()
     {
-        _raceServiceMock.Setup(x => x.RetrieveAll()).Returns(_expectedRaces);
+        _raceServiceMock!.Setup(x => x.RetrieveAll()).Returns(_expectedRaces);
     }
 
     [TestMethod]
@@ -51,7 +71,7 @@ public class RaceControllerTests
     {
         ConfigureMockForGetAllRaces();
 
-        IEnumerable<Race> races = _controller.GetAllRaces();
+        IEnumerable<Race> races = _controller!.GetAllRaces();
 
         Assert.AreEqual(_expectedRaces, races);
     }
@@ -61,9 +81,9 @@ public class RaceControllerTests
     {
         ConfigureMockForGetAllRaces();
 
-        _controller.GetAllRaces();
+        _controller!.GetAllRaces();
 
-        _raceServiceMock.Verify(x => x.RetrieveAll());
+        _raceServiceMock!.Verify(x => x.RetrieveAll());
     }
 
     #endregion
@@ -72,7 +92,7 @@ public class RaceControllerTests
 
     private void ConfigureMockForGetRaceById()
     {
-        _raceServiceMock.Setup(x => x.RetrieveById(_expectedRace.Id)).Returns(_expectedRace);
+        _raceServiceMock!.Setup(x => x.RetrieveById(_expectedRace.Id)).Returns(_expectedRace);
     }
 
     [TestMethod]
@@ -80,10 +100,10 @@ public class RaceControllerTests
     {
         ConfigureMockForGetRaceById();
 
-        var actionResult = _controller.GetRaceById(_expectedRace.Id);
+        var actionResult = _controller!.GetRaceById(_expectedRace.Id);
 
         var okOjbectResult = actionResult.Result as OkObjectResult;
-        Assert.AreEqual(StatusCodes.Status200OK, okOjbectResult.StatusCode);
+        Assert.AreEqual(StatusCodes.Status200OK, okOjbectResult!.StatusCode);
         Assert.AreEqual(_expectedRace, okOjbectResult.Value);
     }
 
@@ -92,9 +112,9 @@ public class RaceControllerTests
     {
         ConfigureMockForGetRaceById();
 
-        _controller.GetRaceById(_expectedRace.Id);
+        _controller!.GetRaceById(_expectedRace.Id);
 
-        _raceServiceMock.Verify(x => x.RetrieveById(_expectedRace.Id));
+        _raceServiceMock!.Verify(x => x.RetrieveById(_expectedRace.Id));
     }
 
     #endregion
@@ -103,7 +123,7 @@ public class RaceControllerTests
 
     private void ConfigureMocksForCreate()
     {
-        _raceServiceMock.Setup(x =>
+        _raceServiceMock!.Setup(x =>
                 x.Create(It.Is<Race>(i => i.Equals(_expectedRace)))
             )
             .Returns(_expectedRace);
@@ -114,10 +134,10 @@ public class RaceControllerTests
     {
         ConfigureMocksForCreate();
 
-        var actionResult = _controller.Create(_expectedRace);
+        var actionResult = _controller!.Create(_expectedRace);
         var createdResult = actionResult.Result as CreatedResult;
 
-        Assert.AreEqual($"races/{_expectedRace.Id}", createdResult.Location);
+        Assert.AreEqual($"races/{_expectedRace.Id}", createdResult!.Location);
         Assert.AreEqual(StatusCodes.Status201Created, createdResult.StatusCode);
     }
 
@@ -126,9 +146,9 @@ public class RaceControllerTests
     {
         ConfigureMocksForCreate();
 
-        _controller.Create(_expectedRace);
+        _controller!.Create(_expectedRace);
 
-        _raceServiceMock.Verify(x =>
+        _raceServiceMock!.Verify(x =>
             x.Create(It.Is<Race>(i => i.Equals(_expectedRace)))
         );
     }
@@ -139,7 +159,7 @@ public class RaceControllerTests
 
     private void ConfigureMocksForUpdate()
     {
-        _raceServiceMock.Setup(x =>
+        _raceServiceMock!.Setup(x =>
                 x.Update(It.Is<Race>(i => i.Equals(_expectedRace)))
             )
             .Returns(_expectedRace);
@@ -150,8 +170,8 @@ public class RaceControllerTests
     {
         ConfigureMocksForUpdate();
 
-        var actionResult = _controller.Update(_expectedRace.Id, _expectedRace);
-        
+        var actionResult = _controller!.Update(_expectedRace.Id, _expectedRace);
+
         var noContentResult = actionResult.Result as NoContentResult;
         Assert.AreEqual(StatusCodes.Status204NoContent, noContentResult!.StatusCode);
     }
@@ -161,9 +181,9 @@ public class RaceControllerTests
     {
         ConfigureMocksForUpdate();
 
-        _controller.Update(_expectedRace.Id, _expectedRace);
+        _controller!.Update(_expectedRace.Id, _expectedRace);
 
-        _raceServiceMock.Verify(x => x.Update(It.Is<Race>(i => i.Equals(_expectedRace))));
+        _raceServiceMock!.Verify(x => x.Update(It.Is<Race>(i => i.Equals(_expectedRace))));
     }
 
     #endregion
@@ -172,7 +192,7 @@ public class RaceControllerTests
 
     private void ConfigureMocksForDelete()
     {
-        _raceServiceMock.Setup(x =>
+        _raceServiceMock!.Setup(x =>
             x.Delete(It.Is<string>(i => i.Equals(_expectedRace.Id)))
         );
     }
@@ -182,10 +202,10 @@ public class RaceControllerTests
     {
         ConfigureMocksForDelete();
 
-        var actionResult = _controller.Delete(_expectedRace.Id);
+        var actionResult = _controller!.Delete(_expectedRace.Id);
 
         var noContentResult = actionResult.Result as NoContentResult;
-        Assert.AreEqual(StatusCodes.Status204NoContent, noContentResult.StatusCode);
+        Assert.AreEqual(StatusCodes.Status204NoContent, noContentResult!.StatusCode);
     }
 
     [TestMethod]
@@ -193,9 +213,9 @@ public class RaceControllerTests
     {
         ConfigureMocksForDelete();
 
-        _controller.Delete(_expectedRace.Id);
+        _controller!.Delete(_expectedRace.Id);
 
-        _raceServiceMock.Verify(x => x.Delete(It.Is<string>(i => i.Equals(_expectedRace.Id))));
+        _raceServiceMock!.Verify(x => x.Delete(It.Is<string>(i => i.Equals(_expectedRace.Id))));
     }
 
     #endregion
