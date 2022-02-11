@@ -25,16 +25,25 @@ public class RaceService : IRaceService
 
     public Race Create(Race newRace)
     {
-        throw new NotImplementedException();
+        var guid = Guid.NewGuid().ToString();
+        newRace.Id = guid;
+        _appDatabaseContext.Races.Add(newRace);
+        _appDatabaseContext.SaveChanges();
+        return _appDatabaseContext.Races.Find(guid)!;
     }
 
     public Race Update(Race existingRace)
     {
-        throw new NotImplementedException();
+        _appDatabaseContext.Races.Update(existingRace);
+        _appDatabaseContext.SaveChanges();
+        return _appDatabaseContext.Races.Find(existingRace.Id)!;
     }
 
     public void Delete(string? id)
     {
-        throw new NotImplementedException();
+        var match = _appDatabaseContext.Races.Find(id);
+        if (match == null) return;
+        _appDatabaseContext.Races.Remove(match);
+        _appDatabaseContext.SaveChanges();
     }
 }
