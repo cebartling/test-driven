@@ -27,19 +27,19 @@ public class RaceServiceTests
         {
             Id = "0bfa5ac6-61c6-4210-8e2e-aff86732f5a1",
             Name = "Fat Race 1",
-            RaceDate = new DateOnly(2002, 1, 12)
+            RaceDate = new DateTime(2002, 1, 12)
         },
         new()
         {
             Id = "d2803a83-71fb-466a-8a57-4676638e71cc",
             Name = "Fat Race 2",
-            RaceDate = new DateOnly(2002, 1, 19)
+            RaceDate = new DateTime(2002, 1, 19)
         },
         new()
         {
             Id = "8186731f-f684-4eb2-9a73-11431ad8f1dd",
             Name = "Fat Race 3",
-            RaceDate = new DateOnly(2002, 1, 26)
+            RaceDate = new DateTime(2002, 1, 26)
         }
     };
 
