@@ -10,11 +10,7 @@ public class AppDatabaseContext : DbContext
     private string _username = "racing_user";
     private string _password = "P4ssword";
 
-    public AppDatabaseContext(DbContextOptions<AppDatabaseContext> options) : base(options)
-    {
-    }
-
-    public DbSet<Race> Races { get; set; } = null!;
+    public virtual DbSet<Race> Races { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
