@@ -8,23 +8,23 @@ Various test-driven development journeys.
 
 ## Java
 
-- [JUnit testing patterns, tip and tricks](./documentation/junit/README.md)
-- [Testing Spring applications](./documentation/spring-framework/README.md)
-- [Spring WebFlux/Project Reactor TDD demo](./spring-boot/webflux-tdd-demo/README.md)
+- [JUnit testing patterns, tip and tricks](./documentation/junit/)
+- [Testing Spring applications](./documentation/spring-framework/)
+- [Spring WebFlux/Project Reactor TDD demo](./spring-boot/webflux-tdd-demo/)
 
 
 ## .NET Core
 
-- [Testing .NET Core web API](./dotnet/tdd-example/README.md)
+- [Testing .NET Core web API](./dotnet/tdd-example/)
 
 
 ## JavaScript/Typescript
 
-- [Jasmine testing patterns, tips and tricks](./documentation/jasmine/README.md)
-- [Angular TDD demo](./angular/example1/README.md)
-- [Svelte TDD demo](./svelte/example1/README.md)
-- [Using Storybook with Angular demo](./storybook/angular/storybook-example/README.md)
-- [Using Storybook with Svelte demo](./storybook/svelte/storybook-example/README.md)
+- [Jasmine testing patterns, tips and tricks](./documentation/jasmine/)
+- [Angular TDD demo](./angular/example1/)
+- [Svelte TDD demo](./svelte/example1/)
+- [Using Storybook with Angular demo](./storybook/angular/storybook-example/)
+- [Using Storybook with Svelte demo](./storybook/svelte/storybook-example/)
 
 
 ## Further Reading
