@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,27 @@ public class RaceServiceTests
     private Mock<ILogger<RaceService>>? _loggerMock;
     private Mock<AppDatabaseContext>? _appDatabaseContextMock;
     private RaceService? _service;
+    private readonly List<Race> _expectedRaces = new List<Race>
+    {
+        new()
+        {
+            Id = "0bfa5ac6-61c6-4210-8e2e-aff86732f5a1",
+            Name = "Fat Race 1",
+            RaceDate = new DateOnly(2002, 1, 12)
+        },
+        new()
+        {
+            Id = "d2803a83-71fb-466a-8a57-4676638e71cc",
+            Name = "Fat Race 2",
+            RaceDate = new DateOnly(2002, 1, 19)
+        },
+        new()
+        {
+            Id = "8186731f-f684-4eb2-9a73-11431ad8f1dd",
+            Name = "Fat Race 3",
+            RaceDate = new DateOnly(2002, 1, 26)
+        }
+    };
 
 
     [TestInitialize]
@@ -36,23 +58,21 @@ public class RaceServiceTests
     [TestMethod]
     public void RetrieveAll_ContractTest()
     {
-        var expected = new List<Race> { new Race(), new Race(), new Race() };
-        _appDatabaseContextMock!.Setup(x => x.Races).ReturnsDbSet(expected);
+        _appDatabaseContextMock!.Setup(x => x.Races).ReturnsDbSet(_expectedRaces);
         
         var result = _service!.RetrieveAll();
      
         var actualRaces = result.ToArray();
         Assert.AreEqual(3, actualRaces.Length);
-        Assert.AreEqual(expected[0], actualRaces[0]);
-        Assert.AreEqual(expected[1], actualRaces[1]);
-        Assert.AreEqual(expected[2], actualRaces[2]);
+        Assert.AreEqual(_expectedRaces[0], actualRaces[0]);
+        Assert.AreEqual(_expectedRaces[1], actualRaces[1]);
+        Assert.AreEqual(_expectedRaces[2], actualRaces[2]);
     }
 
     [TestMethod]
     public void RetrieveAll_CollaborationTest()
     {
-        var expected = new List<Race> { new Race(), new Race(), new Race() };
-        _appDatabaseContextMock!.Setup(x => x.Races).ReturnsDbSet(expected);
+        _appDatabaseContextMock!.Setup(x => x.Races).ReturnsDbSet(_expectedRaces);
         
         _service!.RetrieveAll();
         
@@ -62,6 +82,31 @@ public class RaceServiceTests
     #endregion
 
     #region RetrieveById tests
+
+    [TestMethod]
+    public void RetrieveById_ContractTest()
+    {
+        var racesDbSetMock = new Mock<DbSet<Race>>();
+        racesDbSetMock.Setup(x => x.Find(It.IsAny<string>())).Returns(_expectedRaces[0]);
+        _appDatabaseContextMock!.Setup(x => x.Races).Returns(racesDbSetMock.Object);
+        
+        var result = _service!.RetrieveById(_expectedRaces[0].Id);
+     
+        Assert.AreEqual(_expectedRaces[0], result);
+    }
+
+    [TestMethod]
+    public void RetrieveById_CollaborationTest()
+    {
+        var racesDbSetMock = new Mock<DbSet<Race>>();
+        racesDbSetMock.Setup(x => x.Find(It.IsAny<string>())).Returns(_expectedRaces[0]);
+        _appDatabaseContextMock!.Setup(x => x.Races).Returns(racesDbSetMock.Object);
+        
+        var result = _service!.RetrieveById(_expectedRaces[0].Id);
+
+        _appDatabaseContextMock!.Verify(x => x.Races);
+        racesDbSetMock.Verify(x => x.Find(It.IsAny<string>()));
+    }
 
     #endregion
 
