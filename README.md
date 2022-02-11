@@ -1,8 +1,10 @@
 # Test Driven Journeys
 Various test-driven development journeys.
 
+
 ## General
 - [General code design conversations with teams](./documentation/general/code-design.md)
+
 
 ## Java
 
@@ -10,12 +12,19 @@ Various test-driven development journeys.
 - [Testing Spring applications](./documentation/spring-framework/README.md)
 - [Spring WebFlux/Project Reactor TDD demo](./spring-boot/webflux-tdd-demo/README.md)
 
+
+## .NET Core
+
+- [Testing .NET Core web API](./dotnet/tdd-example/README.md)
+
+
 ## JavaScript/Typescript
 
 - [Jasmine testing patterns, tips and tricks](./documentation/jasmine/README.md)
 - [Angular TDD demo](./angular/example1/README.md)
 - [Svelte TDD demo](./svelte/example1/README.md)
-- [Storybook and Angular demo](./storybook/angular/storybook-example/README.md)
+- [Using Storybook with Angular demo](./storybook/angular/storybook-example/README.md)
+- [Using Storybook with Svelte demo](./storybook/svelte/storybook-example/README.md)
 
 
 ## Further Reading
@@ -30,6 +39,7 @@ Various test-driven development journeys.
 - [J.B. Rainsberger articles, arranged by topic](https://blog.thecodewhisperer.com/series)
 - [Nat Pryce's blog](http://www.natpryce.com/)
 - [To Be Agile blog by David Bernstein](https://tobeagile.com/blog/)
+
 
 ### Test pyramid
 
