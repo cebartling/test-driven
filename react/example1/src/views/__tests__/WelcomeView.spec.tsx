@@ -7,7 +7,7 @@ describe('WelcomeView', () => {
     render(<WelcomeView />);
   });
 
-  it('should blah', () => {
+  it('should render appropriately', () => {
     expect(screen.getByTestId('welcome-view-container')).toHaveTextContent('Welcome');
   });
 });
