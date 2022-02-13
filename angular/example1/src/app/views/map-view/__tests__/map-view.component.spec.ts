@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MockComponent } from 'ng-mocks';
+import { of } from 'rxjs';
+import { DateTime } from 'luxon';
 import { MapViewComponent } from '../map-view.component';
 import { EarthquakeDataService } from '../../../services/earthquake-data.service';
-import { of } from 'rxjs';
 import { featureCollection } from '../../../__tests__/data/feature-collection-test-data';
-import { DateTime } from 'luxon';
 import { MapComponent } from '../../../components/map/map.component';
 
 describe('MapViewComponent', () => {
@@ -15,7 +16,7 @@ describe('MapViewComponent', () => {
     waitForAsync(() => {
       earthquakeDataServiceMock = jasmine.createSpyObj('EarthquakeDataService', ['query']);
       TestBed.configureTestingModule({
-        declarations: [MapViewComponent, MapComponent],
+        declarations: [MapViewComponent, MockComponent(MapComponent)],
         providers: [{ provide: EarthquakeDataService, useValue: earthquakeDataServiceMock }],
       }).compileComponents();
     })

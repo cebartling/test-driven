@@ -10,6 +10,7 @@
     Now using node v14.17.4 (npm v6.14.14)
     ```
   - There is a Windows version of `nvm`, found [here](https://github.com/coreybutler/nvm-windows).
+- The [ng-mocks](https://ng-mocks.sudo.eu/) module is used testing library which helps with mocking services, components, directives, pipes and modules in tests for Angular applications. When we have a noisy child component, or any other annoying dependency, ng-mocks has tools to turn these declarations into their mocks, keeping interfaces as they are, but suppressing their implementation.
 
 
 ## Development server
