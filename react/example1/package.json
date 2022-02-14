@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
+    "graphql-server": "json-graphql-server graphql-db.js --p 3001",
     "lint": "eslint -c './.eslintrc' --fix './src/**/*.ts'",
     "dev": "vite",
     "test": "jest",
