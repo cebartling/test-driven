@@ -1,11 +1,12 @@
+import { TestBed } from '@angular/core/testing';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DateTime } from 'luxon';
 import { of } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { DATE_FORMAT, EarthquakeDataService, FORMAT_GEOJSON } from '../earthquake-data.service';
 import { FeatureCollection } from '../../models/earthquake/feature-collection';
 import { featureCollection } from '../../__tests__/data/feature-collection-test-data';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
 
 describe('EarthquakeDataService', () => {
   let service: EarthquakeDataService;
@@ -58,12 +59,12 @@ describe('EarthquakeDataService', () => {
     });
 
     describe('using Jasmine spy to mock HttpClient', () => {
-      let httpClientSpy: { get: jasmine.Spy };
+      let httpClientSpyObject: jasmine.SpyObj<HttpClient>;
 
       beforeEach(() => {
-        httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+        httpClientSpyObject = jasmine.createSpyObj<HttpClient>('HttpClient', ['get']);
         TestBed.configureTestingModule({
-          providers: [EarthquakeDataService, { provide: HttpClient, useValue: httpClientSpy }],
+          providers: [EarthquakeDataService, { provide: HttpClient, useValue: httpClientSpyObject }],
         });
         service = TestBed.inject(EarthquakeDataService);
       });
@@ -82,7 +83,7 @@ describe('EarthquakeDataService', () => {
           .set('starttime', startDateTime.toFormat(DATE_FORMAT))
           .set('endtime', endDateTime.toFormat(DATE_FORMAT));
         const expectedOptions = { params };
-        httpClientSpy.get.withArgs(expectedUrl, expectedOptions).and.returnValue(featureCollection$);
+        httpClientSpyObject.get.withArgs(expectedUrl, expectedOptions).and.returnValue(featureCollection$);
         service.query(startDateTime, endDateTime).subscribe(
           (data) => {
             captured = data;
@@ -105,7 +106,7 @@ describe('EarthquakeDataService', () => {
 
       it('should invoke get on the HttpClient', () => {
         const expectedOptions = { params };
-        expect(httpClientSpy.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
+        expect(httpClientSpyObject.get).toHaveBeenCalledWith(expectedUrl, expectedOptions);
       });
     });
   });
