@@ -19,7 +19,7 @@ The following is an error message you will see regularly when you have not decla
 We can clear this up by adding the `DependencyComponent` class to the `declarations` list when configuring the testing module of the `TestBed`.
 
 ```typescript
-import { waitForAsync } from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 describe('TargetComponent', () => {
   let component: TargetComponent;
@@ -46,11 +46,46 @@ describe('TargetComponent', () => {
 });
 ```
 
-But this can get out of hand when the child component hierarchy gets deep. 
-We also want to enforce test isolation with our Jasmine specifications and declaring dependent child components in the `declarations` array of the testing module is tightly coupling our specs to classes other than the class under test.
-The *ng-mocks* module helps with this conundrum by mocking out the interface for the component that is included in the `declarations` array of the testing module.
+But this can get out of hand when the child component hierarchy gets deep and the children components have dependencies on providers that are not used by the component under test. 
+We also want to enforce test isolation with our Jasmine specifications and declaring _real_ dependent child components in the `declarations` array of the testing module is tightly coupling our specs to implementations other than the component under test.
 
-- [How to mock components in Angular tests](https://ng-mocks.sudo.eu/api/MockComponent)
+The *ng-mocks* module helps with this conundrum by mocking out the interface for any child components that are included in the `declarations` array of the testing module.
+In our example, we want to mock the `DependencyComponent`.
+
+```typescript
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MockComponent } from 'ng-mocks';
+
+describe('TargetComponent', () => {
+  let component: TargetComponent;
+  let fixture: ComponentFixture<TargetComponent>;
+
+  beforeEach(waitForAsync(() =>   {
+    TestBed.configureTestingModule({
+      declarations: [
+        // our component for testing
+        TargetComponent,
+
+        // the annoying dependency, now mocked with ng-mocks!
+        MockComponent(DependencyComponent),
+      ],
+    }).compileComponents();
+  }));
+
+  beforeEach(() =>   {
+    fixture = TestBed.createComponent(TargetComponent);
+    component = fixture.componentInstance;
+  });
+  
+  // The rest of the specification suite has been redacted for clarity
+});
+```
+
+The `MockComponent` function is used in several Jasmine specs in this example:
+- [map-view.component.spec.ts](./src/app/views/map-view/__tests__/map-view.component.spec.ts)
+- [app.component.spec.ts](./src/app/__tests__/app.component.spec.ts)  
+
+For more information on using the `MockComponent` function, see the [documentation](https://ng-mocks.sudo.eu/api/MockComponent).
 
 
 ## Further reading
