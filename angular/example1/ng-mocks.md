@@ -90,6 +90,7 @@ For more information on using the `MockComponent` function, see the [documentati
 
 ## Further reading
 
+- [How to write good, composable and pure components in Angular 2+](https://jackthenomad.com/how-to-write-good-composable-and-pure-components-in-angular-2-1756945c0f5b)
 - [Towards Better Testing In Angular. Part 1 — Mocking Child Components](https://medium.com/@abdul_74410/towards-better-testing-in-angular-part-1-mocking-child-components-b51e1fd571da)
 - [Towards Better Testing In Angular. Part 2 — Service Injection](https://medium.com/@abdul_74410/towards-better-testing-in-angular-part-2-service-injection-c87b1fede954)
 - [Towards Better Testing In Angular. Part 3— Inputs & Outputs](https://medium.com/@abdul_74410/towards-better-testing-in-angular-part-3-inputs-outputs-e8ed361cdad6)
