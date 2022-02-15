@@ -46,8 +46,8 @@ describe('TargetComponent', () => {
 });
 ```
 
-But this can get out of hand when the child component hierarchy gets deep and the children components have dependencies on providers that are not used by the component under test. 
-We also want to enforce test isolation with our Jasmine specifications and declaring _real_ dependent child components in the `declarations` array of the testing module is tightly coupling our specs to implementations other than the component under test.
+This solves our immediate problem, but this can get out of hand when the child component hierarchy gets deep and the children components have dependencies on providers that are not used by the component under test. 
+We also want to enforce isolation with our Jasmine specifications and declaring _real_ dependent child components in the `declarations` array of the testing module is tightly coupling our specs to component implementations other than the component under test.
 
 The *ng-mocks* module helps with this conundrum by mocking out the interface for any child components that are included in the `declarations` array of the testing module.
 In our example, we want to mock the `DependencyComponent`.
