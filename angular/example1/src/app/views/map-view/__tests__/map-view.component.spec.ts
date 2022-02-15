@@ -10,14 +10,14 @@ import { MapComponent } from '../../../components/map/map.component';
 describe('MapViewComponent', () => {
   let component: MapViewComponent;
   let fixture: ComponentFixture<MapViewComponent>;
-  let earthquakeDataServiceMock: { query: jasmine.Spy };
+  let earthquakeDataServiceSpyObject: jasmine.SpyObj<EarthquakeDataService>;
 
   beforeEach(
     waitForAsync(() => {
-      earthquakeDataServiceMock = jasmine.createSpyObj('EarthquakeDataService', ['query']);
+      earthquakeDataServiceSpyObject = jasmine.createSpyObj<EarthquakeDataService>('EarthquakeDataService', ['query']);
       TestBed.configureTestingModule({
         declarations: [MapViewComponent, MockComponent(MapComponent)],
-        providers: [{ provide: EarthquakeDataService, useValue: earthquakeDataServiceMock }],
+        providers: [{ provide: EarthquakeDataService, useValue: earthquakeDataServiceSpyObject }],
       }).compileComponents();
     })
   );
@@ -35,7 +35,7 @@ describe('MapViewComponent', () => {
 
     describe('dependency injection', () => {
       it('earthquakeService', () => {
-        expect(component.earthquakeDataService).toBe(earthquakeDataServiceMock);
+        expect(component.earthquakeDataService).toBe(earthquakeDataServiceSpyObject);
       });
     });
   });
@@ -45,12 +45,12 @@ describe('MapViewComponent', () => {
       const featureCollection$ = of(featureCollection);
 
       beforeEach(() => {
-        earthquakeDataServiceMock.query.and.returnValue(featureCollection$);
+        earthquakeDataServiceSpyObject.query.and.returnValue(featureCollection$);
         component.ngOnInit();
       });
 
       it('should invoke query on the earthquakeService', () => {
-        expect(earthquakeDataServiceMock.query).toHaveBeenCalledWith(jasmine.any(DateTime), jasmine.any(DateTime));
+        expect(earthquakeDataServiceSpyObject.query).toHaveBeenCalledWith(jasmine.any(DateTime), jasmine.any(DateTime));
       });
 
       it('should set the featureCollection$ property on the component', () => {
