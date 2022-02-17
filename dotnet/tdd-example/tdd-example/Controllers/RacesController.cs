@@ -19,6 +19,7 @@ public class RacesController : ControllerBase
     }
 
     [HttpGet]
+    [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public IEnumerable<Race> GetAllRaces()
     {
@@ -26,6 +27,7 @@ public class RacesController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Race> GetRaceById(string? id)

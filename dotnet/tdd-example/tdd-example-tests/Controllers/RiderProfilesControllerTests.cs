@@ -34,6 +34,34 @@ public class RiderProfilesControllerTests
 
     #endregion
 
+    #region Get rider profile by ID
+
+    [TestMethod]
+    public void GetById_CollaborationTest()
+    {
+        _riderProfileServiceMock!.Setup(x => x.GetById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
+            .Returns(_expectedRiderProfile);
+
+        _controller!.GetById(_expectedRiderProfile.Id!);
+
+        _riderProfileServiceMock!.Verify(x => x.GetById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))));
+    }
+
+    [TestMethod]
+    public void GetById_ContractTest()
+    {
+        _riderProfileServiceMock!.Setup(x => x.GetById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
+            .Returns(_expectedRiderProfile);
+
+        var actionResult = _controller!.GetById(_expectedRiderProfile.Id!);
+
+        var okObjectResult = actionResult.Result as OkObjectResult;
+        Assert.AreEqual(StatusCodes.Status200OK, okObjectResult!.StatusCode);
+        Assert.AreEqual(_expectedRiderProfile, okObjectResult.Value);
+    }
+
+    #endregion
+
     #region Create a new rider profile
 
     private void ConfigureMocksCreate()
@@ -46,9 +74,9 @@ public class RiderProfilesControllerTests
     public void CreateNewRiderProfile_ContractTest()
     {
         ConfigureMocksCreate();
-        
+
         var actionResult = _controller!.Create(_expectedRiderProfile);
-        
+
         var createdResult = actionResult.Result as CreatedResult;
         Assert.AreEqual(StatusCodes.Status201Created, createdResult!.StatusCode);
         Assert.AreEqual($"/riderProfiles/{_expectedRiderProfile.Id}", createdResult!.Location);
@@ -58,9 +86,9 @@ public class RiderProfilesControllerTests
     public void CreateNewRiderProfile_CollaborationTest()
     {
         ConfigureMocksCreate();
-        
+
         _controller!.Create(_expectedRiderProfile);
-        
+
         _riderProfileServiceMock!.Verify(x => x.Create(It.Is<RiderProfile>(y => y == _expectedRiderProfile)));
     }
 

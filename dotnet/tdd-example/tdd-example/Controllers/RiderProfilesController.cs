@@ -26,4 +26,14 @@ public class RiderProfilesController : ControllerBase
         var locationUrl = $"/riderProfiles/{savedRiderProfile.Id}";
         return Created(locationUrl, savedRiderProfile);
     }
+
+    [HttpGet("{id}")]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<Race> GetById(string id)
+    {
+        var riderProfile = _riderProfileService.GetById(id);
+        return Ok(riderProfile);
+    }
 }
