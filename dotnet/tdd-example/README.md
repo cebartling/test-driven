@@ -3,6 +3,10 @@
 ## Introduction
 
 
+
+- [User stories](./user-stories.md)
+
+
 ## Installation
 
 1. Install .NET Core SDK 6.0. Go [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) to download the SDK.
@@ -39,5 +43,3 @@ For this test-driven development demonstration, PostgreSQL 14 is used as the rel
 1. Ensure the PostgreSQL server is running within Docker Compose.
 1. Change to the `tdd-example` project directory: `cd tdd-example`
 1. Using the migrrations created in this project, update the database: `dotnet ef database update`
-
-
