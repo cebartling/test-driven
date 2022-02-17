@@ -20,7 +20,7 @@ public class RaceControllerTests
     private Mock<IRaceService>? _raceServiceMock;
     private RacesController? _controller;
 
-    private IEnumerable<Race> _expectedRaces = new List<Race>
+    private readonly IEnumerable<Race> _expectedRaces = new List<Race>
     {
         new()
         {
@@ -42,7 +42,7 @@ public class RaceControllerTests
         }
     };
 
-    private Race _expectedRace = new()
+    private readonly Race _expectedRace = new()
     {
         Id = "0bfa5ac6-61c6-4210-8e2e-aff86732f5a1",
         Name = "Fat Race 1",
