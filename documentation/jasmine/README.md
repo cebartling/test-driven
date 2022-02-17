@@ -1,6 +1,7 @@
 # Jasmine 
 
 - [Jasmine quick start guide](./quick-start.md)
+- [Typescript support for Jasmine](./typescript-support-for-spies.md)
 
 
 ## Common testing patterns
