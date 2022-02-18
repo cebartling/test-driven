@@ -173,4 +173,34 @@ public class RiderProfilesControllerTests
     }
 
     #endregion
+
+    #region Delete an existing rider profile
+
+    [TestMethod]
+    public void Delete_CollaborationTest()
+    {
+        _riderProfileServiceMock!.Setup(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
+            .Returns(_expectedRiderProfile);
+        _riderProfileServiceMock!.Setup(x => x.Delete(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))));
+
+        _controller!.Delete(_expectedRiderProfile.Id!);
+
+        _riderProfileServiceMock!.Verify(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))));
+        _riderProfileServiceMock!.Verify(x => x.Delete(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))));
+    }
+
+    [TestMethod]
+    public void Delete_ContractTest()
+    {
+        _riderProfileServiceMock!.Setup(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
+            .Returns(_expectedRiderProfile);
+        _riderProfileServiceMock!.Setup(x => x.Delete(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))));
+
+        var actionResult = _controller!.Delete(_expectedRiderProfile.Id!);
+    
+        var noContentResult = actionResult.Result as NoContentResult;
+        Assert.AreEqual(StatusCodes.Status204NoContent, noContentResult!.StatusCode);
+    }
+
+    #endregion
 }

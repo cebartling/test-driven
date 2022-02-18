@@ -55,4 +55,14 @@ public class RiderProfilesController : ControllerBase
         _riderProfileService.Update(riderProfile);
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<RiderProfile> Delete(string id)
+    {
+        var riderProfile = _riderProfileService.RetrieveById(id);
+        _riderProfileService.Delete(riderProfile);
+        return NoContent();
+    }
 }

@@ -12,9 +12,9 @@ public interface IRiderProfileService
     RiderProfile Create(RiderProfile newRiderProfile);
     
     /// <summary>
-    /// Creates a new rider profile.
+    /// Updates an existing rider profile.
     /// </summary>
-    /// <param name="riderProfile">A new version of RiderProfile state with an ID.</param>
+    /// <param name="riderProfile">An existing version of RiderProfile state with an ID.</param>
     /// <returns>A persistent RiderProfile object instance with an ID representing this new version of state.</returns>
     RiderProfile Update(RiderProfile riderProfile);
     
@@ -30,4 +30,10 @@ public interface IRiderProfileService
     /// </summary>
     /// <returns>An IEnumerable of RiderProfile object instances representing the current version of state.</returns>
     IEnumerable<RiderProfile> RetrieveAll();
+
+    /// <summary>
+    /// Deletes an existing rider profile.
+    /// </summary>
+    /// <param name="riderProfile">An existing version of RiderProfile state with an ID.</param>
+    void Delete(RiderProfile riderProfile);
 }
