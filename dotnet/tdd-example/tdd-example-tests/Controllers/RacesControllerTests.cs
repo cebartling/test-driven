@@ -59,36 +59,40 @@ public class RaceControllerTests
 
     #endregion
 
-    #region Get all races tests
+    #region Retrieve all races tests
 
-    private void ConfigureMockForGetAllRaces()
+    private void SetupMocksRetrieveAll()
     {
-        _raceServiceMock!.Setup(x => x.RetrieveAll()).Returns(_expectedRaces);
+        _raceServiceMock!
+            .Setup(x => x.RetrieveAll())
+            .Returns(_expectedRaces);
     }
 
     [TestMethod]
-    public void GetAllRaces_Success_ContractTest()
+    public void RetrieveAll_Success_ContractTest()
     {
-        ConfigureMockForGetAllRaces();
+        SetupMocksRetrieveAll();
 
-        IEnumerable<Race> races = _controller!.GetAllRaces();
+        var actionResult = _controller!.RetrieveAll();
 
-        Assert.AreEqual(_expectedRaces, races);
+        var okObjectResult = actionResult.Result as OkObjectResult;
+        Assert.AreEqual(StatusCodes.Status200OK, okObjectResult!.StatusCode);
+        Assert.AreEqual(_expectedRaces, okObjectResult!.Value);
     }
 
     [TestMethod]
-    public void GetAllRaces_Success_CollaborationTest()
+    public void RetrieveAll_Success_CollaborationTest()
     {
-        ConfigureMockForGetAllRaces();
+        SetupMocksRetrieveAll();
 
-        _controller!.GetAllRaces();
+        _controller!.RetrieveAll();
 
         _raceServiceMock!.Verify(x => x.RetrieveAll());
     }
 
     #endregion
 
-    #region Get race by primary key identifier tests
+    #region Retrieve by primary key identifier tests
 
     private void SetupMocksRetrieveById()
     {
@@ -123,30 +127,29 @@ public class RaceControllerTests
 
     #region Create a new race tests
 
-    private void ConfigureMocksForCreate()
+    private void SetupMocksCreate()
     {
-        _raceServiceMock!.Setup(x =>
-                x.Create(It.Is<Race>(i => i.Equals(_expectedRace)))
-            )
+        _raceServiceMock!
+            .Setup(x => x.Create(It.Is<Race>(i => i.Equals(_expectedRace))))
             .Returns(_expectedRace);
     }
 
     [TestMethod]
-    public void CreateNewRace_ContractTest()
+    public void Create_ContractTest()
     {
-        ConfigureMocksForCreate();
+        SetupMocksCreate();
 
         var actionResult = _controller!.Create(_expectedRace);
+        
         var createdResult = actionResult.Result as CreatedResult;
-
         Assert.AreEqual($"races/{_expectedRace.Id}", createdResult!.Location);
         Assert.AreEqual(StatusCodes.Status201Created, createdResult.StatusCode);
     }
 
     [TestMethod]
-    public void CreateNewRace_CollaborationTest()
+    public void Create_CollaborationTest()
     {
-        ConfigureMocksForCreate();
+        SetupMocksCreate();
 
         _controller!.Create(_expectedRace);
 
@@ -159,18 +162,17 @@ public class RaceControllerTests
 
     #region Update an existing race tests
 
-    private void ConfigureMocksForUpdate()
+    private void SetupMocksUpdate()
     {
-        _raceServiceMock!.Setup(x =>
-                x.Update(It.Is<Race>(i => i.Equals(_expectedRace)))
-            )
+        _raceServiceMock!
+            .Setup(x => x.Update(It.Is<Race>(i => i.Equals(_expectedRace))))
             .Returns(_expectedRace);
     }
 
     [TestMethod]
     public void Update_ContractTest()
     {
-        ConfigureMocksForUpdate();
+        SetupMocksUpdate();
 
         var actionResult = _controller!.Update(_expectedRace.Id, _expectedRace);
 
@@ -181,7 +183,7 @@ public class RaceControllerTests
     [TestMethod]
     public void Update_CollaborationTest()
     {
-        ConfigureMocksForUpdate();
+        SetupMocksUpdate();
 
         _controller!.Update(_expectedRace.Id, _expectedRace);
 
@@ -192,17 +194,16 @@ public class RaceControllerTests
 
     #region Delete an existing race tests
 
-    private void ConfigureMocksForDelete()
+    private void SetupMocksDelete()
     {
-        _raceServiceMock!.Setup(x =>
-            x.Delete(It.Is<string>(i => i.Equals(_expectedRace.Id)))
-        );
+        _raceServiceMock!
+            .Setup(x => x.Delete(It.Is<string>(i => i.Equals(_expectedRace.Id))));
     }
 
     [TestMethod]
     public void Delete_ContractTest()
     {
-        ConfigureMocksForDelete();
+        SetupMocksDelete();
 
         var actionResult = _controller!.Delete(_expectedRace.Id);
 
@@ -213,7 +214,7 @@ public class RaceControllerTests
     [TestMethod]
     public void Delete_CollaborationTest()
     {
-        ConfigureMocksForDelete();
+        SetupMocksDelete();
 
         _controller!.Delete(_expectedRace.Id);
 

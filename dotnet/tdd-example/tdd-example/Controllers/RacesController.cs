@@ -21,9 +21,10 @@ public class RacesController : ControllerBase
     [HttpGet]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IEnumerable<Race> GetAllRaces()
+    public ActionResult<IEnumerable<Race>> RetrieveAll()
     {
-        return _raceService.RetrieveAll();
+        var races = _raceService.RetrieveAll();
+        return Ok(races);
     }
 
     [HttpGet("{id}")]
