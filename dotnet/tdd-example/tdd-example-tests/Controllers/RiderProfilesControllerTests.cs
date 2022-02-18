@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,6 +26,31 @@ public class RiderProfilesControllerTests
         Surname = "Doe"
     };
 
+    private readonly IEnumerable<RiderProfile> _expectedRiderProfiles = new []
+    {
+        new RiderProfile()
+        {
+            Id = "1577bed8-3228-4924-afd4-952395ec475a",
+            BirthDate = new DateTime(1974, 1, 24),
+            GivenName = "John",
+            Surname = "Doe"
+        },   
+        new RiderProfile()
+        {
+            Id = "1577bed8-3228-4924-afd4-952395ec475b",
+            BirthDate = new DateTime(1972, 7, 5),
+            GivenName = "Jane",
+            Surname = "Hackney"
+        },   
+        new RiderProfile()
+        {
+            Id = "1577bed8-3228-4924-afd4-952395ec475c",
+            BirthDate = new DateTime(1973, 6, 30),
+            GivenName = "Tom",
+            Surname = "Carney"
+        },   
+    };
+
     [TestInitialize]
     public void DoBeforeEachTest()
     {
@@ -34,6 +60,33 @@ public class RiderProfilesControllerTests
 
     #endregion
 
+    #region Get all rider profiles
+
+    [TestMethod]
+    public void RetrieveAll_CollaborationTest()
+    {
+        _riderProfileServiceMock!.Setup(x => x.RetrieveAll())
+            .Returns(_expectedRiderProfiles);
+
+        _controller!.RetrieveAll();
+
+        _riderProfileServiceMock!.Verify(x => x.RetrieveAll());
+    }
+
+    [TestMethod]
+    public void RetrieveAll_ContractTest()
+    {
+        _riderProfileServiceMock!.Setup(x => x.RetrieveAll())
+            .Returns(_expectedRiderProfiles);
+
+        var actionResult = _controller!.RetrieveAll();
+        var okObjectResult = actionResult.Result as OkObjectResult;
+        Assert.AreEqual(StatusCodes.Status200OK, okObjectResult!.StatusCode);
+        Assert.AreEqual(_expectedRiderProfiles, okObjectResult!.Value);
+    }
+
+    #endregion
+    
     #region Get rider profile by ID
 
     [TestMethod]

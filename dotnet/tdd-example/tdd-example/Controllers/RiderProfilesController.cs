@@ -36,4 +36,13 @@ public class RiderProfilesController : ControllerBase
         var riderProfile = _riderProfileService.GetById(id);
         return Ok(riderProfile);
     }
+
+    [HttpGet]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<IEnumerable<RiderProfile>> RetrieveAll()
+    {
+        var riderProfiles =  _riderProfileService.RetrieveAll();
+        return Ok(riderProfiles);
+    }
 }
