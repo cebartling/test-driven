@@ -62,11 +62,16 @@ public class RiderProfilesControllerTests
 
     #region Get all rider profiles
 
-    [TestMethod]
-    public void RetrieveAll_CollaborationTest()
+    private void SetupMocksRetrieveAll()
     {
         _riderProfileServiceMock!.Setup(x => x.RetrieveAll())
             .Returns(_expectedRiderProfiles);
+    }
+
+    [TestMethod]
+    public void RetrieveAll_CollaborationTest()
+    {
+        SetupMocksRetrieveAll();
 
         _controller!.RetrieveAll();
 
@@ -76,10 +81,10 @@ public class RiderProfilesControllerTests
     [TestMethod]
     public void RetrieveAll_ContractTest()
     {
-        _riderProfileServiceMock!.Setup(x => x.RetrieveAll())
-            .Returns(_expectedRiderProfiles);
+        SetupMocksRetrieveAll();
 
         var actionResult = _controller!.RetrieveAll();
+        
         var okObjectResult = actionResult.Result as OkObjectResult;
         Assert.AreEqual(StatusCodes.Status200OK, okObjectResult!.StatusCode);
         Assert.AreEqual(_expectedRiderProfiles, okObjectResult!.Value);
@@ -89,11 +94,16 @@ public class RiderProfilesControllerTests
 
     #region Get rider profile by ID
 
-    [TestMethod]
-    public void RetrieveById_CollaborationTest()
+    private void SetupMocksRetrieveById()
     {
         _riderProfileServiceMock!.Setup(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
             .Returns(_expectedRiderProfile);
+    }
+
+    [TestMethod]
+    public void RetrieveById_CollaborationTest()
+    {
+        SetupMocksRetrieveById();
 
         _controller!.RetrieveById(_expectedRiderProfile.Id!);
 
@@ -103,8 +113,7 @@ public class RiderProfilesControllerTests
     [TestMethod]
     public void RetrieveById_ContractTest()
     {
-        _riderProfileServiceMock!.Setup(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
-            .Returns(_expectedRiderProfile);
+        SetupMocksRetrieveById();
 
         var actionResult = _controller!.RetrieveById(_expectedRiderProfile.Id!);
 
@@ -117,7 +126,7 @@ public class RiderProfilesControllerTests
 
     #region Create a new rider profile
 
-    private void ConfigureMocksCreate()
+    private void SetupMocksCreate()
     {
         _riderProfileServiceMock!.Setup(x => x.Create(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))))
             .Returns(_expectedRiderProfile);
@@ -126,7 +135,7 @@ public class RiderProfilesControllerTests
     [TestMethod]
     public void CreateNewRiderProfile_ContractTest()
     {
-        ConfigureMocksCreate();
+        SetupMocksCreate();
 
         var actionResult = _controller!.Create(_expectedRiderProfile);
 
@@ -138,7 +147,7 @@ public class RiderProfilesControllerTests
     [TestMethod]
     public void CreateNewRiderProfile_CollaborationTest()
     {
-        ConfigureMocksCreate();
+        SetupMocksCreate();
 
         _controller!.Create(_expectedRiderProfile);
 
@@ -149,11 +158,16 @@ public class RiderProfilesControllerTests
 
     #region Update an existing rider profile
 
-    [TestMethod]
-    public void Update_CollaborationTest()
+    private void SetupMocksUpdate()
     {
         _riderProfileServiceMock!.Setup(x => x.Update(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))))
             .Returns(_expectedRiderProfile);
+    }
+
+    [TestMethod]
+    public void Update_CollaborationTest()
+    {
+        SetupMocksUpdate();
 
         _controller!.Update(_expectedRiderProfile.Id!, _expectedRiderProfile);
 
@@ -163,8 +177,7 @@ public class RiderProfilesControllerTests
     [TestMethod]
     public void Update_ContractTest()
     {
-        _riderProfileServiceMock!.Setup(x => x.Update(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))))
-            .Returns(_expectedRiderProfile);
+        SetupMocksUpdate();
 
         var actionResult = _controller!.Update(_expectedRiderProfile.Id!, _expectedRiderProfile);
 
@@ -176,12 +189,17 @@ public class RiderProfilesControllerTests
 
     #region Delete an existing rider profile
 
-    [TestMethod]
-    public void Delete_CollaborationTest()
+    private void SetupMocksDelete()
     {
         _riderProfileServiceMock!.Setup(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
             .Returns(_expectedRiderProfile);
         _riderProfileServiceMock!.Setup(x => x.Delete(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))));
+    }
+
+    [TestMethod]
+    public void Delete_CollaborationTest()
+    {
+        SetupMocksDelete();
 
         _controller!.Delete(_expectedRiderProfile.Id!);
 
@@ -192,12 +210,10 @@ public class RiderProfilesControllerTests
     [TestMethod]
     public void Delete_ContractTest()
     {
-        _riderProfileServiceMock!.Setup(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
-            .Returns(_expectedRiderProfile);
-        _riderProfileServiceMock!.Setup(x => x.Delete(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))));
+        SetupMocksDelete();
 
         var actionResult = _controller!.Delete(_expectedRiderProfile.Id!);
-    
+
         var noContentResult = actionResult.Result as NoContentResult;
         Assert.AreEqual(StatusCodes.Status204NoContent, noContentResult!.StatusCode);
     }
