@@ -90,17 +90,19 @@ public class RaceControllerTests
 
     #region Get race by primary key identifier tests
 
-    private void ConfigureMockForGetRaceById()
+    private void SetupMocksRetrieveById()
     {
-        _raceServiceMock!.Setup(x => x.RetrieveById(_expectedRace.Id)).Returns(_expectedRace);
+        _raceServiceMock!
+            .Setup(x => x.RetrieveById(_expectedRace.Id))
+            .Returns(_expectedRace);
     }
 
     [TestMethod]
-    public void GetRaceById_Success_ContractTest()
+    public void RetrieveById_Success_ContractTest()
     {
-        ConfigureMockForGetRaceById();
+        SetupMocksRetrieveById();
 
-        var actionResult = _controller!.GetRaceById(_expectedRace.Id);
+        var actionResult = _controller!.RetrieveById(_expectedRace.Id);
 
         var okOjbectResult = actionResult.Result as OkObjectResult;
         Assert.AreEqual(StatusCodes.Status200OK, okOjbectResult!.StatusCode);
@@ -108,11 +110,11 @@ public class RaceControllerTests
     }
 
     [TestMethod]
-    public void GetRaceById_Success_CollaborationTest()
+    public void RetrieveById_Success_CollaborationTest()
     {
-        ConfigureMockForGetRaceById();
+        SetupMocksRetrieveById();
 
-        _controller!.GetRaceById(_expectedRace.Id);
+        _controller!.RetrieveById(_expectedRace.Id);
 
         _raceServiceMock!.Verify(x => x.RetrieveById(_expectedRace.Id));
     }

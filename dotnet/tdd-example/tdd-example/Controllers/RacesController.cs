@@ -30,7 +30,7 @@ public class RacesController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<Race> GetRaceById(string? id)
+    public ActionResult<Race> RetrieveById(string? id)
     {
         var race = _raceService.RetrieveById(id);
         // if (race == null)
