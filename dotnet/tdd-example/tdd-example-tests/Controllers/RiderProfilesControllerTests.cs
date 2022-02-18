@@ -26,7 +26,7 @@ public class RiderProfilesControllerTests
         Surname = "Doe"
     };
 
-    private readonly IEnumerable<RiderProfile> _expectedRiderProfiles = new []
+    private readonly IEnumerable<RiderProfile> _expectedRiderProfiles = new[]
     {
         new RiderProfile()
         {
@@ -34,21 +34,21 @@ public class RiderProfilesControllerTests
             BirthDate = new DateTime(1974, 1, 24),
             GivenName = "John",
             Surname = "Doe"
-        },   
+        },
         new RiderProfile()
         {
             Id = "1577bed8-3228-4924-afd4-952395ec475b",
             BirthDate = new DateTime(1972, 7, 5),
             GivenName = "Jane",
             Surname = "Hackney"
-        },   
+        },
         new RiderProfile()
         {
             Id = "1577bed8-3228-4924-afd4-952395ec475c",
             BirthDate = new DateTime(1973, 6, 30),
             GivenName = "Tom",
             Surname = "Carney"
-        },   
+        },
     };
 
     [TestInitialize]
@@ -86,27 +86,27 @@ public class RiderProfilesControllerTests
     }
 
     #endregion
-    
+
     #region Get rider profile by ID
 
     [TestMethod]
-    public void GetById_CollaborationTest()
+    public void RetrieveById_CollaborationTest()
     {
-        _riderProfileServiceMock!.Setup(x => x.GetById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
+        _riderProfileServiceMock!.Setup(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
             .Returns(_expectedRiderProfile);
 
-        _controller!.GetById(_expectedRiderProfile.Id!);
+        _controller!.RetrieveById(_expectedRiderProfile.Id!);
 
-        _riderProfileServiceMock!.Verify(x => x.GetById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))));
+        _riderProfileServiceMock!.Verify(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))));
     }
 
     [TestMethod]
-    public void GetById_ContractTest()
+    public void RetrieveById_ContractTest()
     {
-        _riderProfileServiceMock!.Setup(x => x.GetById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
+        _riderProfileServiceMock!.Setup(x => x.RetrieveById(It.Is<string>(y => y.Equals(_expectedRiderProfile.Id))))
             .Returns(_expectedRiderProfile);
 
-        var actionResult = _controller!.GetById(_expectedRiderProfile.Id!);
+        var actionResult = _controller!.RetrieveById(_expectedRiderProfile.Id!);
 
         var okObjectResult = actionResult.Result as OkObjectResult;
         Assert.AreEqual(StatusCodes.Status200OK, okObjectResult!.StatusCode);
@@ -143,6 +143,33 @@ public class RiderProfilesControllerTests
         _controller!.Create(_expectedRiderProfile);
 
         _riderProfileServiceMock!.Verify(x => x.Create(It.Is<RiderProfile>(y => y == _expectedRiderProfile)));
+    }
+
+    #endregion
+
+    #region Update an existing rider profile
+
+    [TestMethod]
+    public void Update_CollaborationTest()
+    {
+        _riderProfileServiceMock!.Setup(x => x.Update(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))))
+            .Returns(_expectedRiderProfile);
+
+        _controller!.Update(_expectedRiderProfile.Id!, _expectedRiderProfile);
+
+        _riderProfileServiceMock!.Verify(x => x.Update(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))));
+    }
+
+    [TestMethod]
+    public void Update_ContractTest()
+    {
+        _riderProfileServiceMock!.Setup(x => x.Update(It.Is<RiderProfile>(y => y.Equals(_expectedRiderProfile))))
+            .Returns(_expectedRiderProfile);
+
+        var actionResult = _controller!.Update(_expectedRiderProfile.Id!, _expectedRiderProfile);
+
+        var noContentResult = actionResult.Result as NoContentResult;
+        Assert.AreEqual(StatusCodes.Status204NoContent, noContentResult!.StatusCode);
     }
 
     #endregion

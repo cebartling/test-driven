@@ -31,9 +31,9 @@ public class RiderProfilesController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<Race> GetById(string id)
+    public ActionResult<Race> RetrieveById(string id)
     {
-        var riderProfile = _riderProfileService.GetById(id);
+        var riderProfile = _riderProfileService.RetrieveById(id);
         return Ok(riderProfile);
     }
 
@@ -44,5 +44,15 @@ public class RiderProfilesController : ControllerBase
     {
         var riderProfiles =  _riderProfileService.RetrieveAll();
         return Ok(riderProfiles);
+    }
+
+    [HttpPut("{id}")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<RiderProfile> Update(string id, RiderProfile riderProfile)
+    {
+        _riderProfileService.Update(riderProfile);
+        return NoContent();
     }
 }
