@@ -19,16 +19,19 @@ public class RacesController : ControllerBase
     }
 
     [HttpGet]
+    [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IEnumerable<Race> GetAllRaces()
+    public ActionResult<IEnumerable<Race>> RetrieveAll()
     {
-        return _raceService.RetrieveAll();
+        var races = _raceService.RetrieveAll();
+        return Ok(races);
     }
 
     [HttpGet("{id}")]
+    [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<Race> GetRaceById(string? id)
+    public ActionResult<Race> RetrieveById(string? id)
     {
         var race = _raceService.RetrieveById(id);
         // if (race == null)
