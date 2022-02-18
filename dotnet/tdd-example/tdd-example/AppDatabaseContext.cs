@@ -11,6 +11,7 @@ public class AppDatabaseContext : DbContext
     private string _password = "P4ssword";
 
     public virtual DbSet<Race> Races { get; set; } = null!;
+    public virtual DbSet<RiderProfile> RiderProfiles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
