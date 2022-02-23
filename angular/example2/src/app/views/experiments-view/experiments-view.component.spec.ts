@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RiderDetailViewComponent } from './rider-detail-view.component';
+import { ExperimentsViewComponent } from './experiments-view.component';
 
-describe('RiderDetailViewComponent', () => {
-  let component: RiderDetailViewComponent;
-  let fixture: ComponentFixture<RiderDetailViewComponent>;
+describe('ExperimentsViewComponent', () => {
+  let component: ExperimentsViewComponent;
+  let fixture: ComponentFixture<ExperimentsViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RiderDetailViewComponent ]
+      declarations: [ ExperimentsViewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RiderDetailViewComponent);
+    fixture = TestBed.createComponent(ExperimentsViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
