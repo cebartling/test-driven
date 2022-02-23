@@ -18,10 +18,12 @@ describe('AppComponent', () => {
     });
 
     it('should call document ready', () => {
-        spyOn($.fn, 'ready').withArgs(jasmine.any(Function)).and.callThrough();
+        const spy = spyOn($.fn, 'ready')
+            .withArgs(jasmine.any(Function))
+            .and.callThrough();
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
-        expect($.fn.ready).toHaveBeenCalledWith(jasmine.any(Function));
+        expect(spy).toHaveBeenCalledWith(jasmine.any(Function));
         // const compiled = fixture.nativeElement as HTMLElement;
         // expect(compiled.querySelector('h1')?.textContent).toContain(
         //     'Jquery is working!!!',
