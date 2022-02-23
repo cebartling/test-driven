@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-welcome-view',
-  templateUrl: './welcome-view.component.html',
-  styleUrls: ['./welcome-view.component.css']
+    selector: 'app-welcome-view',
+    templateUrl: './welcome-view.component.html',
+    styleUrls: ['./welcome-view.component.css'],
 })
 export class WelcomeViewComponent implements OnInit {
+    constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {
+        // eslint-disable-next-line no-undef
+        console.log('Welcome');
+    }
 }
