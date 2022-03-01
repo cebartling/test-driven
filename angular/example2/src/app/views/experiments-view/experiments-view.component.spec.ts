@@ -29,13 +29,13 @@ describe('ExperimentsViewComponent', () => {
         let selector: JQuery<HTMLElement>;
 
         beforeEach(() => {
-            selector = {
-                css: (propertyName, propertyValue) => {},
-            } as JQuery<HTMLElement>;
+            selector = jasmine.createSpyObj<JQuery<HTMLElement>>(
+                'ContentUpdateSection',
+                ['css'],
+            );
             spyOn($.fn, 'find')
                 .withArgs('div#content-update-section')
                 .and.returnValue(selector);
-            spyOn(selector, 'css').and.callThrough();
             component.onClickSaveButton();
         });
 
@@ -47,6 +47,11 @@ describe('ExperimentsViewComponent', () => {
 
         it('should set the background color to red for the content update section', () => {
             expect(selector.css).toHaveBeenCalled();
+            const cssSpy = selector.css as jasmine.Spy;
+            const argsFor = cssSpy.calls.argsFor(0);
+            expect(argsFor.length).toEqual(2);
+            expect(argsFor[0]).toEqual('background-color');
+            expect(argsFor[1]).toEqual('red');
         });
     });
 });
