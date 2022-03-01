@@ -22,6 +22,7 @@ Various test-driven development journeys.
 
 - [Jasmine testing patterns, tips and tricks](./documentation/jasmine/)
 - [Angular TDD demo](./angular/example1/)
+- [jQuery TDD demo](./angular/example2/)
 - [Svelte TDD demo](./svelte/example1/)
 - [Using Storybook with Angular demo](./storybook/angular/storybook-example/)
 - [Using Storybook with Svelte demo](./storybook/svelte/storybook-example/)
