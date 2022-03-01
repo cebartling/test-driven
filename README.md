@@ -39,6 +39,10 @@ Various test-driven development journeys.
 - [J.B. Rainsberger articles, arranged by topic](https://blog.thecodewhisperer.com/series)
 - [Nat Pryce's blog](http://www.natpryce.com/)
 - [To Be Agile blog by David Bernstein](https://tobeagile.com/blog/)
+- [Kent Beck's Software Design: Tidy First?](https://tidyfirst.substack.com/)
+- [Kent Beck on Medium](https://medium.com/@kentbeck_7670)
+- [PragPub on Medium](https://medium.com/@pragpub)
+
 
 
 ### Test pyramid
