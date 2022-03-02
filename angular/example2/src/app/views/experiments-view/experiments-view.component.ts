@@ -8,10 +8,8 @@ import { Component } from '@angular/core';
 })
 export class ExperimentsViewComponent {
     onClickSaveButton() {
-        $('div#content-update-section').css('background-color', 'red');
-        // eslint-disable-next-line no-undef
-        // setTimeout(function () {
-        //     $('div#content-update-section').css('background-color', 'white');
-        // }, 1200);
+        $('div#messages')
+            .find('div#content-update-section')
+            .css('background-color', 'red');
     }
 }
