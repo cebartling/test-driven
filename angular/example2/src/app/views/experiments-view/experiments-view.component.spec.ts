@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
-import JQuery from 'jquery';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ExperimentsViewComponent } from './experiments-view.component';
+import JQuery from 'jquery';
 
 describe('ExperimentsViewComponent', () => {
     let component: ExperimentsViewComponent;
