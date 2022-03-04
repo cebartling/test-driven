@@ -1,0 +1,6 @@
+package.json
+package-lock.json
+dist
+karma.conf.js
+commitlint.config.js
+src/test.ts
