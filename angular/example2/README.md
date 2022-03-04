@@ -1,4 +1,12 @@
-# Example2
+# Angular example application
+
+## Introduction
+
+This project uses the following:
+
+- [Prettier](https://prettier.io/) code formatting
+- [ESLint](https://eslint.org/) code linting
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
 
