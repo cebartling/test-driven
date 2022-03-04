@@ -1,6 +1,6 @@
+import { Circle, Layer } from 'leaflet';
 import { createOverlays } from '../create-overlays';
 import { featureCollection } from '../../../__tests__/data/feature-collection-test-data';
-import { Circle, Layer } from 'leaflet';
 
 describe('createOverlays function', () => {
   let overlays: { [name: string]: Layer };
