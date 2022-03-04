@@ -1,5 +1,5 @@
 import { FeatureCollection } from '../../models/earthquake/feature-collection';
-import { circle, CircleMarkerOptions, Layer } from 'leaflet';
+import { CircleMarkerOptions, Layer, circle } from 'leaflet';
 import { Feature } from '../../models/earthquake/feature';
 
 export function createOverlays(featureCollection: FeatureCollection | null | undefined): { [name: string]: Layer } {

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { latLng, MapOptions, tileLayer } from 'leaflet';
+import { MapOptions, latLng, tileLayer } from 'leaflet';
 import { FeatureCollection } from '../../models/earthquake/feature-collection';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import { createOverlays } from './create-overlays';
