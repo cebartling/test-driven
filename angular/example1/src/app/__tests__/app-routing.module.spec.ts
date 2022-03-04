@@ -1,7 +1,7 @@
 import { PATH_MAP, PATH_PROFILE, PATH_WELCOME, PATH_WILDCARD, routes } from '../app-routing.module';
-import { WelcomeViewComponent } from '../views/welcome-view/welcome-view.component';
 import { MapViewComponent } from '../views/map-view/map-view.component';
 import { ProfileViewComponent } from '../views/profile-view/profile-view.component';
+import { WelcomeViewComponent } from '../views/welcome-view/welcome-view.component';
 
 describe('App Routing Module', () => {
   describe('routes', () => {
