@@ -5,7 +5,6 @@ import com.pintailconsultingllc.testcontainers.demo.TestSupport;
 import com.pintailconsultingllc.testcontainers.demo.dtos.CompanyDTO;
 import com.pintailconsultingllc.testcontainers.demo.entities.Company;
 import com.pintailconsultingllc.testcontainers.demo.repositories.CompanyRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
