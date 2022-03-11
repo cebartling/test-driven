@@ -21,6 +21,18 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * This integration test demonstrates how to exercise a JPA repository. The test is annotated with
+ * {@link org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest @DataJpaTest} annotation.
+ * That will start a slice of Spring Boot application context, enough to bootstrap JPA and the repository.
+ * <p>
+ * The {@link PostgreSQLContainerInitializer} component manages the PostgreSQL
+ * database via Testcontainers and Docker. This initializer is then configured for the test suite class via the
+ * {@link org.springframework.test.context.ContextConfiguration @ContextConfiguration} annotation. Each test is
+ * responsible for seeding data into the database for successful execution of the test. Database repository
+ * components are used for this data seeding task. Spring will autowire repository components and the JPA
+ * entity manager into your tests.
+ */
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ContextConfiguration(initializers = {PostgreSQLContainerInitializer.class})
