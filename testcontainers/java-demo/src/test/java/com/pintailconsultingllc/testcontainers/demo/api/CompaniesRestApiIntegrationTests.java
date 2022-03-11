@@ -5,6 +5,7 @@ import com.pintailconsultingllc.testcontainers.demo.TestSupport;
 import com.pintailconsultingllc.testcontainers.demo.dtos.CompanyDTO;
 import com.pintailconsultingllc.testcontainers.demo.entities.Company;
 import com.pintailconsultingllc.testcontainers.demo.repositories.CompanyRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -59,6 +60,7 @@ public class CompaniesRestApiIntegrationTests {
 
         @BeforeEach
         public void doBeforeEachTest() throws URISyntaxException {
+            companyRepository.deleteAll();
             companyList = new ArrayList<>();
             IntStream.range(0, 5).mapToObj(i -> new Company()).forEach(transientCompany -> {
                 final UUID randomUUID = UUID.randomUUID();
@@ -72,6 +74,7 @@ public class CompaniesRestApiIntegrationTests {
             };
             responseEntity = testRestTemplate.exchange(url, HttpMethod.GET, null, parameterizedTypeReference);
         }
+
 
         @Test
         @DisplayName("should return a response entity with a status of 200 (OK)")
