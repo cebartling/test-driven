@@ -11,6 +11,7 @@ Various test-driven development journeys.
 - [JUnit testing patterns, tip and tricks](./documentation/junit/)
 - [Testing Spring applications](./documentation/spring-framework/)
 - [Spring WebFlux/Project Reactor TDD demo](./spring-boot/webflux-tdd-demo/)
+- [Integration testing with Testcontainers](./testcontainers/java-demo/)
 
 
 ## .NET Core
