@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * port configuration for the web environment. That will start the Spring Boot app and bootstrap the application
  * context.
  * <p>
- * The {@link PostgreSQLContainerInitializer PostgreSQLContainerInitializer} component manages the PostgreSQL
+ * The {@link PostgreSQLContainerInitializer} component manages the PostgreSQL
  * database via Testcontainers and Docker. This initializer is then configured for the test suite class via the
  * {@link org.springframework.test.context.ContextConfiguration @ContextConfiguration} annotation. Each test is
  * responsible for seeding data into the database for successful execution of the test. Database repository
