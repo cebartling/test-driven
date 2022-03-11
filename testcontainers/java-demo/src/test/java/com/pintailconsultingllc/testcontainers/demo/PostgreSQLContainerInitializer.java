@@ -7,6 +7,13 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+/**
+ * A Spring Framework application context initializer used for managing a PostgreSQL
+ * database instance via Testcontainers.
+ *
+ * @see org.springframework.context.ApplicationContextInitializer
+ * @see org.testcontainers.containers.PostgreSQLContainer
+ */
 public class PostgreSQLContainerInitializer
         implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
@@ -25,9 +32,9 @@ public class PostgreSQLContainerInitializer
         log.info(String.format("Docker container ID: %s", sqlContainer.getContainerId()));
         log.info(String.format("Docker container name: %s", sqlContainer.getContainerName()));
         TestPropertyValues.of(
-                "spring.datasource.url=" + sqlContainer.getJdbcUrl(),
-                "spring.datasource.username=" + sqlContainer.getUsername(),
-                "spring.datasource.password=" + sqlContainer.getPassword()
+                String.format("spring.datasource.url=%s", sqlContainer.getJdbcUrl()),
+                String.format("spring.datasource.username=%s", sqlContainer.getUsername()),
+                String.format("spring.datasource.password=%s", sqlContainer.getPassword())
         ).applyTo(configurableApplicationContext.getEnvironment());
     }
 }
