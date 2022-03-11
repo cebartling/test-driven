@@ -33,6 +33,19 @@ import java.util.stream.IntStream;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * This integration test demonstrates how to exercise a REST API endpoint using
+ * {@link org.springframework.boot.test.web.client.TestRestTemplate TestRestTemplate}. The test is annotated with
+ * {@link org.springframework.boot.test.context.SpringBootTest @SpringBootTest} annotation, using the random
+ * port configuration for the web environment. That will start the Spring Boot app and bootstrap the application
+ * context.
+ * <p>
+ * The {@link PostgreSQLContainerInitializer PostgreSQLContainerInitializer} component manages the PostgreSQL
+ * database via Testcontainers and Docker. This initializer is then configured for the test suite class via the
+ * {@link org.springframework.test.context.ContextConfiguration @ContextConfiguration} annotation. Each test is
+ * responsible for seeding data into the database for successful execution of the test. Database repository
+ * components are used for this data seeding task. Spring will autowire repository components into your tests.
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ContextConfiguration(initializers = {PostgreSQLContainerInitializer.class})
@@ -71,6 +84,8 @@ public class CompaniesRestApiIntegrationTests {
             final URI url = new URI(String.format("http://localhost:%d/java-testcontainers-demo/api/companies", randomServerPort));
             ParameterizedTypeReference<List<CompanyDTO>> parameterizedTypeReference = new ParameterizedTypeReference<>() {
             };
+
+            // Execute the system under test (SUT) via TestRestTemplate component
             responseEntity = testRestTemplate.exchange(url, HttpMethod.GET, null, parameterizedTypeReference);
         }
 
