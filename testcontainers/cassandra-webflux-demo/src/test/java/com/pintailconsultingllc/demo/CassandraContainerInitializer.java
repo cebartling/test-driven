@@ -32,7 +32,7 @@ public class CassandraContainerInitializer implements ApplicationContextInitiali
             .withExposedPorts(EXPOSED_PORT);
 
     static {
-        log.info("Starting Cassandra container...");
+        log.info("Starting the Cassandra container...");
         cassandraContainer.start();
     }
 
