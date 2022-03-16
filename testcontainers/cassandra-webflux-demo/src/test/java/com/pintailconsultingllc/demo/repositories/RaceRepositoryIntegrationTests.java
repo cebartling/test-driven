@@ -2,6 +2,7 @@ package com.pintailconsultingllc.demo.repositories;
 
 import com.datastax.driver.core.utils.UUIDs;
 import com.pintailconsultingllc.demo.CassandraContainerInitializer;
+import com.pintailconsultingllc.demo.DockerTestSupport;
 import com.pintailconsultingllc.demo.TestSupport;
 import com.pintailconsultingllc.demo.entities.Race;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ContextConfiguration(initializers = {CassandraContainerInitializer.class})
 @DisplayName("RaceRepository integration tests")
 @Tag(TestSupport.INTEGRATION_TEST)
-class RaceRepositoryIntegrationTests {
+class RaceRepositoryIntegrationTests extends DockerTestSupport {
 
     @Autowired
     RaceRepository raceRepository;
