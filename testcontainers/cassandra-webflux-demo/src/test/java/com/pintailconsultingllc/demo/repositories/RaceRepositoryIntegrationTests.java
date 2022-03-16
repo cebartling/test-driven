@@ -29,32 +29,63 @@ class RaceRepositoryIntegrationTests {
     @Autowired
     RaceRepository raceRepository;
 
+    final UUID expectedUuid = UUIDs.timeBased();
+    final String expectedName = "Fat Bike Birkie";
+    final String expectedDescription = "Some description";
+    Race newRace;
+    Race createdRace;
+
     @Nested
-    @DisplayName("save method")
+    @DisplayName("creating a new race")
     class SaveTests {
-        final UUID expectedUuid = UUIDs.timeBased();
-        final String expectedName = "Fat Bike Birkie";
-        final String expectedDescription = "Some description";
-        Race newRace;
-        Race savedRace;
 
         @BeforeEach
         public void doBeforeEachTest() {
-            newRace = new Race(expectedUuid, expectedName, expectedDescription);
+            newRace = Race.builder().id(expectedUuid).name(expectedName).description(expectedDescription).build();
 
             final Mono<Race> saveMono = raceRepository.save(newRace);
-            StepVerifier.create(saveMono).consumeNextWith(race -> savedRace = race).verifyComplete();
+            StepVerifier.create(saveMono).consumeNextWith(race -> createdRace = race).verifyComplete();
         }
 
-        @DisplayName("should save a new race entity to the database")
+        @DisplayName("should save a new race to the database")
         @Test
-        void verifyCassandra() {
+        void verifyCreate() {
             assertAll(
-                    () -> assertEquals(newRace.getId(), savedRace.getId()),
-                    () -> assertEquals(newRace.getName(), savedRace.getName()),
-                    () -> assertEquals(newRace.getDescription(), savedRace.getDescription()),
-                    () -> assertEquals(newRace.getVersion(), savedRace.getVersion())
+                    () -> assertEquals(newRace.getId(), createdRace.getId()),
+                    () -> assertEquals(newRace.getName(), createdRace.getName()),
+                    () -> assertEquals(newRace.getDescription(), createdRace.getDescription()),
+                    () -> assertEquals(newRace.getVersion(), createdRace.getVersion())
             );
         }
     }
+
+    @Nested
+    @DisplayName("updating an existing race")
+    class UpdateTests {
+        Race updatedRace;
+
+        @BeforeEach
+        public void doBeforeEachTest() {
+            newRace = Race.builder().id(expectedUuid).name(expectedName).description(expectedDescription).build();
+
+            final Mono<Race> saveMono = raceRepository.save(newRace);
+            StepVerifier.create(saveMono).consumeNextWith(race -> createdRace = race).verifyComplete();
+
+            createdRace.setDescription("Update to the description");
+            final Mono<Race> save2Mono = raceRepository.save(createdRace);
+            StepVerifier.create(save2Mono).consumeNextWith(race -> updatedRace = race).verifyComplete();
+        }
+
+        @DisplayName("should save changes to an existing race to the database")
+        @Test
+        void verifyUpdate() {
+            assertAll(
+                    () -> assertEquals(createdRace.getId(), updatedRace.getId()),
+                    () -> assertEquals(createdRace.getName(), updatedRace.getName()),
+                    () -> assertEquals(createdRace.getDescription(), updatedRace.getDescription()),
+                    () -> assertEquals(createdRace.getVersion(), updatedRace.getVersion())
+            );
+        }
+    }
+
 }

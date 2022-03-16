@@ -1,7 +1,7 @@
 package com.pintailconsultingllc.demo.entities;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -9,7 +9,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 import java.util.UUID;
 
 @Data
-@RequiredArgsConstructor
+@Builder
 @Table("races")
 public class Race {
     @PrimaryKey
@@ -18,7 +18,7 @@ public class Race {
     @Version
     private Long version;
 
-    private final String name;
+    private String name;
 
-    private final String description;
+    private String description;
 }
