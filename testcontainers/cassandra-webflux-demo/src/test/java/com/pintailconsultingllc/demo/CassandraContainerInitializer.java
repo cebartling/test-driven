@@ -28,8 +28,9 @@ public class CassandraContainerInitializer implements ApplicationContextInitiali
                     KEYSPACE_NAME);
 
 
-    private static CassandraContainer cassandraContainer = (CassandraContainer) new CassandraContainer(DockerImageName.parse("cassandra:3.11.2"))
-            .withExposedPorts(EXPOSED_PORT);
+    private static CassandraContainer cassandraContainer =
+            (CassandraContainer) new CassandraContainer(DockerImageName.parse("cassandra:3.11.2"))
+                    .withExposedPorts(EXPOSED_PORT);
 
     static {
         log.info("Starting the Cassandra container...");
