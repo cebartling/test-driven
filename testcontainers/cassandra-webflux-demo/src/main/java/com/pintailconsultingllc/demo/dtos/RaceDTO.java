@@ -1,5 +1,6 @@
 package com.pintailconsultingllc.demo.dtos;
 
+import com.pintailconsultingllc.demo.entities.Race;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,4 +13,13 @@ public class RaceDTO {
     private Long version;
     private String name;
     private String description;
+
+    public Race toEntity() {
+        return Race.builder()
+                .id(this.id)
+                .name(this.name)
+                .description(this.description)
+                .version(this.version)
+                .build();
+    }
 }
