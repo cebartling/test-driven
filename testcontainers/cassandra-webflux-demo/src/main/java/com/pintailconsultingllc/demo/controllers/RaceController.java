@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/races")
+@RequestMapping("/api/races")
 public class RaceController {
 
     private final RaceService raceService;
@@ -38,7 +38,7 @@ public class RaceController {
 
     private URI createResourceUri(Race race) {
         try {
-            return new URI(String.format("/races/%s", race.getId()));
+            return new URI(String.format("/api/races/%s", race.getId()));
         } catch (URISyntaxException e) {
             throw new ResourceLocationURIException(e);
         }
