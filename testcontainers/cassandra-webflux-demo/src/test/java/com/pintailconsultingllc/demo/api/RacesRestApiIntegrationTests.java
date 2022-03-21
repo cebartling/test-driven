@@ -4,6 +4,7 @@ import com.datastax.driver.core.utils.UUIDs;
 import com.pintailconsultingllc.demo.CassandraContainerInitializer;
 import com.pintailconsultingllc.demo.TestSupport;
 import com.pintailconsultingllc.demo.dtos.RaceDTO;
+import com.pintailconsultingllc.demo.entities.Race;
 import com.pintailconsultingllc.demo.repositories.RaceRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +21,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,7 +30,6 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This integration test demonstrates how to exercise a REST API endpoint using
@@ -103,5 +105,19 @@ public class RacesRestApiIntegrationTests {
         void verifyNoBodyTest() {
             assertFalse(responseEntity.hasBody());
         }
+
+        @Test
+        @DisplayName("should create a new race entity in the Cassandra database")
+        void verifyDatabaseTest() {
+            final Mono<Race> raceMono = raceRepository.findById(expectedUuid);
+            StepVerifier.create(raceMono)
+                    .consumeNextWith(x -> {
+                        assertEquals(expectedUuid, x.getId());
+                        assertEquals(expectedName, x.getName());
+                        assertEquals(expectedDescription, x.getDescription());
+                    })
+                    .verifyComplete();
+        }
+
     }
 }
