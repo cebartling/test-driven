@@ -26,6 +26,8 @@ import java.net.URISyntaxException;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This integration test demonstrates how to exercise a REST API endpoint using
@@ -94,6 +96,12 @@ public class RacesRestApiIntegrationTests {
             final URI location = responseEntity.getHeaders().getLocation();
             String expectedLocation = String.format("/api/races/%s", expectedUuid);
             assertEquals(expectedLocation, location.toString());
+        }
+
+        @Test
+        @DisplayName("should not return a resource representation in the response entity-body")
+        void verifyNoBodyTest() {
+            assertFalse(responseEntity.hasBody());
         }
     }
 }

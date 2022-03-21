@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -22,7 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
 
 import java.util.UUID;
 
@@ -65,7 +62,7 @@ class RaceControllerTests {
             when(raceServiceMock.save(any(Race.class))).thenReturn(Mono.just(expectedRace));
 
             responseSpec = webTestClient.post()
-                    .uri("/races")
+                    .uri("/api/races")
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(Mono.just(expectedRaceDTO), RaceDTO.class)
@@ -87,7 +84,7 @@ class RaceControllerTests {
         @Test
         @DisplayName("should return the URI for the newly created resource in the Location header")
         void verifyLocationHeader() {
-            String expectedLocation = String.format("/races/%s", expectedRace.getId());
+            String expectedLocation = String.format("/api/races/%s", expectedRace.getId());
             responseSpec.expectHeader().location(expectedLocation);
         }
 
@@ -97,5 +94,4 @@ class RaceControllerTests {
             responseSpec.expectBody().isEmpty();
         }
     }
-
 }
