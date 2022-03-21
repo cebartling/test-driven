@@ -30,7 +30,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = RaceController.class,
         excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
-@DisplayName("RaceService unit tests")
+@DisplayName("RaceController unit tests")
 @Tag(TestSupport.UNIT_TEST)
 class RaceControllerTests {
 
@@ -44,7 +44,6 @@ class RaceControllerTests {
     WebTestClient webTestClient;
 
     WebTestClient.ResponseSpec responseSpec;
-
 
     @Nested
     @DisplayName("create method")
@@ -86,6 +85,56 @@ class RaceControllerTests {
         void verifyLocationHeader() {
             String expectedLocation = String.format("/api/races/%s", expectedRace.getId());
             responseSpec.expectHeader().location(expectedLocation);
+        }
+
+        @Test
+        @DisplayName("should not return a resource representation in the response entity-body")
+        void verifyNoBodyTest() {
+            responseSpec.expectBody().isEmpty();
+        }
+    }
+
+    @Nested
+    @DisplayName("update method")
+    class UpdateExistingRaceTests {
+        RaceDTO expectedRaceDTO;
+        Race expectedRace;
+        UUID expectedUuid;
+
+        @BeforeEach
+        public void doBeforeEachTest() {
+            expectedUuid = UUIDs.timeBased();
+            final String expectedName = "Fat Bike Birkie";
+            final String expectedDescription = "Some description";
+            expectedRaceDTO = RaceDTO.builder().name(expectedName).description(expectedDescription).build();
+            expectedRace = Race.builder().id(expectedUuid).name(expectedName).description(expectedDescription).build();
+            when(raceRepositoryMock.findById(expectedUuid)).thenReturn(Mono.just(expectedRace));
+            when(raceServiceMock.save(any(Race.class))).thenReturn(Mono.just(expectedRace));
+
+            responseSpec = webTestClient.put()
+                    .uri(String.format("/api/races/%s", expectedUuid))
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(Mono.just(expectedRaceDTO), RaceDTO.class)
+                    .exchange();
+        }
+
+        @Test
+        @DisplayName("should return a status of 204 (No Content)")
+        void verifyResponseStatusCodeTest() {
+            responseSpec.expectStatus().isNoContent();
+        }
+
+        @Test
+        @DisplayName("should call RaceRepository.findById method")
+        void verifyCollaborationWithRepository() {
+            verify(raceRepositoryMock).findById(expectedUuid);
+        }
+
+        @Test
+        @DisplayName("should call RaceService.save method")
+        void verifyCollaborationWithService() {
+            verify(raceServiceMock).save(any(Race.class));
         }
 
         @Test
