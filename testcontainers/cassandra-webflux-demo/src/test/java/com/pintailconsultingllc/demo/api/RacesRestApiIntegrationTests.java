@@ -15,12 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.data.cassandra.core.ReactiveCassandraTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -60,6 +63,9 @@ public class RacesRestApiIntegrationTests {
     @Autowired
     RaceRepository raceRepository;
 
+    @Autowired
+    ReactiveCassandraTemplate reactiveCassandraTemplate;
+
     @Nested
     @DisplayName("POST /api/races")
     class CreateNewRaceTests {
@@ -71,7 +77,8 @@ public class RacesRestApiIntegrationTests {
 
         @BeforeEach
         public void doBeforeEachTest() throws URISyntaxException {
-            raceRepository.deleteAll();
+            var truncateMono = reactiveCassandraTemplate.truncate(Race.class);
+            StepVerifier.create(truncateMono).verifyComplete();
             final URI url = new URI(String.format("http://localhost:%d/api/races", randomServerPort));
             final HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -83,7 +90,7 @@ public class RacesRestApiIntegrationTests {
             HttpEntity<RaceDTO> request = new HttpEntity<>(expectedRaceDTO, headers);
 
             // Execute the system under test (SUT) via TestRestTemplate component
-            responseEntity = testRestTemplate.postForEntity(url, request, Void.class);
+            responseEntity = testRestTemplate.exchange(url, HttpMethod.POST, request, Void.class);
         }
 
         @Test
@@ -110,6 +117,69 @@ public class RacesRestApiIntegrationTests {
         @DisplayName("should create a new race entity in the Cassandra database")
         void verifyDatabaseTest() {
             final Mono<Race> raceMono = raceRepository.findById(expectedUuid);
+            StepVerifier.create(raceMono)
+                    .consumeNextWith(x -> {
+                        assertEquals(expectedUuid, x.getId());
+                        assertEquals(expectedName, x.getName());
+                        assertEquals(expectedDescription, x.getDescription());
+                    })
+                    .verifyComplete();
+        }
+
+    }
+
+    @Nested
+    @DisplayName("PUT /api/races/{id}")
+    class UpdateExistingRaceTests {
+        ResponseEntity<Void> responseEntity;
+        RaceDTO expectedRaceDTO;
+        final UUID expectedUuid = UUIDs.timeBased();
+        final String expectedName = "Fat Bike Birkie";
+        final String expectedDescription = "Some description";
+
+        @BeforeEach
+        public void doBeforeEachTest() throws URISyntaxException {
+            final Race seededRace = Race.builder()
+                    .id(expectedUuid)
+                    .name("Seeley Pass Big Fat")
+                    .description("Initial description")
+                    .build();
+            var truncateAndInsert = reactiveCassandraTemplate
+                    .truncate(Race.class)
+                    .thenMany(Flux.just(seededRace))
+                    .flatMap(reactiveCassandraTemplate::insert);
+            StepVerifier.create(truncateAndInsert).expectNextCount(1).verifyComplete();
+            final URI url = new URI(String.format("http://localhost:%d/api/races/%s", randomServerPort, expectedUuid));
+            final HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            expectedRaceDTO = RaceDTO.builder()
+                    .id(expectedUuid)
+                    .name(expectedName)
+                    .description(expectedDescription)
+                    .build();
+            HttpEntity<RaceDTO> request = new HttpEntity<>(expectedRaceDTO, headers);
+
+            // Execute the system under test (SUT) via TestRestTemplate component
+            responseEntity = testRestTemplate.exchange(url, HttpMethod.PUT, request, Void.class);
+        }
+
+        @Test
+        @DisplayName("should return a response entity with a status of 204 (No content)")
+        void verifyResponseEntityTest() {
+            assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
+        }
+
+        @Test
+        @DisplayName("should not return a resource representation in the response entity-body")
+        void verifyNoBodyTest() {
+            assertFalse(responseEntity.hasBody());
+        }
+
+        @Test
+        @DisplayName("should update the existing race entity in the Cassandra database")
+        void verifyDatabaseTest() {
+            final String cql = String.format("SELECT * FROM races WHERE id = %s", expectedUuid);
+            final Mono<Race> raceMono = reactiveCassandraTemplate.selectOne(cql, Race.class);
             StepVerifier.create(raceMono)
                     .consumeNextWith(x -> {
                         assertEquals(expectedUuid, x.getId());

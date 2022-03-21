@@ -12,11 +12,14 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.cassandra.DataCassandraTest;
+import org.springframework.data.cassandra.core.ReactiveCassandraTemplate;
 import org.springframework.test.context.ContextConfiguration;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,6 +33,10 @@ class RaceRepositoryIntegrationTests extends DockerTestSupport {
     @Autowired
     RaceRepository raceRepository;
 
+    @Autowired
+    ReactiveCassandraTemplate reactiveCassandraTemplate;
+
+
     final UUID expectedUuid = UUIDs.timeBased();
     final String expectedName = "Fat Bike Birkie";
     final String expectedDescription = "Some description";
@@ -38,10 +45,12 @@ class RaceRepositoryIntegrationTests extends DockerTestSupport {
 
     @Nested
     @DisplayName("creating a new race")
-    class SaveTests {
+    class SaveNewRaceTests {
 
         @BeforeEach
         public void doBeforeEachTest() {
+            var truncateMono = reactiveCassandraTemplate.truncate(Race.class);
+            StepVerifier.create(truncateMono).verifyComplete();
             newRace = Race.builder().id(expectedUuid).name(expectedName).description(expectedDescription).build();
 
             final Mono<Race> saveMono = raceRepository.save(newRace);
@@ -67,26 +76,42 @@ class RaceRepositoryIntegrationTests extends DockerTestSupport {
 
         @BeforeEach
         public void doBeforeEachTest() {
-            newRace = Race.builder().id(expectedUuid).name(expectedName).description(expectedDescription).build();
-
-            final Mono<Race> saveMono = raceRepository.save(newRace);
-            StepVerifier.create(saveMono).consumeNextWith(race -> createdRace = race).verifyComplete();
-
-            createdRace.setDescription("Update to the description");
-            final Mono<Race> save2Mono = raceRepository.save(createdRace);
-            StepVerifier.create(save2Mono).consumeNextWith(race -> updatedRace = race).verifyComplete();
+            final Race seededRace = Race.builder()
+                    .id(expectedUuid)
+                    .name("Seeley Pass Big Fat")
+                    .description("Initial description")
+                    .build();
+            var truncateAndInsert = reactiveCassandraTemplate
+                    .truncate(Race.class)
+                    .thenMany(Flux.just(seededRace))
+                    .flatMap(reactiveCassandraTemplate::insert);
+            StepVerifier.create(truncateAndInsert).expectNextCount(1).verifyComplete();
+            createdRace = findById(expectedUuid);
+            createdRace.setName(expectedName);
+            createdRace.setDescription(expectedDescription);
+            final Mono<Race> updatedRaceMono = raceRepository.save(createdRace);
+            StepVerifier.create(updatedRaceMono).expectNextCount(1).verifyComplete();
+            updatedRace = findById(expectedUuid);
         }
 
         @DisplayName("should save changes to an existing race to the database")
         @Test
         void verifyUpdate() {
             assertAll(
-                    () -> assertEquals(createdRace.getId(), updatedRace.getId()),
-                    () -> assertEquals(createdRace.getName(), updatedRace.getName()),
-                    () -> assertEquals(createdRace.getDescription(), updatedRace.getDescription()),
-                    () -> assertEquals(createdRace.getVersion(), updatedRace.getVersion())
+                    () -> assertEquals(expectedUuid, updatedRace.getId()),
+                    () -> assertEquals(expectedName, updatedRace.getName()),
+                    () -> assertEquals(expectedDescription, updatedRace.getDescription())
             );
         }
     }
 
+    private Race findById(UUID uuid) {
+        AtomicReference<Race> raceAtomicReference = new AtomicReference<>();
+        final Mono<Race> existingRaceMono = raceRepository.findById(uuid);
+        StepVerifier
+                .create(existingRaceMono)
+                .consumeNextWith(raceAtomicReference::set)
+                .verifyComplete();
+        return raceAtomicReference.get();
+    }
 }
