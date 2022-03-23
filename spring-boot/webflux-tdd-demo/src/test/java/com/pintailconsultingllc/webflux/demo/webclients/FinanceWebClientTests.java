@@ -16,6 +16,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.codec.DecodingException;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -88,6 +89,7 @@ class FinanceWebClientTests {
                         .stateIncomeTaxesYearToDateInCents(125677)
                         .build();
                 final String jsonBody = objectMapper.writeValueAsString(expected);
+                WireMock.resetAllRequests();
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(200)
                         .withBody(jsonBody)
@@ -121,6 +123,7 @@ class FinanceWebClientTests {
 
             @BeforeEach
             public void doBeforeEachTest() {
+                WireMock.resetAllRequests();
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(200)
                         .withBody("djhfajdhafhdluhfl")
@@ -143,8 +146,7 @@ class FinanceWebClientTests {
             @Test
             @DisplayName("should return an exception for unparse-able employee financial info returned in response")
             void verifyDirectOutputTest() {
-                assertInstanceOf(WebClientException.class, actualError);
-                assertEquals("Unable to parse the API response.", actualError.getMessage());
+                assertInstanceOf(DecodingException.class, actualError);
             }
         }
 
@@ -155,6 +157,7 @@ class FinanceWebClientTests {
 
             @BeforeEach
             public void doBeforeEachTest() {
+                WireMock.resetAllRequests();
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(403)
                         .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
@@ -187,6 +190,7 @@ class FinanceWebClientTests {
 
             @BeforeEach
             public void doBeforeEachTest() {
+                WireMock.resetAllRequests();
                 ResponseDefinitionBuilder responseDefBuilder = aResponse()
                         .withStatus(503)
                         .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
@@ -201,14 +205,16 @@ class FinanceWebClientTests {
             @Test
             @DisplayName("should invoke GET /api/employees/{employeeId}")
             void verifyWireMockInvocationTest() {
-                WireMock.verify(getRequestedFor(urlPattern));
+                WireMock.verify(4, getRequestedFor(urlPattern));
             }
 
             @Test
-            @DisplayName("should return an exception for a service error")
+            @DisplayName("should return an exception signaling the exhaustion of retry attempts")
             void verifyDirectOutputTest() {
-                assertInstanceOf(WebClientException.class, actualError);
-                assertEquals("Service error occurred.", actualError.getMessage());
+                // The reactor.core.Exceptions.RetryExhaustedException is not a public type, so you can't actually
+                // refer to it in our code to do type checking. Crazy!
+                assertEquals("reactor.core.Exceptions.RetryExhaustedException", actualError.getClass().getCanonicalName());
+                assertEquals("Retries exhausted: 3/3", actualError.getMessage());
             }
         }
     }

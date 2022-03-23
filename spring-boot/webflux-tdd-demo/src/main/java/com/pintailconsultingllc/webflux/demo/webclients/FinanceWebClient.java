@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -41,15 +42,13 @@ public class FinanceWebClient {
                 .onStatus(HttpStatus::is4xxClientError,
                         response -> Mono.error(new WebClientException("Invalid request for employee financial information.")))
                 .onStatus(HttpStatus::is5xxServerError,
-                        response -> Mono.error(new WebClientException("Service error occurred.")))
+                        response -> {
+                            final String message = String.format("Web service error: HTTP status code %d", response.statusCode().value());
+                            return Mono.error(new WebServiceException(message));
+                        })
                 .bodyToMono(FinanceInformationDTO.class)
-                .onErrorResume(throwable -> {
-                    if (throwable instanceof WebClientException) {
-                        return Mono.error(throwable);
-                    } else {
-                        return Mono.error(new WebClientException("Unable to parse the API response."));
-                    }
-                });
+                .retryWhen(Retry.max(3).filter(WebServiceException.class::isInstance))
+                .onErrorResume(Mono::error);
     }
 
     private URI createUri(String employeeId) {
