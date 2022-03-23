@@ -81,205 +81,213 @@ class FinanceWebClientTests {
         }
 
         @Nested
-        @DisplayName("successful pathway: Mono emitting DTO returned")
-        class SuccessPathwayTests {
-            FinanceInformationDTO actual;
-            FinanceInformationDTO expected;
+        @DisplayName("successful pathways")
+        class SuccessPathwaysTests {
+            @Nested
+            @DisplayName("Mono emitting DTO returned, no retries")
+            class SuccessPathwayTests {
+                FinanceInformationDTO actual;
+                FinanceInformationDTO expected;
 
-            @BeforeEach
-            public void doBeforeEachTest() throws JsonProcessingException {
-                expected = FinanceInformationDTO.builder()
-                        .employeeId(expectedEmployeeId)
-                        .federalIncomeTaxesYearToDateInCents(456787)
-                        .stateIncomeTaxesYearToDateInCents(125677)
-                        .build();
-                final String jsonBody = objectMapper.writeValueAsString(expected);
-                WireMock.resetAllRequests();
-                ResponseDefinitionBuilder responseDefBuilder = aResponse()
-                        .withStatus(200)
-                        .withBody(jsonBody)
-                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                MappingBuilder mappingBuilder = get(urlPattern);
-                stubFor(mappingBuilder.willReturn(responseDefBuilder));
+                @BeforeEach
+                public void doBeforeEachTest() throws JsonProcessingException {
+                    expected = FinanceInformationDTO.builder()
+                            .employeeId(expectedEmployeeId)
+                            .federalIncomeTaxesYearToDateInCents(456787)
+                            .stateIncomeTaxesYearToDateInCents(125677)
+                            .build();
+                    final String jsonBody = objectMapper.writeValueAsString(expected);
+                    WireMock.resetAllRequests();
+                    ResponseDefinitionBuilder responseDefBuilder = aResponse()
+                            .withStatus(200)
+                            .withBody(jsonBody)
+                            .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                    MappingBuilder mappingBuilder = get(urlPattern);
+                    stubFor(mappingBuilder.willReturn(responseDefBuilder));
 
-                Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
-                StepVerifier.create(resultMono)
-                        .consumeNextWith(consumer -> actual = consumer)
-                        .verifyComplete();
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    StepVerifier.create(resultMono)
+                            .consumeNextWith(consumer -> actual = consumer)
+                            .verifyComplete();
+                }
+
+                @Test
+                @DisplayName("should invoke GET /api/employees/{employeeId}")
+                void verifyWireMockInvocationTest() {
+                    WireMock.verify(getRequestedFor(urlPattern));
+                }
+
+                @Test
+                @DisplayName("should return a valid FinanceInformationDTO instance from the external API endpoint")
+                void verifyDirectOutputTest() {
+                    assertEquals(expected, actual);
+                }
             }
 
-            @Test
-            @DisplayName("should invoke GET /api/employees/{employeeId}")
-            void verifyWireMockInvocationTest() {
-                WireMock.verify(getRequestedFor(urlPattern));
-            }
+            @Nested
+            @DisplayName("Mono emitting DTO returned after two unsuccessful HTTP invocation retries")
+            class SuccessPathwayUsingRetryLogicTests {
+                FinanceInformationDTO actual;
+                FinanceInformationDTO expected;
 
-            @Test
-            @DisplayName("should return a valid FinanceInformationDTO instance from the external API endpoint")
-            void verifyDirectOutputTest() {
-                assertEquals(expected, actual);
-            }
-        }
+                @BeforeEach
+                public void doBeforeEachTest() throws JsonProcessingException {
+                    expected = FinanceInformationDTO.builder()
+                            .employeeId(expectedEmployeeId)
+                            .federalIncomeTaxesYearToDateInCents(456787)
+                            .stateIncomeTaxesYearToDateInCents(125677)
+                            .build();
+                    final String jsonBody = objectMapper.writeValueAsString(expected);
 
-        @Nested
-        @DisplayName("successful pathway: Mono emitting DTO returned after two HTTP invocation retries")
-        class SuccessPathwayUsingRetryLogicTests {
-            FinanceInformationDTO actual;
-            FinanceInformationDTO expected;
+                    WireMock.resetAllRequests();
+                    ResponseDefinitionBuilder serviceErrorResponseDefBuilder = aResponse()
+                            .withStatus(503)
+                            .withBody(jsonBody)
+                            .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                    ResponseDefinitionBuilder successResponseDefBuilder = aResponse()
+                            .withStatus(200)
+                            .withBody(jsonBody)
+                            .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
 
-            @BeforeEach
-            public void doBeforeEachTest() throws JsonProcessingException {
-                expected = FinanceInformationDTO.builder()
-                        .employeeId(expectedEmployeeId)
-                        .federalIncomeTaxesYearToDateInCents(456787)
-                        .stateIncomeTaxesYearToDateInCents(125677)
-                        .build();
-                final String jsonBody = objectMapper.writeValueAsString(expected);
+                    stubFor(get(urlPattern)
+                            .inScenario(RETRY_SCENARIO)
+                            .whenScenarioStateIs(STATE_STARTED)
+                            .willReturn(serviceErrorResponseDefBuilder)
+                            .willSetStateTo(STATE_RETRY_FAILURE));
+                    stubFor(get(urlPattern)
+                            .inScenario(RETRY_SCENARIO)
+                            .whenScenarioStateIs(STATE_RETRY_FAILURE)
+                            .willReturn(serviceErrorResponseDefBuilder)
+                            .willSetStateTo(STATE_RETRY_SUCCESS));
+                    stubFor(get(urlPattern)
+                            .inScenario(RETRY_SCENARIO)
+                            .whenScenarioStateIs(STATE_RETRY_SUCCESS)
+                            .willReturn(successResponseDefBuilder));
 
-                WireMock.resetAllRequests();
-                ResponseDefinitionBuilder serviceErrorResponseDefBuilder = aResponse()
-                        .withStatus(503)
-                        .withBody(jsonBody)
-                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                ResponseDefinitionBuilder successResponseDefBuilder = aResponse()
-                        .withStatus(200)
-                        .withBody(jsonBody)
-                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    StepVerifier.create(resultMono)
+                            .consumeNextWith(consumer -> actual = consumer)
+                            .verifyComplete();
+                }
 
-                stubFor(get(urlPattern)
-                        .inScenario(RETRY_SCENARIO)
-                        .whenScenarioStateIs(STATE_STARTED)
-                        .willReturn(serviceErrorResponseDefBuilder)
-                        .willSetStateTo(STATE_RETRY_FAILURE));
-                stubFor(get(urlPattern)
-                        .inScenario(RETRY_SCENARIO)
-                        .whenScenarioStateIs(STATE_RETRY_FAILURE)
-                        .willReturn(serviceErrorResponseDefBuilder)
-                        .willSetStateTo(STATE_RETRY_SUCCESS));
-                stubFor(get(urlPattern)
-                        .inScenario(RETRY_SCENARIO)
-                        .whenScenarioStateIs(STATE_RETRY_SUCCESS)
-                        .willReturn(successResponseDefBuilder));
+                @Test
+                @DisplayName("should invoke GET /api/employees/{employeeId}")
+                void verifyWireMockInvocationTest() {
+                    WireMock.verify(getRequestedFor(urlPattern));
+                }
 
-                Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
-                StepVerifier.create(resultMono)
-                        .consumeNextWith(consumer -> actual = consumer)
-                        .verifyComplete();
-            }
-
-            @Test
-            @DisplayName("should invoke GET /api/employees/{employeeId}")
-            void verifyWireMockInvocationTest() {
-                WireMock.verify(getRequestedFor(urlPattern));
-            }
-
-            @Test
-            @DisplayName("should return a valid FinanceInformationDTO instance from the external API endpoint")
-            void verifyDirectOutputTest() {
-                assertEquals(expected, actual);
-            }
-        }
-
-        @Nested
-        @DisplayName("failure pathway: response body is unparse-able")
-        class FailurePathwayResponseUnparseableTests {
-            Throwable actualError;
-
-            @BeforeEach
-            public void doBeforeEachTest() {
-                WireMock.resetAllRequests();
-                ResponseDefinitionBuilder responseDefBuilder = aResponse()
-                        .withStatus(200)
-                        .withBody("djhfajdhafhdluhfl")
-                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                MappingBuilder mappingBuilder = get(urlPattern);
-                stubFor(mappingBuilder.willReturn(responseDefBuilder));
-
-                Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
-                StepVerifier.create(resultMono)
-                        .consumeErrorWith(error -> actualError = error)
-                        .verify();
-            }
-
-            @Test
-            @DisplayName("should invoke GET /api/employees/{employeeId}")
-            void verifyWireMockInvocationTest() {
-                WireMock.verify(getRequestedFor(urlPattern));
-            }
-
-            @Test
-            @DisplayName("should return an exception for unparse-able employee financial info returned in response")
-            void verifyDirectOutputTest() {
-                assertInstanceOf(DecodingException.class, actualError);
+                @Test
+                @DisplayName("should return a valid FinanceInformationDTO instance from the external API endpoint")
+                void verifyDirectOutputTest() {
+                    assertEquals(expected, actual);
+                }
             }
         }
 
         @Nested
-        @DisplayName("failure pathway: 4xx HTTP status returned")
-        class FailurePathway4xxStatusCodeTests {
-            private Throwable actualError;
+        @DisplayName("failure pathways")
+        class FailurePathwayTests {
+            @Nested
+            @DisplayName("response body is unparse-able")
+            class FailurePathwayResponseUnparseableTests {
+                Throwable actualError;
 
-            @BeforeEach
-            public void doBeforeEachTest() {
-                WireMock.resetAllRequests();
-                ResponseDefinitionBuilder clientErrorResponseDefBuilder = aResponse()
-                        .withStatus(403)
-                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                stubFor(get(urlPattern).willReturn(clientErrorResponseDefBuilder));
+                @BeforeEach
+                public void doBeforeEachTest() {
+                    WireMock.resetAllRequests();
+                    ResponseDefinitionBuilder responseDefBuilder = aResponse()
+                            .withStatus(200)
+                            .withBody("djhfajdhafhdluhfl")
+                            .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                    MappingBuilder mappingBuilder = get(urlPattern);
+                    stubFor(mappingBuilder.willReturn(responseDefBuilder));
 
-                Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
-                StepVerifier.create(resultMono)
-                        .consumeErrorWith(error -> actualError = error)
-                        .verify();
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    StepVerifier.create(resultMono)
+                            .consumeErrorWith(error -> actualError = error)
+                            .verify();
+                }
+
+                @Test
+                @DisplayName("should invoke GET /api/employees/{employeeId}")
+                void verifyWireMockInvocationTest() {
+                    WireMock.verify(getRequestedFor(urlPattern));
+                }
+
+                @Test
+                @DisplayName("should return an exception for unparse-able employee financial info returned in response")
+                void verifyDirectOutputTest() {
+                    assertInstanceOf(DecodingException.class, actualError);
+                }
             }
 
-            @Test
-            @DisplayName("should invoke GET /api/employees/{employeeId}")
-            void verifyWireMockInvocationTest() {
-                WireMock.verify(getRequestedFor(urlPattern));
+            @Nested
+            @DisplayName("4xx HTTP status returned")
+            class FailurePathway4xxStatusCodeTests {
+                private Throwable actualError;
+
+                @BeforeEach
+                public void doBeforeEachTest() {
+                    WireMock.resetAllRequests();
+                    ResponseDefinitionBuilder clientErrorResponseDefBuilder = aResponse()
+                            .withStatus(403)
+                            .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                    stubFor(get(urlPattern).willReturn(clientErrorResponseDefBuilder));
+
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    StepVerifier.create(resultMono)
+                            .consumeErrorWith(error -> actualError = error)
+                            .verify();
+                }
+
+                @Test
+                @DisplayName("should invoke GET /api/employees/{employeeId}")
+                void verifyWireMockInvocationTest() {
+                    WireMock.verify(getRequestedFor(urlPattern));
+                }
+
+                @Test
+                @DisplayName("should return an exception for invalid request for employee financial information")
+                void verifyDirectOutputTest() {
+                    assertInstanceOf(WebClientException.class, actualError);
+                    assertEquals("Invalid request for employee financial information: HTTP status code 403",
+                            actualError.getMessage());
+                }
             }
 
-            @Test
-            @DisplayName("should return an exception for invalid request for employee financial information")
-            void verifyDirectOutputTest() {
-                assertInstanceOf(WebClientException.class, actualError);
-                assertEquals("Invalid request for employee financial information: HTTP status code 403",
-                        actualError.getMessage());
-            }
-        }
+            @Nested
+            @DisplayName("5xx HTTP status returned and exhausting all retry attempts")
+            class FailurePathway5xxStatusCodeTests {
+                private Throwable actualError;
 
-        @Nested
-        @DisplayName("failure pathway: 5xx HTTP status returned and exhausting all retry attempts")
-        class FailurePathway5xxStatusCodeTests {
-            private Throwable actualError;
+                @BeforeEach
+                public void doBeforeEachTest() {
+                    WireMock.resetAllRequests();
+                    ResponseDefinitionBuilder serviceErrorResponseDefBuilder = aResponse()
+                            .withStatus(503)
+                            .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                    stubFor(get(urlPattern).willReturn(serviceErrorResponseDefBuilder));
 
-            @BeforeEach
-            public void doBeforeEachTest() {
-                WireMock.resetAllRequests();
-                ResponseDefinitionBuilder serviceErrorResponseDefBuilder = aResponse()
-                        .withStatus(503)
-                        .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
-                stubFor(get(urlPattern).willReturn(serviceErrorResponseDefBuilder));
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    StepVerifier.create(resultMono)
+                            .consumeErrorWith(error -> actualError = error)
+                            .verify();
+                }
 
-                Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
-                StepVerifier.create(resultMono)
-                        .consumeErrorWith(error -> actualError = error)
-                        .verify();
-            }
+                @Test
+                @DisplayName("should invoke GET /api/employees/{employeeId}")
+                void verifyWireMockInvocationTest() {
+                    WireMock.verify(4, getRequestedFor(urlPattern));
+                }
 
-            @Test
-            @DisplayName("should invoke GET /api/employees/{employeeId}")
-            void verifyWireMockInvocationTest() {
-                WireMock.verify(4, getRequestedFor(urlPattern));
-            }
-
-            @Test
-            @DisplayName("should return an exception signaling the exhaustion of retry attempts")
-            void verifyDirectOutputTest() {
-                // The reactor.core.Exceptions.RetryExhaustedException is not a public type, so you can't actually
-                // refer to it in our code to do type checking. Crazy!
-                assertEquals("reactor.core.Exceptions.RetryExhaustedException", actualError.getClass().getCanonicalName());
-                assertEquals("Retries exhausted: 3/3", actualError.getMessage());
+                @Test
+                @DisplayName("should return an exception signaling the exhaustion of retry attempts")
+                void verifyDirectOutputTest() {
+                    // The reactor.core.Exceptions.RetryExhaustedException is not a public type, so you can't actually
+                    // refer to it in our code to do type checking. Crazy!
+                    assertEquals("reactor.core.Exceptions.RetryExhaustedException", actualError.getClass().getCanonicalName());
+                    assertEquals("Retries exhausted: 3/3", actualError.getMessage());
+                }
             }
         }
     }
