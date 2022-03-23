@@ -243,7 +243,8 @@ class FinanceWebClientTests {
             @DisplayName("should return an exception for invalid request for employee financial information")
             void verifyDirectOutputTest() {
                 assertInstanceOf(WebClientException.class, actualError);
-                assertEquals("Invalid request for employee financial information.", actualError.getMessage());
+                assertEquals("Invalid request for employee financial information: HTTP status code 403",
+                        actualError.getMessage());
             }
         }
 
