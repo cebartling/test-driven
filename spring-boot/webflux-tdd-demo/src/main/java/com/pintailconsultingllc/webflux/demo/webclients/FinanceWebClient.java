@@ -40,7 +40,10 @@ public class FinanceWebClient {
                 .header(HEADER_ACCEPTS, APPLICATION_JSON)
                 .retrieve()
                 .onStatus(HttpStatus::is4xxClientError,
-                        response -> Mono.error(new WebClientException("Invalid request for employee financial information.")))
+                        response -> {
+                            final String message = String.format("Invalid request for employee financial information: HTTP status code %d", response.statusCode().value());
+                            return Mono.error(new WebClientException(message));
+                        })
                 .onStatus(HttpStatus::is5xxServerError,
                         response -> {
                             final String message = String.format("Web service error: HTTP status code %d", response.statusCode().value());
