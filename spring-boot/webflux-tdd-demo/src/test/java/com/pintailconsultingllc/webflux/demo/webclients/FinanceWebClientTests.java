@@ -42,24 +42,24 @@ class FinanceWebClientTests {
 
     static final String HEADER_CONTENT_TYPE = "Content-Type";
     static final String MEDIA_TYPE_APPLICATION_JSON = "application/json";
-    static final int WIRE_MOCK_PORT = 9000;
     static final String STATE_RETRY_SUCCESS = "retry_success";
     static final String STATE_RETRY_FAILURE = "retry_failure";
     static final String STATE_STARTED = Scenario.STARTED;
     static final String RETRY_SCENARIO = "Retry Scenario";
+    static final String EXPECTED_EMPLOYEE_ID = "234568";
+    static final int WIRE_MOCK_PORT = 9000;
+    static final Long TIMEOUT_IN_MILLISECONDS = 800L;
     static WireMockServer wireMockServer;
 
     ObjectMapper objectMapper;
     FinanceWebClient financeWebClient;
-    final String expectedEmployeeId = "234568";
-    final Long timeoutInMilliseconds = 800L;
 
     @BeforeEach
     public void doBeforeEachTest() {
         this.financeWebClient = new FinanceWebClient(WebClient.builder());
         String financeBaseUrl = "http://localhost:9000/api/employees";
         ReflectionTestUtils.setField(this.financeWebClient, "financeBaseUrl", financeBaseUrl);
-        ReflectionTestUtils.setField(this.financeWebClient, "timeoutInMilliseconds", timeoutInMilliseconds);
+        ReflectionTestUtils.setField(this.financeWebClient, "timeoutInMilliseconds", TIMEOUT_IN_MILLISECONDS);
         this.objectMapper = new ObjectMapper();
     }
 
@@ -84,7 +84,7 @@ class FinanceWebClientTests {
 
         @BeforeEach
         public void doBeforeEachTest() {
-            final String url = String.format("%s/%s", "/api/employees", expectedEmployeeId);
+            final String url = String.format("%s/%s", "/api/employees", EXPECTED_EMPLOYEE_ID);
             urlPattern = urlEqualTo(url);
         }
 
@@ -100,7 +100,7 @@ class FinanceWebClientTests {
                 @BeforeEach
                 public void doBeforeEachTest() throws JsonProcessingException {
                     expected = FinanceInformationDTO.builder()
-                            .employeeId(expectedEmployeeId)
+                            .employeeId(EXPECTED_EMPLOYEE_ID)
                             .federalIncomeTaxesYearToDateInCents(456787)
                             .stateIncomeTaxesYearToDateInCents(125677)
                             .build();
@@ -113,7 +113,7 @@ class FinanceWebClientTests {
                     MappingBuilder mappingBuilder = get(urlPattern);
                     stubFor(mappingBuilder.willReturn(responseDefBuilder));
 
-                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(EXPECTED_EMPLOYEE_ID);
                     StepVerifier.create(resultMono)
                             .consumeNextWith(consumer -> actual = consumer)
                             .verifyComplete();
@@ -141,7 +141,7 @@ class FinanceWebClientTests {
                 @BeforeEach
                 public void doBeforeEachTest() throws JsonProcessingException {
                     expected = FinanceInformationDTO.builder()
-                            .employeeId(expectedEmployeeId)
+                            .employeeId(EXPECTED_EMPLOYEE_ID)
                             .federalIncomeTaxesYearToDateInCents(456787)
                             .stateIncomeTaxesYearToDateInCents(125677)
                             .build();
@@ -172,7 +172,7 @@ class FinanceWebClientTests {
                             .whenScenarioStateIs(STATE_RETRY_SUCCESS)
                             .willReturn(successResponseDefBuilder));
 
-                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(EXPECTED_EMPLOYEE_ID);
                     StepVerifier.create(resultMono)
                             .consumeNextWith(consumer -> actual = consumer)
                             .verifyComplete();
@@ -210,7 +210,7 @@ class FinanceWebClientTests {
                     MappingBuilder mappingBuilder = get(urlPattern);
                     stubFor(mappingBuilder.willReturn(responseDefBuilder));
 
-                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(EXPECTED_EMPLOYEE_ID);
                     StepVerifier.create(resultMono)
                             .consumeErrorWith(error -> actualError = error)
                             .verify();
@@ -242,7 +242,7 @@ class FinanceWebClientTests {
                             .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
                     stubFor(get(urlPattern).willReturn(clientErrorResponseDefBuilder));
 
-                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(EXPECTED_EMPLOYEE_ID);
                     StepVerifier.create(resultMono)
                             .consumeErrorWith(error -> actualError = error)
                             .verify();
@@ -276,7 +276,7 @@ class FinanceWebClientTests {
                             .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
                     stubFor(get(urlPattern).willReturn(serviceErrorResponseDefBuilder));
 
-                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(EXPECTED_EMPLOYEE_ID);
                     StepVerifier.create(resultMono)
                             .consumeErrorWith(error -> actualError = error)
                             .verify();
@@ -307,13 +307,13 @@ class FinanceWebClientTests {
                 public void doBeforeEachTest() throws JsonProcessingException {
                     WireMock.resetAllRequests();
                     FinanceInformationDTO financeInformationDTO = FinanceInformationDTO.builder()
-                            .employeeId(expectedEmployeeId)
+                            .employeeId(EXPECTED_EMPLOYEE_ID)
                             .federalIncomeTaxesYearToDateInCents(456787)
                             .stateIncomeTaxesYearToDateInCents(125677)
                             .build();
                     final String jsonBody = objectMapper.writeValueAsString(financeInformationDTO);
                     WireMock.resetAllRequests();
-                    final Integer delayInMilliseconds = Math.toIntExact((timeoutInMilliseconds + 200L));
+                    final Integer delayInMilliseconds = Math.toIntExact((TIMEOUT_IN_MILLISECONDS + 200L));
                     ResponseDefinitionBuilder responseDefBuilder = aResponse()
                             .withFixedDelay(delayInMilliseconds)
                             .withStatus(200)
@@ -321,7 +321,7 @@ class FinanceWebClientTests {
                             .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
                     stubFor(get(urlPattern).willReturn(responseDefBuilder));
 
-                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(EXPECTED_EMPLOYEE_ID);
                     StepVerifier.create(resultMono)
                             .consumeErrorWith(error -> actualError = error)
                             .verify();
