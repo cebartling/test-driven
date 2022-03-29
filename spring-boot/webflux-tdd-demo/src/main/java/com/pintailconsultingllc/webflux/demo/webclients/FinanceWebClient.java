@@ -10,6 +10,7 @@ import reactor.util.retry.Retry;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Duration;
 
 @Component
 public class FinanceWebClient {
@@ -21,6 +22,9 @@ public class FinanceWebClient {
 
     @Value("webclients.finance.baseUrl")
     private String financeBaseUrl;
+
+    @Value("${webclients.finance.timeout-in-milliseconds:5000}")
+    private Long timeoutInMilliseconds;
 
     public FinanceWebClient(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(financeBaseUrl).build();
@@ -50,6 +54,7 @@ public class FinanceWebClient {
                             return Mono.error(new WebServiceException(message));
                         })
                 .bodyToMono(FinanceInformationDTO.class)
+                .timeout(Duration.ofMillis(timeoutInMilliseconds))
                 .retryWhen(Retry.max(3).filter(WebServiceException.class::isInstance))
                 .onErrorResume(Mono::error);
     }

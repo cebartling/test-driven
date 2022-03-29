@@ -23,6 +23,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.concurrent.TimeoutException;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
@@ -48,12 +50,14 @@ class FinanceWebClientTests {
     ObjectMapper objectMapper;
     FinanceWebClient financeWebClient;
     final String expectedEmployeeId = "234568";
+    final Long timeoutInMilliseconds = 800L;
 
     @BeforeEach
     public void doBeforeEachTest() {
         this.financeWebClient = new FinanceWebClient(WebClient.builder());
         String financeBaseUrl = "http://localhost:9000/api/employees";
         ReflectionTestUtils.setField(this.financeWebClient, "financeBaseUrl", financeBaseUrl);
+        ReflectionTestUtils.setField(this.financeWebClient, "timeoutInMilliseconds", timeoutInMilliseconds);
         this.objectMapper = new ObjectMapper();
     }
 
@@ -188,7 +192,7 @@ class FinanceWebClientTests {
         @DisplayName("failure pathways")
         class FailurePathwayTests {
             @Nested
-            @DisplayName("response body is unparse-able")
+            @DisplayName("when response body is unparse-able")
             class FailurePathwayResponseUnparseableTests {
                 Throwable actualError;
 
@@ -222,7 +226,7 @@ class FinanceWebClientTests {
             }
 
             @Nested
-            @DisplayName("4xx HTTP status returned")
+            @DisplayName("when 4xx HTTP status returned")
             class FailurePathway4xxStatusCodeTests {
                 private Throwable actualError;
 
@@ -256,7 +260,7 @@ class FinanceWebClientTests {
             }
 
             @Nested
-            @DisplayName("5xx HTTP status returned and exhausting all retry attempts")
+            @DisplayName("when 5xx HTTP status returned and exhausting all retry attempts")
             class FailurePathway5xxStatusCodeTests {
                 private Throwable actualError;
 
@@ -289,6 +293,49 @@ class FinanceWebClientTests {
                     assertEquals("Retries exhausted: 3/3", actualError.getMessage());
                 }
             }
+
+            @Nested
+            @DisplayName("when requests time out")
+            class RequestTimeoutTests {
+                private Throwable actualError;
+
+                @BeforeEach
+                public void doBeforeEachTest() throws JsonProcessingException {
+                    WireMock.resetAllRequests();
+                    FinanceInformationDTO financeInformationDTO = FinanceInformationDTO.builder()
+                            .employeeId(expectedEmployeeId)
+                            .federalIncomeTaxesYearToDateInCents(456787)
+                            .stateIncomeTaxesYearToDateInCents(125677)
+                            .build();
+                    final String jsonBody = objectMapper.writeValueAsString(financeInformationDTO);
+                    WireMock.resetAllRequests();
+                    final Integer delayInMilliseconds = Math.toIntExact((timeoutInMilliseconds + 200L));
+                    ResponseDefinitionBuilder responseDefBuilder = aResponse()
+                            .withFixedDelay(delayInMilliseconds)
+                            .withStatus(200)
+                            .withBody(jsonBody)
+                            .withHeader(HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+                    stubFor(get(urlPattern).willReturn(responseDefBuilder));
+
+                    Mono<FinanceInformationDTO> resultMono = financeWebClient.getFinanceInformationByEmployeeId(expectedEmployeeId);
+                    StepVerifier.create(resultMono)
+                            .consumeErrorWith(error -> actualError = error)
+                            .verify();
+                }
+
+                @Test
+                @DisplayName("should invoke GET /api/employees/{employeeId} exactly once")
+                void verifyWireMockInvocationTest() {
+                    WireMock.verify(1, getRequestedFor(urlPattern));
+                }
+
+                @Test
+                @DisplayName("should error out with a timeout exception")
+                void verifyDirectOutputTest() {
+                    assertInstanceOf(TimeoutException.class, actualError);
+                }
+            }
+
         }
     }
 }
