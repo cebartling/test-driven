@@ -6,6 +6,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.matching.UrlPattern;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
 import com.pintailconsultingllc.webflux.demo.TestSupport;
@@ -31,6 +32,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
@@ -63,7 +65,9 @@ class FinanceWebClientTests {
 
     @BeforeAll
     static void doBeforeAllTestsRun() {
-        wireMockServer = new WireMockServer(WIRE_MOCK_PORT);
+        wireMockServer = new WireMockServer(options()
+                .port(WIRE_MOCK_PORT)
+                .notifier(new ConsoleNotifier(true)));
         wireMockServer.start();
         configureFor("localhost", WIRE_MOCK_PORT);
     }
