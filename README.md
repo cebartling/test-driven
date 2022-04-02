@@ -12,6 +12,7 @@ Various test-driven development journeys.
 - [Testing Spring applications](./documentation/spring-framework/)
 - [Spring WebFlux/Project Reactor TDD demo](./spring-boot/webflux-tdd-demo/)
 - [Integration testing with Testcontainers](./testcontainers/java-demo/)
+- [Integration testing Cassandra and Spring WebFlux with Testcontainers](./testcontainers/cassandra-webflux-demo/)
 
 
 ## .NET Core
@@ -38,12 +39,18 @@ Various test-driven development journeys.
 
 ### Test-driven Development blogs
 
+- [Dan North](https://dannorth.net/blog/)
 - [J.B. Rainsberger articles, arranged by topic](https://blog.thecodewhisperer.com/series)
-- [Nat Pryce's blog](http://www.natpryce.com/)
+- [Nat Pryce](http://www.natpryce.com/)
 - [To Be Agile blog by David Bernstein](https://tobeagile.com/blog/)
 - [Kent Beck's Software Design: Tidy First?](https://tidyfirst.substack.com/)
 - [Kent Beck on Medium](https://medium.com/@kentbeck_7670)
 - [PragPub on Medium](https://medium.com/@pragpub)
+
+### Design principles
+- [Dan North's CUPID properties](https://dannorth.net/2022/02/10/cupid-for-joyful-coding/) and the [backstory](https://dannorth.net/2021/03/16/cupid-the-back-story/)
+- [Robert C. Martin's SOLID principles](http://principles-wiki.net/collections:solid)
+- [Craig Larman's GRASP principles](http://principles-wiki.net/collections:grasp)
 
 
 
@@ -58,4 +65,9 @@ Various test-driven development journeys.
 
 - [Integrated Tests are a Scam](https://blog.thecodewhisperer.com/permalink/integrated-tests-are-a-scam)
 
+### Continuous delivery
 
+- [Jez Humble's Continuous Delivery blog](https://continuousdelivery.com/blog/)
+- [Dave Farley's Continuous Delivery YouTube channel](https://www.youtube.com/channel/UCCfqyGl3nq_V0bo64CjZh8g) and his [blog](https://www.davefarley.net/)
+- [Dave Hounslow's ThinkFoo blog](https://thinkfoo.wordpress.com/)
+- [Martin Fowler's blog](https://martinfowler.com/bliki/)
