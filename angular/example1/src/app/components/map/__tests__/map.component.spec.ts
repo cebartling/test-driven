@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { MapComponent } from '../map.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { MapComponent } from '../map.component';
 import { featureCollection } from '../../../__tests__/data/feature-collection-test-data';
 
 describe('MapComponent', () => {

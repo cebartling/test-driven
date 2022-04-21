@@ -1,12 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { DATE_FORMAT, EarthquakeDataService, FORMAT_GEOJSON } from '../earthquake-data.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DateTime } from 'luxon';
-import { of } from 'rxjs';
-
-import { DATE_FORMAT, EarthquakeDataService, FORMAT_GEOJSON } from '../earthquake-data.service';
 import { FeatureCollection } from '../../models/earthquake/feature-collection';
+import { TestBed } from '@angular/core/testing';
 import { featureCollection } from '../../__tests__/data/feature-collection-test-data';
+import { of } from 'rxjs';
 
 describe('EarthquakeDataService', () => {
   let service: EarthquakeDataService;
