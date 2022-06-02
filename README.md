@@ -71,3 +71,7 @@ Various test-driven development journeys.
 - [Dave Farley's Continuous Delivery YouTube channel](https://www.youtube.com/channel/UCCfqyGl3nq_V0bo64CjZh8g) and his [blog](https://www.davefarley.net/)
 - [Dave Hounslow's ThinkFoo blog](https://thinkfoo.wordpress.com/)
 - [Martin Fowler's blog](https://martinfowler.com/bliki/)
+
+### Books
+
+- [Mockito Made Clear by Ken Kousen](https://www.pragprog.com/titles/mockito/mockito-made-clear/)
